@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tricksy | Online Organisation | Michael Trounce</title>
+    <title>Personal Website | Online Organisation | Michael Trounce</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2334312d'/><text x='50' y='68' font-family='Georgia,serif' font-size='52' font-weight='900' fill='%23f4f2ec' text-anchor='middle'>MT</text></svg>">
-    <link rel="stylesheet" href="../../../styles.css" />
+    <link rel="stylesheet" href="../../styles.css" />
     <style>
       .dashboard {
         display: grid;
@@ -83,10 +83,6 @@
         overflow-y: auto;
       }
 
-      .content h2 {
-        margin-top: 32px;
-      }
-
       @media (max-width: 768px) {
         .dashboard {
           grid-template-columns: 1fr;
@@ -103,18 +99,22 @@
           border-radius: 0 0 24px 24px;
         }
       }
+
+      .content h2 {
+        margin-top: 32px;
+      }
     </style>
   </head>
   <body>
     <main class="dashboard">
       <aside class="sidebar">
-        <p class="sidebar-title">Online Organisation</p>
+        <p class="sidebar-title">About</p>
         <nav>
-          <a href="../../">Overview</a>
+          <a href="../">Overview</a>
           <a href="../github/">GitHub</a>
-          <a href="../personal-website/">Personal Website</a>
+          <a href="./" class="active">Personal Website</a>
           <a href="../knowledge-machines/">Knowledge Machines</a>
-          <a href="./" class="active">Tricksy</a>
+          <a href="../tricksy/">Tricksy</a>
         </nav>
         <div class="back-link">
           <a href="../../">← Home</a>
@@ -122,24 +122,43 @@
       </aside>
 
       <section class="content">
-        <p class="eyebrow">Online Organisation</p>
-        <h1>Tricksy</h1>
-
-        <h2>What it is</h2>
-        <p>
-          Free games and experiments — playful side projects including
-          Lula (a game for budding politicians and macro traders), Snake,
-          and Kaboom.
-        </p>
+        <p class="eyebrow">About</p>
+        <h1>Personal Website</h1>
 
         <h2>Where to find it</h2>
         <p>
-          The website is at
-          <a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#eff3e3;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;text-decoration:none;">Tri</a><a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#b8d47f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:900;text-decoration:none;">ck</a><a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#efe5cb;font-family:Georgia,'Times New Roman',serif;font-weight:900;text-decoration:none;">sy</a>.
-          The code lives at
-          <a class="inline" href="https://github.com/miketrounce/tricksy" target="_blank" rel="noopener">github.com/miketrounce/tricksy</a>
-          and is hosted on Cloudflare Pages.
+          Currently hosted at
+          <a class="inline external" href="https://miketrounce.github.io" target="_blank" rel="noopener">miketrounce.github.io</a>.
         </p>
+
+        <h2>Who is it for</h2>
+        <p>
+          Primarily, my strong professional network — the 1,000 people
+          who over the years (decades!) I've broken bread with. It's also
+          suitable for people in my weak professional network, my other
+          9,000 LinkedIn 1st-connections.
+        </p>
+
+        <h2>How it helps you</h2>
+        <p>
+          The main goal is to make it easy for you to understand the three
+          value propositions I have for you:
+        </p>
+        <ol style="padding-left:20px;color:var(--muted);line-height:1.7;">
+          <li><a class="inline" href="/Professional/">Me!</a> I'm seeking work, so if you are looking for someone, here's how I'll help (and how I won't).</li>
+          <li><a class="inline" href="https://knowledge-machines.pages.dev/" target="_blank" rel="noopener" style="color:#fff;font-weight:900;text-decoration:none;">Knowledge</a><a class="inline" href="https://knowledge-machines.pages.dev/" target="_blank" rel="noopener" style="color:#6fb5ff;font-weight:900;text-decoration:none;"> Machines</a>. While I'm on gardening leave, I'm earning a crust by making and selling digital products.</li>
+          <li><a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#eff3e3;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;text-decoration:none;">Tri</a><a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#b8d47f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:900;text-decoration:none;">ck</a><a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#efe5cb;font-family:Georgia,'Times New Roman',serif;font-weight:900;text-decoration:none;">sy</a>. It's free! It's fun! Yes, I am happy to deliver value to you in your spare time at no cost. Enjoy!</li>
+        </ol>
+
+        <h2>What's in it for me</h2>
+        <p>
+          I like writing things down; it helps me. As well as the value
+          propositions, I've also written:
+        </p>
+        <ul style="padding-left:20px;color:var(--muted);line-height:1.7;">
+          <li><a class="inline external" href="https://miketrounce.github.io/techsplainer/" target="_blank" rel="noopener">Techsplainer</a> — my understanding (most of it wrong) about technical stuff. Read it and weep.</li>
+          <li><a class="inline" href="/mos/">MOS (My Operating System)</a> — how I work.</li>
+        </ul>
 
         <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
       </section>
