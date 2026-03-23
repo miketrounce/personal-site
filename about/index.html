@@ -89,7 +89,15 @@
 
       .page[hidden] { display: none; }
 
-      .sidebar nav a.sub { padding-left: 28px; }
+      .sidebar-section {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 16px 0 6px;
+        padding: 0 14px;
+      }
 
       @media (max-width: 768px) {
         .dashboard {
@@ -114,32 +122,21 @@
       <aside class="sidebar">
         <p class="sidebar-title">About</p>
         <nav>
-          <a href="#" data-page="mike-digital">Mike Digital</a>
-          <a href="#github" data-page="github" class="sub">GitHub</a>
-          <a href="#personal-website" data-page="personal-website" class="sub">Personal Website</a>
-          <a href="#knowledge-machines" data-page="knowledge-machines" class="sub">Knowledge Machines</a>
-          <a href="#tricksy" data-page="tricksy" class="sub">Tricksy</a>
-          <a href="#mike-style" data-page="mike-style">Mike Style</a>
-          <a href="#personality" data-page="personality" class="sub">Personality</a>
+          <p class="sidebar-section">Mike Digital</p>
+          <a href="#github" data-page="github">GitHub</a>
+          <a href="#personal-website" data-page="personal-website">Personal Website</a>
+          <a href="#knowledge-machines" data-page="knowledge-machines">Knowledge Machines</a>
+          <a href="#tricksy" data-page="tricksy">Tricksy</a>
+          <p class="sidebar-section">Mike Style</p>
+          <a href="#personality" data-page="personality">Personality</a>
         </nav>
         <div class="back-link">
           <a href="../">← Home</a>
         </div>
       </aside>
 
-      <!-- Mike Digital -->
-      <section class="content page" id="mike-digital">
-        <p class="eyebrow">About</p>
-        <h1>Mike Digital</h1>
-        <p>
-          This section covers how my online presence is organised — where
-          code lives, how sites are hosted, and how everything connects.
-        </p>
-        <p style="font-size:0.9rem;font-style:italic;">Last updated: March 2026</p>
-      </section>
-
       <!-- GitHub -->
-      <section class="content page" id="github" hidden>
+      <section class="content page" id="github">
         <p class="eyebrow">About</p>
         <h1>GitHub</h1>
 
@@ -274,16 +271,6 @@
         <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
       </section>
 
-      <!-- Mike Style -->
-      <section class="content page" id="mike-style" hidden>
-        <p class="eyebrow">About</p>
-        <h1>Mike Style</h1>
-        <p>
-          How I think, how I work, and how I show up.
-        </p>
-        <p style="font-size:0.9rem;font-style:italic;">Last updated: March 2026</p>
-      </section>
-
       <!-- Personality -->
       <section class="content page" id="personality" hidden>
         <p class="eyebrow">About</p>
@@ -300,7 +287,7 @@
 
     <script>
       function navigate() {
-        var hash = location.hash.slice(1) || 'mike-digital';
+        var hash = location.hash.slice(1) || 'github';
         document.querySelectorAll('.page').forEach(function(p) {
           p.hidden = p.id !== hash;
         });
