@@ -3,10 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About | Michael Trounce</title>
+    <title>What I've Learned | Michael Trounce</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2334312d'/><text x='50' y='68' font-family='Georgia,serif' font-size='52' font-weight='900' fill='%23f4f2ec' text-anchor='middle'>MT</text></svg>">
     <link rel="stylesheet" href="../styles.css" />
     <style>
+      .section-heading {
+        font-size: 1.1rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin: 36px 0 14px;
+      }
+
+      .section-heading:first-of-type {
+        margin-top: 8px;
+      }
+
       .ref-list {
         list-style: none;
         padding: 0;
@@ -39,40 +51,50 @@
         color: var(--muted);
         margin-top: 4px;
       }
+
+      .empty {
+        color: var(--muted);
+        font-size: 0.95rem;
+        font-style: italic;
+      }
     </style>
   </head>
   <body>
     <main class="subpage">
       <div class="card">
-        <p class="eyebrow">About</p>
-        <h1>About this site</h1>
+        <p class="eyebrow">Learning</p>
+        <h1>What I've learned</h1>
 
         <p>
-          This site is built with plain HTML, CSS, and a small amount of
-          JavaScript — no framework, no build step, no server. It is hosted
-          for free on GitHub Pages.
+          I'm on a learning journey. This page is where I write down what
+          I've picked up along the way — not to do it better than anyone
+          else, but to learn and remember by doing it.
         </p>
 
-        <h2>Behind the scenes</h2>
+        <h3 class="section-heading">How the web works</h3>
         <ul class="ref-list">
           <li>
-            <a href="../technology/">
+            <a href="../web/">
               How this website works
               <span>GitHub, GitHub Pages, and the no-framework approach.</span>
             </a>
           </li>
           <li>
-            <a href="../technology/video/">
+            <a href="../web/video/">
               How video works on a webpage
               <span>The HTML video tag, self-hosting, and how files load.</span>
             </a>
           </li>
           <li>
-            <a href="../technology/interactivity/">
+            <a href="../web/interactivity/">
               How static pages can move
               <span>JavaScript, the DOM, event listeners, and CSS transitions.</span>
             </a>
           </li>
+        </ul>
+
+        <h3 class="section-heading">Front end</h3>
+        <ul class="ref-list">
           <li>
             <a href="../learn-more/">
               How my dashboards work
@@ -80,6 +102,15 @@
             </a>
           </li>
         </ul>
+
+        <h3 class="section-heading">Back end</h3>
+        <p class="empty">Nothing here yet.</p>
+
+        <h3 class="section-heading">Tools</h3>
+        <p class="empty">Nothing here yet.</p>
+
+        <h3 class="section-heading">AI</h3>
+        <p class="empty">Nothing here yet.</p>
 
         <a class="back" href="../">← Back home</a>
       </div>
