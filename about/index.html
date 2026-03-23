@@ -5,71 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About | Michael Trounce</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2334312d'/><text x='50' y='68' font-family='Georgia,serif' font-size='52' font-weight='900' fill='%23f4f2ec' text-anchor='middle'>MT</text></svg>">
+    <link rel="stylesheet" href="../styles.css" />
     <style>
-      :root {
-        color-scheme: dark;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        --panel: #34312d;
-        --border: #45403a;
-        --muted: #b8b0a4;
-        --text: #f4f2ec;
-        --accent: #81b64c;
-      }
-
-      * { box-sizing: border-box; }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        background:
-          radial-gradient(circle at top left, rgba(129, 182, 76, 0.08), transparent 24%),
-          linear-gradient(180deg, #322f2c 0%, #2b2926 100%);
-        color: var(--text);
-      }
-
-      main {
-        width: min(100%, 800px);
-        margin: 0 auto;
-        padding: 48px 22px 60px;
-      }
-
-      .card {
-        border: 1px solid var(--border);
-        border-radius: 24px;
-        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
-        padding: 40px;
-      }
-
-      .eyebrow {
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        font-size: 0.75rem;
-        color: var(--accent);
-        margin: 0 0 12px;
-      }
-
-      h1 {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(2rem, 5vw, 3rem);
-        font-weight: 900;
-        margin: 0 0 24px;
-        line-height: 1.1;
-      }
-
-      h2 {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 1.3rem;
-        margin: 32px 0 12px;
-      }
-
-      p {
-        color: var(--muted);
-        line-height: 1.7;
-        font-size: 1.05rem;
-        margin-top: 0;
-      }
-
       .ref-list {
         list-style: none;
         padding: 0;
@@ -102,28 +39,10 @@
         color: var(--muted);
         margin-top: 4px;
       }
-
-      a.back {
-        display: inline-flex;
-        align-items: center;
-        padding: 10px 18px;
-        border-radius: 999px;
-        border: 1px solid var(--border);
-        color: var(--text);
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 0.9rem;
-        margin-top: 28px;
-        transition: border-color 0.15s;
-      }
-
-      a.back:hover {
-        border-color: var(--accent);
-      }
     </style>
   </head>
   <body>
-    <main>
+    <main class="subpage">
       <div class="card">
         <p class="eyebrow">About</p>
         <h1>About this site</h1>
