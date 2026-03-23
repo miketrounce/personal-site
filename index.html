@@ -49,7 +49,7 @@
 
       .hero-grid {
         display: grid;
-        grid-template-columns: minmax(0, 1.35fr) 340px;
+        grid-template-columns: minmax(0, 1.35fr) minmax(0, 300px);
         gap: 18px;
         align-items: start;
       }
@@ -328,7 +328,7 @@
         margin-top: auto;
       }
 
-      @media (max-width: 1280px) {
+      @media (max-width: 900px) {
         body {
           overflow: auto;
         }
@@ -353,6 +353,11 @@
 
         h1 {
           font-size: clamp(2.3rem, 10vw, 3.5rem);
+        }
+
+        .mini-card p {
+          word-break: break-all;
+          font-size: 0.88rem;
         }
       }
     </style>
