@@ -2,15 +2,6 @@
 
 Personal site. Plain HTML, CSS, and a small amount of JavaScript — no framework, no build step.
 
-## Structure
-
-```
-miketrounce.github.io/
-  Professional/       # Video-based professional profile
-  technology/         # How this site works
-  learn-more/         # How my dashboards work
-```
-
 ## Live site
 
 [https://miketrounce.github.io/](https://miketrounce.github.io/)
@@ -19,8 +10,7 @@ miketrounce.github.io/
 
 | Repo | Live | Description |
 |------|------|-------------|
-| [tricksy](https://github.com/miketrounce/tricksy) | [miketrounce.github.io/tricksy/](https://miketrounce.github.io/tricksy/) | Lula, Snake, and Kaboom |
-| [knowledge-machines](https://github.com/miketrounce/knowledge-machines) | [miketrounce.github.io/knowledge-machines/](https://miketrounce.github.io/knowledge-machines/) | Dashboard product brand page |
+| [tricksy](https://github.com/miketrounce/tricksy) | [tricksy.pages.dev](https://tricksy.pages.dev/) | Games and experiments |
 
 ## Run locally
 
