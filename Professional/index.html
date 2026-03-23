@@ -7,79 +7,96 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2334312d'/><text x='50' y='68' font-family='Georgia,serif' font-size='52' font-weight='900' fill='%23f4f2ec' text-anchor='middle'>MT</text></svg>">
     <link rel="stylesheet" href="../styles.css" />
     <style>
-      :root {
-        --accent: #d6aa58;
-        --accent-dark: #b88733;
-      }
-
-      body {
-        background:
-          radial-gradient(circle at top left, rgba(214, 170, 88, 0.08), transparent 24%),
-          linear-gradient(180deg, #322f2c 0%, #2b2926 100%);
-      }
-
-      .page {
-        width: min(100%, 1480px);
+      .dashboard {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 0;
+        width: min(100%, 1200px);
         min-height: 100vh;
         margin: 0 auto;
         padding: 22px 24px;
-        display: grid;
-        grid-template-rows: auto 1fr auto;
-        gap: 16px;
       }
 
-      .hero {
+      .sidebar {
         border: 1px solid var(--border);
-        border-radius: 24px;
+        border-radius: 24px 0 0 24px;
         background: var(--panel);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
-        padding: 22px 28px;
+        padding: 28px 20px;
+        border-right: none;
       }
 
-      h1 {
-        font-size: clamp(2.4rem, 5vw, 3.6rem);
-        margin: 0 0 4px;
-        line-height: 1;
-      }
-
-      .section-card {
-        border: 1px solid var(--border);
-        border-radius: 24px;
-        background: var(--panel);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
-        padding: 18px 20px;
-      }
-
-      .routes-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .route-card {
-        border: 1px solid var(--border);
-        border-radius: 24px;
-        padding: 18px 20px;
-        background: linear-gradient(180deg, var(--panel-strong) 0%, #2f2c28 100%);
-        display: grid;
-        gap: 10px;
-        align-content: start;
-      }
-
-      .route-kicker {
+      .sidebar-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text);
         text-transform: uppercase;
-        letter-spacing: 0.12em;
-        font-size: 0.72rem;
-        color: var(--accent);
-        margin: 0;
+        letter-spacing: 0.1em;
+        margin: 0 0 18px;
       }
+
+      .sidebar nav {
+        display: grid;
+        gap: 4px;
+      }
+
+      .sidebar nav a {
+        display: block;
+        padding: 10px 14px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--muted);
+        transition: background 0.15s, color 0.15s;
+      }
+
+      .sidebar nav a:hover {
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+      }
+
+      .sidebar nav a.active {
+        background: rgba(129, 182, 76, 0.1);
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .sidebar .back-link {
+        margin-top: 24px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+      }
+
+      .sidebar .back-link a {
+        font-size: 0.8rem;
+        color: var(--muted);
+        padding: 8px 14px;
+      }
+
+      .content {
+        border: 1px solid var(--border);
+        border-radius: 0 24px 24px 0;
+        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+        padding: 40px;
+        overflow-y: auto;
+      }
+
+      .content h2 {
+        margin-top: 32px;
+      }
+
+      .page[hidden] { display: none; }
 
       .video-container {
         width: 100%;
+        max-width: 640px;
         border-radius: 14px;
         border: 1px solid var(--border);
         background: #000;
         overflow: hidden;
+        margin: 16px 0;
       }
 
       .video-container video {
@@ -88,55 +105,105 @@
         border-radius: 14px;
       }
 
-      @media (max-width: 900px) {
-        .routes-grid {
+      @media (max-width: 768px) {
+        .dashboard {
           grid-template-columns: 1fr;
+          padding: 14px;
+        }
+
+        .sidebar {
+          border-radius: 24px 24px 0 0;
+          border-right: 1px solid var(--border);
+          border-bottom: none;
+        }
+
+        .content {
+          border-radius: 0 0 24px 24px;
         }
       }
     </style>
   </head>
   <body>
-    <main class="page">
-      <section class="hero">
-        <h1>Michael Trounce</h1>
+    <main class="dashboard">
+      <aside class="sidebar">
+        <p class="sidebar-title">Professional</p>
+        <nav>
+          <a href="#" data-page="who-i-am">&#9733; Who I am</a>
+          <a href="#what-i-build" data-page="what-i-build">&#9638; What I build</a>
+          <a href="#how-i-work" data-page="how-i-work">&#9881; How I work</a>
+        </nav>
+        <div class="back-link">
+          <a href="../">← Home</a>
+        </div>
+      </aside>
+
+      <!-- Who I am -->
+      <section class="content page" id="who-i-am">
+        <p class="eyebrow">Professional</p>
+        <h1>Who I am</h1>
+
+        <p>
+          Background, experience, and what I'm looking for next.
+        </p>
+
+        <div class="video-container">
+          <video controls preload="metadata">
+            <source src="MikeVideo.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
       </section>
 
-      <section class="section-card">
-        <div class="routes-grid">
-          <article class="route-card">
-            <p class="route-kicker">Introduction</p>
-            <h3>Who I am</h3>
-            <div class="video-container">
-              <video controls preload="metadata">
-                <source src="MikeVideo.mp4" type="video/mp4">
-              </video>
-            </div>
-            <p>Background, experience, and what I'm looking for next.</p>
-          </article>
+      <!-- What I build -->
+      <section class="content page" id="what-i-build" hidden>
+        <p class="eyebrow">Professional</p>
+        <h1>What I build</h1>
 
-          <article class="route-card">
-            <p class="route-kicker">Products</p>
-            <h3>What I build</h3>
-            <div class="video-container">
-              <video controls preload="metadata">
-                <source src="MikeVideo.mp4" type="video/mp4">
-              </video>
-            </div>
-            <p>Dashboards, Knowledge Machines, and data tools for macro investors.</p>
-          </article>
+        <p>
+          Dashboards, Knowledge Machines, and data tools for macro investors.
+        </p>
 
-          <article class="route-card">
-            <p class="route-kicker">Process</p>
-            <h3>How I work</h3>
-            <div class="video-container">
-              <video controls preload="metadata">
-                <source src="MikeVideo.mp4" type="video/mp4">
-              </video>
-            </div>
-            <p>From idea to working prototype — fast iteration with AI tools.</p>
-          </article>
+        <div class="video-container">
+          <video controls preload="metadata">
+            <source src="MikeVideo.mp4" type="video/mp4">
+          </video>
         </div>
+
+        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
+      </section>
+
+      <!-- How I work -->
+      <section class="content page" id="how-i-work" hidden>
+        <p class="eyebrow">Professional</p>
+        <h1>How I work</h1>
+
+        <p>
+          From idea to working prototype — fast iteration with AI tools.
+        </p>
+
+        <div class="video-container">
+          <video controls preload="metadata">
+            <source src="MikeVideo.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
       </section>
     </main>
+
+    <script>
+      function navigate() {
+        var hash = location.hash.slice(1) || 'who-i-am';
+        document.querySelectorAll('.page').forEach(function(p) {
+          p.hidden = p.id !== hash;
+        });
+        document.querySelectorAll('nav a[data-page]').forEach(function(a) {
+          a.classList.toggle('active', a.dataset.page === hash);
+        });
+      }
+      window.addEventListener('hashchange', navigate);
+      navigate();
+    </script>
   </body>
 </html>
