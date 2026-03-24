@@ -403,9 +403,13 @@
     </main>
 
     <script>
-      document.getElementById('more-btn').addEventListener('click', function() {
+      function expand() {
         document.getElementById('page').classList.add('expanded');
-      });
+      }
+      document.getElementById('more-btn').addEventListener('click', expand);
+      document.addEventListener('keydown', function(e) {
+        if (!e.ctrlKey && !e.metaKey && !e.altKey) expand();
+      }, { once: true });
     </script>
 
   </body>
