@@ -252,6 +252,7 @@
       .page.expanded .check-item:nth-child(5) { animation-delay: 1.2s; }
       .page.expanded .check-item:nth-child(6) { animation-delay: 1.4s; }
       .page.expanded .check-item:nth-child(7) { animation-delay: 1.6s; }
+      .page.expanded .check-item:nth-child(8) { animation-delay: 1.8s; }
 
       .check-icon {
         width: 18px;
@@ -296,6 +297,17 @@
 
       .check-item.done .check-text {
         color: var(--muted);
+      }
+
+      .detail-link {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        transition: color 0.15s;
+      }
+
+      .detail-link:hover {
+        color: var(--text);
       }
 
       .logo-inline {
@@ -484,6 +496,13 @@
             <div>
               <p class="check-date">In progress</p>
               <p class="check-text">Job Search</p>
+            </div>
+          </li>
+          <li class="check-item">
+            <svg class="check-icon pending" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+            <div>
+              <p class="check-date">In progress</p>
+              <p class="check-text">Exploring <a href="https://tempora.ai" target="_blank" rel="noopener" class="detail-link">tempora.ai</a></p>
             </div>
           </li>
         </ul>
