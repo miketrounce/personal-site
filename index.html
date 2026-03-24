@@ -279,13 +279,13 @@
       function updateNow() {
         var d = new Date();
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        var h = d.getHours();
-        var m = d.getMinutes();
+        var h = d.getUTCHours();
+        var m = d.getUTCMinutes();
         var ampm = h >= 12 ? 'pm' : 'am';
         h = h % 12 || 12;
         m = m < 10 ? '0' + m : m;
         document.getElementById('now-date').textContent =
-          months[d.getMonth()] + ' ' + d.getDate() + ', ' + h + ':' + m + ' ' + ampm;
+          months[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + h + ':' + m + ' ' + ampm + ' GMT';
       }
       updateNow();
       setInterval(updateNow, 60000);
