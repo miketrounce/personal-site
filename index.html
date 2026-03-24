@@ -6,6 +6,9 @@
     <title>Michael Trounce</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2334312d'/><text x='50' y='68' font-family='Georgia,serif' font-size='52' font-weight='900' fill='%23f4f2ec' text-anchor='middle'>MT</text></svg>">
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     <style>
       /* ── Layout ── */
       .page {
@@ -310,6 +313,22 @@
         color: var(--text);
       }
 
+      .tempora-link {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        color: #1e1e1e;
+        background: #fff;
+        padding: 1px 6px 2px;
+        border-radius: 4px;
+        text-decoration: none;
+        letter-spacing: -0.02em;
+        transition: opacity 0.15s;
+      }
+
+      .tempora-link:hover {
+        opacity: 0.8;
+      }
+
       .logo-inline {
         text-decoration: none;
         font-weight: 900;
@@ -502,7 +521,7 @@
             <svg class="check-icon pending" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
             <div>
               <p class="check-date">In progress</p>
-              <p class="check-text">Exploring <a href="https://tempora.ai" target="_blank" rel="noopener" class="detail-link">tempora.ai</a></p>
+              <p class="check-text">Exploring <a href="https://tempora.ai" target="_blank" rel="noopener" class="tempora-link">tempora</a></p>
             </div>
           </li>
         </ul>
