@@ -193,86 +193,77 @@
         animation: fadeInUp 0.5s ease forwards;
       }
 
-      .page.expanded .detail .timeline-item:nth-child(1) { animation-delay: 0.5s; }
-      .page.expanded .detail .timeline-item:nth-child(2) { animation-delay: 0.9s; }
-
-      .timeline-detail {
-        font-size: 1rem;
-        color: var(--text);
-        margin: 4px 0 0;
+      /* ── Checklist ── */
+      .checklist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 16px;
       }
 
-      .timeline-sub {
+      .check-item {
+        display: grid;
+        grid-template-columns: 20px 1fr;
+        gap: 10px;
+        align-items: start;
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      .page.expanded .check-item {
+        animation: fadeInUp 0.4s ease forwards;
+      }
+
+      .page.expanded .check-item:nth-child(1) { animation-delay: 0.4s; }
+      .page.expanded .check-item:nth-child(2) { animation-delay: 0.6s; }
+      .page.expanded .check-item:nth-child(3) { animation-delay: 0.8s; }
+      .page.expanded .check-item:nth-child(4) { animation-delay: 1.0s; }
+      .page.expanded .check-item:nth-child(5) { animation-delay: 1.2s; }
+
+      .check-icon {
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+      }
+
+      .check-icon.done {
+        color: var(--accent);
+      }
+
+      .check-icon.pending {
+        color: var(--muted);
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+      }
+
+      .check-date {
+        font-size: 0.75rem;
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        margin: 0;
+      }
+
+      .check-text {
+        font-size: 1rem;
+        color: var(--text);
+        font-weight: 600;
+        margin: 1px 0 0;
+      }
+
+      .check-sub {
         font-size: 0.85rem;
         color: var(--muted);
-        margin: 4px 0 0;
+        margin: 2px 0 0;
       }
 
-      .project-logos {
-        display: flex;
-        gap: 10px;
-        margin-top: 12px;
-      }
-
-      .logo-badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.22em 0.7em 0.38em;
-        border-radius: 12px;
-        font-size: 1rem;
-        line-height: 1;
-        font-weight: 900;
-        font-family: Georgia, "Times New Roman", serif;
-        text-decoration: none;
-        transition: opacity 0.15s;
-      }
-
-      .logo-badge:hover { opacity: 0.8; }
-
-      .km-badge {
-        border: 1px solid rgba(111, 181, 255, 0.24);
-        background: linear-gradient(180deg, rgba(111, 181, 255, 0.14) 0%, rgba(30, 50, 80, 0.2) 100%);
-        color: #6fb5ff;
-      }
-
-      .km-badge .k { color: #fff; }
-
-      .tricksy-badge {
-        border: 1px solid rgba(129, 182, 76, 0.24);
-        background: linear-gradient(180deg, rgba(129, 182, 76, 0.14) 0%, rgba(53, 64, 44, 0.22) 100%);
-        gap: 0.02em;
-      }
-
-      .tricksy-badge .tri {
-        color: #eff3e3;
-        font-style: italic;
-        font-weight: 700;
-        letter-spacing: -0.04em;
-      }
-
-      .tricksy-badge .ck {
-        color: #b8d47f;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-weight: 900;
-        letter-spacing: -0.08em;
-        text-transform: lowercase;
-      }
-
-      .tricksy-badge .sy {
-        color: #efe5cb;
-        font-weight: 900;
-        letter-spacing: -0.05em;
-      }
-
-      .detail-link {
-        color: var(--accent);
-        text-decoration: underline;
-        text-underline-offset: 3px;
-        transition: color 0.15s;
-      }
-
-      .detail-link:hover {
-        color: var(--text);
+      .check-item.done .check-text {
+        color: var(--muted);
       }
 
       /* ── Mobile ── */
@@ -316,25 +307,46 @@
         <a class="more-link" id="more-btn">More →</a>
       </div>
 
-      <!-- Detail timeline -->
+      <!-- Checklist -->
       <div class="detail">
-        <div class="timeline">
-          <div class="timeline-item">
-            <p class="timeline-dates">Mar 18</p>
-            <p class="timeline-role">Contract with Exante Data ended</p>
-            <p class="timeline-sub">3m gardening leave with option to end sooner</p>
-          </div>
-          <div class="timeline-item now">
-            <p class="timeline-dates" id="now-date"></p>
-            <p class="timeline-detail"><a href="./my-goal/" class="detail-link">Looking for a job</a></p>
-            <p class="timeline-detail">Mastering AI Solution Engineering</p>
-            <p class="timeline-detail">Building Digital Products (non-competitively)</p>
-            <div class="project-logos">
-              <a href="https://knowledge-machines.pages.dev/" target="_blank" rel="noopener" class="logo-badge km-badge"><span class="k">Knowledge</span> Machines</a>
-              <a href="https://tricksy.pages.dev/" target="_blank" rel="noopener" class="logo-badge tricksy-badge"><span class="tri">Tri</span><span class="ck">ck</span><span class="sy">sy</span></a>
+        <ul class="checklist">
+          <li class="check-item done">
+            <svg class="check-icon done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <div>
+              <p class="check-date">Mar 18</p>
+              <p class="check-text">Contract with Exante Data ended</p>
+              <p class="check-sub">3m gardening leave (negotiable)</p>
             </div>
-          </div>
-        </div>
+          </li>
+          <li class="check-item done">
+            <svg class="check-icon done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <div>
+              <p class="check-date">Mar 20</p>
+              <p class="check-text">Created static websites deployed on GitHub Pages</p>
+            </div>
+          </li>
+          <li class="check-item done">
+            <svg class="check-icon done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <div>
+              <p class="check-date">Mar 22</p>
+              <p class="check-text">Built OpenClaw on Mac Mini with Slack</p>
+            </div>
+          </li>
+          <li class="check-item done">
+            <svg class="check-icon done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <div>
+              <p class="check-date">Mar 24</p>
+              <p class="check-text">miketrounce.com on Cloudflare</p>
+            </div>
+          </li>
+          <li class="check-item">
+            <svg class="check-icon pending" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+            <div>
+              <p class="check-date">In progress</p>
+              <p class="check-text">Django web app</p>
+            </div>
+          </li>
+        </ul>
       </div>
 
     </main>
@@ -343,20 +355,6 @@
       document.getElementById('more-btn').addEventListener('click', function() {
         document.getElementById('page').classList.add('expanded');
       });
-
-      function updateNow() {
-        var d = new Date();
-        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        var h = d.getUTCHours();
-        var m = d.getUTCMinutes();
-        var ampm = h >= 12 ? 'pm' : 'am';
-        h = h % 12 || 12;
-        m = m < 10 ? '0' + m : m;
-        document.getElementById('now-date').textContent =
-          months[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + h + ':' + m + ' ' + ampm + ' GMT';
-      }
-      updateNow();
-      setInterval(updateNow, 60000);
     </script>
 
   </body>
