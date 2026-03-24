@@ -3,106 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Michael Trounce | Mike Trounce</title>
+    <title>Michael Trounce</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2334312d'/><text x='50' y='68' font-family='Georgia,serif' font-size='52' font-weight='900' fill='%23f4f2ec' text-anchor='middle'>MT</text></svg>">
     <link rel="stylesheet" href="../styles.css" />
     <style>
-      .dashboard {
-        display: grid;
-        grid-template-columns: 260px 1fr;
-        gap: 0;
-        width: min(100%, 1200px);
+      .page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         min-height: 100vh;
-        margin: 0 auto;
-        padding: 22px 24px;
+        padding: 40px 24px;
       }
 
-      .sidebar {
-        border: 1px solid var(--border);
-        border-radius: 24px 0 0 24px;
-        background: var(--panel);
-        padding: 28px 20px;
-        border-right: none;
+      .timeline-container {
+        width: 100%;
+        max-width: 420px;
       }
 
-      .sidebar-title {
+      .timeline-container h1 {
         font-family: Georgia, "Times New Roman", serif;
-        font-size: 0.85rem;
-        font-weight: 700;
+        font-size: 2.4rem;
+        font-weight: 900;
         color: var(--text);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin: 0 0 18px;
-      }
-
-      .sidebar nav {
-        display: grid;
-        gap: 4px;
-      }
-
-      .sidebar nav a {
-        display: block;
-        padding: 10px 14px;
-        border-radius: 10px;
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: var(--muted);
-        transition: background 0.15s, color 0.15s;
-      }
-
-      .sidebar nav a:hover {
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--text);
-      }
-
-      .sidebar nav a.active {
-        background: rgba(129, 182, 76, 0.1);
-        color: var(--accent);
-        font-weight: 700;
-      }
-
-      .sidebar .back-link {
-        margin-top: 24px;
-        padding-top: 16px;
-        border-top: 1px solid var(--border);
-      }
-
-      .sidebar .back-link a {
-        font-size: 0.8rem;
-        color: var(--muted);
-        padding: 8px 14px;
-      }
-
-      .content {
-        border: 1px solid var(--border);
-        border-radius: 0 24px 24px 0;
-        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
-        padding: 40px;
-        overflow-y: auto;
-      }
-
-      .content h2 {
-        margin-top: 32px;
-      }
-
-      .page[hidden] { display: none; }
-
-      .sidebar-section {
-        font-size: 0.7rem;
-        font-weight: 700;
-        color: var(--muted);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin: 16px 0 6px;
-        padding: 0 14px;
+        margin: 0 0 48px;
       }
 
       .timeline {
         position: relative;
         padding: 0 0 0 32px;
-        margin: 0 0 40px;
       }
 
       .timeline::before {
@@ -117,7 +45,7 @@
 
       .timeline-item {
         position: relative;
-        padding: 0 0 28px;
+        padding: 0 0 32px;
         opacity: 0;
         transform: translateY(16px);
         animation: fadeInUp 0.5s ease forwards;
@@ -139,7 +67,7 @@
         height: 10px;
         border-radius: 50%;
         background: var(--muted);
-        border: 2px solid var(--panel);
+        border: 2px solid #2f2c28;
       }
 
       .timeline-item.now::before {
@@ -152,6 +80,7 @@
         color: var(--muted);
         font-weight: 700;
         letter-spacing: 0.05em;
+        margin: 0;
       }
 
       .timeline-role {
@@ -171,71 +100,11 @@
           transform: translateY(0);
         }
       }
-
-      .video-container {
-        width: 100%;
-        max-width: 640px;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-        background: #000;
-        overflow: hidden;
-        margin: 16px 0;
-      }
-
-      .video-container video {
-        width: 100%;
-        display: block;
-        border-radius: 14px;
-      }
-
-      @media (max-width: 768px) {
-        .dashboard {
-          grid-template-columns: 1fr;
-          padding: 14px;
-        }
-
-        .sidebar {
-          border-radius: 24px 24px 0 0;
-          border-right: 1px solid var(--border);
-          border-bottom: none;
-        }
-
-        .content {
-          border-radius: 0 0 24px 24px;
-        }
-      }
     </style>
   </head>
   <body>
-    <main class="dashboard">
-      <aside class="sidebar">
-        <p class="sidebar-title">Mike Trounce</p>
-        <nav>
-          <a href="#" data-page="problem">&#9679; Professional</a>
-          <p class="sidebar-section">Personal</p>
-          <p class="sidebar-section">Mike Digital</p>
-          <a href="#" data-page="github">&#9672; GitHub</a>
-          <a href="#" data-page="personal-website"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2334312d'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='52' font-weight='900' fill='%23f4f2ec' text-anchor='middle'%3EMT%3C/text%3E%3C/svg%3E" style="width:18px;height:18px;vertical-align:-3px;border-radius:4px;" alt="MT"> Personal Website</a>
-          <a href="#" data-page="knowledge-machines"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2318202c'/%3E%3Ctext x='50' y='68' font-family='Helvetica,Arial,sans-serif' font-size='44' font-weight='900' fill='%236fb5ff' text-anchor='middle'%3EKM%3C/text%3E%3C/svg%3E" style="width:18px;height:18px;vertical-align:-3px;border-radius:4px;" alt="KM"> Knowledge Machines</a>
-          <a href="#" data-page="tricksy"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2334312d'/%3E%3Ctext x='50' y='70' font-family='Georgia,serif' font-size='48' font-weight='900' font-style='italic' fill='%2381b64c' text-anchor='middle'%3ETy%3C/text%3E%3C/svg%3E" style="width:18px;height:18px;vertical-align:-3px;border-radius:4px;" alt="Ty"> Tricksy</a>
-          <p class="sidebar-section">Mike Style</p>
-          <a href="#" data-page="personality">&#9733; Personality</a>
-          <a href="#" data-page="strong-network">&#9679; Strong Network</a>
-          <a href="#" data-page="weak-network">&#9675; Weak Network</a>
-          <p class="sidebar-section">Mike Ops</p>
-          <a href="#" data-page="my-day">&#9788; My Day</a>
-          <a href="#" data-page="my-desk">&#9998; My Desk</a>
-          <a href="#" data-page="afk">&#9992; Away From Keyboard</a>
-          <p class="sidebar-section">Mike History</p>
-          <a href="#" data-page="trounceflow">&#9654; Trounceflow</a>
-        </nav>
-        <div class="back-link">
-          <a href="../">← Home</a>
-        </div>
-      </aside>
-
-      <!-- Professional -->
-      <section class="content page" id="problem" hidden>
+    <main class="page">
+      <div class="timeline-container">
         <h1>Mike Trounce</h1>
 
         <div class="timeline">
@@ -256,490 +125,7 @@
             <p class="timeline-role">Seeking a fresh challenge</p>
           </div>
         </div>
-
-        <h2>The problem I solve</h2>
-        <p>
-          Most macro analysis covers the fundamentals well. Supply,
-          valuations, policy — that work is done.
-        </p>
-        <p>
-          What it misses is the demand side: who owns what, how much, at
-          what cost, and what would make them sell. In EM sovereign debt,
-          that gap is large. The data is hard to find, harder to interpret,
-          and most desks don't have anyone who has spent serious time
-          building the frameworks to use it.
-        </p>
-        <p>I have.</p>
-        <p>
-          I've spent a decade solving a genuinely hard data problem —
-          tracking who holds emerging market government bonds. Why?
-          Because fund managers are constrained agents (they benchmark
-          against an index, can't deviate too far), which means
-          positioning becomes self-reinforcing and price moves can
-          detach from fundamentals.
-        </p>
-        <p>
-          The data to understand this positioning is scattered across
-          ~100 government websites — PDFs, Excel files, no APIs,
-          irregular schedules, inconsistent formats. In the past I've
-          been collecting it with a mix of humans and scrapers, stored
-          in Postgres. That process works, but it's fragile and
-          expensive.
-        </p>
-        <p>
-          What you want I can build in 30 days: an AI-native version of
-          that collection pipeline — something that can read PDFs,
-          navigate websites, wrangle the data, and keep a clean DB
-          updated automatically. LLMs make this tractable now in a way
-          it wasn't 5 years ago.
-        </p>
-
-        <h2>What I've done</h2>
-        <p>
-          I spent the first half of my career as a fixed income
-          strategist — ten years in developed markets, ten in EM. My
-          differentiator was always the same: I could find positioning
-          data others couldn't, structure it in ways that led directly
-          to a trade, and say clearly whether the signal said to go with
-          the flow or against it.
-        </p>
-        <p>
-          In 2016 I left to test that thesis commercially. I founded
-          TrounceFlow, a data company focused entirely on EM investor
-          positioning. In 2023 I sold the IP to Exante Data and joined
-          to scale it — better resources, better client network. I spent
-          two years building the product further and learning a hard
-          lesson: I'm excellent at generating the insight, and poor at
-          monetising it. Selling data subscriptions to institutional
-          clients requires a different skillset to applying that data to
-          make money.
-        </p>
-        <p>
-          That's why I'm looking for a pod role. I want to be on the
-          side of the table where the edge gets used, not sold.
-        </p>
-
-        <h2>What I bring to a pod</h2>
-        <p>
-          — A 10-year proprietary database of EM bond holder flows and
-          positions, rebuilt from scratch with clean IP
-        </p>
-        <p>
-          — Deep familiarity with the data sources most desks don't use
-          systematically — IMF CPIS, custodian data, central bank
-          disclosures, fund flows
-        </p>
-        <p>
-          — A framework for turning positioning data into a clear
-          directional view: momentum or contrarian, and why
-        </p>
-        <p>
-          — Coverage across EM sovereign debt including frontier markets
-        </p>
-
-        <h2>T-30: What I'll do before day one</h2>
-        <p>
-          I will spend the month before starting work building a live EM
-          Debt Flows &amp; Positions monitor — from scratch, using only
-          data and IP that belongs to me. It will be version-controlled
-          on GitHub with digital timestamps throughout, so you can see
-          exactly what was built when and how.
-        </p>
-        <p>
-          By day one you'll have a working tool, not a promise.
-        </p>
-
-        <div class="video-container">
-          <video controls preload="metadata">
-            <source src="MikeVideo.mp4" type="video/mp4">
-          </video>
-        </div>
-
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
-      <!-- GitHub -->
-      <section class="content page" id="github" hidden>
-        <p class="eyebrow">Personal</p>
-        <h1>GitHub</h1>
-
-        <h2>GitHub Personal Account</h2>
-        <p>
-          Everything starts with
-          <a class="inline" href="https://github.com/miketrounce" target="_blank" rel="noopener">github.com/miketrounce</a>,
-          my personal GitHub account. GitHub is where I store and version
-          all my code. Every change is tracked, so there is a complete
-          history of how things have evolved.
-        </p>
-        <p>
-          I have three repositories. The first,
-          <a class="inline" href="https://github.com/miketrounce/miketrounce.github.io" target="_blank" rel="noopener">miketrounce.github.io</a>,
-          contains this personal website — the page you are reading right now.
-          GitHub Pages serves it for free at
-          <a class="inline external" href="https://miketrounce.github.io" target="_blank" rel="noopener">miketrounce.github.io</a>.
-          The second,
-          <a class="inline" href="https://github.com/Knowledge-Machines/Tricksy" target="_blank" rel="noopener">tricksy</a>,
-          contains the games and experiments. Cloudflare Pages serves it
-          for free at the
-          <a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#eff3e3;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;text-decoration:none;">Tri</a><a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#b8d47f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:900;text-decoration:none;">ck</a><a class="inline external" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#efe5cb;font-family:Georgia,'Times New Roman',serif;font-weight:900;text-decoration:none;">sy</a> website.
-          The third,
-          <a class="inline" href="https://github.com/Knowledge-Machines/Techsplainer" target="_blank" rel="noopener">techsplainer</a>,
-          is where I write down how I understand technology. GitHub Pages
-          serves it at
-          <a class="inline external" href="https://techsplainer.pages.dev/" target="_blank" rel="noopener">techsplainer.pages.dev</a>.
-        </p>
-
-        <h2>GitHub Organisation</h2>
-        <p>
-          I am the owner of a GitHub Organisation called
-          <a class="inline" href="https://github.com/Knowledge-Machines" target="_blank" rel="noopener">Knowledge Machines</a>.
-          It's just a personal project at the moment but it might become
-          a company. There's only one repository at the moment, and it
-          contains an index.html file that is the basis for the
-          <a class="inline" href="https://knowledge-machines.pages.dev/" target="_blank" rel="noopener" style="color:#fff;font-weight:900;text-decoration:none;">Knowledge</a><a class="inline external" href="https://knowledge-machines.pages.dev/" target="_blank" rel="noopener" style="color:#6fb5ff;font-weight:900;text-decoration:none;"> Machines</a> website.
-        </p>
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
-      <!-- Personal Website -->
-      <section class="content page" id="personal-website" hidden>
-        <p class="eyebrow">Personal</p>
-        <h1>Personal Website</h1>
-
-        <h2>Where to find it</h2>
-        <p>
-          Currently hosted at
-          <a class="inline external" href="https://miketrounce.github.io" target="_blank" rel="noopener">miketrounce.github.io</a>.
-        </p>
-
-        <h2>Who is it for</h2>
-        <p>
-          Primarily, my strong professional network — the 1,000 people
-          who over the years (decades!) I've broken bread with. It's also
-          suitable for people in my weak professional network, my other
-          9,000 LinkedIn 1st-connections.
-        </p>
-
-        <h2>How it helps you</h2>
-        <p>
-          The main goal is to make it easy for you to understand the
-          three value propositions I have for you:
-          1. <a class="inline" href="/my-goal/">Me!</a> I'm seeking
-          work, so if you are looking for someone, here's how I'll help
-          (and how I won't).
-          2. <a class="inline" href="https://knowledge-machines.pages.dev/" target="_blank" rel="noopener" style="color:#fff;font-weight:900;text-decoration:none;">Knowledge</a><a class="inline" href="https://knowledge-machines.pages.dev/" target="_blank" rel="noopener" style="color:#6fb5ff;font-weight:900;text-decoration:none;"> Machines</a>.
-          While I'm on gardening leave, I'm earning a crust by making
-          and selling digital products.
-          3. <a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#eff3e3;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;text-decoration:none;">Tri</a><a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#b8d47f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:900;text-decoration:none;">ck</a><a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#efe5cb;font-family:Georgia,'Times New Roman',serif;font-weight:900;text-decoration:none;">sy</a>.
-          It's free! It's fun! Yes, I am happy to deliver value to you
-          in your spare time at no cost. Enjoy!
-        </p>
-
-        <h2>What's in it for me</h2>
-        <p>
-          I like writing things down; it helps me. As well as the value
-          propositions, I've also written
-          <a class="inline external" href="https://techsplainer.pages.dev/" target="_blank" rel="noopener">Techsplainer</a>
-          — my understanding (most of it wrong) about technical stuff.
-          Read it and weep.
-        </p>
-
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
-      <!-- Knowledge Machines -->
-      <section class="content page" id="knowledge-machines" hidden>
-        <p class="eyebrow">Personal</p>
-        <h1>Knowledge Machines</h1>
-
-        <h2>What it is</h2>
-        <p>
-          A personal project — bespoke, self-updating situation monitors
-          with in-built databases and APIs, built for macro investors.
-        </p>
-
-        <h2>Where to find it</h2>
-        <p>
-          The website is at
-          <a class="inline" href="https://knowledge-machines.pages.dev/" target="_blank" rel="noopener" style="color:#fff;font-weight:900;text-decoration:none;">Knowledge</a><a class="inline" href="https://knowledge-machines.pages.dev/" target="_blank" rel="noopener" style="color:#6fb5ff;font-weight:900;text-decoration:none;"> Machines</a>.
-          The code lives in a GitHub Organisation at
-          <a class="inline" href="https://github.com/Knowledge-Machines" target="_blank" rel="noopener">github.com/Knowledge-Machines</a>.
-        </p>
-
-        <h2>How it's built</h2>
-        <p>
-          Unlike the personal website, Knowledge Machines is built with
-          React and Vite and connects to live data sources. It's hosted
-          on Cloudflare Pages.
-        </p>
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
-      <!-- Tricksy -->
-      <section class="content page" id="tricksy" hidden>
-        <p class="eyebrow">Personal</p>
-        <h1>Tricksy</h1>
-
-        <h2>What it is</h2>
-        <p>
-          Free games and experiments — playful side projects including
-          Lula (a game for budding politicians and macro traders), Snake,
-          and Kaboom.
-        </p>
-
-        <h2>Where to find it</h2>
-        <p>
-          The website is at
-          <a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#eff3e3;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;text-decoration:none;">Tri</a><a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#b8d47f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:900;text-decoration:none;">ck</a><a class="inline" href="https://tricksy.pages.dev" target="_blank" rel="noopener" style="color:#efe5cb;font-family:Georgia,'Times New Roman',serif;font-weight:900;text-decoration:none;">sy</a>.
-          The code lives at
-          <a class="inline" href="https://github.com/Knowledge-Machines/Tricksy" target="_blank" rel="noopener">github.com/Knowledge-Machines/Tricksy</a>
-          and is hosted on Cloudflare Pages.
-        </p>
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
-      <!-- Personality -->
-      <section class="content page" id="personality" hidden>
-        <p class="eyebrow">Personal</p>
-        <h1>Personality</h1>
-        <p>
-          16personalities: <a class="inline" href="https://www.16personalities.com/estp-personality" target="_blank" rel="noopener">Entrepreneur (ESTP-A)</a>
-        </p>
-        <p>
-          <a class="inline" href="https://principlesyou.com/" target="_blank" rel="noopener">PrinciplesYou</a>: The Adventurer
-        </p>
-        <p>
-          PrinciplesYou groups 28 archetypes into 10 categories
-          representing a larger theme. Adventurers are part of the
-          Creators category. My main result is Adventurer, although I am
-          a good match for the Shaper and the Entertainer archetypes.
-        </p>
-        <p>
-          Adventurers are motivated by taking part in fun, exciting, and
-          adventurous activities and pursuits. They tend to be
-          excitement-seeking, fun-loving, energetic, independent, open
-          to new experiences, and spontaneous.
-        </p>
-        <p>
-          Shapers visualize ambitious goals, set plans in place, and push
-          through relentlessly to make them happen. They tend to be
-          independent, original, driven, demanding, adaptable and at
-          times impatient and single-minded.
-        </p>
-        <p>
-          Entertainers are driven by creating experiences and engaging
-          with the world and particularly the people in it. They tend to
-          be outgoing, original, agile, energetic, joyful and
-          lighthearted.
-        </p>
-
-        <h2>The Adventurer in detail</h2>
-        <p>
-          Typical Adventurers have an abundance of energy that they
-          direct into physical and mental activities and in expressing
-          their zest for life and living. They feel most alive when
-          they're juggling multiple tasks and moving quickly down their
-          own path. It's even better when that adventure includes
-          participating alongside other enthusiasts who search for the
-          same kind of thrills. Sharing enhances the experience. They
-          often become bored with repetition and will want to move on to
-          new activities that generate new levels of excitement. They
-          have a natural capacity to adapt quickly and easily to changing
-          circumstances.
-        </p>
-        <p>
-          Other distinguishing characteristics include being friendly
-          and engaging. They tend to be spontaneous, emergent, and
-          optimistic. They are often adept at improvising new plans and
-          strategies in the moment, and tend to reject conventional and
-          routine ways of doing things. They prefer to make decisions
-          based on the best available information at the time, rather
-          than depending on a predetermined course of action or too much
-          advanced planning.
-        </p>
-        <p>
-          They are tolerant of uncertainty, which can stem from their
-          lower preference for organization and meticulousness. Their
-          propensity to change and flex with their environment, in
-          combination with their high energy and independent approach,
-          can make it challenging for others to keep up. They can come
-          across to others as scattered, ungrounded, or disorganized.
-          Making sure their energy is focused on continuing to develop
-          and maintain their relationships is key, particularly with
-          those who are not as venturesome and risk tolerant.
-        </p>
-
-        <h2>How I prefer to think</h2>
-        <p>
-          Creative (61% High) — I favor original and innovative thinking
-          and finding my own ways of doing things, while being less
-          interested in new and unfamiliar experiences.
-          79% Original · 15% Curious · 77% Non-Conforming
-        </p>
-        <p>
-          Deliberative (18% Very Low) — I tend to rely on intuition over
-          logic and analysis, and am more spontaneous than methodical and
-          process-oriented when reaching decisions and making choices.
-          31% Logical · 7% Systematic · 46% Impartial
-        </p>
-        <p>
-          Detailed and Reliable (3% Very Low) — I tend to be less
-          organized, neat and orderly, don't pay much attention to
-          deadlines, and am generally less structured and focused on
-          details. 3% Organized · 10% Detail-Oriented · 10% Dependable
-        </p>
-        <p>
-          Conceptual (3% Very Low) — I have a preference for
-          straightforward, concrete thinking over abstract and
-          philosophical thinking.
-        </p>
-        <p>
-          Practical (90% Very High) — I have a preference to focus on
-          direct, real-world consequences in making decisions and choices.
-        </p>
-
-        <h2>Adventurer Talents</h2>
-        <p>— Relishing adventure and excitement</p>
-        <p>— Being flexible in adjusting to current demands and requirements</p>
-        <p>— Having high energy, perseverance, and stamina and always being on the go</p>
-        <p>— Improvising and going with the flow</p>
-
-        <h2>Adventurer Growth Needs</h2>
-        <p>— Recognizing not every activity pursued needs to be novel to be fulfilling</p>
-        <p>— Making sure people don't get left in the wake of their high-energy and spontaneous persona</p>
-        <p>— Making better use of planning, schedules, and deadlines</p>
-        <p>— Avoiding coming across as too independent-minded or rebellious at times</p>
-
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
-      <!-- Strong Network -->
-      <section class="content page" id="strong-network" hidden>
-        <p class="eyebrow">Personal</p>
-        <h1>Strong Network</h1>
-        <p>
-          My strong network is the set of people who I turn to for advice
-          and feedback. That means it's a small group, as they have to
-          know me in my professional life very well.
-        </p>
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
-      <!-- Weak Network -->
-      <section class="content page" id="weak-network" hidden>
-        <p class="eyebrow">Personal</p>
-        <h1>Weak Network</h1>
-        <p>
-          My weak network is essentially my 10,000 first connections on
-          LinkedIn. The archetype would be someone who:
-        </p>
-        <p>— works in the investment industry in the front office</p>
-        <p>— focuses on fixed income and FX products (as opposed to equities)</p>
-        <p>— focuses on simple products (as opposed to complex derivatives)</p>
-        <p>— pays attention to emerging market economies and financial markets</p>
-        <p>— uses their discretion (as opposed to systems)</p>
-        <p>— spends 75% of their time on a computer and 25% talking to people</p>
-
-        <h2>My ask</h2>
-        <p>
-          Try and help me when you get a LinkedIn DM from me. I'll only
-          DM people who look like they are likely to be in the top 0.1%
-          of people in my weak network for my specific ask. For example,
-          if my question is about Brazil's Balance of Payments statistics,
-          I'll only ask economists in my network who have knowledge of
-          Brazil.
-        </p>
-
-        <h2>My promise</h2>
-        <p>
-          I'll do the same in return. If people have a question about
-          flows-and-positions, especially in emerging markets, I should
-          be in their top 0.1% and I'm ready to try and help them.
-        </p>
-
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
-      <!-- My Day -->
-      <section class="content page" id="my-day" hidden>
-        <p class="eyebrow">Personal</p>
-        <h1>My Day</h1>
-        <p>
-          Since early March 2026 my day has changed dramatically; I now
-          use AI all day and every day for work. I was using spreadsheets
-          all day and every day from 1998 – 2016, and between 2016 and
-          now I was interacting with data in a no-code way (like a
-          database administrator) for large parts of my day.
-        </p>
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
-      <!-- My Desk -->
-      <section class="content page" id="my-desk" hidden>
-        <p class="eyebrow">Personal</p>
-        <h1>My Desk</h1>
-
-        <h2>Hardware</h2>
-        <p>Apple Mac Mini M4 16GB. Low-end iPhone. Low-end laptop. No iPad. Over-ear headphones.</p>
-
-        <h2>Software</h2>
-        <p>Claude Max (Sonnet 4.6). VS Code with Claude extension. OpenClaw (llama3.2, falls back to Sonnet 4.6). Slack for work.</p>
-
-        <h2>Analogue</h2>
-        <p>Paper and pen. Physical diary. Task management on paper.</p>
-
-        <h2>Note-taking</h2>
-        <p>Wispr Flow.</p>
-
-        <h2>How I prioritise</h2>
-        <p>TBD — easy tasks first? Urgent tasks first? Important tasks first? It's a choice I'm still figuring out.</p>
-
-        <h2>Reminders</h2>
-        <p>TBD.</p>
-
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
-      <!-- Away From Keyboard -->
-      <section class="content page" id="afk" hidden>
-        <p class="eyebrow">Personal</p>
-        <h1>Away From Keyboard</h1>
-        <p>
-          If it's a work day and I'm not at my desk, I'm probably out
-          for a walk (I love to stand, walk, run and cycle) or at the
-          gym (for the rowing machine and the weights). I chat using
-          WhatsApp. I spend a while each day on LinkedIn and a little
-          while on Facebook and X. I play most days a little chess on
-          Chess.com. For music, it's Apple Music.
-        </p>
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
-      <!-- Trounceflow -->
-      <section class="content page" id="trounceflow" hidden>
-        <p class="eyebrow">Personal</p>
-        <h1>Trounceflow</h1>
-        <p>
-          I quit Standard Chartered Bank in June 2016 and founded
-          Trounceflow Ltd the following September.
-        </p>
-        <p style="margin-top:28px;font-size:0.8rem;color:var(--muted);font-style:italic;">Last updated: March 2026</p>
-      </section>
-
+      </div>
     </main>
-
-    <script>
-      function navigate() {
-        var hash = location.hash.slice(1) || 'problem';
-        document.querySelectorAll('.page').forEach(function(p) {
-          p.hidden = p.id !== hash;
-        });
-        document.querySelectorAll('nav a[data-page]').forEach(function(a) {
-          a.classList.toggle('active', a.dataset.page === hash);
-        });
-      }
-      window.addEventListener('hashchange', navigate);
-      navigate();
-    </script>
   </body>
 </html>
