@@ -10,7 +10,7 @@ Personal site. Plain HTML, CSS, and a small amount of JavaScript — no framewor
 
 | Repo | Live | Description |
 |------|------|-------------|
-| [tricksy](https://github.com/miketrounce/tricksy) | [tricksy.pages.dev](https://tricksy.pages.dev/) | Games and experiments |
+| [Tricksy](https://github.com/Knowledge-Machines/Tricksy) | [tricksy.pages.dev](https://tricksy.pages.dev/) | Games and experiments |
 
 ## Run locally
 
