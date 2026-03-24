@@ -208,6 +208,62 @@
         margin: 4px 0 0;
       }
 
+      .project-logos {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .logo-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.22em 0.7em 0.38em;
+        border-radius: 12px;
+        font-size: 1rem;
+        line-height: 1;
+        font-weight: 900;
+        font-family: Georgia, "Times New Roman", serif;
+        text-decoration: none;
+        transition: opacity 0.15s;
+      }
+
+      .logo-badge:hover { opacity: 0.8; }
+
+      .km-badge {
+        border: 1px solid rgba(111, 181, 255, 0.24);
+        background: linear-gradient(180deg, rgba(111, 181, 255, 0.14) 0%, rgba(30, 50, 80, 0.2) 100%);
+        color: #6fb5ff;
+      }
+
+      .km-badge .k { color: #fff; }
+
+      .tricksy-badge {
+        border: 1px solid rgba(129, 182, 76, 0.24);
+        background: linear-gradient(180deg, rgba(129, 182, 76, 0.14) 0%, rgba(53, 64, 44, 0.22) 100%);
+        gap: 0.02em;
+      }
+
+      .tricksy-badge .tri {
+        color: #eff3e3;
+        font-style: italic;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+
+      .tricksy-badge .ck {
+        color: #b8d47f;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 900;
+        letter-spacing: -0.08em;
+        text-transform: lowercase;
+      }
+
+      .tricksy-badge .sy {
+        color: #efe5cb;
+        font-weight: 900;
+        letter-spacing: -0.05em;
+      }
+
       .detail-link {
         color: var(--accent);
         text-decoration: underline;
@@ -273,6 +329,10 @@
             <p class="timeline-detail"><a href="./my-goal/" class="detail-link">Looking for a job</a></p>
             <p class="timeline-detail">Mastering AI Solution Engineering</p>
             <p class="timeline-detail">Building Digital Products (non-competitively)</p>
+            <div class="project-logos">
+              <a href="https://knowledge-machines.pages.dev/" target="_blank" rel="noopener" class="logo-badge km-badge"><span class="k">Knowledge</span> Machines</a>
+              <a href="https://tricksy.pages.dev/" target="_blank" rel="noopener" class="logo-badge tricksy-badge"><span class="tri">Tri</span><span class="ck">ck</span><span class="sy">sy</span></a>
+            </div>
           </div>
         </div>
       </div>
