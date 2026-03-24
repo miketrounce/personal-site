@@ -171,31 +171,44 @@
       .detail {
         max-width: 420px;
         max-height: 80vh;
-        overflow-y: auto;
+        display: none;
+        flex-direction: column;
         opacity: 0;
         transform: translateX(40px);
         transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
         pointer-events: none;
-        display: none;
+      }
+
+      .check-header {
+        flex-shrink: 0;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 16px;
+      }
+
+      .detail .checklist {
+        overflow-y: auto;
+        flex: 1;
+        min-height: 0;
         scrollbar-width: thin;
         scrollbar-color: var(--border) transparent;
       }
 
-      .detail::-webkit-scrollbar {
+      .detail .checklist::-webkit-scrollbar {
         width: 4px;
       }
 
-      .detail::-webkit-scrollbar-track {
+      .detail .checklist::-webkit-scrollbar-track {
         background: transparent;
       }
 
-      .detail::-webkit-scrollbar-thumb {
+      .detail .checklist::-webkit-scrollbar-thumb {
         background: var(--border);
         border-radius: 4px;
       }
 
       .page.expanded .detail {
-        display: block;
+        display: flex;
         opacity: 1;
         transform: translateX(0);
         pointer-events: auto;
@@ -408,15 +421,17 @@
 
       <!-- Checklist -->
       <div class="detail">
-        <ul class="checklist">
-          <li class="check-item done">
+        <div class="check-header">
+          <div class="check-item done" style="opacity:1;transform:none;">
             <svg class="check-icon done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
             <div>
               <p class="check-date">Mar 18</p>
               <p class="check-text">Contract with Exante Data ended</p>
               <p class="check-sub">3m gardening leave (negotiable)</p>
             </div>
-          </li>
+          </div>
+        </div>
+        <ul class="checklist">
           <li class="check-item done">
             <svg class="check-icon done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
             <div>
