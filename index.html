@@ -170,11 +170,28 @@
       /* ── Detail timeline (right) ── */
       .detail {
         max-width: 420px;
+        max-height: 80vh;
+        overflow-y: auto;
         opacity: 0;
         transform: translateX(40px);
         transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
         pointer-events: none;
         display: none;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border) transparent;
+      }
+
+      .detail::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      .detail::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .detail::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
       }
 
       .page.expanded .detail {
@@ -354,6 +371,7 @@
         .detail {
           max-width: 100%;
           width: 100%;
+          max-height: 60vh;
         }
       }
     </style>
