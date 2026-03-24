@@ -257,7 +257,7 @@
             <p class="timeline-role">Contract with Exante Data ended</p>
           </div>
           <div class="timeline-item now">
-            <p class="timeline-dates">&nbsp;</p>
+            <p class="timeline-dates" id="now-date"></p>
             <p class="timeline-detail">Looking for a job</p>
             <p class="timeline-detail">Mastering AI Solution Engineering</p>
             <p class="timeline-detail">Building Digital Products (non-competitively)</p>
@@ -275,6 +275,20 @@
       document.getElementById('more-btn').addEventListener('click', function() {
         document.getElementById('page').classList.add('expanded');
       });
+
+      function updateNow() {
+        var d = new Date();
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var ampm = h >= 12 ? 'pm' : 'am';
+        h = h % 12 || 12;
+        m = m < 10 ? '0' + m : m;
+        document.getElementById('now-date').textContent =
+          months[d.getMonth()] + ' ' + d.getDate() + ', ' + h + ':' + m + ' ' + ampm;
+      }
+      updateNow();
+      setInterval(updateNow, 60000);
     </script>
 
   </body>
