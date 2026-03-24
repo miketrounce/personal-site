@@ -99,6 +99,79 @@
         padding: 0 14px;
       }
 
+      .timeline {
+        position: relative;
+        padding: 0 0 0 32px;
+        margin: 0 0 40px;
+      }
+
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        background: var(--border);
+      }
+
+      .timeline-item {
+        position: relative;
+        padding: 0 0 28px;
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeInUp 0.5s ease forwards;
+      }
+
+      .timeline-item:nth-child(1) { animation-delay: 0.3s; }
+      .timeline-item:nth-child(2) { animation-delay: 0.7s; }
+      .timeline-item:nth-child(3) { animation-delay: 1.1s; }
+      .timeline-item:nth-child(4) { animation-delay: 1.5s; }
+
+      .timeline-item:last-child { padding-bottom: 0; }
+
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -29px;
+        top: 8px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--muted);
+        border: 2px solid var(--panel);
+      }
+
+      .timeline-item.now::before {
+        background: var(--accent);
+        box-shadow: 0 0 8px rgba(129, 182, 76, 0.5);
+      }
+
+      .timeline-dates {
+        font-size: 0.8rem;
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: 0.05em;
+      }
+
+      .timeline-role {
+        font-size: 1.1rem;
+        color: var(--text);
+        font-weight: 600;
+        margin: 2px 0 0;
+      }
+
+      .timeline-item.now .timeline-role {
+        color: var(--accent);
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       .video-container {
         width: 100%;
         max-width: 640px;
@@ -163,10 +236,28 @@
 
       <!-- Professional -->
       <section class="content page" id="problem" hidden>
-        <p class="eyebrow">EM Sovereign Debt · Flows &amp; Positions · 30 years in fixed income</p>
-        <h1>I find the money. Then I explain where it's going and why.</h1>
+        <h1>Mike Trounce</h1>
 
-        <h2>Professional</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <p class="timeline-dates">1998 — 2007</p>
+            <p class="timeline-role">Macro Strategist</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-dates">2007 — 2016</p>
+            <p class="timeline-role">Macro &amp; Flows Strategist</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-dates">2016 — 2026</p>
+            <p class="timeline-role">Flow Data Entrepreneur</p>
+          </div>
+          <div class="timeline-item now">
+            <p class="timeline-dates">2026 — ?</p>
+            <p class="timeline-role">Seeking a fresh challenge</p>
+          </div>
+        </div>
+
+        <h2>The problem I solve</h2>
         <p>
           Most macro analysis covers the fundamentals well. Supply,
           valuations, policy — that work is done.
