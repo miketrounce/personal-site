@@ -17,22 +17,10 @@
         transition: justify-content 0.6s ease;
       }
 
-      .page.expanded {
-        justify-content: flex-start;
-        gap: 80px;
-        padding-left: 10vw;
-      }
-
-      /* ── Career timeline (left) ── */
+      /* ── Career timeline ── */
       .career {
         width: 100%;
         max-width: 420px;
-        transition: all 0.6s ease;
-      }
-
-      .page.expanded .career {
-        max-width: 280px;
-        flex-shrink: 0;
       }
 
       .career h1 {
@@ -41,33 +29,6 @@
         font-weight: 900;
         color: var(--text);
         margin: 0 0 48px;
-        transition: font-size 0.6s ease;
-      }
-
-      .page.expanded .career h1 {
-        font-size: 1.6rem;
-        margin-bottom: 28px;
-      }
-
-      .career .timeline-role,
-      .career .timeline-dates {
-        transition: font-size 0.6s ease;
-      }
-
-      .page.expanded .career .timeline-role {
-        font-size: 0.95rem;
-      }
-
-      .page.expanded .career .timeline-dates {
-        font-size: 0.7rem;
-      }
-
-      .page.expanded .career .timeline-item {
-        padding-bottom: 20px;
-      }
-
-      .page.expanded .career .more-link {
-        display: none;
       }
 
       /* ── Shared timeline ── */
@@ -142,24 +103,6 @@
       .career .timeline-item:nth-child(3) { animation-delay: 1.1s; }
       .career .timeline-item:nth-child(4) { animation-delay: 1.5s; }
 
-      .more-link {
-        display: inline-block;
-        margin-top: 48px;
-        font-size: 0.9rem;
-        font-weight: 700;
-        color: var(--muted);
-        text-decoration: none;
-        opacity: 0;
-        animation: fadeInUp 0.5s ease forwards;
-        animation-delay: 2s;
-        transition: color 0.15s;
-        cursor: pointer;
-      }
-
-      .more-link:hover {
-        color: var(--text);
-      }
-
       @keyframes fadeInUp {
         to {
           opacity: 1;
@@ -214,196 +157,78 @@
         40%, 80% { transform: translateX(6px); }
       }
 
-      /* ── Detail timeline (right) ── */
-      .detail {
-        max-width: 420px;
-        max-height: 80vh;
+      /* ── Crossfade transition ── */
+      .page.fading-out {
+        animation: fadeOut 0.6s ease forwards;
+      }
+
+      @keyframes fadeOut {
+        to { opacity: 0; }
+      }
+
+      /* ── Inner page (post-password) ── */
+      .inner-landing {
         display: none;
-        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 40px 24px;
+        text-align: center;
         opacity: 0;
-        transform: translateX(40px);
-        transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
-        pointer-events: none;
+        animation: fadeInUp 0.8s ease 0.3s forwards;
       }
 
-      .check-header {
-        flex-shrink: 0;
-        padding-bottom: 16px;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 16px;
-      }
-
-      .detail .checklist {
-        overflow-y: auto;
-        flex: 1;
-        min-height: 0;
-        scrollbar-width: thin;
-        scrollbar-color: var(--border) transparent;
-      }
-
-      .detail .checklist::-webkit-scrollbar {
-        width: 4px;
-      }
-
-      .detail .checklist::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      .detail .checklist::-webkit-scrollbar-thumb {
-        background: var(--border);
-        border-radius: 4px;
-      }
-
-      .page.expanded .detail {
+      .inner-landing.visible {
         display: flex;
-        opacity: 1;
-        transform: translateX(0);
-        pointer-events: auto;
       }
 
-      .detail .timeline-item {
-        opacity: 0;
-        transform: translateY(16px);
-      }
-
-      .page.expanded .detail .timeline-item {
-        animation: fadeInUp 0.5s ease forwards;
-      }
-
-      /* ── Checklist ── */
-      .checklist {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: grid;
+      .inner-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         gap: 16px;
       }
 
-      .check-item {
-        display: grid;
-        grid-template-columns: 20px 1fr;
-        gap: 10px;
-        align-items: start;
+      .inner-greeting {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 2.8rem;
+        font-weight: 900;
+        color: var(--text);
         opacity: 0;
-        transform: translateY(12px);
+        animation: fadeInUp 0.6s ease 0.5s forwards;
       }
 
-      .page.expanded .check-item {
-        animation: fadeInUp 0.4s ease forwards;
-      }
-
-      .page.expanded .check-item:nth-child(1) { animation-delay: 0.4s; }
-      .page.expanded .check-item:nth-child(2) { animation-delay: 0.6s; }
-      .page.expanded .check-item:nth-child(3) { animation-delay: 0.8s; }
-      .page.expanded .check-item:nth-child(4) { animation-delay: 1.0s; }
-      .page.expanded .check-item:nth-child(5) { animation-delay: 1.2s; }
-      .page.expanded .check-item:nth-child(6) { animation-delay: 1.4s; }
-      .page.expanded .check-item:nth-child(7) { animation-delay: 1.6s; }
-
-      .check-icon {
-        width: 18px;
-        height: 18px;
-        margin-top: 2px;
-      }
-
-      .check-icon.done {
-        color: var(--accent);
-      }
-
-      .check-icon.pending {
-        color: var(--muted);
-        animation: pulse 2s ease-in-out infinite;
-      }
-
-      @keyframes pulse {
-        0%, 100% { opacity: 0.5; }
-        50% { opacity: 1; }
-      }
-
-      .check-date {
-        font-size: 0.75rem;
-        color: var(--muted);
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        margin: 0;
-      }
-
-      .check-text {
+      .inner-name {
         font-size: 1rem;
-        color: var(--text);
-        font-weight: 600;
-        margin: 1px 0 0;
-      }
-
-      .check-sub {
-        font-size: 0.85rem;
         color: var(--muted);
-        margin: 2px 0 0;
-      }
-
-      .check-item.done .check-text {
-        color: var(--muted);
-      }
-
-      .detail-link {
-        color: var(--accent);
-        text-decoration: underline;
-        text-underline-offset: 3px;
-        transition: color 0.15s;
-      }
-
-      .detail-link:hover {
-        color: var(--text);
-      }
-
-      .tempora-link {
-        text-decoration: none;
-        transition: opacity 0.15s;
-      }
-
-      .tempora-link:hover {
-        opacity: 0.7;
-      }
-
-      .tempora-img {
-        height: 1.1em;
-        vertical-align: -0.2em;
-        filter: invert(1);
-      }
-
-      .logo-inline {
-        text-decoration: none;
-        font-weight: 900;
-        font-family: Georgia, "Times New Roman", serif;
-        transition: opacity 0.15s;
-      }
-
-      .logo-inline:hover { opacity: 0.7; }
-
-      .km-inline { color: #6fb5ff; }
-      .km-inline .k { color: #fff; }
-
-      .tricksy-inline .tri {
-        color: #eff3e3;
-        font-family: Georgia, "Times New Roman", serif;
-        font-style: italic;
         font-weight: 700;
-        letter-spacing: -0.04em;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease 0.9s forwards;
       }
 
-      .tricksy-inline .ck {
-        color: #b8d47f;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-weight: 900;
-        letter-spacing: -0.08em;
-        text-transform: lowercase;
+      .inner-pulse {
+        width: 40px;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 1px;
+        margin: 8px 0;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease 1.2s forwards, breathe 3s ease-in-out 1.7s infinite;
       }
 
-      .tricksy-inline .sy {
-        color: #efe5cb;
-        font-family: Georgia, "Times New Roman", serif;
-        font-weight: 900;
-        letter-spacing: -0.05em;
+      @keyframes breathe {
+        0%, 100% { opacity: 0.4; transform: scaleX(1); }
+        50% { opacity: 1; transform: scaleX(1.5); }
+      }
+
+      .inner-msg {
+        font-size: 1rem;
+        color: var(--muted);
+        font-weight: 400;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease 1.5s forwards;
       }
 
       /* ── Mobile ── */
@@ -415,24 +240,7 @@
           min-height: 100vh;
         }
 
-        .more-link {
-          margin-top: 24px;
-          font-size: 1.1rem;
-        }
-
         .pw-wrap { margin-top: 24px; }
-
-        .page.expanded {
-          flex-direction: column;
-          align-items: flex-start;
-          justify-content: flex-start;
-          gap: 40px;
-          padding: 32px 20px;
-        }
-
-        .page.expanded .career {
-          max-width: 100%;
-        }
 
         .career h1 {
           font-size: 1.6rem;
@@ -447,31 +255,12 @@
           font-size: 0.7rem;
         }
 
-        .page.expanded .career h1 {
-          font-size: 1.4rem;
-          margin-bottom: 20px;
-        }
-
         .timeline-role {
           font-size: 0.95rem;
         }
 
-        .page.expanded .career .timeline-item {
-          padding-bottom: 16px;
-        }
-
-        .check-text {
-          font-size: 0.9rem;
-        }
-
-        .check-date {
-          font-size: 0.7rem;
-        }
-
-        .detail {
-          max-width: 100%;
-          width: 100%;
-          max-height: 60vh;
+        .inner-greeting {
+          font-size: 2rem;
         }
       }
     </style>
@@ -498,39 +287,30 @@
             <p class="timeline-role">Flow Data Entrepreneur</p>
           </div>
           <div class="timeline-item now">
-            <p class="timeline-dates">2026 — ?</p>
-            <p class="timeline-role">Strategist / Risk Taker</p>
+            <p class="timeline-dates">2026 —</p>
+            <p class="timeline-role">Flow Superintelligence</p>
           </div>
         </div>
 
-        <a class="more-link" id="more-btn">More →</a>
-        <div class="pw-wrap" id="pw-wrap">
+        <div class="pw-wrap visible" id="pw-wrap" style="animation-delay: 2s;">
           <input type="password" class="pw-input" id="pw-input" placeholder="password" autocomplete="off" spellcheck="false">
         </div>
       </div>
 
-      <!-- Checklist (decrypted at runtime) -->
-      <div class="detail" id="detail"></div>
+      <script id="encrypted-data" type="application/json">"G0fAZp4sRfMes/w12BwRbdbniJGPpj5cUBSoYd9G0Y3TY0hvSnSHCwyhMe/EI5cIEdItK5gMPb/plcVKrf1u2tIIP3WV25XvB9YsePeUMYThSIePlGQpgb4PrtPqDDLz9fky7IqRmf46RNRi30qfmv8R5WuN/huUF2muaFFkgOTcE7kDsFpQmoqidP20veR7Azb2/4kUy84+xL6I8d32asqAYdpqHHI93UYfTobbSaGJJZm1vtS4eVy/lKXbn11TfdS7HNx5zV7iaIMtvxO6fyi+UH9Q6xbWWDx6H6ztCUaooqWI4NQQLi6IGgEprdHBJZ9UwkaoPnZtj7xMbmgqVXV/iBOplAJf"</script>
 
-      <script id="encrypted-data" type="application/json">"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"</script>
+    </main>
+
+    <!-- Inner landing (shown after decrypt) -->
+    <div class="inner-landing" id="inner-landing"></div>
 
     </main>
 
     <script>
       const page    = document.getElementById('page');
-      const moreBtn = document.getElementById('more-btn');
-      const pwWrap  = document.getElementById('pw-wrap');
       const pwInput = document.getElementById('pw-input');
-      const detail  = document.getElementById('detail');
+      const inner   = document.getElementById('inner-landing');
 
-      // Show password field
-      function showPw() {
-        moreBtn.style.display = 'none';
-        pwWrap.classList.add('visible');
-        pwInput.focus();
-      }
-
-      // Decrypt + expand
       async function tryDecrypt(password) {
         try {
           const b64  = JSON.parse(document.getElementById('encrypted-data').textContent);
@@ -540,8 +320,7 @@
           const tag  = raw.slice(28, 44);
           const ct   = raw.slice(44);
 
-          // Derive key with PBKDF2
-          const enc   = new TextEncoder();
+          const enc    = new TextEncoder();
           const keyMat = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
           const key    = await crypto.subtle.deriveKey(
             { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
@@ -551,7 +330,6 @@
             ['decrypt']
           );
 
-          // AES-GCM expects ciphertext + tag concatenated
           const combined = new Uint8Array(ct.length + tag.length);
           combined.set(ct);
           combined.set(tag, ct.length);
@@ -559,33 +337,25 @@
           const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, combined);
           const html  = new TextDecoder().decode(plain);
 
-          // Inject + expand
-          detail.innerHTML = html;
-          pwWrap.classList.remove('visible');
-          pwWrap.style.display = 'none';
-          page.classList.add('expanded');
+          // Crossfade: fade out timeline, fade in inner page
+          page.classList.add('fading-out');
+          setTimeout(() => {
+            page.style.display = 'none';
+            inner.innerHTML = html;
+            inner.classList.add('visible');
+          }, 600);
         } catch (e) {
-          // Wrong password
           pwInput.classList.add('error');
           pwInput.value = '';
           setTimeout(() => pwInput.classList.remove('error'), 500);
         }
       }
 
-      moreBtn.addEventListener('click', showPw);
-
       pwInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && pwInput.value) {
           tryDecrypt(pwInput.value);
         }
       });
-
-      // Any key still triggers the password prompt (unless already expanded)
-      document.addEventListener('keydown', function(e) {
-        if (!e.ctrlKey && !e.metaKey && !e.altKey && !page.classList.contains('expanded')) {
-          showPw();
-        }
-      }, { once: true });
     </script>
 
   </body>

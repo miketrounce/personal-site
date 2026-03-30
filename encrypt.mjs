@@ -16,7 +16,7 @@ if (!password) {
   process.exit(1);
 }
 
-const plaintext = readFileSync('./checklist.html', 'utf8');
+const plaintext = readFileSync('./inner.html', 'utf8');
 
 // Key derivation: PBKDF2 with random salt
 const salt = randomBytes(16);
