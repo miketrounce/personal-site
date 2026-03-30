@@ -167,6 +167,53 @@
         }
       }
 
+      /* ── Password input ── */
+      .pw-wrap {
+        display: none;
+        margin-top: 48px;
+        opacity: 0;
+        animation: fadeInUp 0.4s ease forwards;
+      }
+
+      .pw-wrap.visible { display: block; }
+
+      .pw-input {
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid var(--border);
+        color: var(--text);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1rem;
+        padding: 6px 0;
+        outline: none;
+        width: 160px;
+        letter-spacing: 0.08em;
+        caret-color: var(--accent);
+        transition: border-color 0.2s;
+      }
+
+      .pw-input::placeholder {
+        color: var(--muted);
+        opacity: 0.5;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+      }
+
+      .pw-input:focus {
+        border-color: var(--muted);
+      }
+
+      .pw-input.error {
+        animation: shake 0.4s ease;
+        border-color: #c44;
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-6px); }
+        40%, 80% { transform: translateX(6px); }
+      }
+
       /* ── Detail timeline (right) ── */
       .detail {
         max-width: 420px;
@@ -373,6 +420,8 @@
           font-size: 1.1rem;
         }
 
+        .pw-wrap { margin-top: 24px; }
+
         .page.expanded {
           flex-direction: column;
           align-items: flex-start;
@@ -455,77 +504,87 @@
         </div>
 
         <a class="more-link" id="more-btn">More →</a>
+        <div class="pw-wrap" id="pw-wrap">
+          <input type="password" class="pw-input" id="pw-input" placeholder="password" autocomplete="off" spellcheck="false">
+        </div>
       </div>
 
-      <!-- Checklist -->
-      <div class="detail">
-        <div class="check-header">
-          <div class="check-item done" style="opacity:1;transform:none;">
-            <svg class="check-icon done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            <div>
-              <p class="check-date">Mar 18</p>
-              <p class="check-text">Contract with Exante Data ended</p>
-              <p class="check-sub">3m gardening leave (negotiable)</p>
-            </div>
-          </div>
-        </div>
-        <ul class="checklist">
-          <li class="check-item done">
-            <svg class="check-icon done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            <div>
-              <p class="check-date">Mar 19</p>
-              <p class="check-text">Launched <a href="https://tricksy.org/" target="_blank" rel="noopener" class="logo-inline tricksy-inline"><span class="tri">Tri</span><span class="ck">ck</span><span class="sy">sy</span></a></p>
-              <p class="check-sub">Building <span style="color:#d6aa58;font-weight:700">Lula</span>, a macro strategy game</p>
-            </div>
-          </li>
-          <li class="check-item done">
-            <svg class="check-icon done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            <div>
-              <p class="check-date">Mar 20</p>
-              <p class="check-text">Launched <a href="https://knowledge-machines.pages.dev/" target="_blank" rel="noopener" class="logo-inline km-inline"><span class="k">Knowledge</span> Machines</a></p>
-              <p class="check-sub">Building <span style="color:#6fb5ff;font-weight:700">Cuba</span>, an activity dashboard / database</p>
-            </div>
-          </li>
-          <li class="check-item done">
-            <svg class="check-icon done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            <div>
-              <p class="check-date">Mar 22</p>
-              <p class="check-text">Set up <a href="https://docs.openclaw.ai/" target="_blank" rel="noopener" style="text-decoration:none;font-weight:900;"><img src="./openclaw-logo.svg" alt="" style="height:1.2em;vertical-align:-0.25em;margin-right:2px;"><span style="color:#f4f2ec;">Open</span><span style="color:#ff4f40;">Claw</span></a> on Mac Mini</p>
-            </div>
-          </li>
-          <li class="check-item done">
-            <svg class="check-icon done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            <div>
-              <p class="check-date">Mar 24</p>
-              <p class="check-text">Launched miketrounce.com</p>
-            </div>
-          </li>
-          <li class="check-item">
-            <svg class="check-icon pending" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
-            <div>
-              <p class="check-date">In progress</p>
-              <p class="check-text">Job Search</p>
-            </div>
-          </li>
-          <li class="check-item">
-            <svg class="check-icon pending" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
-            <div>
-              <p class="check-date">In progress</p>
-              <p class="check-text">Exploring <a href="https://tempora.ai" target="_blank" rel="noopener" class="tempora-link"><img src="https://cdn.prod.website-files.com/685aebc9128d7ab260cbed69/685db7b1e548437967b5b4ea_wordmark.svg" alt="tempora" class="tempora-img"></a></p>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <!-- Checklist (decrypted at runtime) -->
+      <div class="detail" id="detail"></div>
+
+      <script id="encrypted-data" type="application/json">"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"</script>
 
     </main>
 
     <script>
-      function expand() {
-        document.getElementById('page').classList.add('expanded');
+      const page    = document.getElementById('page');
+      const moreBtn = document.getElementById('more-btn');
+      const pwWrap  = document.getElementById('pw-wrap');
+      const pwInput = document.getElementById('pw-input');
+      const detail  = document.getElementById('detail');
+
+      // Show password field
+      function showPw() {
+        moreBtn.style.display = 'none';
+        pwWrap.classList.add('visible');
+        pwInput.focus();
       }
-      document.getElementById('more-btn').addEventListener('click', expand);
+
+      // Decrypt + expand
+      async function tryDecrypt(password) {
+        try {
+          const b64  = JSON.parse(document.getElementById('encrypted-data').textContent);
+          const raw  = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+          const salt = raw.slice(0, 16);
+          const iv   = raw.slice(16, 28);
+          const tag  = raw.slice(28, 44);
+          const ct   = raw.slice(44);
+
+          // Derive key with PBKDF2
+          const enc   = new TextEncoder();
+          const keyMat = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+          const key    = await crypto.subtle.deriveKey(
+            { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+            keyMat,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['decrypt']
+          );
+
+          // AES-GCM expects ciphertext + tag concatenated
+          const combined = new Uint8Array(ct.length + tag.length);
+          combined.set(ct);
+          combined.set(tag, ct.length);
+
+          const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, combined);
+          const html  = new TextDecoder().decode(plain);
+
+          // Inject + expand
+          detail.innerHTML = html;
+          pwWrap.classList.remove('visible');
+          pwWrap.style.display = 'none';
+          page.classList.add('expanded');
+        } catch (e) {
+          // Wrong password
+          pwInput.classList.add('error');
+          pwInput.value = '';
+          setTimeout(() => pwInput.classList.remove('error'), 500);
+        }
+      }
+
+      moreBtn.addEventListener('click', showPw);
+
+      pwInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && pwInput.value) {
+          tryDecrypt(pwInput.value);
+        }
+      });
+
+      // Any key still triggers the password prompt (unless already expanded)
       document.addEventListener('keydown', function(e) {
-        if (!e.ctrlKey && !e.metaKey && !e.altKey) expand();
+        if (!e.ctrlKey && !e.metaKey && !e.altKey && !page.classList.contains('expanded')) {
+          showPw();
+        }
       }, { once: true });
     </script>
 
