@@ -1,0 +1,208 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import StatsBar from "../components/StatsBar.astro";
+import ResearchCard from "../components/ResearchCard.astro";
+import AcademyCard from "../components/AcademyCard.astro";
+import NewsletterSignup from "../components/NewsletterSignup.astro";
+import CTASection from "../components/CTASection.astro";
+
+const latestResearch = [
+  {
+    title: "Stock selection with macro factors: the case for simple neural networks",
+    date: "January 24, 2026",
+    category: "Equity Strategy",
+    excerpt: "An exploration of how simple neural network architectures can effectively combine macro-quantamental factors for systematic stock selection across global equity markets.",
+    slug: "stock-selection-neural-networks",
+    readingTime: "12 min read",
+  },
+  {
+    title: "How dollar invoicing and dollar debt shape FX risk premia",
+    date: "January 10, 2026",
+    category: "Fundamental Value",
+    excerpt: "The dominance of the US dollar in global trade invoicing and international debt creates systematic risk premia in currency markets that can be captured quantamentally.",
+    slug: "dollar-invoicing-fx-risk",
+    readingTime: "10 min read",
+  },
+  {
+    title: "Public finance pressure as a systematic trading factor",
+    date: "December 27, 2025",
+    category: "Macro Trends",
+    excerpt: "Government fiscal positions create predictable pressures on sovereign bond markets. We show how to construct a tradable factor from point-in-time public finance data.",
+    slug: "public-finance-trading-factor",
+    readingTime: "9 min read",
+  },
+];
+
+const capabilities = [
+  {
+    icon: `<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+    title: "Point-in-Time Data",
+    description: "Macroeconomic indicators timestamped to the exact moment of release. No look-ahead bias, no revisions backdated. The foundation for honest backtesting.",
+    href: "/academy/what-are-quantamental-indicators",
+  },
+  {
+    icon: `<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-8"/></svg>`,
+    title: "Systematic Strategies",
+    description: "Algorithmic trading strategies that transform real-time macro data into investment signals across FX, rates, credit, and equity markets.",
+    href: "/research",
+  },
+  {
+    icon: `<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`,
+    title: "Open Research",
+    description: "Peer-reviewed quantitative research bridging macroeconomics and finance. All methodologies transparent, all results reproducible.",
+    href: "/research",
+  },
+];
+
+const academyTopics = [
+  {
+    title: "Macro-Quantamental Indicators",
+    description: "Learn how point-in-time economic data is transformed into quantitative signals for systematic trading.",
+    href: "/academy/what-are-quantamental-indicators",
+    icon: "chart",
+    count: "12 lessons",
+  },
+  {
+    title: "Developing Trading Strategies",
+    description: "From raw macro data to backtested trading strategies. Factor construction, portfolio optimization, and risk management.",
+    href: "/academy/developing-trading-strategies",
+    icon: "code",
+    count: "8 lessons",
+  },
+  {
+    title: "Statistical Methods & ML",
+    description: "Modern statistical learning techniques applied to macro-quantamental data. Cross-validation, regularization, and neural networks.",
+    href: "/academy/statistical-methods-ml",
+    icon: "brain",
+    count: "10 lessons",
+  },
+];
+---
+
+<Base title="Macrosynergy | Macro-Quantamental Data & Trading Strategies">
+  <Hero />
+  <StatsBar />
+
+  <!-- What We Do -->
+  <section class="py-24">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent mb-4 block">What We Do</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+          From macroeconomic data<br class="hidden sm:block" /> to investment signals
+        </h2>
+        <p class="mx-auto max-w-2xl text-text-secondary text-lg">
+          We see modern statistical learning and macroeconomic research as complementary and essential for efficient, ethical, and sustainable investment management.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        {capabilities.map((cap, i) => (
+          <a href={cap.href} class={`reveal delay-${i + 1} group block`}>
+            <div class="h-full rounded-xl border border-border bg-bg-secondary p-8 card-glow transition-all">
+              <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-accent/10 border border-accent/20 text-accent mb-6 group-hover:bg-accent/20 transition-colors">
+                <Fragment set:html={cap.icon} />
+              </div>
+              <h3 class="text-lg font-semibold mb-3 group-hover:text-accent transition-colors">{cap.title}</h3>
+              <p class="text-sm text-text-secondary leading-relaxed">{cap.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Research -->
+  <section class="py-24 border-t border-border">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="flex items-end justify-between mb-12 reveal">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-accent mb-4 block">Research</span>
+          <h2 class="text-3xl font-extrabold tracking-tight">Latest Research</h2>
+        </div>
+        <a href="/research" class="hidden sm:flex items-center gap-1 text-sm text-accent font-medium hover:underline">
+          View all research
+          <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        {latestResearch.map((post, i) => (
+          <div class={`reveal delay-${i + 1}`}>
+            <ResearchCard {...post} />
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-8 text-center sm:hidden">
+        <a href="/research" class="text-sm text-accent font-medium hover:underline">View all research &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- JPMaQS Partnership -->
+  <section class="py-24 border-t border-border bg-bg-secondary/30">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mx-auto max-w-3xl text-center reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent mb-4 block">Partnership</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-6">
+          J.P. Morgan Macrosynergy<br />Quantamental System
+        </h2>
+        <p class="text-text-secondary text-lg leading-relaxed mb-8">
+          Since 2020, Macrosynergy and J.P. Morgan have collaborated to scale the quantamental data system and make tradable economics accessible to institutional investors worldwide. JPMaQS delivers point-in-time macroeconomic indicators designed for developing and backtesting systematic macro trading strategies.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-8 text-text-secondary">
+          <div class="text-center">
+            <div class="text-2xl font-bold text-accent font-mono">40+</div>
+            <div class="text-xs mt-1">Countries</div>
+          </div>
+          <div class="h-8 w-px bg-border"></div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-accent font-mono">1000+</div>
+            <div class="text-xs mt-1">Indicators</div>
+          </div>
+          <div class="h-8 w-px bg-border"></div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-accent font-mono">20yr+</div>
+            <div class="text-xs mt-1">History</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academy Preview -->
+  <section class="py-24 border-t border-border">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="flex items-end justify-between mb-12 reveal">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-accent-indigo mb-4 block">Learn</span>
+          <h2 class="text-3xl font-extrabold tracking-tight">Quantamental Academy</h2>
+          <p class="mt-3 text-text-secondary max-w-xl">
+            Master the science of macro-quantamental investing. From fundamentals to advanced statistical methods.
+          </p>
+        </div>
+        <a href="/academy" class="hidden sm:flex items-center gap-1 text-sm text-accent-indigo font-medium hover:underline">
+          Browse all topics
+          <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        {academyTopics.map((topic, i) => (
+          <div class={`reveal delay-${i + 1}`}>
+            <AcademyCard {...topic} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <NewsletterSignup />
+  <CTASection />
+</Base>

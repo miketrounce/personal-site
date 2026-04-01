@@ -1,0 +1,52 @@
+---
+interface Props {
+  title: string;
+  date: string;
+  category: string;
+  excerpt: string;
+  slug: string;
+  readingTime?: string;
+}
+
+const { title, date, category, excerpt, slug, readingTime = "8 min read" } = Astro.props;
+
+const categoryColors: Record<string, string> = {
+  "Fundamental Value": "text-accent bg-accent/10 border-accent/20",
+  "Macro Trends": "text-accent-green bg-accent-green/10 border-accent-green/20",
+  "Market Risk": "text-accent-amber bg-accent-amber/10 border-accent-amber/20",
+  "Price Distortions": "text-accent-indigo bg-accent-indigo/10 border-accent-indigo/20",
+  "Implicit Subsidies": "text-accent bg-accent/10 border-accent/20",
+  "Equity Strategy": "text-accent-green bg-accent-green/10 border-accent-green/20",
+};
+
+const colorClass = categoryColors[category] || "text-accent bg-accent/10 border-accent/20";
+---
+
+<a href={`/research/${slug}`} class="group block">
+  <article class="h-full rounded-xl border border-border bg-bg-secondary p-6 card-glow transition-all">
+    <div class="flex items-center gap-3 mb-4">
+      <span class={`inline-flex rounded-md border px-2.5 py-0.5 text-xs font-medium ${colorClass}`}>
+        {category}
+      </span>
+      <span class="text-xs text-text-secondary font-mono">{readingTime}</span>
+    </div>
+
+    <h3 class="text-lg font-semibold text-text-primary mb-3 group-hover:text-accent transition-colors leading-snug">
+      {title}
+    </h3>
+
+    <p class="text-sm text-text-secondary leading-relaxed mb-4 line-clamp-3">
+      {excerpt}
+    </p>
+
+    <div class="flex items-center justify-between text-xs text-text-secondary">
+      <time>{date}</time>
+      <span class="flex items-center gap-1 text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+        Read more
+        <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none">
+          <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </div>
+  </article>
+</a>

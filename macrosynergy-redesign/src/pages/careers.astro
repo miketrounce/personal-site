@@ -1,0 +1,164 @@
+---
+import Base from "../layouts/Base.astro";
+import CTASection from "../components/CTASection.astro";
+
+const values = [
+  {
+    icon: `<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`,
+    title: "Research-Driven",
+    accent: "accent",
+    description: "Every product decision and trading strategy is grounded in peer-reviewed research. We publish openly and hold ourselves to the highest academic standards.",
+  },
+  {
+    icon: `<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    title: "Collaborative",
+    accent: "accent-indigo",
+    description: "Small teams, flat hierarchy. Economists work side-by-side with engineers and data scientists. Your ideas matter from day one, regardless of title.",
+  },
+  {
+    icon: `<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+    title: "Impact-Focused",
+    accent: "accent-green",
+    description: "Our work shapes how institutional investors understand and trade macroeconomic risk. We build tools that make markets more transparent and efficient.",
+  },
+];
+
+const positions = [
+  {
+    title: "Quantitative Researcher",
+    location: "London",
+    type: "Full-time",
+    description: "Develop novel statistical methods for extracting tradable signals from macroeconomic data. Collaborate with economists to design and backtest systematic trading strategies across global markets.",
+    tags: ["Python", "Statistics", "Time Series", "Machine Learning"],
+  },
+  {
+    title: "Data Engineer",
+    location: "London",
+    type: "Full-time",
+    description: "Build and maintain the data pipelines that power our quantamental indicators. Ensure point-in-time integrity across 40+ countries and 1,000+ macroeconomic series with real-time processing.",
+    tags: ["Python", "SQL", "AWS", "Airflow"],
+  },
+  {
+    title: "Macro Strategist",
+    location: "London",
+    type: "Full-time",
+    description: "Research and develop macroeconomic trading strategies across FX, rates, and credit markets. Translate economic intuition into systematic, backtestable frameworks with clear risk parameters.",
+    tags: ["Macroeconomics", "Fixed Income", "FX", "Research"],
+  },
+  {
+    title: "Full-Stack Developer",
+    location: "London",
+    type: "Full-time",
+    description: "Build the web applications and internal tools that our research team and clients use daily. Work on the JPMaQS data platform interface and internal analytics dashboards.",
+    tags: ["TypeScript", "React", "Python", "PostgreSQL"],
+  },
+];
+---
+
+<Base title="Careers at Macrosynergy | Join Our Team" description="Join Macrosynergy and help build the future of macro-quantamental investing. View open positions in London.">
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden py-24 sm:py-32">
+    <div class="absolute inset-0">
+      <div class="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-accent-indigo/5 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-1/3 left-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px]"></div>
+    </div>
+    <div class="relative mx-auto max-w-4xl px-6 text-center">
+      <span class="text-xs font-semibold uppercase tracking-widest text-accent-indigo mb-4 block reveal">Careers</span>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 reveal">
+        Join Macrosynergy
+      </h1>
+      <p class="mx-auto max-w-2xl text-text-secondary text-lg sm:text-xl leading-relaxed reveal">
+        Help us build the infrastructure for the next generation of systematic macro investing. We are always looking for exceptional minds in economics, data science, and engineering.
+      </p>
+    </div>
+  </section>
+
+  <!-- Culture & Values -->
+  <section class="py-24 border-t border-border">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent-indigo mb-4 block">Culture</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+          What drives us
+        </h2>
+        <p class="mx-auto max-w-2xl text-text-secondary text-lg">
+          We are a small, focused team that values intellectual rigour, open collaboration, and real-world impact.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        {values.map((value, i) => (
+          <div class={`reveal delay-${i + 1}`}>
+            <div class="h-full rounded-xl border border-border bg-bg-secondary p-8 card-glow">
+              <div class={`flex items-center justify-center h-12 w-12 rounded-xl bg-${value.accent}/10 border border-${value.accent}/20 text-${value.accent} mb-6`}>
+                <Fragment set:html={value.icon} />
+              </div>
+              <h3 class="text-lg font-semibold mb-3">{value.title}</h3>
+              <p class="text-sm text-text-secondary leading-relaxed">{value.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Positions -->
+  <section class="py-24 border-t border-border bg-bg-secondary/30">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent mb-4 block">Open Positions</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+          Current Openings
+        </h2>
+        <p class="mx-auto max-w-2xl text-text-secondary text-lg">
+          All roles are based in our London office with flexibility for hybrid work.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {positions.map((pos, i) => (
+          <div class={`reveal delay-${Math.min(i + 1, 4)}`}>
+            <div class="group rounded-xl border border-border bg-bg-secondary p-6 sm:p-8 card-glow">
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+                <div>
+                  <h3 class="text-lg font-semibold group-hover:text-accent transition-colors">{pos.title}</h3>
+                  <div class="flex items-center gap-3 mt-2 text-sm text-text-secondary">
+                    <span class="flex items-center gap-1.5">
+                      <svg class="h-4 w-4 text-text-secondary/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                      {pos.location}
+                    </span>
+                    <span class="text-border">|</span>
+                    <span>{pos.type}</span>
+                  </div>
+                </div>
+                <a href="/contact" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-accent/10 border border-accent/20 px-4 py-2 text-sm font-medium text-accent hover:bg-accent/20 transition-colors">
+                  Apply
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+              <p class="text-sm text-text-secondary leading-relaxed mb-4">{pos.description}</p>
+              <div class="flex flex-wrap gap-2">
+                {pos.tags.map((tag) => (
+                  <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-bg-tertiary text-text-secondary border border-border">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Application CTA -->
+  <CTASection
+    title="Don't see the right role?"
+    description="We're always interested in hearing from talented researchers, engineers, and economists. Send us your CV and tell us how you'd contribute to the future of macro-quantamental investing."
+    buttonText="Get in Touch"
+    buttonHref="/contact"
+  />
+</Base>

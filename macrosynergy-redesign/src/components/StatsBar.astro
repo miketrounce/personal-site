@@ -1,0 +1,25 @@
+---
+const stats = [
+  { value: "40+", label: "Countries Tracked", suffix: "" },
+  { value: "20+", label: "Years of Data", suffix: "" },
+  { value: "6", label: "Asset Classes", suffix: "" },
+  { value: "1000+", label: "Quantamental Indicators", suffix: "" },
+];
+---
+
+<section class="border-y border-border bg-bg-secondary/30">
+  <div class="mx-auto max-w-7xl px-6 py-12">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      {stats.map((stat, i) => (
+        <div class={`reveal text-center delay-${i + 1}`}>
+          <div class="text-3xl sm:text-4xl font-extrabold text-accent font-mono tracking-tight mb-1">
+            {stat.value}
+          </div>
+          <div class="text-sm text-text-secondary font-medium">
+            {stat.label}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

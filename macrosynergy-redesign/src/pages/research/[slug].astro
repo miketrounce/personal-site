@@ -1,0 +1,114 @@
+---
+import Base from "../../layouts/Base.astro";
+import ResearchCard from "../../components/ResearchCard.astro";
+import { posts } from "../../data/research-posts";
+
+export function getStaticPaths() {
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+const categoryColors: Record<string, string> = {
+  "Fundamental Value": "text-accent bg-accent/10 border-accent/20",
+  "Macro Trends": "text-accent-green bg-accent-green/10 border-accent-green/20",
+  "Market Risk": "text-accent-amber bg-accent-amber/10 border-accent-amber/20",
+  "Price Distortions": "text-accent-indigo bg-accent-indigo/10 border-accent-indigo/20",
+  "Implicit Subsidies": "text-accent bg-accent/10 border-accent/20",
+  "Equity Strategy": "text-accent-green bg-accent-green/10 border-accent-green/20",
+};
+
+const colorClass = categoryColors[post.category] || "text-accent bg-accent/10 border-accent/20";
+
+const relatedPosts = posts
+  .filter((p) => p.slug !== post.slug)
+  .slice(0, 2);
+---
+
+<Base title={`${post.title} | Macrosynergy Research`} description={post.excerpt}>
+  <article class="py-16">
+    <div class="mx-auto max-w-7xl px-6">
+      <!-- Back link -->
+      <a
+        href="/research"
+        class="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors mb-10"
+      >
+        <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none">
+          <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to Research
+      </a>
+
+      <!-- Header -->
+      <header class="max-w-3xl mb-12 reveal">
+        <div class="flex items-center gap-3 mb-5">
+          <span class={`inline-flex rounded-md border px-2.5 py-0.5 text-xs font-medium ${colorClass}`}>
+            {post.category}
+          </span>
+          <span class="text-xs text-text-secondary font-mono">{post.readingTime}</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-tight leading-tight mb-5">
+          {post.title}
+        </h1>
+        <div class="flex items-center gap-4 text-sm text-text-secondary">
+          <time>{post.date}</time>
+          <span class="h-1 w-1 rounded-full bg-text-secondary/40"></span>
+          <span>Macrosynergy Research</span>
+        </div>
+      </header>
+
+      <!-- Gradient separator -->
+      <div class="gradient-line max-w-3xl mb-12"></div>
+
+      <!-- Article body -->
+      <div class="prose max-w-3xl reveal" set:html={post.body} />
+    </div>
+  </article>
+
+  <!-- Related Posts -->
+  <section class="py-16 border-t border-border">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent mb-3 block">Continue Reading</span>
+        <h2 class="text-2xl font-bold tracking-tight">Related Research</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        {relatedPosts.map((rp, i) => (
+          <div class={`reveal delay-${i + 1}`}>
+            <ResearchCard {...rp} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="border-t border-border bg-bg-secondary/30 py-16">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mx-auto max-w-2xl text-center reveal">
+        <h2 class="text-2xl font-bold tracking-tight mb-3">Weekly Macro Insights</h2>
+        <p class="text-text-secondary mb-8">
+          Join institutional investors and researchers receiving our latest macro-quantamental analysis.
+        </p>
+        <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input
+            type="email"
+            placeholder="you@institution.com"
+            required
+            class="flex-1 rounded-xl border border-border bg-bg-primary px-5 py-3 text-sm text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/10 transition-all"
+          />
+          <button
+            type="submit"
+            class="rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-bg-primary hover:bg-accent/90 transition-colors whitespace-nowrap"
+          >
+            Subscribe
+          </button>
+        </form>
+        <p class="text-xs text-text-secondary/60 mt-4">No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+</Base>

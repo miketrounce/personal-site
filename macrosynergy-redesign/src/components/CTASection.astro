@@ -1,0 +1,40 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  buttonHref?: string;
+}
+
+const {
+  title = "Ready to see the data?",
+  description = "Explore how macro-quantamental strategies can enhance your investment process. Request a demo of the JPMaQS platform.",
+  buttonText = "Request a Demo",
+  buttonHref = "/contact",
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden py-24">
+  <!-- Background glow -->
+  <div class="absolute inset-0">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-accent/5 rounded-full blur-[100px]"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-3xl px-6 text-center reveal">
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+      {title}
+    </h2>
+    <p class="text-text-secondary text-lg leading-relaxed mb-8">
+      {description}
+    </p>
+    <a
+      href={buttonHref}
+      class="inline-flex items-center gap-2 rounded-xl bg-accent px-8 py-4 text-base font-semibold text-bg-primary transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
+    >
+      {buttonText}
+      <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+</section>

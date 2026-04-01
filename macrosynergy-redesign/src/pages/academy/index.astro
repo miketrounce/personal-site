@@ -1,0 +1,271 @@
+---
+import Base from "../../layouts/Base.astro";
+import AcademyCard from "../../components/AcademyCard.astro";
+import CTASection from "../../components/CTASection.astro";
+
+const stages = [
+  {
+    label: "Foundations",
+    icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
+    description: "Build a solid understanding of macro-quantamental data, JPMaQS indicators, and the principles that underpin systematic macro investing.",
+    topics: 3,
+    color: "accent",
+  },
+  {
+    label: "Strategies",
+    icon: "M3 3v18h18M7 16l4-8 4 4 4-8",
+    description: "Learn to construct trading factors, develop systematic strategies, evaluate performance with scorecards, and understand the principles of value generation.",
+    topics: 4,
+    color: "accent-indigo",
+  },
+  {
+    label: "Advanced Methods",
+    icon: "M12 4a6 6 0 016 6c0 2-1 3-2 4s-2 3-2 6h-4c0-3-1-5-2-6s-2-2-2-4a6 6 0 016-6z",
+    description: "Apply statistical learning, machine learning, and engage with the latest academic research in macro-quantamental finance.",
+    topics: 2,
+    color: "accent-green",
+  },
+];
+
+const foundations = [
+  {
+    title: "What are Macro-Quantamental Indicators?",
+    description: "Understand how point-in-time macroeconomic data is transformed into quantitative signals free of look-ahead bias.",
+    href: "/academy/what-are-quantamental-indicators",
+    icon: "chart" as const,
+    count: "12 lessons",
+  },
+  {
+    title: "Quantamental Indicators on JPMaQS",
+    description: "Explore the full catalogue of indicators available through the J.P. Morgan Macrosynergy Quantamental System.",
+    href: "/academy/indicators-on-jpmaqs",
+    icon: "book" as const,
+    count: "8 lessons",
+  },
+  {
+    title: "Introductory Tutorials",
+    description: "Hands-on walkthroughs covering data retrieval, visualization, and basic signal construction with Python and the macrosynergy package.",
+    href: "/academy/introductory-tutorials",
+    icon: "code" as const,
+    count: "6 lessons",
+  },
+];
+
+const strategies = [
+  {
+    title: "Macro-Quantamental Factors",
+    description: "Learn to construct macro-quantamental factors from raw economic data and evaluate their predictive power across asset classes.",
+    href: "/academy/macro-quantamental-factors",
+    icon: "chart" as const,
+    count: "10 lessons",
+  },
+  {
+    title: "Developing Trading Strategies",
+    description: "From signal to portfolio: backtesting frameworks, position sizing, risk budgeting, and the complete strategy development lifecycle.",
+    href: "/academy/developing-trading-strategies",
+    icon: "code" as const,
+    count: "8 lessons",
+  },
+  {
+    title: "Macro-Quantamental Scorecards",
+    description: "Evaluate and compare strategy performance using standardized scorecards, Sharpe ratios, drawdown analysis, and attribution metrics.",
+    href: "/academy/macro-quantamental-scorecards",
+    icon: "book" as const,
+    count: "7 lessons",
+  },
+  {
+    title: "Principles of Value Generation",
+    description: "Understand the economic logic that gives macro-quantamental strategies a persistent edge over purely statistical approaches.",
+    href: "/academy/value-generation",
+    icon: "brain" as const,
+    count: "6 lessons",
+  },
+];
+
+const advanced = [
+  {
+    title: "Statistical Methods & Machine Learning",
+    description: "Cross-validation for panel data, regularization techniques, neural networks, and ensemble methods applied to macro signals.",
+    href: "/academy/statistical-methods-ml",
+    icon: "brain" as const,
+    count: "10 lessons",
+  },
+  {
+    title: "Academic Cooperation",
+    description: "Collaborative research programs, published papers, and ongoing partnerships with leading academic institutions worldwide.",
+    href: "/academy/academic-cooperation",
+    icon: "book" as const,
+    count: "5 lessons",
+  },
+];
+---
+
+<Base title="Quantamental Academy | Macrosynergy" description="Master macro-quantamental investing. From foundational concepts to advanced statistical methods and systematic trading strategies.">
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden py-24 sm:py-32">
+    <div class="absolute inset-0">
+      <div class="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-accent-indigo/5 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="mx-auto max-w-3xl text-center reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent-indigo mb-4 block">Learn</span>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
+          Quantamental<br />Academy
+        </h1>
+        <p class="text-lg sm:text-xl text-text-secondary leading-relaxed max-w-2xl mx-auto">
+          A structured curriculum for mastering macro-quantamental investing. From the fundamentals of point-in-time data to advanced machine learning strategies.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Learning Path -->
+  <section class="py-20 border-t border-border">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent-indigo mb-4 block">Curriculum</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">Learning Path</h2>
+        <p class="mx-auto max-w-2xl text-text-secondary text-lg">
+          Progress through three stages, each building on the concepts and skills from the last.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-0 items-stretch reveal">
+        {stages.map((stage, i) => (
+          <div class="relative flex">
+            {/* Connector line */}
+            {i < stages.length - 1 && (
+              <div class="hidden md:block absolute top-1/2 -right-px w-8 z-10">
+                <div class="h-px bg-gradient-to-r from-border-glow to-border"></div>
+                <svg class="absolute -right-1.5 -top-1.5 h-3 w-3 text-text-secondary" viewBox="0 0 12 12" fill="currentColor">
+                  <path d="M2 6l8-4v8z"/>
+                </svg>
+              </div>
+            )}
+
+            <div class={`flex-1 rounded-xl border border-border bg-bg-secondary p-8 ${i < stages.length - 1 ? 'md:mr-4' : ''} ${i > 0 ? 'md:ml-4' : ''}`}>
+              <div class="flex items-center gap-3 mb-4">
+                <div class={`flex items-center justify-center h-10 w-10 rounded-lg bg-${stage.color}/10 border border-${stage.color}/20`}>
+                  <svg class={`h-5 w-5 text-${stage.color}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d={stage.icon}/>
+                  </svg>
+                </div>
+                <span class={`text-xs font-mono font-medium text-${stage.color}`}>Stage {i + 1}</span>
+              </div>
+              <h3 class="text-xl font-bold mb-3">{stage.label}</h3>
+              <p class="text-sm text-text-secondary leading-relaxed mb-4">{stage.description}</p>
+              <div class="flex items-center gap-2 text-xs text-text-secondary font-mono">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 6h12M4 10h12M4 14h8"/>
+                </svg>
+                {stage.topics} topics
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Mobile connector -->
+      <div class="flex md:hidden justify-center my-2">
+        <div class="h-8 w-px bg-gradient-to-b from-border-glow to-border"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Macro-Quantamental Indicators -->
+  <section class="py-20 border-t border-border" id="foundations">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-12 reveal">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="flex items-center justify-center h-8 w-8 rounded-lg bg-accent/10 border border-accent/20">
+            <svg class="h-4 w-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </div>
+          <span class="text-xs font-mono font-medium text-accent">Stage 1 &middot; Foundations</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3">Macro-Quantamental Indicators</h2>
+        <p class="text-text-secondary max-w-2xl">
+          Learn what macro-quantamental indicators are, how they are constructed, and how to access them through JPMaQS.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {foundations.map((topic, i) => (
+          <div class={`reveal delay-${i + 1}`}>
+            <AcademyCard {...topic} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Developing Trading Strategies -->
+  <section class="py-20 border-t border-border bg-bg-secondary/30" id="strategies">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-12 reveal">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="flex items-center justify-center h-8 w-8 rounded-lg bg-accent-indigo/10 border border-accent-indigo/20">
+            <svg class="h-4 w-4 text-accent-indigo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v18h18M7 16l4-8 4 4 4-8"/>
+            </svg>
+          </div>
+          <span class="text-xs font-mono font-medium text-accent-indigo">Stage 2 &middot; Strategies</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3">Developing Trading Strategies</h2>
+        <p class="text-text-secondary max-w-2xl">
+          Transform quantamental indicators into systematic trading strategies. Factor construction, portfolio optimization, performance evaluation, and the economic logic behind value generation.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {strategies.map((topic, i) => (
+          <div class={`reveal delay-${i + 1}`}>
+            <AcademyCard {...topic} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Advanced Methods -->
+  <section class="py-20 border-t border-border" id="advanced">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-12 reveal">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="flex items-center justify-center h-8 w-8 rounded-lg bg-accent-green/10 border border-accent-green/20">
+            <svg class="h-4 w-4 text-accent-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 4a6 6 0 016 6c0 2-1 3-2 4s-2 3-2 6h-4c0-3-1-5-2-6s-2-2-2-4a6 6 0 016-6z"/>
+            </svg>
+          </div>
+          <span class="text-xs font-mono font-medium text-accent-green">Stage 3 &middot; Advanced</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3">Advanced Methods</h2>
+        <p class="text-text-secondary max-w-2xl">
+          Push the frontier with statistical learning, machine learning techniques, and insights from academic partnerships.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-3xl">
+        {advanced.map((topic, i) => (
+          <div class={`reveal delay-${i + 1}`}>
+            <AcademyCard {...topic} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="border-t border-border">
+    <CTASection
+      title="Explore the Handbook"
+      description="Dive deeper into macro-quantamental concepts with the comprehensive Macro-Quantamental Handbook -- the definitive reference for systematic macro investing."
+      buttonText="Read the Handbook"
+      buttonHref="/research"
+    />
+  </div>
+</Base>

@@ -1,0 +1,208 @@
+---
+import Base from "../../layouts/Base.astro";
+import ResearchCard from "../../components/ResearchCard.astro";
+
+const categories = [
+  "All",
+  "Fundamental Value",
+  "Macro Trends",
+  "Market Risk",
+  "Implicit Subsidies",
+  "Price Distortions",
+  "Equity Strategy",
+];
+
+const posts = [
+  {
+    title: "Stock selection with macro factors: the case for simple neural networks",
+    date: "January 24, 2026",
+    category: "Equity Strategy",
+    excerpt:
+      "An exploration of how simple neural network architectures can effectively combine macro-quantamental factors for systematic stock selection across global equity markets.",
+    slug: "stock-selection-neural-networks",
+    readingTime: "12 min read",
+  },
+  {
+    title: "How dollar invoicing and dollar debt shape FX risk premia",
+    date: "January 10, 2026",
+    category: "Fundamental Value",
+    excerpt:
+      "The dominance of the US dollar in global trade invoicing and international debt creates systematic risk premia in currency markets that can be captured quantamentally.",
+    slug: "dollar-invoicing-fx-risk",
+    readingTime: "10 min read",
+  },
+  {
+    title: "Public finance pressure as a systematic trading factor",
+    date: "December 27, 2025",
+    category: "Macro Trends",
+    excerpt:
+      "Government fiscal positions create predictable pressures on sovereign bond markets. We show how to construct a tradable factor from point-in-time public finance data.",
+    slug: "public-finance-trading-factor",
+    readingTime: "9 min read",
+  },
+  {
+    title: "Alpha through equity-versus-FX trading",
+    date: "December 13, 2025",
+    category: "Equity Strategy",
+    excerpt:
+      "Cross-asset relative value strategies that exploit the divergent responses of equity and currency markets to macroeconomic information offer a distinct source of uncorrelated alpha.",
+    slug: "alpha-equity-vs-fx",
+    readingTime: "11 min read",
+  },
+  {
+    title: "Systematic stock selection with macro factors",
+    date: "November 29, 2025",
+    category: "Equity Strategy",
+    excerpt:
+      "A framework for integrating macroeconomic indicators into equity selection models. We demonstrate how point-in-time macro data enhances cross-sectional return forecasts.",
+    slug: "systematic-stock-selection-macro",
+    readingTime: "14 min read",
+  },
+  {
+    title: "Macro scorecards for local-currency EM bonds",
+    date: "November 8, 2025",
+    category: "Fundamental Value",
+    excerpt:
+      "Composite macro indicators tailored to emerging market sovereign debt help identify value and risk in local-currency bond portfolios across 20+ developing economies.",
+    slug: "macro-scorecards-em-bonds",
+    readingTime: "10 min read",
+  },
+];
+---
+
+<Base title="Research | Macrosynergy" description="Macro-quantamental research spanning fundamental value, macro trends, equity strategy, and systematic trading.">
+  <!-- Hero -->
+  <section class="pt-20 pb-12 border-b border-border">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="max-w-3xl reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent mb-4 block">Research</span>
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-5">
+          Macro-Quantamental Research
+        </h1>
+        <p class="text-lg text-text-secondary leading-relaxed max-w-2xl">
+          Peer-reviewed quantitative research bridging macroeconomics and finance. All methodologies are transparent, all results reproducible.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filters + Grid -->
+  <section class="py-16">
+    <div class="mx-auto max-w-7xl px-6">
+      <!-- Filter Tabs -->
+      <div class="mb-12 reveal">
+        <div class="flex flex-wrap gap-2" id="category-filters">
+          {categories.map((cat) => (
+            <button
+              data-category={cat}
+              class:list={[
+                "filter-tab rounded-lg border px-4 py-2 text-sm font-medium transition-all cursor-pointer",
+                cat === "All"
+                  ? "border-accent/40 bg-accent/10 text-accent"
+                  : "border-border bg-bg-secondary text-text-secondary hover:border-border-glow hover:text-text-primary",
+              ]}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Research Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="research-grid">
+        {posts.map((post, i) => (
+          <div class={`reveal delay-${Math.min(i + 1, 5)} research-item`} data-category={post.category}>
+            <ResearchCard {...post} />
+          </div>
+        ))}
+      </div>
+
+      <!-- Empty state -->
+      <div id="empty-state" class="hidden py-24 text-center">
+        <p class="text-text-secondary text-lg">No research posts in this category yet.</p>
+        <button id="reset-filter" class="mt-4 text-sm text-accent hover:underline cursor-pointer">
+          View all research
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="border-t border-border bg-bg-secondary/30 py-16">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mx-auto max-w-2xl text-center reveal">
+        <h2 class="text-2xl font-bold tracking-tight mb-3">Stay Updated</h2>
+        <p class="text-text-secondary mb-8">
+          Receive our latest macro-quantamental research directly in your inbox.
+        </p>
+        <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input
+            type="email"
+            placeholder="you@institution.com"
+            required
+            class="flex-1 rounded-xl border border-border bg-bg-primary px-5 py-3 text-sm text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/10 transition-all"
+          />
+          <button
+            type="submit"
+            class="rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-bg-primary hover:bg-accent/90 transition-colors whitespace-nowrap"
+          >
+            Subscribe
+          </button>
+        </form>
+        <p class="text-xs text-text-secondary/60 mt-4">No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const filters = document.getElementById("category-filters");
+  const grid = document.getElementById("research-grid");
+  const emptyState = document.getElementById("empty-state");
+  const resetBtn = document.getElementById("reset-filter");
+
+  function setActiveFilter(category: string) {
+    // Update button styles
+    filters?.querySelectorAll(".filter-tab").forEach((btn) => {
+      const el = btn as HTMLElement;
+      const cat = el.dataset.category;
+      if (cat === category) {
+        el.className =
+          "filter-tab rounded-lg border px-4 py-2 text-sm font-medium transition-all cursor-pointer border-accent/40 bg-accent/10 text-accent";
+      } else {
+        el.className =
+          "filter-tab rounded-lg border px-4 py-2 text-sm font-medium transition-all cursor-pointer border-border bg-bg-secondary text-text-secondary hover:border-border-glow hover:text-text-primary";
+      }
+    });
+
+    // Filter cards
+    const items = grid?.querySelectorAll(".research-item") as NodeListOf<HTMLElement>;
+    let visibleCount = 0;
+
+    items?.forEach((item) => {
+      if (category === "All" || item.dataset.category === category) {
+        item.style.display = "";
+        visibleCount++;
+      } else {
+        item.style.display = "none";
+      }
+    });
+
+    // Toggle empty state
+    if (emptyState) {
+      emptyState.classList.toggle("hidden", visibleCount > 0);
+    }
+    if (grid) {
+      grid.classList.toggle("hidden", visibleCount === 0);
+    }
+  }
+
+  filters?.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest(".filter-tab") as HTMLElement;
+    if (btn?.dataset.category) {
+      setActiveFilter(btn.dataset.category);
+    }
+  });
+
+  resetBtn?.addEventListener("click", () => setActiveFilter("All"));
+</script>

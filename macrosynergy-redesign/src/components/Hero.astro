@@ -1,0 +1,120 @@
+---
+---
+
+<section class="relative overflow-hidden py-24 sm:py-32 lg:py-40">
+  <!-- Background data visualization -->
+  <div class="absolute inset-0 overflow-hidden">
+    <!-- Grid lines -->
+    <svg class="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)" class="text-accent"/>
+    </svg>
+
+    <!-- Animated chart lines -->
+    <svg class="absolute bottom-0 left-0 right-0 h-[60%] opacity-20" viewBox="0 0 1200 400" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="line1-grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#22d3ee" stop-opacity="0"/>
+          <stop offset="30%" stop-color="#22d3ee" stop-opacity="1"/>
+          <stop offset="70%" stop-color="#22d3ee" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="line2-grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#6366f1" stop-opacity="0"/>
+          <stop offset="40%" stop-color="#6366f1" stop-opacity="0.8"/>
+          <stop offset="60%" stop-color="#6366f1" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="line3-grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#34d399" stop-opacity="0"/>
+          <stop offset="20%" stop-color="#34d399" stop-opacity="0.6"/>
+          <stop offset="80%" stop-color="#34d399" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#34d399" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="area1-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <!-- Area fill -->
+      <path d="M0 350 Q100 320 200 280 T400 220 T600 200 T800 160 T1000 120 T1200 100 L1200 400 L0 400 Z" fill="url(#area1-grad)">
+        <animate attributeName="d" dur="8s" repeatCount="indefinite" values="
+          M0 350 Q100 320 200 280 T400 220 T600 200 T800 160 T1000 120 T1200 100 L1200 400 L0 400 Z;
+          M0 340 Q100 310 200 290 T400 210 T600 220 T800 150 T1000 130 T1200 90 L1200 400 L0 400 Z;
+          M0 350 Q100 320 200 280 T400 220 T600 200 T800 160 T1000 120 T1200 100 L1200 400 L0 400 Z
+        "/>
+      </path>
+      <!-- Line 1: cyan -->
+      <path d="M0 350 Q100 320 200 280 T400 220 T600 200 T800 160 T1000 120 T1200 100" fill="none" stroke="url(#line1-grad)" stroke-width="2">
+        <animate attributeName="d" dur="8s" repeatCount="indefinite" values="
+          M0 350 Q100 320 200 280 T400 220 T600 200 T800 160 T1000 120 T1200 100;
+          M0 340 Q100 310 200 290 T400 210 T600 220 T800 150 T1000 130 T1200 90;
+          M0 350 Q100 320 200 280 T400 220 T600 200 T800 160 T1000 120 T1200 100
+        "/>
+      </path>
+      <!-- Line 2: indigo -->
+      <path d="M0 300 Q150 280 300 260 T600 240 T900 200 T1200 180" fill="none" stroke="url(#line2-grad)" stroke-width="1.5">
+        <animate attributeName="d" dur="10s" repeatCount="indefinite" values="
+          M0 300 Q150 280 300 260 T600 240 T900 200 T1200 180;
+          M0 310 Q150 270 300 270 T600 230 T900 210 T1200 170;
+          M0 300 Q150 280 300 260 T600 240 T900 200 T1200 180
+        "/>
+      </path>
+      <!-- Line 3: green -->
+      <path d="M0 380 Q200 360 400 340 T800 300 T1200 260" fill="none" stroke="url(#line3-grad)" stroke-width="1">
+        <animate attributeName="d" dur="12s" repeatCount="indefinite" values="
+          M0 380 Q200 360 400 340 T800 300 T1200 260;
+          M0 370 Q200 370 400 330 T800 310 T1200 250;
+          M0 380 Q200 360 400 340 T800 300 T1200 260
+        "/>
+      </path>
+    </svg>
+
+    <!-- Radial glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/5 rounded-full blur-[120px]"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative mx-auto max-w-7xl px-6 text-center">
+    <div class="animate-fade-in-up">
+      <span class="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-xs font-medium text-accent mb-8">
+        <span class="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-glow"></span>
+        In partnership with J.P. Morgan
+      </span>
+    </div>
+
+    <h1 class="animate-fade-in-up delay-1 text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight mb-6">
+      Macro data,
+      <br />
+      <span class="bg-gradient-to-r from-accent via-accent-indigo to-accent-green bg-clip-text text-transparent">
+        tradable signals
+      </span>
+    </h1>
+
+    <p class="animate-fade-in-up delay-2 mx-auto max-w-2xl text-lg sm:text-xl text-text-secondary leading-relaxed mb-10">
+      We transform real-time macroeconomic data across 40 countries into systematic investment strategies. Point-in-time, backtestable, institutional-grade.
+    </p>
+
+    <div class="animate-fade-in-up delay-3 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        href="/contact"
+        class="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-sm font-semibold text-bg-primary transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
+      >
+        Request a Demo
+        <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a
+        href="/research"
+        class="inline-flex items-center gap-2 rounded-xl border border-border px-6 py-3.5 text-sm font-semibold text-text-primary transition-all hover:border-accent/30 hover:bg-bg-tertiary"
+      >
+        Explore Research
+      </a>
+    </div>
+  </div>
+</section>

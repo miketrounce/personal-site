@@ -1,0 +1,237 @@
+---
+import Base from "../layouts/Base.astro";
+import CTASection from "../components/CTASection.astro";
+
+const team = [
+  {
+    name: "Ralph Sueppel",
+    title: "Managing Partner",
+    initials: "RS",
+    bio: "Ralph founded Macrosynergy in 2004 after two decades in macro research and portfolio management at leading investment banks. He pioneered the quantamental approach to systematic macro trading.",
+  },
+  {
+    name: "Elena Vasquez",
+    title: "Head of Quantitative Research",
+    initials: "EV",
+    bio: "Elena leads the quantitative research team, developing novel statistical methods for extracting tradable signals from macroeconomic data. Previously a senior researcher at the Bank of England.",
+  },
+  {
+    name: "James Chen",
+    title: "Chief Technology Officer",
+    initials: "JC",
+    bio: "James oversees the engineering of Macrosynergy's data infrastructure and quantamental computing platform. He joined from J.P. Morgan's quantitative strategies group in 2018.",
+  },
+];
+
+const timeline = [
+  {
+    year: "2004",
+    title: "Founded",
+    description: "Macrosynergy established in London with a mission to bridge macroeconomic research and systematic investing.",
+  },
+  {
+    year: "2008",
+    title: "Survived GFC",
+    description: "Applied macro risk management frameworks through the Global Financial Crisis, validating the quantamental approach under extreme market stress.",
+  },
+  {
+    year: "2015",
+    title: "Quantamental System Launched",
+    description: "Proprietary quantamental computing platform goes live, enabling real-time processing of macroeconomic data into point-in-time indicators.",
+  },
+  {
+    year: "2020",
+    title: "J.P. Morgan Partnership",
+    description: "Strategic partnership with J.P. Morgan begins, making quantamental data accessible to institutional investors worldwide through JPMaQS.",
+  },
+  {
+    year: "2024",
+    title: "Global Scale",
+    description: "Over 1,000 indicators spanning 40+ countries, powering systematic macro strategies for institutions across the globe.",
+  },
+];
+
+const steps = [
+  {
+    icon: `<svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>`,
+    title: "Data Collection",
+    description: "Point-in-time macroeconomic data from central banks, statistical agencies, and markets across 40+ countries.",
+  },
+  {
+    icon: `<svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6V2H8"/><path d="m8 18-4 4V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z"/><path d="M10 12h4"/><path d="M12 10v4"/></svg>`,
+    title: "Quantamental Processing",
+    description: "Proprietary algorithms transform raw data into bias-free, research-grade indicators with full point-in-time integrity.",
+  },
+  {
+    icon: `<svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-8"/></svg>`,
+    title: "Trading Signals",
+    description: "Systematic strategies translate macro indicators into actionable signals across FX, rates, credit, and equity markets.",
+  },
+];
+---
+
+<Base title="About Macrosynergy | Our Story & Team" description="Learn about Macrosynergy's mission to bridge macroeconomic research and systematic investing. Meet the team behind macro-quantamental data.">
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden py-24 sm:py-32">
+    <div class="absolute inset-0">
+      <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent-indigo/5 rounded-full blur-[100px]"></div>
+    </div>
+    <div class="relative mx-auto max-w-4xl px-6 text-center">
+      <span class="text-xs font-semibold uppercase tracking-widest text-accent mb-4 block reveal">About Us</span>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 reveal">
+        About Macrosynergy
+      </h1>
+      <p class="mx-auto max-w-2xl text-text-secondary text-lg sm:text-xl leading-relaxed reveal">
+        We are a London-based research firm pioneering the intersection of macroeconomic analysis and quantitative finance. Our mission: making tradable economics accessible, transparent, and rigorous.
+      </p>
+    </div>
+  </section>
+
+  <!-- Our Approach -->
+  <section class="py-24 border-t border-border">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent mb-4 block">Our Approach</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+          From raw data to investment signals
+        </h2>
+        <p class="mx-auto max-w-2xl text-text-secondary text-lg">
+          A systematic three-stage pipeline that transforms macroeconomic information into actionable trading strategies.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-0 items-start">
+        {steps.map((step, i) => (
+          <div class={`reveal delay-${i + 1} relative flex flex-col items-center text-center px-8`}>
+            {/* Connecting arrow (between steps) */}
+            {i < steps.length - 1 && (
+              <div class="hidden md:block absolute top-10 right-0 translate-x-1/2 z-10">
+                <svg class="h-6 w-12 text-accent/40" viewBox="0 0 48 24" fill="none">
+                  <path d="M0 12h40M34 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            )}
+
+            {/* Step number */}
+            <div class="flex items-center justify-center h-5 w-5 rounded-full bg-accent/20 text-accent text-xs font-bold font-mono mb-4">
+              {i + 1}
+            </div>
+
+            {/* Icon */}
+            <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-accent/10 border border-accent/20 text-accent mb-6">
+              <Fragment set:html={step.icon} />
+            </div>
+
+            <h3 class="text-lg font-semibold mb-3">{step.title}</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">{step.description}</p>
+
+            {/* Mobile arrow */}
+            {i < steps.length - 1 && (
+              <div class="md:hidden my-6">
+                <svg class="h-8 w-6 text-accent/40 mx-auto" viewBox="0 0 24 32" fill="none">
+                  <path d="M12 0v24M6 18l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Purpose -->
+  <section class="py-24 border-t border-border bg-bg-secondary/30">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent-indigo mb-4 block">Our Purpose</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-8">
+          Bridging macroeconomics<br class="hidden sm:block" /> and systematic investing
+        </h2>
+        <div class="space-y-6 text-text-secondary text-lg leading-relaxed">
+          <p>
+            Macrosynergy was founded on a simple but powerful conviction: that macroeconomic fundamentals drive asset prices over the medium term, and that this relationship can be captured systematically.
+          </p>
+          <p>
+            We believe modern statistical learning and macroeconomic research are complementary and essential for efficient, ethical, and sustainable investment management. Our quantamental approach combines the rigour of quantitative analysis with the depth of fundamental economic research.
+          </p>
+          <p>
+            Through our partnership with J.P. Morgan, we make this research accessible to institutional investors worldwide, democratising access to macro-quantamental data and strategies that were once the preserve of a few specialist firms.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership -->
+  <section class="py-24 border-t border-border">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent mb-4 block">Leadership</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+          Our Team
+        </h2>
+        <p class="mx-auto max-w-2xl text-text-secondary text-lg">
+          A multidisciplinary team of economists, quantitative researchers, and engineers united by a passion for macro-quantamental investing.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        {team.map((member, i) => (
+          <div class={`reveal delay-${i + 1}`}>
+            <div class="h-full rounded-xl border border-border bg-bg-secondary p-8 card-glow text-center">
+              {/* Initials avatar */}
+              <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-accent/20 to-accent-indigo/20 border border-accent/20 mb-6">
+                <span class="text-2xl font-bold text-accent font-mono">{member.initials}</span>
+              </div>
+              <h3 class="text-lg font-semibold mb-1">{member.name}</h3>
+              <p class="text-sm text-accent mb-4">{member.title}</p>
+              <p class="text-sm text-text-secondary leading-relaxed">{member.bio}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="py-24 border-t border-border bg-bg-secondary/30">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent-green mb-4 block">History</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+          Our Journey
+        </h2>
+      </div>
+
+      <div class="relative">
+        {/* Vertical line */}
+        <div class="absolute left-4 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-px bg-border"></div>
+
+        <div class="space-y-12">
+          {timeline.map((event, i) => (
+            <div class={`reveal delay-${Math.min(i + 1, 5)} relative flex items-start gap-8 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+              {/* Dot */}
+              <div class="absolute left-4 md:left-1/2 -translate-x-1/2 mt-1.5">
+                <div class="h-3 w-3 rounded-full bg-accent border-2 border-bg-primary"></div>
+              </div>
+
+              {/* Content */}
+              <div class={`ml-12 md:ml-0 md:w-1/2 ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
+                <span class="text-sm font-bold text-accent font-mono">{event.year}</span>
+                <h3 class="text-lg font-semibold mt-1 mb-2">{event.title}</h3>
+                <p class="text-sm text-text-secondary leading-relaxed">{event.description}</p>
+              </div>
+
+              {/* Spacer for alternating layout */}
+              <div class="hidden md:block md:w-1/2"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Base>
