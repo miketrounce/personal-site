@@ -1,0 +1,654 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Key Terms Quiz | Macrosynergy">
+  <div class="min-h-screen py-16 px-4 sm:px-6">
+    <div id="quiz-app" class="max-w-2xl mx-auto"></div>
+  </div>
+
+  <style is:global>
+    /* ── Progress bar ── */
+    .quiz-progress-wrap {
+      position: sticky;
+      top: 64px;
+      z-index: 10;
+      background: linear-gradient(180deg, var(--color-bg-primary), rgba(10, 15, 26, 0.95));
+      padding: 16px 0 12px;
+      margin-bottom: 32px;
+    }
+
+    .quiz-progress-bar {
+      height: 4px;
+      border-radius: 2px;
+      background: var(--color-border);
+      overflow: hidden;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      background: var(--color-accent);
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .quiz-progress-text {
+      font-size: 0.78rem;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-top: 8px;
+      text-align: right;
+    }
+
+    /* ── Question card ── */
+    .quiz-card {
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      background: var(--color-bg-secondary);
+      padding: 36px 32px;
+      animation: quizFadeIn 0.35s ease;
+    }
+
+    @keyframes quizFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .quiz-eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+      color: var(--color-accent);
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+
+    .quiz-question {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      line-height: 1.5;
+      margin: 0 0 28px;
+    }
+
+    /* ── Answer options ── */
+    .quiz-options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .quiz-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 14px 18px;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-primary);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+      font-family: var(--font-sans);
+    }
+
+    .quiz-option:hover:not(.quiz-locked) {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 16px rgba(34, 211, 238, 0.1);
+      background: rgba(34, 211, 238, 0.04);
+    }
+
+    .quiz-option.quiz-correct {
+      border-color: var(--color-accent-green) !important;
+      background: rgba(52, 211, 153, 0.12) !important;
+      opacity: 1 !important;
+    }
+
+    .quiz-option.quiz-wrong {
+      border-color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.1) !important;
+      opacity: 1 !important;
+    }
+
+    .quiz-option.quiz-locked {
+      cursor: default;
+      opacity: 0.4;
+    }
+
+    /* ── Feedback ── */
+    .quiz-feedback {
+      margin-top: 20px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--color-text-primary);
+      display: none;
+    }
+
+    .quiz-feedback.quiz-fb-correct {
+      background: rgba(52, 211, 153, 0.08);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      display: block;
+    }
+
+    .quiz-feedback.quiz-fb-wrong {
+      background: rgba(239, 68, 68, 0.06);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      display: block;
+    }
+
+    .quiz-fb-label {
+      font-weight: 800;
+      margin: 0 0 4px;
+    }
+
+    .quiz-fb-body {
+      margin: 0;
+      color: var(--color-text-secondary);
+    }
+
+    .quiz-fb-correct .quiz-fb-label { color: var(--color-accent-green); }
+    .quiz-fb-wrong .quiz-fb-label { color: #ef4444; }
+
+    /* ── Next button ── */
+    .quiz-next {
+      display: none;
+      margin-top: 24px;
+      padding: 11px 26px;
+      border-radius: 999px;
+      border: 1px solid var(--color-accent);
+      background: transparent;
+      color: var(--color-accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      font-family: var(--font-sans);
+    }
+
+    .quiz-next:hover {
+      background: var(--color-accent);
+      color: var(--color-bg-primary);
+    }
+
+    .quiz-next.quiz-visible {
+      display: inline-block;
+    }
+
+    /* ── Results ── */
+    .quiz-results {
+      text-align: center;
+      animation: quizFadeIn 0.5s ease;
+    }
+
+    .quiz-ring-wrap {
+      width: 180px;
+      height: 180px;
+      margin: 36px auto;
+      position: relative;
+    }
+
+    .quiz-ring-wrap svg {
+      transform: rotate(-90deg);
+    }
+
+    .quiz-ring-bg {
+      fill: none;
+      stroke: var(--color-border);
+      stroke-width: 8;
+    }
+
+    .quiz-ring-fill {
+      fill: none;
+      stroke: var(--color-accent);
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 440;
+      stroke-dashoffset: 440;
+      transition: stroke-dashoffset 1.2s ease;
+    }
+
+    .quiz-ring-pct {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--color-text-primary);
+    }
+
+    .quiz-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin: 28px 0 40px;
+    }
+
+    .quiz-breakdown-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--color-text-primary);
+    }
+
+    .quiz-breakdown-label {
+      font-size: 0.72rem;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .quiz-retry {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 36px;
+      border-radius: 999px;
+      border: none;
+      background: var(--color-accent);
+      color: var(--color-bg-primary);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      font-family: var(--font-sans);
+    }
+
+    .quiz-retry:hover {
+      opacity: 0.85;
+    }
+
+    .quiz-verdict {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      max-width: 420px;
+      margin: 0 auto 32px;
+      line-height: 1.65;
+    }
+
+    .quiz-header-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      margin: 0 0 6px;
+    }
+
+    .quiz-header-sub {
+      font-size: 0.92rem;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .quiz-card { padding: 24px 18px; }
+      .quiz-question { font-size: 1.05rem; }
+      .quiz-option { padding: 12px 14px; font-size: 0.9rem; }
+      .quiz-header-title { font-size: 1.7rem; }
+    }
+  </style>
+
+  <script>
+    const QUESTIONS = [
+      {
+        q: "What is Macro Information Efficiency?",
+        type: "mc",
+        options: [
+          "Public information on the economy and key sectors relevant for pricing assets and derivatives",
+          "The speed at which central banks publish monetary policy decisions",
+          "A measure of how quickly hedge funds execute macro trades",
+          "The ratio of public to private economic data available to investors"
+        ],
+        answer: 0,
+        explain: "Macro Information Efficiency refers to public information on the economy and its key sectors that is relevant for the pricing of assets and derivatives, including economic data, balance sheets, financial market data, social/political developments, and environmental trends."
+      },
+      {
+        q: "Which of the following is NOT part of Macro Information Efficiency?",
+        type: "mc",
+        options: [
+          "Government and corporate balance sheets",
+          "Social and political developments",
+          "Proprietary algorithmic trading signals",
+          "Environmental and weather trends"
+        ],
+        answer: 2,
+        explain: "Macro Information Efficiency concerns public information. Proprietary trading signals are private, not public."
+      },
+      {
+        q: "Macro Information Efficiency includes financial market data such as turnover and open interest.",
+        type: "tf",
+        options: ["True", "False"],
+        answer: 0,
+        explain: "Correct. The definition explicitly includes financial market data such as turnover and open interest alongside economic data, balance sheets, and other public information."
+      },
+      {
+        q: "Which types of data fall within the scope of Macro Information Efficiency?",
+        type: "mc",
+        options: [
+          "Growth, inflation, and confidence data",
+          "Insider trading reports from company executives",
+          "Private fund performance data",
+          "Classified government intelligence"
+        ],
+        answer: 0,
+        explain: "Macro Information Efficiency encompasses public economic data including growth, inflation, confidence indicators, and similar publicly available information."
+      },
+      {
+        q: "What defines the information efficiency of an asset market?",
+        type: "mc",
+        options: [
+          "The extent to which the price of the asset reflects available information",
+          "How quickly trades are executed on an exchange",
+          "The number of market participants trading that asset",
+          "The spread between the bid and ask price"
+        ],
+        answer: 0,
+        explain: "The information efficiency of an asset market is defined as the extent to which the price of the asset reflects available information."
+      },
+      {
+        q: "A market where prices fully incorporate all available information would be considered:",
+        type: "mc",
+        options: [
+          "Perfectly information efficient",
+          "Structurally liquid",
+          "Operationally transparent",
+          "Fundamentally overvalued"
+        ],
+        answer: 0,
+        explain: "When prices fully reflect all available information, the market is considered perfectly information efficient. In practice, most markets fall short of this ideal."
+      },
+      {
+        q: "Information efficiency is purely about the speed of trade execution.",
+        type: "tf",
+        options: ["True", "False"],
+        answer: 1,
+        explain: "False. Information efficiency is about how well prices reflect available information, not about execution speed."
+      },
+      {
+        q: "What are the principal obstacles to macro information efficiency?",
+        type: "mc",
+        options: [
+          "Costs, trading restrictions, and external effects",
+          "Excessive regulation and too much transparency",
+          "Lack of economic data and government secrecy",
+          "High-frequency trading and AI dominance"
+        ],
+        answer: 0,
+        explain: "The principal obstacles to information efficiency are costs, trading restrictions, and external effects."
+      },
+      {
+        q: "Which of the following is one of the three principal obstacles to market information efficiency?",
+        type: "mc",
+        options: [
+          "External effects",
+          "Excessive market liquidity",
+          "Too many well-informed participants",
+          "Over-reliance on fundamental analysis"
+        ],
+        answer: 0,
+        explain: "The three principal obstacles are costs, trading restrictions, and external effects."
+      },
+      {
+        q: "Markets fail to achieve macro information efficiency solely because of a lack of data availability.",
+        type: "tf",
+        options: ["True", "False"],
+        answer: 1,
+        explain: "False. The obstacles are costs, trading restrictions, and external effects, not a lack of data. Much of the relevant macro information is publicly available but not efficiently priced in."
+      },
+      {
+        q: "Trading restrictions are an obstacle to information efficiency because they:",
+        type: "mc",
+        options: [
+          "Prevent market participants from acting on available information",
+          "Force traders to use only fundamental analysis",
+          "Increase the amount of public data available",
+          "Reduce the number of economic indicators published"
+        ],
+        answer: 0,
+        explain: "Trading restrictions prevent participants from acting on available information, which means prices cannot fully adjust to reflect what is publicly known."
+      },
+      {
+        q: "The evidence for macro inefficiency is consistent with:",
+        type: "mc",
+        options: [
+          "Numerous behavioral biases of both retail and professional investors",
+          "Markets being perfectly rational at all times",
+          "Information being instantly priced into all assets",
+          "Universal adoption of fundamental macro analysis"
+        ],
+        answer: 0,
+        explain: "Macro information inefficiency is consistent with the evidence of numerous behavioral biases of both retail and professional investors."
+      },
+      {
+        q: "Survey evidence suggests retail investors adjust positions quickly and rationally to changing beliefs.",
+        type: "tf",
+        options: ["True", "False"],
+        answer: 1,
+        explain: "False. Survey evidence suggests retail investors adjust positions sluggishly to changing beliefs and that their beliefs defy classic rationality."
+      },
+      {
+        q: "Which investment approach is cited as evidence of macro inefficiency?",
+        type: "mc",
+        options: [
+          "Momentum trading being consistently profitable in liquid markets",
+          "Long-term value investing based on deep fundamental analysis",
+          "Central bank interventions stabilising all markets",
+          "Passive indexing eliminating all market inefficiencies"
+        ],
+        answer: 0,
+        explain: "Momentum trading has been profitable even in the best-researched and most liquid markets, testifying to sluggish market responses to shifts in fundamental conditions."
+      },
+      {
+        q: "Financial markets tend to pay less attention to macroeconomic news when:",
+        type: "mc",
+        options: [
+          "Market sentiment is positive",
+          "Volatility is extremely high",
+          "Central banks are tightening policy",
+          "A recession has been officially declared"
+        ],
+        answer: 0,
+        explain: "Empirical evidence shows that financial markets pay less attention to macroeconomic news when market sentiment is positive. Investors prefer heuristic decision-making and neglect fundamental information in bullish markets."
+      },
+      {
+        q: "In practice, asset allocation often follows which of these simplistic approaches?",
+        type: "mc",
+        options: [
+          "Past performance, risk parity, or market-cap benchmarks",
+          "Deep macroeconomic scenario analysis",
+          "Real-time satellite data interpretation",
+          "Neural network-based fundamental forecasting"
+        ],
+        answer: 0,
+        explain: "In practice, asset allocation often follows past performance, simplistic factors, risk parity and valuation ratios, or market capitalisation and benchmark conventions."
+      },
+      {
+        q: "What is the main social value of macro information efficiency?",
+        type: "mc",
+        options: [
+          "The alignment of prices with economic conditions to guide efficient resource allocation",
+          "Higher trading volumes and greater exchange revenue",
+          "Reduced need for government regulation of markets",
+          "Elimination of all investment risk"
+        ],
+        answer: 0,
+        explain: "The main social value is the alignment of prices with economic conditions. Macro traders help guide the efficient allocation of resources across the world economy."
+      },
+      {
+        q: "Trading based on information efficiency is often described as:",
+        type: "mc",
+        options: [
+          "\"Trend leading\" or \"trend setting\" rather than \"trend following\"",
+          "\"Market making\" or \"liquidity providing\"",
+          "\"Passive indexing\" or \"benchmark tracking\"",
+          "\"High-frequency\" or \"latency arbitrage\""
+        ],
+        answer: 0,
+        explain: "Trading based on information efficiency is often 'trend leading' or 'trend setting' as opposed to 'trend following', detecting misalignments early before the more sluggish part of the market catches up."
+      },
+      {
+        q: "The individual business value of macro efficient trading comes from detecting misalignments early, before sluggish market participants catch up.",
+        type: "tf",
+        options: ["True", "False"],
+        answer: 0,
+        explain: "Correct. The main individual business value comes from detecting misalignments and trends early, before the more sluggish part of the market has caught up with the flow of macro information."
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+    const app = document.getElementById('quiz-app')!;
+
+    function render() {
+      if (current >= QUESTIONS.length) {
+        showResults();
+        return;
+      }
+      const q = QUESTIONS[current];
+      const typeLabel = q.type === 'tf' ? 'True / False' : 'Multiple Choice';
+      app.innerHTML = `
+        <div style="text-align:center;margin-bottom:48px;">
+          <p class="quiz-eyebrow">Macrosynergy Academy</p>
+          <h1 class="quiz-header-title">Key Terms Quiz</h1>
+          <p class="quiz-header-sub">Test your understanding of macro information efficiency</p>
+        </div>
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="pbar"></div>
+          </div>
+          <p class="quiz-progress-text">${current + 1} of ${QUESTIONS.length}</p>
+        </div>
+        <div class="quiz-card">
+          <p class="quiz-eyebrow">${typeLabel} &mdash; Question ${current + 1}</p>
+          <p class="quiz-question">${q.q}</p>
+          <div class="quiz-options" id="opts">
+            ${q.options.map((o: string, i: number) => `
+              <button class="quiz-option" data-idx="${i}">${o}</button>
+            `).join('')}
+          </div>
+          <div class="quiz-feedback" id="feedback">
+            <p class="quiz-fb-label"></p>
+            <p class="quiz-fb-body"></p>
+          </div>
+          <button class="quiz-next" id="next-btn">${current < QUESTIONS.length - 1 ? 'Next Question' : 'See Results'} &rarr;</button>
+        </div>
+      `;
+
+      requestAnimationFrame(() => {
+        const pbar = document.getElementById('pbar');
+        if (pbar) pbar.style.width = `${(current / QUESTIONS.length) * 100}%`;
+      });
+
+      const btns = document.querySelectorAll('.quiz-option');
+      btns.forEach(btn => {
+        btn.addEventListener('click', () => handleAnswer(btn as HTMLElement, btns, q));
+      });
+
+      document.getElementById('next-btn')?.addEventListener('click', () => {
+        current++;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    function handleAnswer(btn: HTMLElement, allBtns: NodeListOf<Element>, q: typeof QUESTIONS[0]) {
+      const idx = parseInt(btn.dataset.idx || '0');
+      const isCorrect = idx === q.answer;
+      if (isCorrect) score++;
+
+      allBtns.forEach(b => {
+        b.classList.add('quiz-locked');
+        if (parseInt((b as HTMLElement).dataset.idx || '0') === q.answer) {
+          b.classList.add('quiz-correct');
+        }
+      });
+
+      if (!isCorrect) btn.classList.add('quiz-wrong');
+
+      const fb = document.getElementById('feedback');
+      if (fb) {
+        fb.className = `quiz-feedback ${isCorrect ? 'quiz-fb-correct' : 'quiz-fb-wrong'}`;
+        const label = fb.querySelector('.quiz-fb-label');
+        const body = fb.querySelector('.quiz-fb-body');
+        if (label) label.textContent = isCorrect ? 'Correct!' : 'Incorrect';
+        if (body) body.textContent = q.explain;
+      }
+
+      document.getElementById('next-btn')?.classList.add('quiz-visible');
+    }
+
+    function showResults() {
+      const pct = Math.round((score / QUESTIONS.length) * 100);
+      const circumference = 2 * Math.PI * 70;
+      const dashOffset = circumference - (circumference * pct / 100);
+      let verdict: string;
+      if (pct >= 90) verdict = "Outstanding! You have an excellent grasp of macro information efficiency.";
+      else if (pct >= 70) verdict = "Strong performance. You understand the core concepts well.";
+      else if (pct >= 50) verdict = "Decent foundation, but there's room to deepen your understanding.";
+      else verdict = "Consider reviewing the key terms and trying again.";
+
+      app.innerHTML = `
+        <div class="quiz-results">
+          <p class="quiz-eyebrow">Macrosynergy Academy</p>
+          <h1 class="quiz-header-title">Quiz Complete</h1>
+          <div class="quiz-ring-wrap">
+            <svg width="180" height="180" viewBox="0 0 180 180">
+              <circle class="quiz-ring-bg" cx="90" cy="90" r="70" />
+              <circle class="quiz-ring-fill" id="ring" cx="90" cy="90" r="70" style="stroke-dasharray:${circumference};stroke-dashoffset:${circumference}" />
+            </svg>
+            <div class="quiz-ring-pct" id="pct-num">0%</div>
+          </div>
+          <div class="quiz-breakdown">
+            <div style="text-align:center">
+              <div class="quiz-breakdown-num" style="color:var(--color-accent-green)">${score}</div>
+              <div class="quiz-breakdown-label">Correct</div>
+            </div>
+            <div style="text-align:center">
+              <div class="quiz-breakdown-num" style="color:#ef4444">${QUESTIONS.length - score}</div>
+              <div class="quiz-breakdown-label">Incorrect</div>
+            </div>
+            <div style="text-align:center">
+              <div class="quiz-breakdown-num">${QUESTIONS.length}</div>
+              <div class="quiz-breakdown-label">Total</div>
+            </div>
+          </div>
+          <p class="quiz-verdict">${verdict}</p>
+          <button class="quiz-retry" id="retry">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            Try Again
+          </button>
+        </div>
+      `;
+
+      requestAnimationFrame(() => {
+        const ring = document.getElementById('ring');
+        if (ring) ring.style.strokeDashoffset = String(dashOffset);
+      });
+
+      let displayed = 0;
+      const step = Math.max(1, Math.ceil(pct / 40));
+      const counter = setInterval(() => {
+        displayed = Math.min(displayed + step, pct);
+        const el = document.getElementById('pct-num');
+        if (el) el.textContent = displayed + '%';
+        if (displayed >= pct) clearInterval(counter);
+      }, 30);
+
+      document.getElementById('retry')?.addEventListener('click', () => {
+        current = 0;
+        score = 0;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    render();
+  </script>
+</Base>
