@@ -96,8 +96,131 @@
 
 <div id="deck">
 
-  <!-- SLIDE 1: Supply — deficit flow -->
+  <!-- SLIDE 1: Fan Chart (animated) -->
   <div class="slide" id="s1">
+    <div class="slide-inner">
+      <div class="eyebrow">The South African Government Bond Market</div>
+      <h1>The Hope</h1>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><style>
+            .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .src-label { fill: #555d66; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
+          </style></defs>
+          <text x="210" y="16" text-anchor="middle" class="bar-title">Budget Deficit Projections vs Reality</text>
+          <text x="210" y="28" text-anchor="middle" class="bar-label">Main budget balance as % of GDP</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
+          <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
+          <line x1="60" y1="208.4" x2="360" y2="208.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="166.8" x2="360" y2="166.8" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="125.2" x2="360" y2="125.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="83.6" x2="360" y2="83.6" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text x="54" y="254" text-anchor="end" style="fill:#e6edf3" class="bar-label">0%</text>
+          <text x="54" y="212" text-anchor="end" style="fill:#e6edf3" class="bar-label">2%</text>
+          <text x="54" y="171" text-anchor="end" style="fill:#e6edf3" class="bar-label">4%</text>
+          <text x="54" y="129" text-anchor="end" style="fill:#e6edf3" class="bar-label">6%</text>
+          <text x="54" y="88" text-anchor="end" style="fill:#e6edf3" class="bar-label">8%</text>
+          <text x="54" y="46" text-anchor="end" style="fill:#e6edf3" class="bar-label">10%</text>
+          <text x="54" y="28" text-anchor="end" style="fill:#e6edf3;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">Deficit %</text>
+          <text x="68" y="264" text-anchor="middle" class="bar-label">10</text><text x="86" y="264" text-anchor="middle" class="bar-label">11</text><text x="103" y="264" text-anchor="middle" class="bar-label">12</text><text x="120" y="264" text-anchor="middle" class="bar-label">13</text><text x="138" y="264" text-anchor="middle" class="bar-label">14</text><text x="156" y="264" text-anchor="middle" class="bar-label">15</text><text x="173" y="264" text-anchor="middle" class="bar-label">16</text><text x="190" y="264" text-anchor="middle" class="bar-label">17</text><text x="208" y="264" text-anchor="middle" class="bar-label">18</text><text x="226" y="264" text-anchor="middle" class="bar-label">19</text><text x="243" y="264" text-anchor="middle" class="bar-label">20</text><text x="260" y="264" text-anchor="middle" class="bar-label">21</text><text x="278" y="264" text-anchor="middle" class="bar-label">22</text><text x="296" y="264" text-anchor="middle" class="bar-label">23</text><text x="313" y="264" text-anchor="middle" class="bar-label">24</text><text x="330" y="264" text-anchor="middle" class="bar-label">25</text><text x="348" y="264" text-anchor="middle" class="bar-label">26</text>
+          <g id="fan-projections" opacity="0" style="transition: opacity 1s;">
+          <!-- 16 verified budget projection lines (all fan downward optimistically) -->
+          <polyline points="68,139.8 86,139.8 103,150.2 120,171.0" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="86,150.2 103,154.3 120,166.8 138,187.6" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="103,141.8 120,154.3 138,168.9 156,185.5" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="120,166.8 138,166.8 156,175.1 173,191.8" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="138,168.9 156,168.9 173,195.9 190,198.0" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="156,168.9 173,183.4 190,191.8 208,200.1" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="173,179.3 190,185.5 208,191.8 226,195.9" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="190,154.3 208,171.0 226,171.0 243,173.0" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="208,158.5 226,152.2 243,156.4 260,160.6" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="226,114.8 243,108.6 260,116.9 278,127.3" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="243,42.0 260,56.6 278,89.8" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="243,42.0 260,56.6 278,89.8 296,102.3" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="260,135.6 278,133.5 296,152.2 313,158.5" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="278,162.6 296,166.8 313,171.0 330,183.4" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="296,152.2 313,156.4 330,162.6 348,171.0" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          <polyline points="313,156.4 330,156.4 348,173.0" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
+          </g>
+          <!-- Actual deficit path (thick white line, built by JS) -->
+          <polyline id="fan-actual" points="68,139.8 86,156.4 103,146.0 120,158.5 138,160.6 156,166.8 173,171.0 190,158.5 208,156.4 226,114.8 243,48.2 260,135.6 278,154.3 296,156.4 313,156.4" fill="none" stroke="#e6edf3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <g id="fan-dots" fill="#e6edf3"><circle cx="68" cy="139.8" r="2"/><circle cx="86" cy="156.4" r="2"/><circle cx="103" cy="146.0" r="2"/><circle cx="120" cy="158.5" r="2"/><circle cx="138" cy="160.6" r="2"/><circle cx="156" cy="166.8" r="2"/><circle cx="173" cy="171.0" r="2"/><circle cx="190" cy="158.5" r="2"/><circle cx="208" cy="156.4" r="2"/><circle cx="226" cy="114.8" r="2"/><circle cx="243" cy="48.2" r="2"/><circle cx="260" cy="135.6" r="2"/><circle cx="278" cy="154.3" r="2"/><circle cx="296" cy="156.4" r="2"/><circle cx="313" cy="156.4" r="2"/></g>
+          <!-- Source -->
+          <text x="210" y="290" text-anchor="middle" class="src-label">Source: SA National Budget Reviews 2011-2026 (16 verified fiscal framework tables)</text>
+        </svg>
+        <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
+      </div>
+      <ul class="bullets">
+        <li>Every budget projects the deficit declining. Every time, reality comes in worse.</li>
+        <li>The dashed lines are <strong>16 verified projections</strong> from every National Budget Review (2011-2026)</li>
+        <li>The white line is what actually happened: the deficit stays stubbornly around <strong>4-5%</strong></li>
+        <li>The 2026 Budget projects the same pattern. Will this time be different?</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var ax = [68,86,103,120,138,156,173,190,208,226,243,260,278,296,313];
+    var ay = [139.8,156.4,146.0,158.5,160.6,166.8,171.0,158.5,156.4,114.8,48.2,135.6,154.3,156.4,156.4];
+    var played = false, timer;
+
+    function buildActual(step) {
+      if (step > ax.length) {
+        // Show projections
+        var p = document.getElementById('fan-projections');
+        if (p) p.setAttribute('opacity', '1');
+        return;
+      }
+      var line = document.getElementById('fan-actual');
+      var dots = document.getElementById('fan-dots');
+      if (!line || !dots) return;
+      
+      var pts = [];
+      for (var i = 0; i < step; i++) pts.push(ax[i] + ',' + ay[i]);
+      line.setAttribute('points', pts.join(' '));
+      
+      // Show dots up to current step
+      var allDots = dots.querySelectorAll('circle');
+      allDots.forEach(function(d, i) { d.style.opacity = i < step ? '1' : '0'; });
+      
+      timer = setTimeout(function() { buildActual(step + 1); }, 200);
+    }
+
+    function reset() {
+      played = false;
+      clearTimeout(timer);
+      var line = document.getElementById('fan-actual');
+      if (line) line.setAttribute('points', '');
+      var dots = document.getElementById('fan-dots');
+      if (dots) dots.querySelectorAll('circle').forEach(function(d) { d.style.opacity = '0'; });
+      var p = document.getElementById('fan-projections');
+      if (p) p.setAttribute('opacity', '0');
+    }
+
+    var obs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's1' && m.target.classList.contains('active') && !played) {
+          played = true;
+          setTimeout(function() { buildActual(1); }, 500);
+        }
+        if (m.target.id === 's1' && !m.target.classList.contains('active') && played) {
+          reset();
+        }
+      });
+    });
+    setTimeout(function() {
+      var s = document.getElementById('s1');
+      if (s) {
+        obs.observe(s, { attributes: true, attributeFilter: ['class'] });
+        if (s.classList.contains('active')) { played = true; setTimeout(function(){ buildActual(1); }, 500); }
+      }
+    }, 100);
+  })();
+  </script>
+
+    <!-- SLIDE 1: Supply — deficit flow -->
+  <div class="slide" id="s2">
     <div class="slide-inner">
       <div class="eyebrow">The South African Government Bond Market</div>
       <h1>Supply (Flow)</h1>
@@ -160,7 +283,7 @@
   </div>
 
   <!-- SLIDE 2: Supply (Stock) — animated -->
-  <div class="slide" id="s2">
+  <div class="slide" id="s3">
     <div class="slide-inner">
       <div class="eyebrow">The South African Government Bond Market</div>
       <h1>Supply (Stock)</h1>
@@ -299,16 +422,16 @@
 
     var observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(m) {
-        if (m.target.id === 's2' && m.target.classList.contains('active') && !played) {
+        if (m.target.id === 's3' && m.target.classList.contains('active') && !played) {
           played = true; init(); setTimeout(function() { animateYear(0); }, 500);
         }
-        if (m.target.id === 's2' && !m.target.classList.contains('active') && played) {
+        if (m.target.id === 's3' && !m.target.classList.contains('active') && played) {
           reset();
         }
       });
     });
     setTimeout(function() {
-      var slide = document.getElementById('s2');
+      var slide = document.getElementById('s3');
       if (slide) {
         observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
         if (slide.classList.contains('active')) { played = true; init(); setTimeout(function(){ animateYear(0); }, 500); }
@@ -321,7 +444,7 @@
 
 
     <!-- SLIDE 3: Supply & Demand -->
-  <div class="slide" id="s3">
+  <div class="slide" id="s4">
     <div class="slide-inner">
       <div class="eyebrow">The South African Government Bond Market</div>
       <h1>Supply &amp; Demand</h1>
@@ -513,7 +636,7 @@
     }
     var slideObs = new MutationObserver(function(muts) {
       muts.forEach(function(m) {
-        if (m.target.id === 's3' && !m.target.classList.contains('active') && shifted) resetSD();
+        if (m.target.id === 's4' && !m.target.classList.contains('active') && shifted) resetSD();
       });
     });
     setTimeout(function() {
@@ -526,7 +649,7 @@
   </script>
 
     <!-- SLIDE 5: Currency Composition -->
-  <div class="slide" id="s4">
+  <div class="slide" id="s5">
     <div class="slide-inner">
       <div class="eyebrow">The South African Government Bond Market</div>
       <h1>Supply (Currency)</h1>
@@ -599,7 +722,7 @@
   </div>
 
     <!-- SLIDE 4: Demand (Stock) -->
-  <div class="slide" id="s5">
+  <div class="slide" id="s6">
     <div class="slide-inner">
       <div class="eyebrow">The South African Government Bond Market</div>
       <h1>Demand (Stock)</h1>
@@ -719,7 +842,7 @@
       var y1 = document.getElementById('d4-y1'); if(y1) { y1.textContent = '0.5'; y1.setAttribute('y', '186'); }
       var y2 = document.getElementById('d4-y2'); if(y2) { y2.textContent = '1.0'; y2.setAttribute('y', '118'); }
       var y3 = document.getElementById('d4-y3'); if(y3) { y3.textContent = '1.5'; y3.setAttribute('y', '50'); }
-      var titles = document.querySelectorAll('#s5 text');
+      var titles = document.querySelectorAll('#s6 text');
       titles.forEach(function(t) { if(t.textContent === 'Bond Holdings by Investor Type') t.textContent = 'Foreign Holdings of SA Bonds'; });
     }
 
@@ -742,7 +865,7 @@
       var y1 = document.getElementById('d4-y1'); if(y1) { y1.textContent = '2'; y1.setAttribute('y', '184'); }
       var y2 = document.getElementById('d4-y2'); if(y2) { y2.textContent = '4'; y2.setAttribute('y', '114'); }
       var y3 = document.getElementById('d4-y3'); if(y3) { y3.textContent = '6'; y3.setAttribute('y', '46'); }
-      var titles = document.querySelectorAll('#s5 text');
+      var titles = document.querySelectorAll('#s6 text');
       titles.forEach(function(t) { if(t.textContent === 'Foreign Holdings of SA Bonds') t.textContent = 'Bond Holdings by Investor Type'; });
     }
 
@@ -754,7 +877,7 @@
     });
     var slideObs = new MutationObserver(function(muts) {
       muts.forEach(function(m) {
-        if (m.target.id === 's5' && !m.target.classList.contains('active') && shifted) resetD4();
+        if (m.target.id === 's6' && !m.target.classList.contains('active') && shifted) resetD4();
       });
     });
     setTimeout(function() {
@@ -768,7 +891,7 @@
   })();
   </script>
     <!-- SLIDE 5: Demand (Flow) -->
-  <div class="slide" id="s6">
+  <div class="slide" id="s7">
     <div class="slide-inner">
       <div class="eyebrow">The South African Government Bond Market</div>
       <h1>Demand (Flow)</h1>
@@ -871,7 +994,7 @@
     });
     var slideObs = new MutationObserver(function(muts) {
       muts.forEach(function(m) {
-        if (m.target.id === 's6' && !m.target.classList.contains('active') && revealed) resetS6();
+        if (m.target.id === 's7' && !m.target.classList.contains('active') && revealed) resetS6();
       });
     });
     setTimeout(function() {
@@ -885,67 +1008,7 @@
 
 
 
-    <!-- SLIDE 7: Fan Chart -->
-  <div class="slide" id="s7">
-    <div class="slide-inner">
-      <div class="eyebrow">The South African Government Bond Market</div>
-      <h1>The Hope</h1>
-      <div class="chart-wrap">
-        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-          <defs><style>
-            .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-            .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
-            .src-label { fill: #555d66; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
-          </style></defs>
-          <text x="210" y="16" text-anchor="middle" class="bar-title">Budget Deficit Projections vs Reality</text>
-          <text x="210" y="28" text-anchor="middle" class="bar-label">Main budget balance as % of GDP</text>
-          <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="60" y1="208.4" x2="360" y2="208.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="166.8" x2="360" y2="166.8" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="125.2" x2="360" y2="125.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="83.6" x2="360" y2="83.6" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <text x="54" y="254" text-anchor="end" style="fill:#e6edf3" class="bar-label">0%</text>
-          <text x="54" y="212" text-anchor="end" style="fill:#e6edf3" class="bar-label">2%</text>
-          <text x="54" y="171" text-anchor="end" style="fill:#e6edf3" class="bar-label">4%</text>
-          <text x="54" y="129" text-anchor="end" style="fill:#e6edf3" class="bar-label">6%</text>
-          <text x="54" y="88" text-anchor="end" style="fill:#e6edf3" class="bar-label">8%</text>
-          <text x="54" y="46" text-anchor="end" style="fill:#e6edf3" class="bar-label">10%</text>
-          <text x="54" y="28" text-anchor="end" style="fill:#e6edf3;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">Deficit %</text>
-          <text x="68" y="264" text-anchor="middle" class="bar-label">10</text><text x="86" y="264" text-anchor="middle" class="bar-label">11</text><text x="103" y="264" text-anchor="middle" class="bar-label">12</text><text x="120" y="264" text-anchor="middle" class="bar-label">13</text><text x="138" y="264" text-anchor="middle" class="bar-label">14</text><text x="156" y="264" text-anchor="middle" class="bar-label">15</text><text x="173" y="264" text-anchor="middle" class="bar-label">16</text><text x="190" y="264" text-anchor="middle" class="bar-label">17</text><text x="208" y="264" text-anchor="middle" class="bar-label">18</text><text x="226" y="264" text-anchor="middle" class="bar-label">19</text><text x="243" y="264" text-anchor="middle" class="bar-label">20</text><text x="260" y="264" text-anchor="middle" class="bar-label">21</text><text x="278" y="264" text-anchor="middle" class="bar-label">22</text><text x="296" y="264" text-anchor="middle" class="bar-label">23</text><text x="313" y="264" text-anchor="middle" class="bar-label">24</text><text x="330" y="264" text-anchor="middle" class="bar-label">25</text><text x="348" y="264" text-anchor="middle" class="bar-label">26</text>
-          <!-- 16 verified budget projection lines (all fan downward optimistically) -->
-          <polyline points="68,139.8 86,139.8 103,150.2 120,171.0" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="86,150.2 103,154.3 120,166.8 138,187.6" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="103,141.8 120,154.3 138,168.9 156,185.5" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="120,166.8 138,166.8 156,175.1 173,191.8" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="138,168.9 156,168.9 173,195.9 190,198.0" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="156,168.9 173,183.4 190,191.8 208,200.1" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="173,179.3 190,185.5 208,191.8 226,195.9" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="190,154.3 208,171.0 226,171.0 243,173.0" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="208,158.5 226,152.2 243,156.4 260,160.6" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="226,114.8 243,108.6 260,116.9 278,127.3" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="243,42.0 260,56.6 278,89.8" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="243,42.0 260,56.6 278,89.8 296,102.3" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="260,135.6 278,133.5 296,152.2 313,158.5" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="278,162.6 296,166.8 313,171.0 330,183.4" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="296,152.2 313,156.4 330,162.6 348,171.0" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <polyline points="313,156.4 330,156.4 348,173.0" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round" opacity="0.4"/>
-          <!-- Actual deficit path (thick white line) -->
-          <polyline points="68,139.8 86,156.4 103,146.0 120,158.5 138,160.6 156,166.8 173,171.0 190,158.5 208,156.4 226,114.8 243,48.2 260,135.6 278,154.3 296,156.4 313,156.4" fill="none" stroke="#e6edf3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <g fill="#e6edf3"><circle cx="68" cy="139.8" r="2"/><circle cx="86" cy="156.4" r="2"/><circle cx="103" cy="146.0" r="2"/><circle cx="120" cy="158.5" r="2"/><circle cx="138" cy="160.6" r="2"/><circle cx="156" cy="166.8" r="2"/><circle cx="173" cy="171.0" r="2"/><circle cx="190" cy="158.5" r="2"/><circle cx="208" cy="156.4" r="2"/><circle cx="226" cy="114.8" r="2"/><circle cx="243" cy="48.2" r="2"/><circle cx="260" cy="135.6" r="2"/><circle cx="278" cy="154.3" r="2"/><circle cx="296" cy="156.4" r="2"/><circle cx="313" cy="156.4" r="2"/></g>
-          <!-- Source -->
-          <text x="210" y="290" text-anchor="middle" class="src-label">Source: SA National Budget Reviews 2011-2026 (16 verified fiscal framework tables)</text>
-        </svg>
-        <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
-      </div>
-      <ul class="bullets">
-        <li>Every budget projects the deficit declining. Every time, reality comes in worse.</li>
-        <li>The dashed lines are <strong>16 verified projections</strong> from every National Budget Review (2011-2026)</li>
-        <li>The white line is what actually happened: the deficit stays stubbornly around <strong>4-5%</strong></li>
-        <li>The 2026 Budget projects the same pattern. Will this time be different?</li>
-      </ul>
-    </div>
-  </div>
+  
 
   <!-- SLIDE 4 -->
   <div class="slide" id="s8">
