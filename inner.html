@@ -632,11 +632,10 @@
       document.querySelectorAll('.d4-foreign').forEach(function(b, i) {
         b.setAttribute('y', newY[i]); b.setAttribute('height', newH[i]);
       });
-      var y1 = document.getElementById('d4-y1'); if(y1) { y1.textContent = '500'; y1.setAttribute('y', '186'); }
-      var y2 = document.getElementById('d4-y2'); if(y2) { y2.textContent = '1,000'; y2.setAttribute('y', '118'); }
-      var y3 = document.getElementById('d4-y3'); if(y3) { y3.textContent = '1,500'; y3.setAttribute('y', '50'); }
+      var y1 = document.getElementById('d4-y1'); if(y1) { y1.textContent = '0.5'; y1.setAttribute('y', '186'); }
+      var y2 = document.getElementById('d4-y2'); if(y2) { y2.textContent = '1.0'; y2.setAttribute('y', '118'); }
+      var y3 = document.getElementById('d4-y3'); if(y3) { y3.textContent = '1.5'; y3.setAttribute('y', '50'); }
       var titles = document.querySelectorAll('#s4 text');
-      titles.forEach(function(t) { if(t.textContent === 'ZAR tn') t.textContent = 'ZAR bn'; });
       titles.forEach(function(t) { if(t.textContent === 'Bond Holdings by Investor Type') t.textContent = 'Foreign Holdings of SA Bonds'; });
     }
 
@@ -652,7 +651,6 @@
       var y2 = document.getElementById('d4-y2'); if(y2) { y2.textContent = '4'; y2.setAttribute('y', '114'); }
       var y3 = document.getElementById('d4-y3'); if(y3) { y3.textContent = '6'; y3.setAttribute('y', '46'); }
       var titles = document.querySelectorAll('#s4 text');
-      titles.forEach(function(t) { if(t.textContent === 'ZAR bn') t.textContent = 'ZAR tn'; });
       titles.forEach(function(t) { if(t.textContent === 'Foreign Holdings of SA Bonds') t.textContent = 'Bond Holdings by Investor Type'; });
     }
 
