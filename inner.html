@@ -191,9 +191,23 @@
           <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tn</text>
           <text x="366" y="28" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
 
-          <!-- Blue line: ZAR tn debt stock (STATIC, reads against left axis) -->
-          <polyline points="71,223.4 90,217.1 108,210.8 126,204.9 145,197.7 164,190.6 182,183.4 200,176.3 219,167.8 238,158.0 256,142.4 274,120.1 293,108.8 312,92.7 330,76.5 348,62.1" fill="none" stroke="#58a6ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <g fill="#58a6ff"><circle cx="71" cy="223.4" r="2.5"/><circle cx="90" cy="217.1" r="2.5"/><circle cx="108" cy="210.8" r="2.5"/><circle cx="126" cy="204.9" r="2.5"/><circle cx="145" cy="197.7" r="2.5"/><circle cx="164" cy="190.6" r="2.5"/><circle cx="182" cy="183.4" r="2.5"/><circle cx="200" cy="176.3" r="2.5"/><circle cx="219" cy="167.8" r="2.5"/><circle cx="238" cy="158.0" r="2.5"/><circle cx="256" cy="142.4" r="2.5"/><circle cx="274" cy="120.1" r="2.5"/><circle cx="293" cy="108.8" r="2.5"/><circle cx="312" cy="92.7" r="2.5"/><circle cx="330" cy="76.5" r="2.5"/><circle cx="348" cy="62.1" r="2.5"/></g>
+          <!-- Blue bars: ZAR tn debt stock (STATIC, reads against left axis) -->
+          <rect x="63" y="223.4" width="16" height="26.6" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="82" y="217.1" width="16" height="32.9" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="100" y="210.8" width="16" height="39.2" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="118" y="204.9" width="16" height="45.1" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="137" y="197.7" width="16" height="52.3" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="156" y="190.6" width="16" height="59.4" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="174" y="183.4" width="16" height="66.6" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="192" y="176.3" width="16" height="73.7" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="211" y="167.8" width="16" height="82.2" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="230" y="158.0" width="16" height="92.0" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="248" y="142.4" width="16" height="107.6" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="266" y="120.1" width="16" height="129.9" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="285" y="108.8" width="16" height="141.2" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="304" y="92.7" width="16" height="157.3" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="322" y="76.5" width="16" height="173.5" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="340" y="62.1" width="16" height="187.9" rx="2" fill="#58a6ff" opacity="0.7"/>
           <!-- Dynamic elements: green debt/GDP line animated by JS -->
           <g id="hope-old-paths"></g>
           <polyline id="gdp-line" points="" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -480,10 +494,157 @@
   })();
   </script>
 
-  <!-- SLIDE 4 -->
+    <!-- SLIDE 4: Demand (Stock) -->
   <div class="slide" id="s4">
     <div class="slide-inner">
-      <div class="slide-num">04 / The Global Market</div>
+      <div class="eyebrow">The South African Government Bond Market</div>
+      <h1>Demand (Stock)</h1>
+      <div class="chart-wrap">
+        <svg id="demand-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><style>
+            .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .pct-label { fill: #3fb950; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .src-label { fill: #555d66; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
+          </style></defs>
+          <text x="210" y="16" text-anchor="middle" class="bar-title">Gross Loan Debt: Actual vs "Hope"</text>
+          <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
+          <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
+          <line x1="360" y1="42" x2="360" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
+          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text x="54" y="254" text-anchor="end" style="fill:#58a6ff" class="bar-label">0</text>
+          <text x="54" y="184" text-anchor="end" style="fill:#58a6ff" class="bar-label">2</text>
+          <text x="54" y="114" text-anchor="end" style="fill:#58a6ff" class="bar-label">4</text>
+          <text x="54" y="46" text-anchor="end" style="fill:#58a6ff" class="bar-label">6</text>
+          <text x="366" y="254" class="pct-label">0%</text>
+          <text x="366" y="184" class="pct-label">30%</text>
+          <text x="366" y="114" class="pct-label">60%</text>
+          <text x="366" y="46" class="pct-label">90%</text><text x="71" y="264" text-anchor="middle" class="bar-label">10</text><text x="90" y="264" text-anchor="middle" class="bar-label">11</text><text x="108" y="264" text-anchor="middle" class="bar-label">12</text><text x="126" y="264" text-anchor="middle" class="bar-label">13</text><text x="145" y="264" text-anchor="middle" class="bar-label">14</text><text x="164" y="264" text-anchor="middle" class="bar-label">15</text><text x="182" y="264" text-anchor="middle" class="bar-label">16</text><text x="200" y="264" text-anchor="middle" class="bar-label">17</text><text x="219" y="264" text-anchor="middle" class="bar-label">18</text><text x="238" y="264" text-anchor="middle" class="bar-label">19</text><text x="256" y="264" text-anchor="middle" class="bar-label">20</text><text x="274" y="264" text-anchor="middle" class="bar-label">21</text><text x="293" y="264" text-anchor="middle" class="bar-label">22</text><text x="312" y="264" text-anchor="middle" class="bar-label">23</text><text x="330" y="264" text-anchor="middle" class="bar-label">24</text><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
+          <!-- Axis top labels instead of legend -->
+          <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tn</text>
+          <text x="366" y="28" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
+
+          <!-- Blue bars: ZAR tn debt stock (STATIC, reads against left axis) -->
+          <rect x="63" y="223.4" width="16" height="26.6" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="82" y="217.1" width="16" height="32.9" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="100" y="210.8" width="16" height="39.2" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="118" y="204.9" width="16" height="45.1" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="137" y="197.7" width="16" height="52.3" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="156" y="190.6" width="16" height="59.4" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="174" y="183.4" width="16" height="66.6" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="192" y="176.3" width="16" height="73.7" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="211" y="167.8" width="16" height="82.2" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="230" y="158.0" width="16" height="92.0" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="248" y="142.4" width="16" height="107.6" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="266" y="120.1" width="16" height="129.9" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="285" y="108.8" width="16" height="141.2" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="304" y="92.7" width="16" height="157.3" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="322" y="76.5" width="16" height="173.5" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="340" y="62.1" width="16" height="187.9" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <!-- Dynamic elements: green debt/GDP line animated by JS -->
+          <g id="demand-old-paths"></g>
+          <polyline id="demand-gdp-line" points="" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <g id="demand-gdp-dots"></g>
+          <line id="demand-hope-future" x1="0" y1="0" x2="0" y2="0" stroke="#3fb950" stroke-width="2" stroke-dasharray="5,3" opacity="0"/>
+        </svg>
+        <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
+      </div>
+      <ul class="bullets">
+        <li>tbc</li>
+        <li>Unfortunately, each year, we learn that growth (<strong>g</strong>) and real rates (<strong>r</strong>) do not match our hopes</li>
+        <li>Fixing borrowing at 4% in the real world leads to ever-rising debt-GDP</li>
+        <li><button onclick="event.stopPropagation();var p=document.getElementById(‘learn-rg’);p.style.display=p.style.display===’none’?’block’:’none’" style="background:none;border:none;color:#58a6ff;font-size:inherit;padding:0;cursor:pointer;font-family:inherit;text-decoration:underline;text-underline-offset:3px;">Learn more: the (r − g) condition</button><div id="learn-rg" style="display:none;margin-top:8px;font-size:13px;line-height:1.6;color:#8b949e;">Δd = (r−g)/(1+g) × d − ps. When r &lt; g, debt/GDP falls. When r &gt; g, it compounds. SA borrowed ~4% of GDP at d≈30%, needing r−g sufficiently negative. It wasn’t.</div></li>
+      </ul>
+    </div>
+  </div>
+    <script class="hope-anim-script">
+  (function(){
+    // Green line: debt/GDP % (animated). Blue line is static in SVG.
+    var ax = [71,90,108,126,145,164,182,200,219,238,256,274,293,312,330,348];
+    // debt/GDP y-coords: 0%=y250, 30%=y184, 60%=y114, 90%=y46. Scale: 1%=2.2px
+    var gy = [181.8,172.3,166.0,158.9,152.5,146.6,138.9,137.8,133.4,125.3,110.7,96.2,98.2,99.1,89.8,80.6];
+    var dgdp = [31.0,35.3,38.2,41.4,44.3,47.0,50.5,51.0,53.0,56.7,63.3,69.9,69.0,68.6,72.8,77.0];
+    var N = ax.length, XEND = 360;
+    var gdpLine, gdpDots, hopeFuture, oldPaths;
+    var played = false;
+
+    function init() {
+      var svg = document.getElementById('demand-svg'); if (!svg) return;
+      gdpLine = document.getElementById('demand-gdp-line');
+      gdpDots = document.getElementById('demand-gdp-dots');
+      hopeFuture = document.getElementById('demand-hope-future');
+      oldPaths = document.getElementById('demand-old-paths');
+    }
+
+    function pts(n) { var s=''; for(var i=0;i<=n;i++) s+=(i?' ':'')+ax[i]+','+gy[i]; return s; }
+
+    function dot(x, y) {
+      var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r','3');
+      c.setAttribute('fill','#3fb950'); c.style.opacity='0'; c.style.transition='opacity 0.3s';
+      setTimeout(function(){c.style.opacity='1';},50); return c;
+    }
+
+    function showHope(fromIdx) {
+      hopeFuture.setAttribute('x1', ax[fromIdx]);
+      hopeFuture.setAttribute('y1', gy[fromIdx]);
+      hopeFuture.setAttribute('x2', XEND);
+      hopeFuture.setAttribute('y2', gy[fromIdx]);
+      hopeFuture.setAttribute('opacity', '0.7');
+    }
+
+    function fadeHope(fromIdx) {
+      var ghost = document.createElementNS('http://www.w3.org/2000/svg','line');
+      ghost.setAttribute('x1', ax[fromIdx]); ghost.setAttribute('y1', gy[fromIdx]);
+      ghost.setAttribute('x2', XEND); ghost.setAttribute('y2', gy[fromIdx]);
+      ghost.setAttribute('stroke', '#3fb950'); ghost.setAttribute('stroke-width', '1');
+      ghost.setAttribute('stroke-dasharray', '3,4'); ghost.setAttribute('opacity', '0.15');
+      oldPaths.appendChild(ghost);
+      hopeFuture.setAttribute('opacity', '0');
+    }
+
+    function animateYear(n) {
+      if (n >= N) { hopeFuture.setAttribute('opacity', '0'); return; }
+      if (n === 0) {
+        gdpLine.setAttribute('points', pts(0));
+        gdpDots.innerHTML = '';
+        gdpDots.appendChild(dot(ax[0], gy[0]));
+        setTimeout(function() { showHope(0); setTimeout(function() { animateYear(1); }, 1000); }, 800);
+        return;
+      }
+      fadeHope(n - 1);
+      gdpLine.setAttribute('points', pts(n));
+      gdpDots.appendChild(dot(ax[n], gy[n]));
+      setTimeout(function() {
+        showHope(n);
+        setTimeout(function() { animateYear(n + 1); }, 700);
+      }, 500);
+    }
+
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(m) {
+        if (m.target.id === 's4' && m.target.classList.contains('active') && !played) {
+          played = true; init(); setTimeout(function() { animateYear(0); }, 500);
+        }
+      });
+    });
+    setTimeout(function() {
+      var slide = document.getElementById('s4');
+      if (slide) {
+        observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
+        if (slide.classList.contains('active')) { played = true; init(); setTimeout(function(){ animateYear(0); }, 500); }
+      }
+    }, 100);
+  })();
+  </script>
+
+
+  <!-- SLIDE 4 -->
+  <div class="slide" id="s5">
+    <div class="slide-inner">
+      <div class="slide-num">05 / The Global Market</div>
       <h2>$100 trillion of government bonds</h2>
       <p class="subtitle">Theory says: diversify globally, hold in proportion to market size</p>
       <div class="stat-row">
@@ -501,9 +662,9 @@
   </div>
 
   <!-- SLIDE 4 -->
-  <div class="slide" id="s5">
+  <div class="slide" id="s6">
     <div class="slide-inner">
-      <div class="slide-num">05 / Home Bias</div>
+      <div class="slide-num">06 / Home Bias</div>
       <h2>Investors stay close to home</h2>
       <p class="subtitle">EM participation is an active bet, not the default</p>
       <div class="cols">
@@ -533,9 +694,9 @@
   </div>
 
   <!-- SLIDE 5 -->
-  <div class="slide" id="s6">
+  <div class="slide" id="s7">
     <div class="slide-inner">
-      <div class="slide-num">06 / The Puzzle</div>
+      <div class="slide-num">07 / The Puzzle</div>
       <h2>Foreign participation swings far too much</h2>
       <p class="subtitle">Markets aren't clearing the way textbooks say they should</p>
       <ul class="bullets">
@@ -549,9 +710,9 @@
   </div>
 
   <!-- SLIDE 6 -->
-  <div class="slide" id="s7">
+  <div class="slide" id="s8">
     <div class="slide-inner">
-      <div class="slide-num">07 / Why the Swings?</div>
+      <div class="slide-num">08 / Why the Swings?</div>
       <h2>Three mechanisms break the feedback loop</h2>
       <p class="subtitle">Why yields don't automatically equilibrate foreign demand</p>
       <ul class="bullets">
@@ -565,9 +726,9 @@
   </div>
 
   <!-- SLIDE 7 -->
-  <div class="slide" id="s8">
+  <div class="slide" id="s9">
     <div class="slide-inner">
-      <div class="slide-num">08 / The Analytical Payoff</div>
+      <div class="slide-num">09 / The Analytical Payoff</div>
       <h2>Flows tell you what prices can't</h2>
       <p class="subtitle">If markets were efficient, just watch yields. They're not — so track who holds what</p>
       <div class="cols">
