@@ -173,7 +173,7 @@
             .src-label { fill: #555d66; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
           </style></defs>
           <text x="210" y="16" text-anchor="middle" class="bar-title">Gross Loan Debt: Actual vs "Hope"</text>
-          <text x="210" y="28" text-anchor="middle" class="bar-label">ZAR bn outstanding, end of fiscal year</text>
+          <text id="hope-status" x="210" y="28" text-anchor="middle" class="bar-label">ZAR bn outstanding, end of fiscal year</text>
           <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
           <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
           <line x1="360" y1="42" x2="360" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
@@ -200,7 +200,7 @@
         <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
       </div>
       <ul class="bullets">
-        <li id="hope-status">Each year the government borrows, <strong style="color:#3fb950">hoping</strong> debt/GDP will stay stable</li>
+        <li>Now I'll show supply as a stock, both ex-ante and ex-post</li>
         <li>But growth (<strong>g</strong>) seldom is as high as forecast</li>
         <li>And interest rates (<strong>r</strong>) are rarely as low as hoped for</li>
         <li><button onclick="var p=document.getElementById(‘learn-rg’);p.style.display=p.style.display===’none’?’block’:’none’" style="background:none;border:none;color:#58a6ff;font-size:inherit;padding:0;cursor:pointer;font-family:inherit;text-decoration:underline;text-underline-offset:3px;">Learn more: the (r − g) condition</button><div id="learn-rg" style="display:none;margin-top:8px;font-size:13px;line-height:1.6;color:#8b949e;">Δd = (r−g)/(1+g) × d − ps. When r &lt; g, debt/GDP falls. When r &gt; g, it compounds. SA borrowed ~4% of GDP at d≈30%, needing r−g sufficiently negative. It wasn’t.</div></li>
