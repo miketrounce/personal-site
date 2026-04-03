@@ -399,9 +399,10 @@
           <path d="M 374,55 C 400,120 430,280 528,360" fill="none" stroke="#58a6ff" stroke-width="3" stroke-linecap="round"/>
           <text x="535" y="355" class="curve-label" fill="#58a6ff">S</text>
 
-          <!-- Demand curve: nearly vertical around 4% GDP = x=443 -->
-          <path d="M 420,55 C 430,140 448,300 460,370" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round"/>
-          <text x="465" y="52" class="curve-label" fill="#3fb950">D</text>
+          <!-- Demand curve: upward sloping (steep/inelastic). More demand at higher rates -->
+          <!-- At r=1% demand ~2.5% GDP (x=314), at r=4% demand 4% (x=443), at r=7% demand ~5.2% (x=546) -->
+          <path d="M 314,337 C 360,290 430,220 546,68" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round"/>
+          <text x="552" y="62" class="curve-label" fill="#3fb950">D</text>
 
           <!-- Intersection: 4% GDP, 4% real rate = (443, 210) -->
           <circle cx="443" cy="210" r="6" fill="#e6edf3" stroke="#0d1117" stroke-width="2"/>
