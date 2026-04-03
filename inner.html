@@ -539,15 +539,15 @@
           <text x="210" y="16" text-anchor="middle" class="bar-title">Bond Holdings by Investor Type</text>
           <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
           <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
+          <line id="d4-yaxis" x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1" style="transition: stroke 0.6s;"/>
           <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
           <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <text x="54" y="254" text-anchor="end" style="fill:#58a6ff" class="bar-label">0</text>
-          <text x="54" y="184" text-anchor="end" style="fill:#58a6ff" class="bar-label">2</text>
-          <text x="54" y="114" text-anchor="end" style="fill:#58a6ff" class="bar-label">4</text>
-          <text x="54" y="46" text-anchor="end" style="fill:#58a6ff" class="bar-label">6</text>
+          <text id="d4-y0" x="54" y="254" text-anchor="end" style="fill:#58a6ff;transition:fill 0.6s" class="bar-label">0</text>
+          <text id="d4-y1" x="54" y="184" text-anchor="end" style="fill:#58a6ff;transition:fill 0.6s" class="bar-label">2</text>
+          <text id="d4-y2" x="54" y="114" text-anchor="end" style="fill:#58a6ff;transition:fill 0.6s" class="bar-label">4</text>
+          <text id="d4-y3" x="54" y="46" text-anchor="end" style="fill:#58a6ff;transition:fill 0.6s" class="bar-label">6</text>
           <text x="71" y="264" text-anchor="middle" class="bar-label">10</text><text x="90" y="264" text-anchor="middle" class="bar-label">11</text><text x="108" y="264" text-anchor="middle" class="bar-label">12</text><text x="126" y="264" text-anchor="middle" class="bar-label">13</text><text x="145" y="264" text-anchor="middle" class="bar-label">14</text><text x="164" y="264" text-anchor="middle" class="bar-label">15</text><text x="182" y="264" text-anchor="middle" class="bar-label">16</text><text x="200" y="264" text-anchor="middle" class="bar-label">17</text><text x="219" y="264" text-anchor="middle" class="bar-label">18</text><text x="238" y="264" text-anchor="middle" class="bar-label">19</text><text x="256" y="264" text-anchor="middle" class="bar-label">20</text><text x="274" y="264" text-anchor="middle" class="bar-label">21</text><text x="293" y="264" text-anchor="middle" class="bar-label">22</text><text x="312" y="264" text-anchor="middle" class="bar-label">23</text><text x="330" y="264" text-anchor="middle" class="bar-label">24</text><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
-          <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tn</text>
+          <text id="d4-ytitle" x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;transition:fill 0.6s">ZAR tn</text>
           <!-- Right y-axis + green line (hidden initially, revealed on bullet 1) -->
           <g id="d4-green-group" opacity="0" style="transition: opacity 0.6s;">
           <line x1="360" y1="42" x2="360" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
@@ -633,11 +633,10 @@
       shifted = true;
       storeOriginals();
       // Change left axis color from blue to orange
-      ['d4-y0','d4-y1','d4-y2','d4-y3'].forEach(function(id) {
+      ['d4-y0','d4-y1','d4-y2','d4-y3','d4-ytitle'].forEach(function(id) {
         var el = document.getElementById(id); if(el) el.style.fill = '#f78166';
       });
-      var axTitle = document.querySelector('#s4 text[x="54"][y="28"]');
-      if(axTitle) axTitle.style.fill = '#f78166';
+      var axLine = document.getElementById('d4-yaxis'); if(axLine) axLine.style.stroke = '#f78166';
       document.querySelectorAll('.d4-resident').forEach(function(r) { r.style.opacity = '0'; });
       var lr = document.getElementById('d4-leg-res'); if(lr) lr.style.opacity = '0';
       var lt = document.getElementById('d4-leg-res-txt'); if(lt) lt.style.opacity = '0';
@@ -657,11 +656,10 @@
       // Hide green group
       var g = document.getElementById('d4-green-group'); if(g) g.setAttribute('opacity','0');
       // Restore left axis color to blue
-      ['d4-y0','d4-y1','d4-y2','d4-y3'].forEach(function(id) {
+      ['d4-y0','d4-y1','d4-y2','d4-y3','d4-ytitle'].forEach(function(id) {
         var el = document.getElementById(id); if(el) el.style.fill = '#58a6ff';
       });
-      var axTitle = document.querySelector('#s4 text[x="54"][y="28"]');
-      if(axTitle) axTitle.style.fill = '#58a6ff';
+      var axLine = document.getElementById('d4-yaxis'); if(axLine) axLine.style.stroke = '#8b949e';
       document.querySelectorAll('.d4-resident').forEach(function(r) { r.style.opacity = '0.7'; });
       var lr = document.getElementById('d4-leg-res'); if(lr) lr.style.opacity = '0.7';
       var lt = document.getElementById('d4-leg-res-txt'); if(lt) lt.style.opacity = '1';
