@@ -99,8 +99,65 @@
 
 <div id="deck">
 
-    <!-- SLIDE 1: Supply — deficit flow -->
+  <!-- SLIDE 1: Debt stabilisation framework -->
   <div class="slide" id="s1">
+    <div class="slide-inner">
+      <div class="eyebrow">The South African Government Bond Market</div>
+      <h1>Supply</h1>
+      <p class="subtitle">How much can a government borrow without debt spiralling?</p>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg">
+          <defs><style>
+            .fm-title { fill: #e6edf3; font-size: 18px; font-weight: 700; font-family: Georgia, serif; }
+            .fm-formula { fill: #58a6ff; font-size: 22px; font-weight: 700; font-family: 'Courier New', monospace; }
+            .fm-label { fill: #8b949e; font-size: 13px; font-family: -apple-system, system-ui, sans-serif; }
+            .fm-val { fill: #e6edf3; font-size: 14px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .fm-accent { fill: #58a6ff; font-size: 14px; font-weight: 700; font-family: -apple-system, system-ui, sans-serif; }
+            .fm-green { fill: #3fb950; font-size: 14px; font-weight: 700; font-family: -apple-system, system-ui, sans-serif; }
+            .fm-box { fill: #161b22; stroke: #30363d; stroke-width: 1; rx: 10; }
+          </style></defs>
+
+          <!-- Title -->
+          <text x="300" y="24" text-anchor="middle" class="fm-title">Debt Stabilisation Condition</text>
+          <text x="300" y="42" text-anchor="middle" class="fm-label">Debt/GDP stays constant when:</text>
+
+          <!-- Formula -->
+          <rect x="120" y="52" width="360" height="44" class="fm-box"/>
+          <text x="300" y="81" text-anchor="middle" class="fm-formula">deficit / GDP = d × g / (1 + g)</text>
+
+          <!-- Variable definitions -->
+          <text x="60" y="124" class="fm-label">where:</text>
+          <text x="110" y="124" class="fm-accent">d</text><text x="125" y="124" class="fm-label">= debt / GDP ratio</text>
+          <text x="310" y="124" class="fm-accent">g</text><text x="325" y="124" class="fm-label">= nominal GDP growth rate</text>
+
+          <!-- SA example box -->
+          <rect x="40" y="144" width="520" height="126" rx="10" fill="none" stroke="#30363d" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="300" y="168" text-anchor="middle" class="fm-val">South Africa: the government borrows ~4% of GDP per year</text>
+          <text x="300" y="188" text-anchor="middle" class="fm-label">If the goal is to keep debt/GDP stable, that implies:</text>
+
+          <!-- Implied calculation -->
+          <rect x="80" y="198" width="200" height="28" class="fm-box"/>
+          <text x="180" y="218" text-anchor="middle" class="fm-accent">d = 77%</text>
+          <text x="180" y="237" text-anchor="middle" class="fm-label">(actual, 2024/25)</text>
+
+          <rect x="320" y="198" width="200" height="28" class="fm-box"/>
+          <text x="420" y="218" text-anchor="middle" class="fm-green">g ≈ 5%</text>
+          <text x="420" y="237" text-anchor="middle" class="fm-label">(nominal growth needed)</text>
+
+          <!-- Check: 0.77 × 0.05 / 1.05 = 0.0367 = 3.7% -->
+          <text x="300" y="263" text-anchor="middle" class="fm-label">0.77 × 0.05 / 1.05 = <tspan style="fill:#3fb950;font-weight:700">3.7% of GDP</tspan>  ...close to the ~4% they actually borrow</text>
+        </svg>
+      </div>
+      <ul class="bullets">
+        <li>At 77% debt/GDP, a deficit of ~4% is roughly consistent with <strong>5% nominal growth</strong></li>
+        <li>If growth disappoints, the same deficit causes debt/GDP to <strong>rise</strong></li>
+        <li class="highlight">The borrowing rate reveals an implicit bet on growth</li>
+      </ul>
+    </div>
+  </div>
+
+    <!-- SLIDE 2: Supply — deficit flow -->
+  <div class="slide" id="s2">
     <div class="slide-inner">
       <div class="eyebrow">The South African Government Bond Market</div>
       <h1>Supply</h1>
@@ -164,7 +221,7 @@
   <!-- SLIDE 2: Supply — debt stock -->
   <div class="slide" id="s2">
     <div class="slide-inner">
-      <div class="slide-num">01 / The Result</div>
+      <div class="slide-num">02 / The Result</div>
       <h2>The debt stock keeps growing</h2>
       <p class="subtitle">Each year's deficit adds to the outstanding total</p>
       <div class="chart-wrap">
@@ -220,9 +277,9 @@
   </div>
 
 <!-- SLIDE 2 -->
-  <div class="slide" id="s3">
+  <div class="slide" id="s4">
     <div class="slide-inner">
-      <div class="slide-num">02 / The Framework</div>
+      <div class="slide-num">03 / The Framework</div>
       <h2>Governments borrow. Always.</h2>
       <p class="subtitle">Supply is quasi-fixed — the analysis lives on the demand side</p>
 
@@ -370,9 +427,9 @@
   </div>
 
   <!-- SLIDE 3 -->
-  <div class="slide" id="s4">
+  <div class="slide" id="s5">
     <div class="slide-inner">
-      <div class="slide-num">03 / The Global Market</div>
+      <div class="slide-num">04 / The Global Market</div>
       <h2>$100 trillion of government bonds</h2>
       <p class="subtitle">Theory says: diversify globally, hold in proportion to market size</p>
       <div class="stat-row">
@@ -390,9 +447,9 @@
   </div>
 
   <!-- SLIDE 4 -->
-  <div class="slide" id="s5">
+  <div class="slide" id="s6">
     <div class="slide-inner">
-      <div class="slide-num">04 / Home Bias</div>
+      <div class="slide-num">05 / Home Bias</div>
       <h2>Investors stay close to home</h2>
       <p class="subtitle">EM participation is an active bet, not the default</p>
       <div class="cols">
@@ -422,9 +479,9 @@
   </div>
 
   <!-- SLIDE 5 -->
-  <div class="slide" id="s6">
+  <div class="slide" id="s7">
     <div class="slide-inner">
-      <div class="slide-num">05 / The Puzzle</div>
+      <div class="slide-num">06 / The Puzzle</div>
       <h2>Foreign participation swings far too much</h2>
       <p class="subtitle">Markets aren't clearing the way textbooks say they should</p>
       <ul class="bullets">
@@ -438,9 +495,9 @@
   </div>
 
   <!-- SLIDE 6 -->
-  <div class="slide" id="s7">
+  <div class="slide" id="s8">
     <div class="slide-inner">
-      <div class="slide-num">06 / Why the Swings?</div>
+      <div class="slide-num">07 / Why the Swings?</div>
       <h2>Three mechanisms break the feedback loop</h2>
       <p class="subtitle">Why yields don't automatically equilibrate foreign demand</p>
       <ul class="bullets">
@@ -454,9 +511,9 @@
   </div>
 
   <!-- SLIDE 7 -->
-  <div class="slide" id="s8">
+  <div class="slide" id="s9">
     <div class="slide-inner">
-      <div class="slide-num">07 / The Analytical Payoff</div>
+      <div class="slide-num">08 / The Analytical Payoff</div>
       <h2>Flows tell you what prices can't</h2>
       <p class="subtitle">If markets were efficient, just watch yields. They're not — so track who holds what</p>
       <div class="cols">
