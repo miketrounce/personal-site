@@ -673,8 +673,198 @@
   })();
   </script>
 
-  <!-- SLIDE 4 -->
+    <!-- SLIDE 5: Demand shift 2011-2013 -->
   <div class="slide" id="s5">
+    <div class="slide-inner">
+      <div class="eyebrow">The South African Government Bond Market</div>
+      <h1>The 2011-2013 Demand Shift</h1>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <style>
+              .ax-label { fill: #8b949e; font-size: 13px; font-family: -apple-system, system-ui, sans-serif; }
+              .ax-title { fill: #8b949e; font-size: 14px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+              .tick-label { fill: #8b949e; font-size: 11px; font-family: -apple-system, system-ui, sans-serif; }
+              .tick-sub { fill: #555d66; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+              .curve-label { font-size: 20px; font-weight: 700; font-family: -apple-system, system-ui, sans-serif; }
+              .ann-title { font-size: 12px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+              .ann-body { fill: #8b949e; font-size: 11px; font-family: -apple-system, system-ui, sans-serif; }
+              .eq-label { fill: #e6edf3; font-size: 12px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            </style>
+          </defs>
+
+          <!-- Chart area: x=100..700, y=40..380. -->
+          <!-- Y-axis: 0% at y=380, 8% at y=40. Each 1% = 42.5px -->
+          <!-- X-axis: 0% GDP at x=100, 7% GDP at x=700. Each 1% = 85.7px -->
+
+          <!-- Gridlines -->
+          <g stroke="#30363d" stroke-width="0.5" stroke-dasharray="4,4">
+            <!-- Horizontal: 1% through 7% -->
+            <line x1="100" y1="337.5" x2="700" y2="337.5"/>
+            <line x1="100" y1="295" x2="700" y2="295"/>
+            <line x1="100" y1="252.5" x2="700" y2="252.5"/>
+            <line x1="100" y1="210" x2="700" y2="210"/>
+            <line x1="100" y1="167.5" x2="700" y2="167.5"/>
+            <line x1="100" y1="125" x2="700" y2="125"/>
+            <line x1="100" y1="82.5" x2="700" y2="82.5"/>
+            <!-- Vertical: 1% through 6% GDP -->
+            <line x1="185.7" y1="40" x2="185.7" y2="380"/>
+            <line x1="271.4" y1="40" x2="271.4" y2="380"/>
+            <line x1="357.1" y1="40" x2="357.1" y2="380"/>
+            <line x1="442.9" y1="40" x2="442.9" y2="380"/>
+            <line x1="528.6" y1="40" x2="528.6" y2="380"/>
+            <line x1="614.3" y1="40" x2="614.3" y2="380"/>
+          </g>
+
+          <!-- Axes -->
+          <line x1="100" y1="380" x2="710" y2="380" stroke="#8b949e" stroke-width="1.5"/>
+          <line x1="100" y1="35" x2="100" y2="380" stroke="#8b949e" stroke-width="1.5"/>
+          <polygon points="710,380 702,376 702,384" fill="#8b949e"/>
+          <polygon points="100,35 96,43 104,43" fill="#8b949e"/>
+
+          <!-- Y-axis tick labels (real interest rate) -->
+          <text x="90" y="384" text-anchor="end" class="tick-label">0%</text>
+          <text x="90" y="341" text-anchor="end" class="tick-label">1%</text>
+          <text x="90" y="299" text-anchor="end" class="tick-label">2%</text>
+          <text x="90" y="256" text-anchor="end" class="tick-label">3%</text>
+          <text x="90" y="214" text-anchor="end" class="tick-label">4%</text>
+          <text x="90" y="171" text-anchor="end" class="tick-label">5%</text>
+          <text x="90" y="129" text-anchor="end" class="tick-label">6%</text>
+          <text x="90" y="86" text-anchor="end" class="tick-label">7%</text>
+
+          <!-- Y-axis tick marks -->
+          <g stroke="#8b949e" stroke-width="1">
+            <line x1="96" y1="337.5" x2="100" y2="337.5"/>
+            <line x1="96" y1="295" x2="100" y2="295"/>
+            <line x1="96" y1="252.5" x2="100" y2="252.5"/>
+            <line x1="96" y1="210" x2="100" y2="210"/>
+            <line x1="96" y1="167.5" x2="100" y2="167.5"/>
+            <line x1="96" y1="125" x2="100" y2="125"/>
+            <line x1="96" y1="82.5" x2="100" y2="82.5"/>
+          </g>
+
+          <!-- X-axis tick labels (% of GDP only) -->
+          <text x="185.7" y="398" text-anchor="middle" class="tick-label">1%</text>
+          <text x="271.4" y="398" text-anchor="middle" class="tick-label">2%</text>
+          <text x="357.1" y="398" text-anchor="middle" class="tick-label">3%</text>
+          <text x="442.9" y="398" text-anchor="middle" class="tick-label">4%</text>
+          <text x="528.6" y="398" text-anchor="middle" class="tick-label">5%</text>
+          <text x="614.3" y="398" text-anchor="middle" class="tick-label">6%</text>
+
+          <!-- X-axis tick marks -->
+          <g stroke="#8b949e" stroke-width="1">
+            <line x1="185.7" y1="380" x2="185.7" y2="384"/>
+            <line x1="271.4" y1="380" x2="271.4" y2="384"/>
+            <line x1="357.1" y1="380" x2="357.1" y2="384"/>
+            <line x1="442.9" y1="380" x2="442.9" y2="384"/>
+            <line x1="528.6" y1="380" x2="528.6" y2="384"/>
+            <line x1="614.3" y1="380" x2="614.3" y2="384"/>
+          </g>
+
+          <!-- Axis titles -->
+          <text x="400" y="440" text-anchor="middle" class="ax-title">Issuance per year (% of GDP)</text>
+          <text x="32" y="210" text-anchor="middle" class="ax-title" transform="rotate(-90, 32, 210)">Real interest rate (%)</text>
+
+          <!-- Supply curve: steep/nearly vertical. Intersection at 4% GDP, 4% rate -->
+          <!-- At r=7% issuance ~3.2% GDP, at r=1% issuance ~5% GDP -->
+          <path d="M 374,55 C 400,120 430,280 528,360" fill="none" stroke="#58a6ff" stroke-width="3" stroke-linecap="round"/>
+          <text x="535" y="355" class="curve-label" fill="#58a6ff">S</text>
+
+          <!-- Demand curve: upward sloping (steep/inelastic). More demand at higher rates -->
+          <!-- At r=1% demand ~2.5% GDP (x=314), at r=4% demand 4% (x=443), at r=7% demand ~5.2% (x=546) -->
+          <path id="s5-demand" d="M 314,337 C 360,290 430,220 546,68" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" style="transition: d 0.8s ease;"/>
+          <text id="s5-d-label" x="552" y="62" class="curve-label" fill="#3fb950" style="transition: x 0.8s ease;">D</text>
+          <!-- Ghost of original demand (shown after shift) -->
+          <path id="s5-demand-ghost" d="M 314,337 C 360,290 430,220 546,68" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4,4" opacity="0"/>
+          <text id="s5-d-ghost-label" x="552" y="62" class="curve-label" fill="#3fb950" opacity="0" font-size="14">D</text>
+
+          <!-- Intersection: 4% GDP, 4% real rate = (443, 210) -->
+          <circle id="s5-eq-dot" cx="443" cy="210" r="6" fill="#e6edf3" stroke="#0d1117" stroke-width="2" style="transition: cx 0.8s ease, cy 0.8s ease;"/>
+
+          <!-- Dashed lines to axes from intersection -->
+          <line id="s5-eq-hline" x1="100" y1="210" x2="443" y2="210" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: y1 0.8s ease, y2 0.8s ease, x2 0.8s ease;"/>
+          <line id="s5-eq-vline" x1="443" y1="210" x2="443" y2="380" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: x1 0.8s ease, x2 0.8s ease, y1 0.8s ease;"/>
+
+          <!-- Equilibrium labels -->
+          <text id="s5-eq-rate" x="108" y="206" class="eq-label" opacity="0.8">4%</text>
+          <text id="s5-eq-gdp" x="443" y="375" text-anchor="middle" class="eq-label" opacity="0.6" font-size="10">4% GDP</text>
+          <!-- Arrow showing price effect (hidden until demand shifts) -->
+          <g id="s5-price-note" opacity="0" style="transition: opacity 0.5s ease;">
+            <text x="180" y="255" style="fill:#3fb950;font-size:11px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">↓ rates = ↑ bond prices</text>
+          </g>
+
+          <!-- Annotation: Supply -->
+          <rect x="510" y="108" width="190" height="46" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+          <text x="524" y="128" class="ann-title" fill="#58a6ff">Supply is fixed and steep</text>
+          <text x="524" y="148" class="ann-body">Borrowing is endogenously fixed</text>
+          <line x1="510" y1="133" x2="480" y2="170" stroke="#30363d" stroke-width="1"/>
+
+          <!-- Annotation: Demand (left) -->
+          <rect x="120" y="275" width="210" height="46" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+          <text x="134" y="295" class="ann-title" fill="#3fb950">Demand is variable</text>
+          <text x="134" y="313" class="ann-body">Demand blows hot and cold</text>
+          <line x1="315" y1="300" x2="435" y2="250" stroke="#30363d" stroke-width="1"/>
+        </svg>
+      </div>
+      <ul class="bullets" id="s5-bullets">
+        <li>Between 2011 and 2013, foreigners bought ZAR 292bn of SA bonds</li>
+        <li id="s5-bullet-2">I believe this is evidence of an unobservable demand shift to the right</li>
+        <li>Foreign holdings jumped from 23% to 38% of the market</li>
+        <li>The result: lower yields, higher bond prices</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var shifted = false;
+    function shiftS5() {
+      shifted = true;
+      var d = document.getElementById('s5-demand'); if(d) d.setAttribute('d','M 374,337 C 420,290 490,220 606,68');
+      var dl = document.getElementById('s5-d-label'); if(dl) dl.setAttribute('x','612');
+      var dg = document.getElementById('s5-demand-ghost'); if(dg) dg.setAttribute('opacity','0.25');
+      var dgl = document.getElementById('s5-d-ghost-label'); if(dgl) dgl.setAttribute('opacity','0.25');
+      var dot = document.getElementById('s5-eq-dot'); if(dot){dot.setAttribute('cx','460');dot.setAttribute('cy','252');}
+      var hl = document.getElementById('s5-eq-hline'); if(hl){hl.setAttribute('y1','252');hl.setAttribute('y2','252');hl.setAttribute('x2','460');}
+      var vl = document.getElementById('s5-eq-vline'); if(vl){vl.setAttribute('x1','460');vl.setAttribute('x2','460');vl.setAttribute('y1','252');}
+      var er = document.getElementById('s5-eq-rate'); if(er){er.textContent='3%';er.setAttribute('y','248');}
+      var eg = document.getElementById('s5-eq-gdp'); if(eg){eg.textContent='~4.2% GDP';eg.setAttribute('x','460');}
+      var pn = document.getElementById('s5-price-note'); if(pn) pn.setAttribute('opacity','1');
+    }
+    function resetS5() {
+      shifted = false;
+      var d = document.getElementById('s5-demand'); if(d) d.setAttribute('d','M 314,337 C 360,290 430,220 546,68');
+      var dl = document.getElementById('s5-d-label'); if(dl) dl.setAttribute('x','552');
+      var dg = document.getElementById('s5-demand-ghost'); if(dg) dg.setAttribute('opacity','0');
+      var dgl = document.getElementById('s5-d-ghost-label'); if(dgl) dgl.setAttribute('opacity','0');
+      var dot = document.getElementById('s5-eq-dot'); if(dot){dot.setAttribute('cx','443');dot.setAttribute('cy','210');}
+      var hl = document.getElementById('s5-eq-hline'); if(hl){hl.setAttribute('y1','210');hl.setAttribute('y2','210');hl.setAttribute('x2','443');}
+      var vl = document.getElementById('s5-eq-vline'); if(vl){vl.setAttribute('x1','443');vl.setAttribute('x2','443');vl.setAttribute('y1','210');}
+      var er = document.getElementById('s5-eq-rate'); if(er){er.textContent='4%';er.setAttribute('y','206');}
+      var eg = document.getElementById('s5-eq-gdp'); if(eg){eg.textContent='4% GDP';eg.setAttribute('x','443');}
+      var pn = document.getElementById('s5-price-note'); if(pn) pn.setAttribute('opacity','0');
+    }
+    var obs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's5-bullet-2' && m.target.classList.contains('visible') && !shifted) shiftS5();
+      });
+    });
+    var slideObs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's5' && !m.target.classList.contains('active') && shifted) resetS5();
+      });
+    });
+    setTimeout(function() {
+      var b2 = document.getElementById('s5-bullet-2');
+      if (b2) obs.observe(b2, { attributes: true, attributeFilter: ['class'] });
+      var s5 = document.getElementById('s5');
+      if (s5) slideObs.observe(s5, { attributes: true, attributeFilter: ['class'] });
+    }, 200);
+  })();
+  </script>
+
+
+  <!-- SLIDE 4 -->
+  <div class="slide" id="s6">
     <div class="slide-inner">
       <div class="slide-num">05 / The Global Market</div>
       <h2>$100 trillion of government bonds</h2>
@@ -694,7 +884,7 @@
   </div>
 
   <!-- SLIDE 4 -->
-  <div class="slide" id="s6">
+  <div class="slide" id="s7">
     <div class="slide-inner">
       <div class="slide-num">06 / Home Bias</div>
       <h2>Investors stay close to home</h2>
@@ -726,7 +916,7 @@
   </div>
 
   <!-- SLIDE 5 -->
-  <div class="slide" id="s7">
+  <div class="slide" id="s8">
     <div class="slide-inner">
       <div class="slide-num">07 / The Puzzle</div>
       <h2>Foreign participation swings far too much</h2>
@@ -742,7 +932,7 @@
   </div>
 
   <!-- SLIDE 6 -->
-  <div class="slide" id="s8">
+  <div class="slide" id="s9">
     <div class="slide-inner">
       <div class="slide-num">08 / Why the Swings?</div>
       <h2>Three mechanisms break the feedback loop</h2>
@@ -758,7 +948,7 @@
   </div>
 
   <!-- SLIDE 7 -->
-  <div class="slide" id="s9">
+  <div class="slide" id="s10">
     <div class="slide-inner">
       <div class="slide-num">09 / The Analytical Payoff</div>
       <h2>Flows tell you what prices can't</h2>
