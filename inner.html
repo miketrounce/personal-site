@@ -151,16 +151,28 @@
     font-weight: 400;
     margin-left: 8px;
   }
+  .landing-list li .item-desc {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #555d66;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  .landing-list li:hover .item-desc,
+  .landing-list li.active-item .item-desc {
+    color: #8b949e;
+  }
 </style>
 
 
 <div id="landing-menu" class="landing-menu">
   <h1>Mike Trounce</h1>
   <ol class="landing-list">
-    <li><span class="item-num">1.</span>Flow Superintelligence<span class="coming-soon">coming soon</span></li>
-    <li><span class="item-num">2.</span>Asset Pricing: Supply, Demand, Flows and Positions<span class="coming-soon">coming soon</span></li>
-    <li><span class="item-num">3.</span>Government Bonds and their Investors<span class="coming-soon">coming soon</span></li>
-    <li class="active-item" onclick="document.getElementById('landing-menu').style.display='none';document.getElementById('slides-container').style.display='block';"><span class="item-num">4.</span>The South African Government Bond Market: a Flows Analysis</li>
+    <li><span class="item-num">1.</span>Flow Superintelligence<span class="coming-soon">coming soon</span><span class="item-desc">AI applied to collecting, organising, and understanding the relationship between flow data and asset prices</span></li>
+    <li><span class="item-num">2.</span>Asset Pricing: Supply, Demand, Flows and Positions<span class="coming-soon">coming soon</span><span class="item-desc">A general framework for understanding asset prices through the lens of who is buying and selling</span></li>
+    <li><span class="item-num">3.</span>Government Bonds and their Investors<span class="coming-soon">coming soon</span><span class="item-desc">The framework applied to sovereign debt markets and the behaviour of their investor base</span></li>
+    <li class="active-item" onclick="document.getElementById('landing-menu').style.display='none';document.getElementById('slides-container').style.display='block';"><span class="item-num">4.</span>The South African Government Bond Market: a Flows Analysis<span class="item-desc">A deep dive into supply, demand, and the forces that drive SA bond prices</span></li>
   </ol>
 </div>
 
