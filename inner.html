@@ -65,7 +65,7 @@
   .slides-wrap .chart-wrap.visible { opacity: 1; transform: translateY(0); }
   .slides-wrap .chart-wrap svg { width: 100%; height: auto; max-height: 55vh; }
   /* ── Source panel ── */
-  .slides-wrap .src-btn { position: fixed; bottom: 72px; left: 20px; z-index: 101; background: var(--surface); border: 1px solid var(--border); color: var(--muted); font-size: 11px; font-family: -apple-system, system-ui, sans-serif; padding: 4px 10px; border-radius: 6px; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; }
+  .slides-wrap .src-btn { background: none; border: none; color: var(--muted); font-size: 10px; font-family: -apple-system, system-ui, sans-serif; padding: 2px 0; cursor: pointer; opacity: 0.4; transition: opacity 0.2s; text-decoration: underline; text-underline-offset: 2px; }
   .slides-wrap .src-btn:hover { opacity: 1; }
   .slides-wrap .src-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.6); }
   .slides-wrap .src-overlay.open { display: flex; justify-content: center; align-items: center; }
@@ -149,9 +149,10 @@
           <polyline points="71,163.4 90,182.4 108,172.0 126,163.4 145,173.7 164,175.5 182,180.7 200,184.1 219,173.7 238,172.0 256,137.4 274,81.9 293,154.7 312,170.3 330,172.0 348,172.0" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <g fill="#3fb950"><circle cx="71" cy="163.4" r="2.5"/><circle cx="90" cy="182.4" r="2.5"/><circle cx="108" cy="172.0" r="2.5"/><circle cx="126" cy="163.4" r="2.5"/><circle cx="145" cy="173.7" r="2.5"/><circle cx="164" cy="175.5" r="2.5"/><circle cx="182" cy="180.7" r="2.5"/><circle cx="200" cy="184.1" r="2.5"/><circle cx="219" cy="173.7" r="2.5"/><circle cx="238" cy="172.0" r="2.5"/><circle cx="256" cy="137.4" r="2.5"/><circle cx="274" cy="81.9" r="2.5"/><circle cx="293" cy="154.7" r="2.5"/><circle cx="312" cy="170.3" r="2.5"/><circle cx="330" cy="172.0" r="2.5"/><circle cx="348" cy="172.0" r="2.5"/></g>
           <!-- Axis top labels instead of legend -->
-          <text x="54" y="38" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR bn</text>
-          <text x="366" y="38" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
+          <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR bn</text>
+          <text x="366" y="28" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
         </svg>
+        <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-overlay').classList.add('open')">Source</button></div>
       </div>
       <ul class="bullets">
         <li>The deficit spiked to <strong>ZAR 552bn</strong> in 2020/21 (COVID) and remains above <strong>ZAR 300bn/yr</strong></li>
@@ -206,9 +207,10 @@
           <polyline points="71,185.5 90,176.6 108,170.5 126,163.9 145,157.9 164,152.2 182,145.0 200,143.9 219,139.8 238,132.1 256,118.3 274,104.6 293,106.5 312,107.3 330,98.6 348,89.8" fill="none" stroke="#f78166" stroke-width="2" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round"/>
           <g fill="#f78166"><circle cx="71" cy="185.5" r="2"/><circle cx="90" cy="176.6" r="2"/><circle cx="108" cy="170.5" r="2"/><circle cx="126" cy="163.9" r="2"/><circle cx="145" cy="157.9" r="2"/><circle cx="164" cy="152.2" r="2"/><circle cx="182" cy="145.0" r="2"/><circle cx="200" cy="143.9" r="2"/><circle cx="219" cy="139.8" r="2"/><circle cx="238" cy="132.1" r="2"/><circle cx="256" cy="118.3" r="2"/><circle cx="274" cy="104.6" r="2"/><circle cx="293" cy="106.5" r="2"/><circle cx="312" cy="107.3" r="2"/><circle cx="330" cy="98.6" r="2"/><circle cx="348" cy="89.8" r="2"/></g>
           <!-- Axis top labels instead of legend -->
-          <text x="54" y="38" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tr</text>
-          <text x="366" y="38" style="fill:#f78166;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
+          <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tr</text>
+          <text x="366" y="28" style="fill:#f78166;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
         </svg>
+        <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-overlay').classList.add('open')">Source</button></div>
       </div>
       <ul class="bullets">
         <li>Gross debt grew 7x from ZAR 805bn to ZAR 5.7tr in 15 years, now <strong>77% of GDP</strong></li>
@@ -487,7 +489,6 @@
 
 </div><!-- #deck -->
 
-<button class="src-btn" onclick="document.getElementById('src-overlay').classList.add('open')">Source</button>
 <div class="src-overlay" id="src-overlay" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="src-panel">
     <button class="src-close" onclick="document.getElementById('src-overlay').classList.remove('open')">Close</button>
