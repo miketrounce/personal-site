@@ -671,38 +671,36 @@
           <text x="400" y="440" text-anchor="middle" class="ax-title">Issuance per year (% of GDP)</text>
           <text x="32" y="210" text-anchor="middle" class="ax-title" transform="rotate(-90, 32, 210)">Real interest rate (%)</text>
 
-          <!-- Supply curve: steep/nearly vertical. Intersection at 4% GDP, 4% rate -->
-          <!-- At r=7% issuance ~3.2% GDP, at r=1% issuance ~5% GDP -->
-          <path d="M 374,55 C 400,120 430,280 528,360" fill="none" stroke="#58a6ff" stroke-width="3" stroke-linecap="round"/>
-          <text x="535" y="355" class="curve-label" fill="#58a6ff">S</text>
+          <!-- Supply curve: steep/nearly vertical. Intersection at 4.5% GDP, 4% rate -->
+          <path d="M 417,55 C 443,120 473,280 571,360" fill="none" stroke="#58a6ff" stroke-width="3" stroke-linecap="round"/>
+          <text x="578" y="355" class="curve-label" fill="#58a6ff">S</text>
 
-          <!-- Demand curve: upward sloping (steep/inelastic). More demand at higher rates -->
-          <!-- At r=1% demand ~2.5% GDP (x=314), at r=4% demand 4% (x=443), at r=7% demand ~5.2% (x=546) -->
-          <path id="sd-demand" d="M 314,337 C 360,290 430,220 546,68" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" style="transition: d 0.8s ease;"/>
-          <text id="sd-d-label" x="552" y="62" class="curve-label" fill="#3fb950" style="transition: x 0.8s ease;">D</text>
+          <!-- Demand curve: upward sloping (steep/inelastic) -->
+          <path id="sd-demand" d="M 357,337 C 403,290 473,220 589,68" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" style="transition: d 0.8s ease;"/>
+          <text id="sd-d-label" x="595" y="62" class="curve-label" fill="#3fb950" style="transition: x 0.8s ease;">D</text>
           <!-- Ghost of original demand (shown after shift) -->
-          <path id="sd-demand-ghost" d="M 314,337 C 360,290 430,220 546,68" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4,4" opacity="0"/>
-          <text id="sd-d-ghost-label" x="552" y="62" class="curve-label" fill="#3fb950" opacity="0" font-size="14">D</text>
+          <path id="sd-demand-ghost" d="M 357,337 C 403,290 473,220 589,68" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4,4" opacity="0"/>
+          <text id="sd-d-ghost-label" x="595" y="62" class="curve-label" fill="#3fb950" opacity="0" font-size="14">D</text>
 
-          <!-- Intersection: 4% GDP, 4% real rate = (443, 210) -->
-          <circle id="sd-eq-dot" cx="443" cy="210" r="6" fill="#e6edf3" stroke="#0d1117" stroke-width="2" style="transition: cx 0.8s ease, cy 0.8s ease;"/>
+          <!-- Intersection: 4.5% GDP, 4% real rate = (486, 210) -->
+          <circle id="sd-eq-dot" cx="486" cy="210" r="6" fill="#e6edf3" stroke="#0d1117" stroke-width="2" style="transition: cx 0.8s ease, cy 0.8s ease;"/>
 
           <!-- Dashed lines to axes from intersection -->
-          <line id="sd-eq-hline" x1="100" y1="210" x2="443" y2="210" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: y1 0.8s ease, y2 0.8s ease, x2 0.8s ease;"/>
-          <line id="sd-eq-vline" x1="443" y1="210" x2="443" y2="380" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: x1 0.8s ease, x2 0.8s ease, y1 0.8s ease;"/>
+          <line id="sd-eq-hline" x1="100" y1="210" x2="486" y2="210" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: y1 0.8s ease, y2 0.8s ease, x2 0.8s ease;"/>
+          <line id="sd-eq-vline" x1="486" y1="210" x2="486" y2="380" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: x1 0.8s ease, x2 0.8s ease, y1 0.8s ease;"/>
 
           <!-- Equilibrium labels -->
           <text id="sd-eq-rate" x="108" y="206" class="eq-label" opacity="0.8">4%</text>
-          <text id="sd-eq-gdp" x="443" y="375" text-anchor="middle" class="eq-label" opacity="0.6" font-size="10">4% GDP</text>
+          <text id="sd-eq-gdp" x="486" y="375" text-anchor="middle" class="eq-label" opacity="0.6" font-size="10">4.5% GDP</text>
           <!-- Arrow showing price effect (hidden until demand shifts) -->
           <g id="sd-price-note" opacity="0" style="transition: opacity 0.5s ease;">
             <text x="180" y="255" style="fill:#3fb950;font-size:11px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">↓ rates = ↑ bond prices</text>
           </g>
 
           <!-- Annotation: Supply -->
-          <rect x="510" y="108" width="190" height="46" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-          <text x="524" y="128" class="ann-title" fill="#58a6ff">Supply is fixed and steep</text>
-          <text x="524" y="148" class="ann-body">Borrowing is endogenously fixed</text>
+          <rect x="550" y="108" width="190" height="46" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+          <text x="564" y="128" class="ann-title" fill="#58a6ff">Supply is fixed and steep</text>
+          <text x="564" y="148" class="ann-body">Borrowing is endogenously fixed</text>
           <line x1="510" y1="133" x2="480" y2="170" stroke="#30363d" stroke-width="1"/>
 
           <!-- Annotation: Demand (left) -->
@@ -713,10 +711,10 @@
         </svg>
       </div>
       <ul class="bullets" id="sd-bullets">
-        <li>And now I'll show supply as a fixed and steep schedule</li>
-        <li id="sd-bullet-2">I'll add demand as a time-varying and steep schedule</li>
-        <li>I think this is why we see significant variation in interest rates (and bond prices)</li>
-        <li>In this example, we get a 100bp drop in bond prices on an upshift in demand</li>
+        <li>My supply schedule is steep and fixed</li>
+        <li id="sd-bullet-2">Steep: changes in borrowing costs (bond yields) have little impact</li>
+        <li>Fixed: neither appetite for austerity nor go-for-growth</li>
+        <li>Fits with significant variation observed in bond yields, caused by demand variation</li>
       </ul>
     </div>
   </div>
@@ -732,25 +730,25 @@
           // Shift demand curve right
           var demand = document.getElementById('sd-demand');
           if (demand) {
-            demand.setAttribute('d', 'M 374,337 C 420,290 490,220 606,68');
-            document.getElementById('sd-d-label').setAttribute('x', '612');
+            demand.setAttribute('d', 'M 417,337 C 463,290 533,220 649,68');
+            document.getElementById('sd-d-label').setAttribute('x', '655');
             // Show ghost of old position
             document.getElementById('sd-demand-ghost').setAttribute('opacity', '0.25');
             document.getElementById('sd-d-ghost-label').setAttribute('opacity', '0.25');
             // Move intersection to new equilibrium: 4.2% GDP, 3% rate
-            document.getElementById('sd-eq-dot').setAttribute('cx', '460');
+            document.getElementById('sd-eq-dot').setAttribute('cx', '503');
             document.getElementById('sd-eq-dot').setAttribute('cy', '252');
             document.getElementById('sd-eq-hline').setAttribute('y1', '252');
             document.getElementById('sd-eq-hline').setAttribute('y2', '252');
-            document.getElementById('sd-eq-hline').setAttribute('x2', '460');
-            document.getElementById('sd-eq-vline').setAttribute('x1', '460');
-            document.getElementById('sd-eq-vline').setAttribute('x2', '460');
+            document.getElementById('sd-eq-hline').setAttribute('x2', '503');
+            document.getElementById('sd-eq-vline').setAttribute('x1', '503');
+            document.getElementById('sd-eq-vline').setAttribute('x2', '503');
             document.getElementById('sd-eq-vline').setAttribute('y1', '252');
             // Update labels
             document.getElementById('sd-eq-rate').textContent = '3%';
             document.getElementById('sd-eq-rate').setAttribute('y', '248');
-            document.getElementById('sd-eq-gdp').textContent = '~4.2% GDP';
-            document.getElementById('sd-eq-gdp').setAttribute('x', '460');
+            document.getElementById('sd-eq-gdp').textContent = '~4.7% GDP';
+            document.getElementById('sd-eq-gdp').setAttribute('x', '503');
             // Show price note
             document.getElementById('sd-price-note').setAttribute('opacity', '1');
           }
@@ -759,15 +757,15 @@
     });
     function resetSD() {
       shifted = false;
-      var d = document.getElementById('sd-demand'); if(d) d.setAttribute('d','M 314,337 C 360,290 430,220 546,68');
-      var dl = document.getElementById('sd-d-label'); if(dl) dl.setAttribute('x','552');
+      var d = document.getElementById('sd-demand'); if(d) d.setAttribute('d','M 357,337 C 403,290 473,220 589,68');
+      var dl = document.getElementById('sd-d-label'); if(dl) dl.setAttribute('x','595');
       var dg = document.getElementById('sd-demand-ghost'); if(dg) dg.setAttribute('opacity','0');
       var dgl = document.getElementById('sd-d-ghost-label'); if(dgl) dgl.setAttribute('opacity','0');
-      var dot = document.getElementById('sd-eq-dot'); if(dot){dot.setAttribute('cx','443');dot.setAttribute('cy','210');}
-      var hl = document.getElementById('sd-eq-hline'); if(hl){hl.setAttribute('y1','210');hl.setAttribute('y2','210');hl.setAttribute('x2','443');}
-      var vl = document.getElementById('sd-eq-vline'); if(vl){vl.setAttribute('x1','443');vl.setAttribute('x2','443');vl.setAttribute('y1','210');}
+      var dot = document.getElementById('sd-eq-dot'); if(dot){dot.setAttribute('cx','486');dot.setAttribute('cy','210');}
+      var hl = document.getElementById('sd-eq-hline'); if(hl){hl.setAttribute('y1','210');hl.setAttribute('y2','210');hl.setAttribute('x2','486');}
+      var vl = document.getElementById('sd-eq-vline'); if(vl){vl.setAttribute('x1','486');vl.setAttribute('x2','486');vl.setAttribute('y1','210');}
       var er = document.getElementById('sd-eq-rate'); if(er){er.textContent='4%';er.setAttribute('y','206');}
-      var eg = document.getElementById('sd-eq-gdp'); if(eg){eg.textContent='4% GDP';eg.setAttribute('x','443');}
+      var eg = document.getElementById('sd-eq-gdp'); if(eg){eg.textContent='4.5% GDP';eg.setAttribute('x','486');}
       var pn = document.getElementById('sd-price-note'); if(pn) pn.setAttribute('opacity','0');
     }
     var slideObs = new MutationObserver(function(muts) {
