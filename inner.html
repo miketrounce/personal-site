@@ -88,174 +88,107 @@
 
       <div class="chart-row">
       <div class="chart-small">
-        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <style>
-              .bar-label { fill: #8b949e; font-size: 11px; font-family: -apple-system, system-ui, sans-serif; }
-              .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
-              .pct-label { fill: #3fb950; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-              .fc-label { fill: #8b949e; font-size: 8px; font-style: italic; font-family: -apple-system, system-ui, sans-serif; }
-            </style>
-          </defs>
-          <text x="200" y="18" text-anchor="middle" class="bar-title">Main Budget Deficit (annual borrowing need)</text>
-          <text x="200" y="32" text-anchor="middle" class="bar-label">R billions per fiscal year</text>
-          <!-- Chart area: x=60..350, y=42..250. Scale: R400bn=y42, 0=y250. 1bn=0.52px -->
-          <line x1="60" y1="250" x2="355" y2="250" stroke="#8b949e" stroke-width="1"/>
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><style>
+            .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .pct-label { fill: #3fb950; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .src-label { fill: #555d66; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
+          </style></defs>
+          <text x="210" y="16" text-anchor="middle" class="bar-title">Main Budget Deficit</text>
+          <text x="210" y="28" text-anchor="middle" class="bar-label">R billions per fiscal year (ending March)</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
           <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="350" y1="42" x2="350" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
-          <!-- Gridlines at R100, R200, R300 -->
-          <line x1="60" y1="198" x2="350" y2="198" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="146" x2="350" y2="146" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="94" x2="350" y2="94" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <!-- Y-axis left: R bn -->
+          <line x1="360" y1="42" x2="360" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
+          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
           <text x="54" y="254" text-anchor="end" class="bar-label">0</text>
-          <text x="54" y="202" text-anchor="end" class="bar-label">R100bn</text>
-          <text x="54" y="150" text-anchor="end" class="bar-label">R200bn</text>
-          <text x="54" y="98" text-anchor="end" class="bar-label">R300bn</text>
-          <text x="54" y="46" text-anchor="end" class="bar-label">R400bn</text>
-          <!-- Y-axis right: % of GDP deficit -->
-          <text x="356" y="254" class="pct-label">0%</text>
-          <text x="356" y="202" class="pct-label">2%</text>
-          <text x="356" y="150" class="pct-label">4%</text>
-          <text x="356" y="98" class="pct-label">6%</text>
-          <text x="356" y="46" class="pct-label">8%</text>
+          <text x="54" y="184" text-anchor="end" class="bar-label">R200bn</text>
+          <text x="54" y="114" text-anchor="end" class="bar-label">R400bn</text>
+          <text x="54" y="46" text-anchor="end" class="bar-label">R600bn</text>
+          <text x="366" y="254" class="pct-label">0%</text>
+          <text x="366" y="184" class="pct-label">4%</text>
+          <text x="366" y="114" class="pct-label">8%</text>
+          <text x="366" y="46" class="pct-label">12%</text>
           <text x="16" y="150" text-anchor="middle" class="bar-label" transform="rotate(-90, 16, 150)">R billions</text>
-          <text x="390" y="150" text-anchor="middle" class="pct-label" transform="rotate(90, 390, 150)">% of GDP</text>
-          <!-- Bars: Budget deficit by fiscal year (Table 3.8 + estimates) -->
-          <!-- 16/17:R149, 17/18:R172, 18/19:R190, 19/20:R230, 20/21:R340, 21/22:R260, 22/23:R310, 23/24:R323, 24/25:R335, 25/26:R349, 26/27:R301, 27/28:R285 -->
-          <!-- 12 bars, width=20, gap=4.5 => 24.5px each. Start x=66 -->
-          <rect x="66" y="172.5" width="20" height="77.5" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <text x="76" y="264" text-anchor="middle" class="bar-label">16</text>
-          <rect x="90.5" y="160.6" width="20" height="89.4" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <text x="100.5" y="264" text-anchor="middle" class="bar-label">17</text>
-          <rect x="115" y="151.2" width="20" height="98.8" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <text x="125" y="264" text-anchor="middle" class="bar-label">18</text>
-          <rect x="139.5" y="130.4" width="20" height="119.6" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <text x="149.5" y="264" text-anchor="middle" class="bar-label">19</text>
-          <rect x="164" y="73.2" width="20" height="176.8" rx="2" fill="#58a6ff" opacity="0.85"/>
-          <text x="174" y="264" text-anchor="middle" class="bar-label">20</text>
-          <rect x="188.5" y="114.8" width="20" height="135.2" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <text x="198.5" y="264" text-anchor="middle" class="bar-label">21</text>
-          <rect x="213" y="88.8" width="20" height="161.2" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <text x="223" y="264" text-anchor="middle" class="bar-label">22</text>
-          <rect x="237.5" y="82" width="20" height="168" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <text x="247.5" y="264" text-anchor="middle" class="bar-label">23</text>
-          <rect x="262" y="75.8" width="20" height="174.2" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <text x="272" y="264" text-anchor="middle" class="bar-label">24</text>
-          <rect x="286.5" y="68.5" width="20" height="181.5" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <text x="296.5" y="264" text-anchor="middle" class="bar-label">25</text>
-          <!-- Forecast bars: dashed border -->
-          <rect x="311" y="93.5" width="20" height="156.5" rx="2" fill="#58a6ff" opacity="0.4" stroke="#58a6ff" stroke-width="1" stroke-dasharray="3,2"/>
-          <text x="321" y="264" text-anchor="middle" class="bar-label">26</text>
-          <rect x="335.5" y="101.8" width="14" height="148.2" rx="2" fill="#58a6ff" opacity="0.4" stroke="#58a6ff" stroke-width="1" stroke-dasharray="3,2"/>
-          <text x="342.5" y="264" text-anchor="middle" class="bar-label">27</text>
-          <!-- Forecast label -->
-          <text x="332" y="88" text-anchor="middle" class="fc-label">forecast</text>
-          <!-- Deficit as % of GDP line: 3.3, 3.5, 3.7, 4.3, 6.5, 4.6, 4.6, 4.5, 4.5, 4.5, 3.7, 3.3 -->
-          <!-- Scale: 8%=y42, 0%=y250. Each 1%=26px -->
-          <polyline points="76,164.2 100.5,159 125,153.8 149.5,138.2 174,81 198.5,130.4 223,130.4 247.5,133 272,133 296.5,133 321,153.8 342.5,164.2"
-            fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <g fill="#3fb950">
-            <circle cx="76" cy="164.2" r="3"/><circle cx="100.5" cy="159" r="3"/><circle cx="125" cy="153.8" r="3"/>
-            <circle cx="149.5" cy="138.2" r="3"/><circle cx="174" cy="81" r="3"/><circle cx="198.5" cy="130.4" r="3"/>
-            <circle cx="223" cy="130.4" r="3"/><circle cx="247.5" cy="133" r="3"/><circle cx="272" cy="133" r="3"/>
-            <circle cx="296.5" cy="133" r="3"/><circle cx="321" cy="153.8" r="2.5"/><circle cx="342.5" cy="164.2" r="2.5"/>
-          </g>
-          <!-- Legend -->
-          <rect x="85" y="284" width="12" height="12" rx="1" fill="#58a6ff" opacity="0.7"/>
-          <text x="102" y="294" class="bar-label">R bn deficit</text>
-          <line x1="195" y1="290" x2="215" y2="290" stroke="#3fb950" stroke-width="2"/>
-          <circle cx="205" cy="290" r="3" fill="#3fb950"/>
-          <text x="220" y="294" class="bar-label">% of GDP</text>
+          <text x="395" y="150" text-anchor="middle" class="pct-label" transform="rotate(90, 395, 150)">% of GDP</text>
+          <!-- SARB KBP4602F: 09/10=129, 10/11=114, 11/12=148, 12/13=177, 13/14=167, 14/15=175, 15/16=175, 16/17=171, 17/18=210, 18/19=229, 19/20=346, 20/21=552, 21/22=326, 22/23=300, 23/24=313, 24/25=337 -->
+          <rect x="63" y="205.2" width="16" height="44.8" rx="2" fill="#58a6ff" opacity="0.7"/><text x="71" y="264" text-anchor="middle" class="bar-label">10</text>
+          <rect x="82" y="210.6" width="16" height="39.4" rx="2" fill="#58a6ff" opacity="0.7"/><text x="90" y="264" text-anchor="middle" class="bar-label">11</text>
+          <rect x="100" y="198.6" width="16" height="51.4" rx="2" fill="#58a6ff" opacity="0.7"/><text x="108" y="264" text-anchor="middle" class="bar-label">12</text>
+          <rect x="118" y="188.7" width="16" height="61.3" rx="2" fill="#58a6ff" opacity="0.7"/><text x="126" y="264" text-anchor="middle" class="bar-label">13</text>
+          <rect x="137" y="192.1" width="16" height="57.9" rx="2" fill="#58a6ff" opacity="0.7"/><text x="145" y="264" text-anchor="middle" class="bar-label">14</text>
+          <rect x="156" y="189.5" width="16" height="60.5" rx="2" fill="#58a6ff" opacity="0.7"/><text x="164" y="264" text-anchor="middle" class="bar-label">15</text>
+          <rect x="174" y="189.4" width="16" height="60.6" rx="2" fill="#58a6ff" opacity="0.7"/><text x="182" y="264" text-anchor="middle" class="bar-label">16</text>
+          <rect x="192" y="190.6" width="16" height="59.4" rx="2" fill="#58a6ff" opacity="0.7"/><text x="200" y="264" text-anchor="middle" class="bar-label">17</text>
+          <rect x="211" y="177.1" width="16" height="72.9" rx="2" fill="#58a6ff" opacity="0.7"/><text x="219" y="264" text-anchor="middle" class="bar-label">18</text>
+          <rect x="230" y="170.6" width="16" height="79.4" rx="2" fill="#58a6ff" opacity="0.7"/><text x="238" y="264" text-anchor="middle" class="bar-label">19</text>
+          <rect x="248" y="129.9" width="16" height="120.1" rx="2" fill="#58a6ff" opacity="0.8"/><text x="256" y="264" text-anchor="middle" class="bar-label">20</text>
+          <rect x="266" y="58.7" width="16" height="191.3" rx="2" fill="#58a6ff" opacity="0.85"/><text x="274" y="264" text-anchor="middle" class="bar-label">21</text>
+          <rect x="285" y="137.1" width="16" height="112.9" rx="2" fill="#58a6ff" opacity="0.7"/><text x="293" y="264" text-anchor="middle" class="bar-label">22</text>
+          <rect x="304" y="146.1" width="16" height="103.9" rx="2" fill="#58a6ff" opacity="0.7"/><text x="312" y="264" text-anchor="middle" class="bar-label">23</text>
+          <rect x="322" y="141.7" width="16" height="108.3" rx="2" fill="#58a6ff" opacity="0.7"/><text x="330" y="264" text-anchor="middle" class="bar-label">24</text>
+          <rect x="340" y="133.3" width="16" height="116.7" rx="2" fill="#58a6ff" opacity="0.7"/><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
+          <!-- Deficit % GDP line -->
+          <polyline points="71,163.4 90,182.4 108,172.0 126,163.4 145,173.7 164,175.5 182,180.7 200,184.1 219,173.7 238,172.0 256,137.4 274,81.9 293,154.7 312,170.3 330,172.0 348,172.0" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#3fb950"><circle cx="71" cy="163.4" r="2.5"/><circle cx="90" cy="182.4" r="2.5"/><circle cx="108" cy="172.0" r="2.5"/><circle cx="126" cy="163.4" r="2.5"/><circle cx="145" cy="173.7" r="2.5"/><circle cx="164" cy="175.5" r="2.5"/><circle cx="182" cy="180.7" r="2.5"/><circle cx="200" cy="184.1" r="2.5"/><circle cx="219" cy="173.7" r="2.5"/><circle cx="238" cy="172.0" r="2.5"/><circle cx="256" cy="137.4" r="2.5"/><circle cx="274" cy="81.9" r="2.5"/><circle cx="293" cy="154.7" r="2.5"/><circle cx="312" cy="170.3" r="2.5"/><circle cx="330" cy="172.0" r="2.5"/><circle cx="348" cy="172.0" r="2.5"/></g>
+          <rect x="85" y="276" width="10" height="10" rx="1" fill="#58a6ff" opacity="0.7"/><text x="100" y="284" class="bar-label">R bn deficit</text>
+          <line x1="185" y1="281" x2="203" y2="281" stroke="#3fb950" stroke-width="2"/><circle cx="194" cy="281" r="2.5" fill="#3fb950"/><text x="208" y="284" class="bar-label">% of GDP</text>
+          <text x="210" y="296" text-anchor="middle" class="src-label">Source: SARB QB March 2026 (KBP4602F)</text>
         </svg>
       </div>
 
       <div class="chart-small">
-        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <style>
-              .stk-label { fill: #8b949e; font-size: 11px; font-family: -apple-system, system-ui, sans-serif; }
-              .stk-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
-              .stk-pct { fill: #f78166; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-            </style>
-          </defs>
-          <text x="200" y="18" text-anchor="middle" class="stk-title">Gross Loan Debt (stock)</text>
-          <text x="200" y="32" text-anchor="middle" class="stk-label">R trillions outstanding + debt/GDP %</text>
-          <!-- Chart area: x=60..350, y=42..250. Scale: R8tr=y42, 0=y250. 1tr=26px -->
-          <line x1="60" y1="250" x2="355" y2="250" stroke="#8b949e" stroke-width="1"/>
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><style>
+            .stk-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .stk-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .stk-pct { fill: #f78166; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+          </style></defs>
+          <text x="210" y="16" text-anchor="middle" class="stk-title">Gross Loan Debt</text>
+          <text x="210" y="28" text-anchor="middle" class="stk-label">R trillions outstanding, end of fiscal year</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
           <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="350" y1="42" x2="350" y2="250" stroke="#f78166" stroke-width="0.5" stroke-dasharray="2,2"/>
-          <!-- Gridlines at R2tr, R4tr, R6tr -->
-          <line x1="60" y1="198" x2="350" y2="198" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="146" x2="350" y2="146" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="94" x2="350" y2="94" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <!-- Y-axis left: R trillions -->
+          <line x1="360" y1="42" x2="360" y2="250" stroke="#f78166" stroke-width="0.5" stroke-dasharray="2,2"/>
+          <line x1="60" y1="186" x2="360" y2="186" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="122" x2="360" y2="122" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
           <text x="54" y="254" text-anchor="end" class="stk-label">0</text>
-          <text x="54" y="202" text-anchor="end" class="stk-label">R2tr</text>
-          <text x="54" y="150" text-anchor="end" class="stk-label">R4tr</text>
-          <text x="54" y="98" text-anchor="end" class="stk-label">R6tr</text>
-          <text x="54" y="46" text-anchor="end" class="stk-label">R8tr</text>
-          <!-- Y-axis right: % of GDP -->
-          <text x="356" y="254" class="stk-pct">0%</text>
-          <text x="356" y="202" class="stk-pct">25%</text>
-          <text x="356" y="150" class="stk-pct">50%</text>
-          <text x="356" y="98" class="stk-pct">75%</text>
-          <text x="356" y="46" class="stk-pct">100%</text>
+          <text x="54" y="190" text-anchor="end" class="stk-label">R2tr</text>
+          <text x="54" y="126" text-anchor="end" class="stk-label">R4tr</text>
+          <text x="54" y="62" text-anchor="end" class="stk-label">R6tr</text>
+          <text x="366" y="254" class="stk-pct">0%</text>
+          <text x="366" y="203" class="stk-pct">25%</text>
+          <text x="366" y="152" class="stk-pct">50%</text>
+          <text x="366" y="101" class="stk-pct">75%</text>
+          <text x="366" y="50" class="stk-pct">100%</text>
           <text x="16" y="150" text-anchor="middle" class="stk-label" transform="rotate(-90, 16, 150)">R trillions</text>
-          <text x="390" y="150" text-anchor="middle" class="stk-pct" transform="rotate(90, 390, 150)">% of GDP</text>
-          <!-- X labels: fiscal years 16/17 through 28/29 (12 points) -->
-          <!-- x positions: same as bar chart -->
-          <text x="76" y="264" text-anchor="middle" class="stk-label">16</text>
-          <text x="100.5" y="264" text-anchor="middle" class="stk-label">17</text>
-          <text x="125" y="264" text-anchor="middle" class="stk-label">18</text>
-          <text x="149.5" y="264" text-anchor="middle" class="stk-label">19</text>
-          <text x="174" y="264" text-anchor="middle" class="stk-label">20</text>
-          <text x="198.5" y="264" text-anchor="middle" class="stk-label">21</text>
-          <text x="223" y="264" text-anchor="middle" class="stk-label">22</text>
-          <text x="247.5" y="264" text-anchor="middle" class="stk-label">23</text>
-          <text x="272" y="264" text-anchor="middle" class="stk-label">24</text>
-          <text x="296.5" y="264" text-anchor="middle" class="stk-label">25</text>
-          <text x="321" y="264" text-anchor="middle" class="stk-label">26</text>
-          <text x="342.5" y="264" text-anchor="middle" class="stk-label">27</text>
-          <!-- Debt stock R trillions: 2.0, 2.2, 2.5, 2.8, 3.4, 3.9, 4.3, 4.8, 5.2, 5.7, 6.1, 6.3, 6.6, 6.9 -->
-          <!-- Scale: R1tr = 26px from y=250. y = 250 - (val * 26) -->
-          <!-- 2.0→198, 2.2→192.8, 2.5→185, 2.8→177.2, 3.4→161.6, 3.9→148.6, 4.3→138.2, 4.8→125.2, 5.2→114.8, 5.7→101.8, 6.1→91.4, 6.3→86.2, 6.6→78.4, 6.9→70.6 -->
-          <path d="M 76,198 L 100.5,192.8 L 125,185 L 149.5,177.2 L 174,161.6 L 198.5,148.6 L 223,138.2 L 247.5,125.2 L 272,114.8 L 296.5,101.8 L 321,91.4 L 342.5,86.2"
-            fill="none" stroke="#58a6ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M 76,198 L 100.5,192.8 L 125,185 L 149.5,177.2 L 174,161.6 L 198.5,148.6 L 223,138.2 L 247.5,125.2 L 272,114.8 L 296.5,101.8 L 321,91.4 L 342.5,86.2 L 342.5,250 L 76,250 Z"
-            fill="#58a6ff" opacity="0.08"/>
-          <g fill="#58a6ff">
-            <circle cx="76" cy="198" r="3"/><circle cx="100.5" cy="192.8" r="3"/><circle cx="125" cy="185" r="3"/>
-            <circle cx="149.5" cy="177.2" r="3"/><circle cx="174" cy="161.6" r="3"/><circle cx="198.5" cy="148.6" r="3"/>
-            <circle cx="223" cy="138.2" r="3"/><circle cx="247.5" cy="125.2" r="3"/><circle cx="272" cy="114.8" r="3"/>
-            <circle cx="296.5" cy="101.8" r="3"/><circle cx="321" cy="91.4" r="2.5"/><circle cx="342.5" cy="86.2" r="2.5"/>
-          </g>
-          <!-- Debt/GDP %: 50.5, 51.0, 52.0, 56.7, 69.9, 69.0, 68.6, 72.8, 73.9, 77.0, 78.9, 77.3 -->
-          <!-- Scale: 100%=y42, 0%=y250. Each 1%=2.08px -->
-          <!-- 50.5→145, 51→143.9, 52→141.8, 56.7→132.1, 69.9→104.6, 69.0→106.5, 68.6→107.3, 72.8→98.6, 73.9→96.3, 77.0→89.8, 78.9→85.9, 77.3→89.2 -->
-          <path d="M 76,145 L 100.5,143.9 L 125,141.8 L 149.5,132.1 L 174,104.6 L 198.5,106.5 L 223,107.3 L 247.5,98.6 L 272,96.3 L 296.5,89.8 L 321,85.9 L 342.5,89.2"
-            fill="none" stroke="#f78166" stroke-width="2" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round"/>
-          <g fill="#f78166">
-            <circle cx="76" cy="145" r="2.5"/><circle cx="100.5" cy="143.9" r="2.5"/><circle cx="125" cy="141.8" r="2.5"/>
-            <circle cx="149.5" cy="132.1" r="2.5"/><circle cx="174" cy="104.6" r="2.5"/><circle cx="198.5" cy="106.5" r="2.5"/>
-            <circle cx="223" cy="107.3" r="2.5"/><circle cx="247.5" cy="98.6" r="2.5"/><circle cx="272" cy="96.3" r="2.5"/>
-            <circle cx="296.5" cy="89.8" r="2.5"/><circle cx="321" cy="85.9" r="2.5"/><circle cx="342.5" cy="89.2" r="2.5"/>
-          </g>
-          <!-- Legend -->
-          <line x1="75" y1="290" x2="97" y2="290" stroke="#58a6ff" stroke-width="2.5"/>
-          <circle cx="86" cy="290" r="3" fill="#58a6ff"/>
-          <text x="102" y="294" class="stk-label">R tr outstanding</text>
-          <line x1="215" y1="290" x2="237" y2="290" stroke="#f78166" stroke-width="2" stroke-dasharray="4,2"/>
-          <circle cx="226" cy="290" r="2.5" fill="#f78166"/>
-          <text x="242" y="294" class="stk-pct">Debt / GDP</text>
+          <text x="395" y="150" text-anchor="middle" class="stk-pct" transform="rotate(90, 395, 150)">Debt / GDP</text>
+          <!-- X labels: FY 09/10 through 24/25 -->
+          <text x="71" y="264" text-anchor="middle" class="stk-label">10</text><text x="90" y="264" text-anchor="middle" class="stk-label">11</text>
+          <text x="108" y="264" text-anchor="middle" class="stk-label">12</text><text x="126" y="264" text-anchor="middle" class="stk-label">13</text>
+          <text x="145" y="264" text-anchor="middle" class="stk-label">14</text><text x="164" y="264" text-anchor="middle" class="stk-label">15</text>
+          <text x="182" y="264" text-anchor="middle" class="stk-label">16</text><text x="200" y="264" text-anchor="middle" class="stk-label">17</text>
+          <text x="219" y="264" text-anchor="middle" class="stk-label">18</text><text x="238" y="264" text-anchor="middle" class="stk-label">19</text>
+          <text x="256" y="264" text-anchor="middle" class="stk-label">20</text><text x="274" y="264" text-anchor="middle" class="stk-label">21</text>
+          <text x="293" y="264" text-anchor="middle" class="stk-label">22</text><text x="312" y="264" text-anchor="middle" class="stk-label">23</text>
+          <text x="330" y="264" text-anchor="middle" class="stk-label">24</text><text x="348" y="264" text-anchor="middle" class="stk-label">25</text>
+          <!-- SARB KBP4114M: 805,996,1188,1366,1585,1799,2019,2233,2490,2788,3261,3936,4278,4766,5259,5694 R bn -->
+          <path d="M 71,224.2 L 90,218.1 L 108,212.0 L 126,206.3 L 145,199.3 L 164,192.4 L 182,185.4 L 200,178.5 L 219,170.3 L 238,160.8 L 256,145.6 L 274,124.1 L 293,113.1 L 312,97.5 L 330,81.7 L 348,67.8" fill="none" stroke="#58a6ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 71,224.2 L 90,218.1 L 108,212.0 L 126,206.3 L 145,199.3 L 164,192.4 L 182,185.4 L 200,178.5 L 219,170.3 L 238,160.8 L 256,145.6 L 274,124.1 L 293,113.1 L 312,97.5 L 330,81.7 L 348,67.8 L 348,250 L 71,250 Z" fill="#58a6ff" opacity="0.08"/>
+          <g fill="#58a6ff"><circle cx="71" cy="224.2" r="2.5"/><circle cx="90" cy="218.1" r="2.5"/><circle cx="108" cy="212.0" r="2.5"/><circle cx="126" cy="206.3" r="2.5"/><circle cx="145" cy="199.3" r="2.5"/><circle cx="164" cy="192.4" r="2.5"/><circle cx="182" cy="185.4" r="2.5"/><circle cx="200" cy="178.5" r="2.5"/><circle cx="219" cy="170.3" r="2.5"/><circle cx="238" cy="160.8" r="2.5"/><circle cx="256" cy="145.6" r="2.5"/><circle cx="274" cy="124.1" r="2.5"/><circle cx="293" cy="113.1" r="2.5"/><circle cx="312" cy="97.5" r="2.5"/><circle cx="330" cy="81.7" r="2.5"/><circle cx="348" cy="67.8" r="2.5"/></g>
+          <!-- Debt/GDP %: 31,35.3,38.2,41.4,44.3,47,50.5,51,53,56.7,63.3,69.9,69,68.6,72.8,77 -->
+          <polyline points="71,185.5 90,176.6 108,170.5 126,163.9 145,157.9 164,152.2 182,145.0 200,143.9 219,139.8 238,132.1 256,118.3 274,104.6 293,106.5 312,107.3 330,98.6 348,89.8" fill="none" stroke="#f78166" stroke-width="2" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#f78166"><circle cx="71" cy="185.5" r="2"/><circle cx="90" cy="176.6" r="2"/><circle cx="108" cy="170.5" r="2"/><circle cx="126" cy="163.9" r="2"/><circle cx="145" cy="157.9" r="2"/><circle cx="164" cy="152.2" r="2"/><circle cx="182" cy="145.0" r="2"/><circle cx="200" cy="143.9" r="2"/><circle cx="219" cy="139.8" r="2"/><circle cx="238" cy="132.1" r="2"/><circle cx="256" cy="118.3" r="2"/><circle cx="274" cy="104.6" r="2"/><circle cx="293" cy="106.5" r="2"/><circle cx="312" cy="107.3" r="2"/><circle cx="330" cy="98.6" r="2"/><circle cx="348" cy="89.8" r="2"/></g>
+          <line x1="70" y1="281" x2="90" y2="281" stroke="#58a6ff" stroke-width="2.5"/><circle cx="80" cy="281" r="2.5" fill="#58a6ff"/><text x="95" y="284" class="stk-label">R tr outstanding</text>
+          <line x1="205" y1="281" x2="225" y2="281" stroke="#f78166" stroke-width="2" stroke-dasharray="4,2"/><circle cx="215" cy="281" r="2" fill="#f78166"/><text x="230" y="284" class="stk-pct">Debt / GDP</text>
+          <text x="210" y="296" text-anchor="middle" class="src-label">Source: SARB QB March 2026 (KBP4114M)</text>
         </svg>
       </div>
       </div><!-- .chart-row -->
 
       <ul class="bullets">
-        <li>The budget deficit has averaged <strong>R300bn+ per year</strong> since the pandemic</li>
-        <li>Gross debt tripled from R2tr to R6tr in a decade, now <strong>~78% of GDP</strong></li>
-        <li class="highlight">Supply is a given. The interesting question is on the demand side: <strong>who buys?</strong></li>
+        <li>The deficit spiked to <strong>R552bn</strong> in 2020/21 (COVID) and remains above <strong>R300bn/yr</strong></li>
+        <li>Gross debt grew 7x from R805bn to R5.7tr in 15 years, now <strong>77% of GDP</strong></li>
       </ul>
     </div>
   </div>
