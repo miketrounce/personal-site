@@ -64,6 +64,19 @@
   .slides-wrap .chart-wrap { max-width: 100%; margin: 0 auto 20px; opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
   .slides-wrap .chart-wrap.visible { opacity: 1; transform: translateY(0); }
   .slides-wrap .chart-wrap svg { width: 100%; height: auto; max-height: 55vh; }
+  /* ── Source panel ── */
+  .slides-wrap .src-btn { position: fixed; bottom: 72px; left: 20px; z-index: 101; background: var(--surface); border: 1px solid var(--border); color: var(--muted); font-size: 11px; font-family: -apple-system, system-ui, sans-serif; padding: 4px 10px; border-radius: 6px; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; }
+  .slides-wrap .src-btn:hover { opacity: 1; }
+  .slides-wrap .src-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.6); }
+  .slides-wrap .src-overlay.open { display: flex; justify-content: center; align-items: center; }
+  .slides-wrap .src-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; max-width: 520px; width: 90%; max-height: 80vh; overflow-y: auto; color: var(--text); font-size: 14px; line-height: 1.7; }
+  .slides-wrap .src-panel h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+  .slides-wrap .src-panel table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 16px; }
+  .slides-wrap .src-panel th { text-align: left; color: var(--accent); font-weight: 600; padding: 6px 8px; border-bottom: 1px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .slides-wrap .src-panel td { padding: 6px 8px; border-bottom: 1px solid var(--border); color: var(--muted); }
+  .slides-wrap .src-panel td:first-child { color: var(--text); font-weight: 600; }
+  .slides-wrap .src-panel .src-close { background: none; border: 1px solid var(--border); color: var(--muted); padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; float: right; }
+  .slides-wrap .src-panel .src-close:hover { color: var(--text); border-color: var(--muted); }
   @media (max-width: 600px) {
     .slides-wrap .slide { padding: 24px 16px; }
     .slides-wrap .cols { grid-template-columns: 1fr; }
@@ -135,9 +148,9 @@
           <!-- Deficit % GDP line -->
           <polyline points="71,163.4 90,182.4 108,172.0 126,163.4 145,173.7 164,175.5 182,180.7 200,184.1 219,173.7 238,172.0 256,137.4 274,81.9 293,154.7 312,170.3 330,172.0 348,172.0" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <g fill="#3fb950"><circle cx="71" cy="163.4" r="2.5"/><circle cx="90" cy="182.4" r="2.5"/><circle cx="108" cy="172.0" r="2.5"/><circle cx="126" cy="163.4" r="2.5"/><circle cx="145" cy="173.7" r="2.5"/><circle cx="164" cy="175.5" r="2.5"/><circle cx="182" cy="180.7" r="2.5"/><circle cx="200" cy="184.1" r="2.5"/><circle cx="219" cy="173.7" r="2.5"/><circle cx="238" cy="172.0" r="2.5"/><circle cx="256" cy="137.4" r="2.5"/><circle cx="274" cy="81.9" r="2.5"/><circle cx="293" cy="154.7" r="2.5"/><circle cx="312" cy="170.3" r="2.5"/><circle cx="330" cy="172.0" r="2.5"/><circle cx="348" cy="172.0" r="2.5"/></g>
-          <rect x="85" y="276" width="10" height="10" rx="1" fill="#58a6ff" opacity="0.7"/><text x="100" y="284" class="bar-label">R billions</text>
-          <line x1="185" y1="281" x2="203" y2="281" stroke="#3fb950" stroke-width="2"/><circle cx="194" cy="281" r="2.5" fill="#3fb950"/><text x="208" y="284" class="bar-label">% of GDP</text>
-          <text x="210" y="296" text-anchor="middle" class="src-label">Source: SARB QB Mar 2026 (KBP4602F), NT Budget Review (deficit/GDP)</text>
+          <!-- Axis top labels instead of legend -->
+          <text x="54" y="38" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">R billions</text>
+          <text x="366" y="38" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
         </svg>
       </div>
       <ul class="bullets">
@@ -192,9 +205,9 @@
           <!-- Debt/GDP %: 31,35.3,38.2,41.4,44.3,47,50.5,51,53,56.7,63.3,69.9,69,68.6,72.8,77 -->
           <polyline points="71,185.5 90,176.6 108,170.5 126,163.9 145,157.9 164,152.2 182,145.0 200,143.9 219,139.8 238,132.1 256,118.3 274,104.6 293,106.5 312,107.3 330,98.6 348,89.8" fill="none" stroke="#f78166" stroke-width="2" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round"/>
           <g fill="#f78166"><circle cx="71" cy="185.5" r="2"/><circle cx="90" cy="176.6" r="2"/><circle cx="108" cy="170.5" r="2"/><circle cx="126" cy="163.9" r="2"/><circle cx="145" cy="157.9" r="2"/><circle cx="164" cy="152.2" r="2"/><circle cx="182" cy="145.0" r="2"/><circle cx="200" cy="143.9" r="2"/><circle cx="219" cy="139.8" r="2"/><circle cx="238" cy="132.1" r="2"/><circle cx="256" cy="118.3" r="2"/><circle cx="274" cy="104.6" r="2"/><circle cx="293" cy="106.5" r="2"/><circle cx="312" cy="107.3" r="2"/><circle cx="330" cy="98.6" r="2"/><circle cx="348" cy="89.8" r="2"/></g>
-          <line x1="70" y1="281" x2="90" y2="281" stroke="#58a6ff" stroke-width="2.5"/><circle cx="80" cy="281" r="2.5" fill="#58a6ff"/><text x="95" y="284" class="stk-label">R tr outstanding</text>
-          <line x1="205" y1="281" x2="225" y2="281" stroke="#f78166" stroke-width="2" stroke-dasharray="4,2"/><circle cx="215" cy="281" r="2" fill="#f78166"/><text x="230" y="284" class="stk-pct">Debt / GDP</text>
-          <text x="210" y="296" text-anchor="middle" class="src-label">Source: SARB QB March 2026 (KBP4114M)</text>
+          <!-- Axis top labels instead of legend -->
+          <text x="54" y="38" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">R trillions</text>
+          <text x="366" y="38" style="fill:#f78166;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
         </svg>
       </div>
       <ul class="bullets">
@@ -473,6 +486,27 @@
   </div>
 
 </div><!-- #deck -->
+
+<button class="src-btn" onclick="document.getElementById('src-overlay').classList.add('open')">Source</button>
+<div class="src-overlay" id="src-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="src-panel">
+    <button class="src-close" onclick="document.getElementById('src-overlay').classList.remove('open')">Close</button>
+    <h3>Data Sources</h3>
+    <table>
+      <tr><th>Series</th><th>Code</th><th>Source</th><th>Transform</th></tr>
+      <tr><td>Main budget deficit</td><td>KBP4602F</td><td>SARB QB Mar 2026</td><td>Absolute value (deficit shown positive)</td></tr>
+      <tr><td>Deficit / GDP</td><td>—</td><td>NT Budget Review 2026</td><td>None</td></tr>
+      <tr><td>Gross loan debt</td><td>KBP4114M</td><td>SARB QB Mar 2026</td><td>End-March values, R millions → R trillions</td></tr>
+      <tr><td>Debt / GDP</td><td>—</td><td>NT Budget Review 2026</td><td>None</td></tr>
+    </table>
+    <p style="font-size:12px;color:#8b949e;">
+      SARB = South African Reserve Bank Quarterly Bulletin.<br>
+      NT = National Treasury.<br>
+      Data file: Kbp4-PFD-March 2026.xlsx from
+      <a href="https://www.resbank.co.za/en/home/publications/quarterly-bulletin1/download-information-from-xlsx-data-files" target="_blank" rel="noopener" style="color:#58a6ff;">resbank.co.za</a>
+    </p>
+  </div>
+</div>
 
 <div id="nav">
   <button class="nav-btn" id="prev">← Prev</button>
