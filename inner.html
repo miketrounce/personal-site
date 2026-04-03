@@ -163,6 +163,7 @@
     <div class="slide-inner">
       <div class="eyebrow">The South African Government Bond Market</div>
       <h1>The Hope</h1>
+      <p class="subtitle" id="hope-status" style="min-height:1.3em;">FY 2009/10: Debt/GDP is 31%. The starting point.</p>
       <div class="chart-wrap">
         <svg id="hope-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <defs><style>
@@ -174,20 +175,13 @@
           <!-- Axes -->
           <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
           <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <!-- Gridlines -->
-          <line x1="60" y1="218" x2="360" y2="218" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <!-- Gridlines (matching slide 1 density: 2 lines) -->
           <line x1="60" y1="186" x2="360" y2="186" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="154" x2="360" y2="154" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
           <line x1="60" y1="122" x2="360" y2="122" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="90" x2="360" y2="90" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="58" x2="360" y2="58" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <!-- Y-axis labels -->
+          <!-- Y-axis labels (matching slide 1 pattern: 0, tick, tick, tick) -->
           <text x="54" y="254" text-anchor="end" style="fill:#58a6ff" class="bar-label">0</text>
-          <text x="54" y="222" text-anchor="end" style="fill:#58a6ff" class="bar-label">1,000</text>
           <text x="54" y="190" text-anchor="end" style="fill:#58a6ff" class="bar-label">2,000</text>
-          <text x="54" y="158" text-anchor="end" style="fill:#58a6ff" class="bar-label">3,000</text>
           <text x="54" y="126" text-anchor="end" style="fill:#58a6ff" class="bar-label">4,000</text>
-          <text x="54" y="94" text-anchor="end" style="fill:#58a6ff" class="bar-label">5,000</text>
           <text x="54" y="62" text-anchor="end" style="fill:#58a6ff" class="bar-label">6,000</text>
           <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR bn</text>
           <!-- X labels -->
@@ -207,7 +201,6 @@
         </svg>
         <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
       </div>
-      <p class="subtitle" id="hope-status" style="min-height:1.3em;margin-bottom:12px;">FY 2009/10: Debt/GDP is 31%. The starting point.</p>
       <ul class="bullets">
         <li>Each year the government borrows, <strong style="color:#3fb950">hoping</strong> debt/GDP will stay stable</li>
         <li>Each year, <strong style="color:#f78166">reality</strong> lands higher than the hope</li>
