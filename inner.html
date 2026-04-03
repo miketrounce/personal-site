@@ -126,8 +126,8 @@
           <text x="68" y="264" text-anchor="middle" class="bar-label">10</text><text x="86" y="264" text-anchor="middle" class="bar-label">11</text><text x="103" y="264" text-anchor="middle" class="bar-label">12</text><text x="120" y="264" text-anchor="middle" class="bar-label">13</text><text x="138" y="264" text-anchor="middle" class="bar-label">14</text><text x="156" y="264" text-anchor="middle" class="bar-label">15</text><text x="173" y="264" text-anchor="middle" class="bar-label">16</text><text x="190" y="264" text-anchor="middle" class="bar-label">17</text><text x="208" y="264" text-anchor="middle" class="bar-label">18</text><text x="226" y="264" text-anchor="middle" class="bar-label">19</text><text x="243" y="264" text-anchor="middle" class="bar-label">20</text><text x="260" y="264" text-anchor="middle" class="bar-label">21</text><text x="278" y="264" text-anchor="middle" class="bar-label">22</text><text x="296" y="264" text-anchor="middle" class="bar-label">23</text><text x="313" y="264" text-anchor="middle" class="bar-label">24</text><text x="330" y="264" text-anchor="middle" class="bar-label">25</text><text x="348" y="264" text-anchor="middle" class="bar-label">26</text>
           <!-- Dynamic elements drawn by JS -->
           <g id="fan-ghost-projections"></g>
-          <polyline id="fan-projection" points="" fill="none" stroke="#3fb950" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round" opacity="0.8"/>
-          <polyline id="fan-actual" points="" fill="none" stroke="#e6edf3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline id="fan-projection" points="" fill="none" stroke="#e6edf3" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round" opacity="0.8"/>
+          <polyline id="fan-actual" points="" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           <g id="fan-dots"></g>
           <!-- Source -->
           <text x="210" y="290" text-anchor="middle" class="src-label">Source: SA National Budget Reviews 2011-2026 (16 verified fiscal framework tables)</text>
@@ -172,7 +172,7 @@
     function dot(x, y) {
       var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
       c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r','2.5');
-      c.setAttribute('fill','#e6edf3');
+      c.setAttribute('fill','#3fb950');
       return c;
     }
 
@@ -180,10 +180,10 @@
       var p = document.createElementNS('http://www.w3.org/2000/svg','polyline');
       p.setAttribute('points', pts);
       p.setAttribute('fill', 'none');
-      p.setAttribute('stroke', '#3fb950');
+      p.setAttribute('stroke', '#e6edf3');
       p.setAttribute('stroke-width', '1');
       p.setAttribute('stroke-dasharray', '3,3');
-      p.setAttribute('opacity', '0.2');
+      p.setAttribute('opacity', '0.15');
       return p;
     }
 
