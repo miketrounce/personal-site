@@ -345,59 +345,65 @@
   })();
   </script>
 
-  <!-- SLIDE 3: Debt stabilisation framework -->
+  <!-- SLIDE 3: The r-g condition -->
   <div class="slide" id="s3">
     <div class="slide-inner">
       <div class="eyebrow">The South African Government Bond Market</div>
-      <h1>Supply</h1>
-      <p class="subtitle">How much can a government borrow without debt spiralling?</p>
+      <h1>The Bet</h1>
+      <p class="subtitle">What are they hoping for?</p>
       <div class="chart-wrap">
-        <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 620 320" xmlns="http://www.w3.org/2000/svg">
           <defs><style>
             .fm-title { fill: #e6edf3; font-size: 18px; font-weight: 700; font-family: Georgia, serif; }
-            .fm-formula { fill: #58a6ff; font-size: 22px; font-weight: 700; font-family: 'Courier New', monospace; }
+            .fm-formula { fill: #58a6ff; font-size: 20px; font-weight: 700; font-family: 'Courier New', monospace; }
             .fm-label { fill: #8b949e; font-size: 13px; font-family: -apple-system, system-ui, sans-serif; }
             .fm-val { fill: #e6edf3; font-size: 14px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
             .fm-accent { fill: #58a6ff; font-size: 14px; font-weight: 700; font-family: -apple-system, system-ui, sans-serif; }
             .fm-green { fill: #3fb950; font-size: 14px; font-weight: 700; font-family: -apple-system, system-ui, sans-serif; }
+            .fm-red { fill: #f78166; font-size: 14px; font-weight: 700; font-family: -apple-system, system-ui, sans-serif; }
             .fm-box { fill: #161b22; stroke: #30363d; stroke-width: 1; rx: 10; }
           </style></defs>
 
           <!-- Title -->
-          <text x="300" y="24" text-anchor="middle" class="fm-title">Debt Stabilisation Condition</text>
-          <text x="300" y="42" text-anchor="middle" class="fm-label">Debt/GDP stays constant when:</text>
+          <text x="310" y="24" text-anchor="middle" class="fm-title">Debt Dynamics: It All Comes Down to (r − g)</text>
 
-          <!-- Formula -->
-          <rect x="120" y="52" width="360" height="44" class="fm-box"/>
-          <text x="300" y="81" text-anchor="middle" class="fm-formula">deficit / GDP = d × g / (1 + g)</text>
+          <!-- The key equation -->
+          <rect x="70" y="38" width="480" height="44" class="fm-box"/>
+          <text x="310" y="67" text-anchor="middle" class="fm-formula">Δd = (r − g) / (1+g) × d − ps</text>
 
-          <!-- Variable definitions -->
-          <text x="60" y="124" class="fm-label">where:</text>
-          <text x="110" y="124" class="fm-accent">d</text><text x="125" y="124" class="fm-label">= debt / GDP ratio</text>
-          <text x="310" y="124" class="fm-accent">g</text><text x="325" y="124" class="fm-label">= nominal GDP growth rate</text>
+          <!-- Variables -->
+          <text x="50" y="106" class="fm-label">where:</text>
+          <text x="95" y="106" class="fm-accent">d</text><text x="108" y="106" class="fm-label">= debt / GDP</text>
+          <text x="230" y="106" class="fm-accent">r</text><text x="243" y="106" class="fm-label">= real interest rate</text>
+          <text x="400" y="106" class="fm-accent">g</text><text x="413" y="106" class="fm-label">= real GDP growth</text>
+          <text x="95" y="124" class="fm-accent">ps</text><text x="115" y="124" class="fm-label">= primary surplus (revenue minus non-interest spending)</text>
 
-          <!-- SA example box -->
-          <rect x="40" y="144" width="520" height="126" rx="10" fill="none" stroke="#30363d" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="300" y="168" text-anchor="middle" class="fm-val">South Africa: the government borrows ~4% of GDP per year</text>
-          <text x="300" y="188" text-anchor="middle" class="fm-label">If the goal is to keep debt/GDP stable, that implies:</text>
+          <!-- The key insight -->
+          <text x="310" y="152" text-anchor="middle" class="fm-val">The critical variable is (r − g):</text>
 
-          <!-- Implied calculation -->
-          <rect x="80" y="198" width="200" height="28" class="fm-box"/>
-          <text x="180" y="218" text-anchor="middle" class="fm-accent">d = 77%</text>
-          <text x="180" y="237" text-anchor="middle" class="fm-label">(actual, 2024/25)</text>
+          <!-- Two scenarios side by side -->
+          <rect x="40" y="164" width="255" height="80" rx="10" fill="none" stroke="#3fb950" stroke-width="1.5"/>
+          <text x="167" y="186" text-anchor="middle" class="fm-green">r &lt; g</text>
+          <text x="167" y="204" text-anchor="middle" class="fm-label">Growth outpaces interest costs</text>
+          <text x="167" y="222" text-anchor="middle" class="fm-label">Debt/GDP falls even with deficits</text>
+          <text x="167" y="238" text-anchor="middle" style="fill:#3fb950;font-size:11px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">The "hope" scenario</text>
 
-          <rect x="320" y="198" width="200" height="28" class="fm-box"/>
-          <text x="420" y="218" text-anchor="middle" class="fm-green">g ≈ 5%</text>
-          <text x="420" y="237" text-anchor="middle" class="fm-label">(nominal growth needed)</text>
+          <rect x="325" y="164" width="255" height="80" rx="10" fill="none" stroke="#f78166" stroke-width="1.5"/>
+          <text x="452" y="186" text-anchor="middle" class="fm-red">r &gt; g</text>
+          <text x="452" y="204" text-anchor="middle" class="fm-label">Interest costs outpace growth</text>
+          <text x="452" y="222" text-anchor="middle" class="fm-label">Debt/GDP rises, compounding</text>
+          <text x="452" y="238" text-anchor="middle" style="fill:#f78166;font-size:11px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">What actually happened</text>
 
-          <!-- Check: 0.77 × 0.05 / 1.05 = 0.0367 = 3.7% -->
-          <text x="300" y="263" text-anchor="middle" class="fm-label">0.77 × 0.05 / 1.05 = <tspan style="fill:#3fb950;font-weight:700">3.7% of GDP</tspan>  ...close to the ~4% they actually borrow</text>
+          <!-- SA specifics -->
+          <rect x="40" y="258" width="540" height="52" rx="10" fill="none" stroke="#30363d" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="310" y="280" text-anchor="middle" class="fm-val">South Africa borrows ~4% of GDP each year</text>
+          <text x="310" y="300" text-anchor="middle" class="fm-label">At d ≈ 30%, this is only stable if <tspan style="fill:#3fb950;font-weight:700">r − g is sufficiently negative</tspan></text>
         </svg>
       </div>
       <ul class="bullets">
-        <li>At 77% debt/GDP, a deficit of ~4% is roughly consistent with <strong>5% nominal growth</strong></li>
-        <li>If growth disappoints, the same deficit causes debt/GDP to <strong>rise</strong></li>
-        <li class="highlight">The borrowing rate reveals an implicit bet on growth</li>
+        <li>The government hopes for <strong style="color:#3fb950">low r</strong> (cheap borrowing) and <strong style="color:#3fb950">high g</strong> (strong growth)</li>
+        <li>When <strong style="color:#f78166">r &gt; g</strong>, the same 4% deficit causes debt/GDP to ratchet up year after year</li>
+        <li class="highlight">This is exactly what happened: (r − g) was unfavourable, and debt went from 31% to 77%</li>
       </ul>
     </div>
   </div>
