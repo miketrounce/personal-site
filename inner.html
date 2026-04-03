@@ -173,24 +173,27 @@
             .src-label { fill: #555d66; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
           </style></defs>
           <text x="210" y="16" text-anchor="middle" class="bar-title">Gross Loan Debt: Actual vs "Hope"</text>
-          <text id="hope-status" x="210" y="28" text-anchor="middle" class="bar-label">ZAR bn outstanding, end of fiscal year</text>
+          <text id="hope-status" x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
           <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
           <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
           <line x1="360" y1="42" x2="360" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
           <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
           <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
           <text x="54" y="254" text-anchor="end" style="fill:#58a6ff" class="bar-label">0</text>
-          <text x="54" y="184" text-anchor="end" style="fill:#58a6ff" class="bar-label">2,000</text>
-          <text x="54" y="114" text-anchor="end" style="fill:#58a6ff" class="bar-label">4,000</text>
-          <text x="54" y="46" text-anchor="end" style="fill:#58a6ff" class="bar-label">6,000</text>
+          <text x="54" y="184" text-anchor="end" style="fill:#58a6ff" class="bar-label">2</text>
+          <text x="54" y="114" text-anchor="end" style="fill:#58a6ff" class="bar-label">4</text>
+          <text x="54" y="46" text-anchor="end" style="fill:#58a6ff" class="bar-label">6</text>
           <text x="366" y="254" class="pct-label">0%</text>
           <text x="366" y="184" class="pct-label">30%</text>
           <text x="366" y="114" class="pct-label">60%</text>
           <text x="366" y="46" class="pct-label">90%</text><text x="71" y="264" text-anchor="middle" class="bar-label">10</text><text x="90" y="264" text-anchor="middle" class="bar-label">11</text><text x="108" y="264" text-anchor="middle" class="bar-label">12</text><text x="126" y="264" text-anchor="middle" class="bar-label">13</text><text x="145" y="264" text-anchor="middle" class="bar-label">14</text><text x="164" y="264" text-anchor="middle" class="bar-label">15</text><text x="182" y="264" text-anchor="middle" class="bar-label">16</text><text x="200" y="264" text-anchor="middle" class="bar-label">17</text><text x="219" y="264" text-anchor="middle" class="bar-label">18</text><text x="238" y="264" text-anchor="middle" class="bar-label">19</text><text x="256" y="264" text-anchor="middle" class="bar-label">20</text><text x="274" y="264" text-anchor="middle" class="bar-label">21</text><text x="293" y="264" text-anchor="middle" class="bar-label">22</text><text x="312" y="264" text-anchor="middle" class="bar-label">23</text><text x="330" y="264" text-anchor="middle" class="bar-label">24</text><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
           <!-- Axis top labels instead of legend -->
-          <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR bn</text>
+          <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tn</text>
           <text x="366" y="28" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
-        
+
+          <!-- Debt/GDP % line (green, reads against right axis) -->
+          <polyline points="71,181.8 90,172.3 108,166.0 126,158.9 145,152.5 164,146.6 182,138.9 200,137.8 219,133.4 238,125.3 256,110.7 274,96.2 293,98.2 312,99.1 330,89.8 348,80.6" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#3fb950"><circle cx="71" cy="181.8" r="2.5"/><circle cx="90" cy="172.3" r="2.5"/><circle cx="108" cy="166.0" r="2.5"/><circle cx="126" cy="158.9" r="2.5"/><circle cx="145" cy="152.5" r="2.5"/><circle cx="164" cy="146.6" r="2.5"/><circle cx="182" cy="138.9" r="2.5"/><circle cx="200" cy="137.8" r="2.5"/><circle cx="219" cy="133.4" r="2.5"/><circle cx="238" cy="125.3" r="2.5"/><circle cx="256" cy="110.7" r="2.5"/><circle cx="274" cy="96.2" r="2.5"/><circle cx="293" cy="98.2" r="2.5"/><circle cx="312" cy="99.1" r="2.5"/><circle cx="330" cy="89.8" r="2.5"/><circle cx="348" cy="80.6" r="2.5"/></g>
           <!-- Dynamic elements drawn by JS -->
           <g id="hope-old-paths"></g>
           <polyline id="actual-line" points="" fill="none" stroke="#58a6ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
