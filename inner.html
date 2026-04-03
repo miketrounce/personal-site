@@ -393,19 +393,26 @@
 
           <!-- Demand curve: upward sloping (steep/inelastic). More demand at higher rates -->
           <!-- At r=1% demand ~2.5% GDP (x=314), at r=4% demand 4% (x=443), at r=7% demand ~5.2% (x=546) -->
-          <path d="M 314,337 C 360,290 430,220 546,68" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round"/>
-          <text x="552" y="62" class="curve-label" fill="#3fb950">D</text>
+          <path id="sd-demand" d="M 314,337 C 360,290 430,220 546,68" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" style="transition: d 0.8s ease;"/>
+          <text id="sd-d-label" x="552" y="62" class="curve-label" fill="#3fb950" style="transition: x 0.8s ease;">D</text>
+          <!-- Ghost of original demand (shown after shift) -->
+          <path id="sd-demand-ghost" d="M 314,337 C 360,290 430,220 546,68" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4,4" opacity="0"/>
+          <text id="sd-d-ghost-label" x="552" y="62" class="curve-label" fill="#3fb950" opacity="0" font-size="14">D</text>
 
           <!-- Intersection: 4% GDP, 4% real rate = (443, 210) -->
-          <circle cx="443" cy="210" r="6" fill="#e6edf3" stroke="#0d1117" stroke-width="2"/>
+          <circle id="sd-eq-dot" cx="443" cy="210" r="6" fill="#e6edf3" stroke="#0d1117" stroke-width="2" style="transition: cx 0.8s ease, cy 0.8s ease;"/>
 
           <!-- Dashed lines to axes from intersection -->
-          <line x1="100" y1="210" x2="443" y2="210" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4"/>
-          <line x1="443" y1="210" x2="443" y2="380" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4"/>
+          <line id="sd-eq-hline" x1="100" y1="210" x2="443" y2="210" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: y1 0.8s ease, y2 0.8s ease, x2 0.8s ease;"/>
+          <line id="sd-eq-vline" x1="443" y1="210" x2="443" y2="380" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: x1 0.8s ease, x2 0.8s ease, y1 0.8s ease;"/>
 
           <!-- Equilibrium labels -->
-          <text x="108" y="206" class="eq-label" opacity="0.8">4%</text>
-          <text x="443" y="375" text-anchor="middle" class="eq-label" opacity="0.6" font-size="10">4% GDP</text>
+          <text id="sd-eq-rate" x="108" y="206" class="eq-label" opacity="0.8">4%</text>
+          <text id="sd-eq-gdp" x="443" y="375" text-anchor="middle" class="eq-label" opacity="0.6" font-size="10">4% GDP</text>
+          <!-- Arrow showing price effect (hidden until demand shifts) -->
+          <g id="sd-price-note" opacity="0" style="transition: opacity 0.5s ease;">
+            <text x="180" y="255" style="fill:#3fb950;font-size:11px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">↓ rates = ↑ bond prices</text>
+          </g>
 
           <!-- Annotation: Supply -->
           <rect x="510" y="108" width="190" height="50" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
@@ -423,14 +430,57 @@
         </svg>
         <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
       </div>
-      <ul class="bullets">
+      <ul class="bullets" id="sd-bullets">
         <li>Now think of Supply as downward sloping (not upward!)</li>
-        <li>tbc</li>
+        <li id="sd-bullet-2">Sometimes, demand increases — the demand curve shifts right, pushing down the equilibrium real interest rate. For bond holders, <strong style="color:#3fb950">lower rates = higher prices</strong></li>
         <li>tbc</li>
         <li>tbc</li>
       </ul>
     </div>
   </div>
+  <script>
+  (function(){
+    // Animate S&D chart when bullet 2 is revealed
+    var bullet2 = null;
+    var shifted = false;
+    var obs = new MutationObserver(function(mutations) {
+      mutations.forEach(function(m) {
+        if (m.target.id === 'sd-bullet-2' && m.target.classList.contains('visible') && !shifted) {
+          shifted = true;
+          // Shift demand curve right
+          var demand = document.getElementById('sd-demand');
+          if (demand) {
+            demand.setAttribute('d', 'M 374,337 C 420,290 490,220 606,68');
+            document.getElementById('sd-d-label').setAttribute('x', '612');
+            // Show ghost of old position
+            document.getElementById('sd-demand-ghost').setAttribute('opacity', '0.25');
+            document.getElementById('sd-d-ghost-label').setAttribute('opacity', '0.25');
+            // Move intersection to new equilibrium: 4.2% GDP, 3% rate
+            document.getElementById('sd-eq-dot').setAttribute('cx', '460');
+            document.getElementById('sd-eq-dot').setAttribute('cy', '252');
+            document.getElementById('sd-eq-hline').setAttribute('y1', '252');
+            document.getElementById('sd-eq-hline').setAttribute('y2', '252');
+            document.getElementById('sd-eq-hline').setAttribute('x2', '460');
+            document.getElementById('sd-eq-vline').setAttribute('x1', '460');
+            document.getElementById('sd-eq-vline').setAttribute('x2', '460');
+            document.getElementById('sd-eq-vline').setAttribute('y1', '252');
+            // Update labels
+            document.getElementById('sd-eq-rate').textContent = '3%';
+            document.getElementById('sd-eq-rate').setAttribute('y', '248');
+            document.getElementById('sd-eq-gdp').textContent = '~4.2% GDP';
+            document.getElementById('sd-eq-gdp').setAttribute('x', '460');
+            // Show price note
+            document.getElementById('sd-price-note').setAttribute('opacity', '1');
+          }
+        }
+      });
+    });
+    setTimeout(function() {
+      var b2 = document.getElementById('sd-bullet-2');
+      if (b2) obs.observe(b2, { attributes: true, attributeFilter: ['class'] });
+    }, 200);
+  })();
+  </script>
 
   <!-- SLIDE 4 -->
   <div class="slide" id="s4">
