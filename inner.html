@@ -61,7 +61,7 @@
   .slides-wrap .slide-title h1 { font-size: clamp(32px, 5vw, 64px); }
   .slides-wrap .slide-title .meta { font-size: 13px; color: var(--muted); margin-top: 32px; }
   /* ── Chart ── */
-  .slides-wrap .chart-wrap { max-width: 100%; margin: 0 auto 20px; opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .slides-wrap .chart-wrap { max-width: 100%; margin: 0 auto 8px; opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
   .slides-wrap .chart-wrap.visible { opacity: 1; transform: translateY(0); }
   .slides-wrap .chart-wrap svg { width: 100%; height: auto; max-height: 55vh; }
   /* ── Source panel ── */
@@ -154,6 +154,7 @@
         <li>This chart shows the flow rate of issuance ("the supply") of government debt</li>
         <li>Notice how it usually is around <strong>4% of GDP</strong></li>
         <li>I think the government perennially "hopes" for favourable conditions that keep debt/GDP stable</li>
+        <li>Because politically, unless you run a 4% deficit, you don't get re-elected</li>
       </ul>
     </div>
   </div>
@@ -169,21 +170,26 @@
           <defs><style>
             .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
             .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .pct-label { fill: #3fb950; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .src-label { fill: #555d66; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
           </style></defs>
           <text x="210" y="16" text-anchor="middle" class="bar-title">Gross Loan Debt: Actual vs "Hope"</text>
           <text x="210" y="28" text-anchor="middle" class="bar-label">ZAR bn outstanding, end of fiscal year</text>
-          <!-- Axes -->
           <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
           <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <!-- Gridlines (matching slide 1 density: 2 lines) -->
-          <line x1="60" y1="186" x2="360" y2="186" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="122" x2="360" y2="122" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <!-- Y-axis labels (matching slide 1 pattern: 0, tick, tick, tick) -->
+          <line x1="360" y1="42" x2="360" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
+          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
           <text x="54" y="254" text-anchor="end" style="fill:#58a6ff" class="bar-label">0</text>
-          <text x="54" y="190" text-anchor="end" style="fill:#58a6ff" class="bar-label">2,000</text>
-          <text x="54" y="126" text-anchor="end" style="fill:#58a6ff" class="bar-label">4,000</text>
-          <text x="54" y="62" text-anchor="end" style="fill:#58a6ff" class="bar-label">6,000</text>
+          <text x="54" y="184" text-anchor="end" style="fill:#58a6ff" class="bar-label">2,000</text>
+          <text x="54" y="114" text-anchor="end" style="fill:#58a6ff" class="bar-label">4,000</text>
+          <text x="54" y="46" text-anchor="end" style="fill:#58a6ff" class="bar-label">6,000</text>
+          <text x="366" y="254" class="pct-label">0%</text>
+          <text x="366" y="184" class="pct-label">30%</text>
+          <text x="366" y="114" class="pct-label">60%</text>
+          <text x="366" y="46" class="pct-label">90%</text>
           <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR bn</text>
+          <text x="366" y="28" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
           <!-- X labels -->
           <text x="71" y="264" text-anchor="middle" class="bar-label">10</text><text x="90" y="264" text-anchor="middle" class="bar-label">11</text>
           <text x="108" y="264" text-anchor="middle" class="bar-label">12</text><text x="126" y="264" text-anchor="middle" class="bar-label">13</text>
