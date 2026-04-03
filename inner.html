@@ -288,10 +288,22 @@
       }, 500);
     }
 
+    function reset() {
+      played = false;
+      init();
+      if (gdpLine) gdpLine.setAttribute('points', '');
+      if (gdpDots) gdpDots.innerHTML = '';
+      if (oldPaths) oldPaths.innerHTML = '';
+      if (hopeFuture) hopeFuture.setAttribute('opacity', '0');
+    }
+
     var observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(m) {
         if (m.target.id === 's2' && m.target.classList.contains('active') && !played) {
           played = true; init(); setTimeout(function() { animateYear(0); }, 500);
+        }
+        if (m.target.id === 's2' && !m.target.classList.contains('active') && played) {
+          reset();
         }
       });
     });
@@ -486,9 +498,29 @@
         }
       });
     });
+    function resetSD() {
+      shifted = false;
+      var d = document.getElementById('sd-demand'); if(d) d.setAttribute('d','M 314,337 C 360,290 430,220 546,68');
+      var dl = document.getElementById('sd-d-label'); if(dl) dl.setAttribute('x','552');
+      var dg = document.getElementById('sd-demand-ghost'); if(dg) dg.setAttribute('opacity','0');
+      var dgl = document.getElementById('sd-d-ghost-label'); if(dgl) dgl.setAttribute('opacity','0');
+      var dot = document.getElementById('sd-eq-dot'); if(dot){dot.setAttribute('cx','443');dot.setAttribute('cy','210');}
+      var hl = document.getElementById('sd-eq-hline'); if(hl){hl.setAttribute('y1','210');hl.setAttribute('y2','210');hl.setAttribute('x2','443');}
+      var vl = document.getElementById('sd-eq-vline'); if(vl){vl.setAttribute('x1','443');vl.setAttribute('x2','443');vl.setAttribute('y1','210');}
+      var er = document.getElementById('sd-eq-rate'); if(er){er.textContent='4%';er.setAttribute('y','206');}
+      var eg = document.getElementById('sd-eq-gdp'); if(eg){eg.textContent='4% GDP';eg.setAttribute('x','443');}
+      var pn = document.getElementById('sd-price-note'); if(pn) pn.setAttribute('opacity','0');
+    }
+    var slideObs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's3' && !m.target.classList.contains('active') && shifted) resetSD();
+      });
+    });
     setTimeout(function() {
       var b2 = document.getElementById('sd-bullet-2');
       if (b2) obs.observe(b2, { attributes: true, attributeFilter: ['class'] });
+      var s3 = document.getElementById('s3');
+      if (s3) slideObs.observe(s3, { attributes: true, attributeFilter: ['class'] });
     }, 200);
   })();
   </script>
@@ -580,38 +612,65 @@
     // Animate slide 4: on bullet 2, fade out residents, rescale foreign bars
     var newY = [226.2,219.1,202.8,179.4,172.2,164.3,156.4,133.7,105.0,102.4,99.2,93.2,83.5,86.7,74.0,56.3];
     var newH = [23.8,30.9,47.2,70.6,77.8,85.7,93.6,116.3,145.0,147.6,150.8,156.8,166.5,163.3,176.0,193.7];
+    var origY = [], origH = [];
     var shifted = false;
+
+    function storeOriginals() {
+      if (origY.length) return;
+      document.querySelectorAll('.d4-foreign').forEach(function(b) {
+        origY.push(b.getAttribute('y'));
+        origH.push(b.getAttribute('height'));
+      });
+    }
+
+    function shiftToForeign() {
+      shifted = true;
+      storeOriginals();
+      document.querySelectorAll('.d4-resident').forEach(function(r) { r.style.opacity = '0'; });
+      var lr = document.getElementById('d4-leg-res'); if(lr) lr.style.opacity = '0';
+      var lt = document.getElementById('d4-leg-res-txt'); if(lt) lt.style.opacity = '0';
+      document.querySelectorAll('.d4-foreign').forEach(function(b, i) {
+        b.setAttribute('y', newY[i]); b.setAttribute('height', newH[i]);
+      });
+      var y1 = document.getElementById('d4-y1'); if(y1) { y1.textContent = '500'; y1.setAttribute('y', '186'); }
+      var y2 = document.getElementById('d4-y2'); if(y2) { y2.textContent = '1,000'; y2.setAttribute('y', '118'); }
+      var y3 = document.getElementById('d4-y3'); if(y3) { y3.textContent = '1,500'; y3.setAttribute('y', '50'); }
+      var titles = document.querySelectorAll('#s4 text');
+      titles.forEach(function(t) { if(t.textContent === 'ZAR tn') t.textContent = 'ZAR bn'; });
+      titles.forEach(function(t) { if(t.textContent === 'Bond Holdings by Investor Type') t.textContent = 'Foreign Holdings of SA Bonds'; });
+    }
+
+    function resetD4() {
+      shifted = false;
+      document.querySelectorAll('.d4-resident').forEach(function(r) { r.style.opacity = '0.7'; });
+      var lr = document.getElementById('d4-leg-res'); if(lr) lr.style.opacity = '0.7';
+      var lt = document.getElementById('d4-leg-res-txt'); if(lt) lt.style.opacity = '1';
+      document.querySelectorAll('.d4-foreign').forEach(function(b, i) {
+        if (origY[i]) { b.setAttribute('y', origY[i]); b.setAttribute('height', origH[i]); }
+      });
+      var y1 = document.getElementById('d4-y1'); if(y1) { y1.textContent = '2'; y1.setAttribute('y', '184'); }
+      var y2 = document.getElementById('d4-y2'); if(y2) { y2.textContent = '4'; y2.setAttribute('y', '114'); }
+      var y3 = document.getElementById('d4-y3'); if(y3) { y3.textContent = '6'; y3.setAttribute('y', '46'); }
+      var titles = document.querySelectorAll('#s4 text');
+      titles.forEach(function(t) { if(t.textContent === 'ZAR bn') t.textContent = 'ZAR tn'; });
+      titles.forEach(function(t) { if(t.textContent === 'Foreign Holdings of SA Bonds') t.textContent = 'Bond Holdings by Investor Type'; });
+    }
+
     var obs = new MutationObserver(function(muts) {
       muts.forEach(function(m) {
-        if (m.target.id === 'd4-bullet-2' && m.target.classList.contains('visible') && !shifted) {
-          shifted = true;
-          // Fade out resident bars
-          document.querySelectorAll('.d4-resident').forEach(function(r) { r.style.opacity = '0'; });
-          // Fade out resident legend
-          var lr = document.getElementById('d4-leg-res'); if(lr) lr.style.opacity = '0';
-          var lt = document.getElementById('d4-leg-res-txt'); if(lt) lt.style.opacity = '0';
-          // Rescale foreign bars to fill the chart
-          var foreignBars = document.querySelectorAll('.d4-foreign');
-          foreignBars.forEach(function(b, i) {
-            b.setAttribute('y', newY[i]);
-            b.setAttribute('height', newH[i]);
-          });
-          // Update y-axis labels: 0, 500, 1000, 1500 (in ZAR bn)
-          var y0 = document.getElementById('d4-y0'); if(y0) y0.textContent = '0';
-          var y1 = document.getElementById('d4-y1'); if(y1) { y1.textContent = '500'; y1.setAttribute('y', '186'); }
-          var y2 = document.getElementById('d4-y2'); if(y2) { y2.textContent = '1,000'; y2.setAttribute('y', '118'); }
-          var y3 = document.getElementById('d4-y3'); if(y3) { y3.textContent = '1,500'; y3.setAttribute('y', '50'); }
-          // Update axis title
-          var titles = document.querySelectorAll('#s4 text');
-          titles.forEach(function(t) { if(t.textContent === 'ZAR tn') t.textContent = 'ZAR bn'; });
-          // Update chart title
-          titles.forEach(function(t) { if(t.textContent === 'Bond Holdings by Investor Type') t.textContent = 'Foreign Holdings of SA Bonds'; });
-        }
+        if (m.target.id === 'd4-bullet-2' && m.target.classList.contains('visible') && !shifted) shiftToForeign();
+      });
+    });
+    var slideObs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's4' && !m.target.classList.contains('active') && shifted) resetD4();
       });
     });
     setTimeout(function() {
       var b2 = document.getElementById('d4-bullet-2');
       if (b2) obs.observe(b2, { attributes: true, attributeFilter: ['class'] });
+      var s4 = document.getElementById('s4');
+      if (s4) slideObs.observe(s4, { attributes: true, attributeFilter: ['class'] });
     }, 200);
   })();
   </script>
