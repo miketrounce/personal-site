@@ -193,7 +193,7 @@
         
           <!-- Dynamic elements drawn by JS -->
           <g id="hope-old-paths"></g>
-          <polyline id="actual-line" points="" fill="none" stroke="#f78166" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline id="actual-line" points="" fill="none" stroke="#58a6ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
           <g id="actual-dots"></g>
           <line id="hope-future" x1="0" y1="0" x2="0" y2="0" stroke="#3fb950" stroke-width="2" stroke-dasharray="5,3" opacity="0"/>
         </svg>
@@ -262,7 +262,7 @@
     function animateYear(n) {
       if (n >= N) {
         hopeFuture.setAttribute('opacity', '0');
-        status.innerHTML = 'FY 2024/25: Debt is <strong style="color:#f78166">77% of GDP</strong>. Started at 31%.';
+        status.textContent = 'FY 2024/25: Debt is 77% of GDP. Started at 31%.';
         return;
       }
 
@@ -270,11 +270,11 @@
         // First point: show actual dot, then project hope forward
         actualLine.setAttribute('points', pts(0));
         actualDots.innerHTML = '';
-        actualDots.appendChild(dot(ax[0], ay[0], '#f78166'));
-        status.innerHTML = 'FY ' + years[0] + ': Debt/GDP is <strong>' + dgdp[0].toFixed(0) + '%</strong>. The starting point.';
+        actualDots.appendChild(dot(ax[0], ay[0], '#58a6ff'));
+        status.textContent = 'FY ' + years[0] + ': Debt/GDP is ' + dgdp[0].toFixed(0) + '%. The starting point.';
         setTimeout(function() {
           showHopePath(0);
-          status.innerHTML = 'FY ' + years[0] + ': <span style="color:#3fb950">Hope</span>: debt/GDP stays at ' + dgdp[0].toFixed(0) + '% forever...';
+          status.textContent = 'FY ' + years[0] + ': Hope: debt/GDP stays at ' + dgdp[0].toFixed(0) + '% forever...';
           setTimeout(function() { animateYear(1); }, 1000);
         }, 800);
         return;
@@ -283,13 +283,13 @@
       // Phase 1: Reality lands — actual data point appears higher than the hope line
       fadeHopeToGhost(n - 1);
       actualLine.setAttribute('points', pts(n));
-      actualDots.appendChild(dot(ax[n], ay[n], '#f78166'));
-      status.innerHTML = 'FY ' + years[n] + ': <span style="color:#f78166">Reality</span>: debt/GDP is <strong style="color:#f78166">' + dgdp[n].toFixed(0) + '%</strong>';
+      actualDots.appendChild(dot(ax[n], ay[n], '#58a6ff'));
+      status.textContent = 'FY ' + years[n] + ': Reality: debt/GDP is ' + dgdp[n].toFixed(0) + '%';
 
       setTimeout(function() {
         // Phase 2: New hope — project flat from the new (higher) actual level
         showHopePath(n);
-        status.innerHTML = 'FY ' + years[n] + ': <span style="color:#3fb950">New hope</span>: debt/GDP stays at ' + dgdp[n].toFixed(0) + '%...';
+        status.textContent = 'FY ' + years[n] + ': New hope: debt/GDP stays at ' + dgdp[n].toFixed(0) + '%...';
 
         setTimeout(function() { animateYear(n + 1); }, 700);
       }, 500);
