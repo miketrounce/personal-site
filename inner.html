@@ -548,15 +548,16 @@
           <text x="54" y="46" text-anchor="end" style="fill:#58a6ff" class="bar-label">6</text>
           <text x="71" y="264" text-anchor="middle" class="bar-label">10</text><text x="90" y="264" text-anchor="middle" class="bar-label">11</text><text x="108" y="264" text-anchor="middle" class="bar-label">12</text><text x="126" y="264" text-anchor="middle" class="bar-label">13</text><text x="145" y="264" text-anchor="middle" class="bar-label">14</text><text x="164" y="264" text-anchor="middle" class="bar-label">15</text><text x="182" y="264" text-anchor="middle" class="bar-label">16</text><text x="200" y="264" text-anchor="middle" class="bar-label">17</text><text x="219" y="264" text-anchor="middle" class="bar-label">18</text><text x="238" y="264" text-anchor="middle" class="bar-label">19</text><text x="256" y="264" text-anchor="middle" class="bar-label">20</text><text x="274" y="264" text-anchor="middle" class="bar-label">21</text><text x="293" y="264" text-anchor="middle" class="bar-label">22</text><text x="312" y="264" text-anchor="middle" class="bar-label">23</text><text x="330" y="264" text-anchor="middle" class="bar-label">24</text><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
           <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tn</text>
-          <!-- Right y-axis: foreign % -->
+          <!-- Right y-axis + green line (hidden initially, revealed on bullet 1) -->
+          <g id="d4-green-group" opacity="0" style="transition: opacity 0.6s;">
           <line x1="360" y1="42" x2="360" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
           <text x="366" y="254" class="bar-label" style="fill:#3fb950">0%</text>
           <text x="366" y="172" class="bar-label" style="fill:#3fb950">20%</text>
           <text x="366" y="91" class="bar-label" style="fill:#3fb950">40%</text>
           <text x="366" y="28" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% foreign</text>
-          <!-- Foreign % line (green) -->
           <polyline points="71,161.1 90,157.0 108,130.9 126,95.0 145,102.7 164,107.2 182,110.9 200,93.7 219,75.4 238,91.3 256,111.3 274,130.5 293,133.3 312,147.2 330,149.6 348,148.0" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <g fill="#3fb950"><circle cx="71" cy="161.1" r="2.5"/><circle cx="90" cy="157.0" r="2.5"/><circle cx="108" cy="130.9" r="2.5"/><circle cx="126" cy="95.0" r="2.5"/><circle cx="145" cy="102.7" r="2.5"/><circle cx="164" cy="107.2" r="2.5"/><circle cx="182" cy="110.9" r="2.5"/><circle cx="200" cy="93.7" r="2.5"/><circle cx="219" cy="75.4" r="2.5"/><circle cx="238" cy="91.3" r="2.5"/><circle cx="256" cy="111.3" r="2.5"/><circle cx="274" cy="130.5" r="2.5"/><circle cx="293" cy="133.3" r="2.5"/><circle cx="312" cy="147.2" r="2.5"/><circle cx="330" cy="149.6" r="2.5"/><circle cx="348" cy="148.0" r="2.5"/></g>
+          </g>
           <!-- Stacked bars: Foreigners (orange, bottom) + Residents (blue, top) -->
           <!-- Source: SARB KBP4114M (total), NT Investor Relations (foreign %) -->
           <rect x="63" y="244.0" width="16" height="6.0" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
@@ -600,20 +601,20 @@
         <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="event.stopPropagation();document.getElementById('src-demand').classList.add('open')">Source</button></div>
       </div>
       <ul class="bullets">
-        <li>I'll show demand as a composition of a stock</li>
+        <li id="d4-bullet-1">I'll show demand as the composition by residence of the investor</li>
         <li id="d4-bullet-2">There is large variation in the stock of foreign holdings</li>
-        <li>tbc</li>
-        <li>tbc</li>
+        <li>Large jumps in 2011-13, 2016-18, 2023-25</li>
+        <li>Little change in other periods</li>
       </ul>
     </div>
   </div>
   <script>
   (function(){
-    // Animate slide 4: on bullet 2, fade out residents, rescale foreign bars
+    // Animate slide 4: bullet 1 shows green line, bullet 2 zooms to foreign
     var newY = [226.2,219.1,202.8,179.4,172.2,164.3,156.4,133.7,105.0,102.4,99.2,93.2,83.5,86.7,74.0,56.3];
     var newH = [23.8,30.9,47.2,70.6,77.8,85.7,93.6,116.3,145.0,147.6,150.8,156.8,166.5,163.3,176.0,193.7];
     var origY = [], origH = [];
-    var shifted = false;
+    var greenShown = false, shifted = false;
 
     function storeOriginals() {
       if (origY.length) return;
@@ -623,9 +624,20 @@
       });
     }
 
+    function showGreen() {
+      greenShown = true;
+      var g = document.getElementById('d4-green-group'); if(g) g.setAttribute('opacity','1');
+    }
+
     function shiftToForeign() {
       shifted = true;
       storeOriginals();
+      // Change left axis color from blue to orange
+      ['d4-y0','d4-y1','d4-y2','d4-y3'].forEach(function(id) {
+        var el = document.getElementById(id); if(el) el.style.fill = '#f78166';
+      });
+      var axTitle = document.querySelector('#s4 text[x="54"][y="28"]');
+      if(axTitle) axTitle.style.fill = '#f78166';
       document.querySelectorAll('.d4-resident').forEach(function(r) { r.style.opacity = '0'; });
       var lr = document.getElementById('d4-leg-res'); if(lr) lr.style.opacity = '0';
       var lt = document.getElementById('d4-leg-res-txt'); if(lt) lt.style.opacity = '0';
@@ -641,6 +653,15 @@
 
     function resetD4() {
       shifted = false;
+      greenShown = false;
+      // Hide green group
+      var g = document.getElementById('d4-green-group'); if(g) g.setAttribute('opacity','0');
+      // Restore left axis color to blue
+      ['d4-y0','d4-y1','d4-y2','d4-y3'].forEach(function(id) {
+        var el = document.getElementById(id); if(el) el.style.fill = '#58a6ff';
+      });
+      var axTitle = document.querySelector('#s4 text[x="54"][y="28"]');
+      if(axTitle) axTitle.style.fill = '#58a6ff';
       document.querySelectorAll('.d4-resident').forEach(function(r) { r.style.opacity = '0.7'; });
       var lr = document.getElementById('d4-leg-res'); if(lr) lr.style.opacity = '0.7';
       var lt = document.getElementById('d4-leg-res-txt'); if(lt) lt.style.opacity = '1';
@@ -656,6 +677,7 @@
 
     var obs = new MutationObserver(function(muts) {
       muts.forEach(function(m) {
+        if (m.target.id === 'd4-bullet-1' && m.target.classList.contains('visible') && !greenShown) showGreen();
         if (m.target.id === 'd4-bullet-2' && m.target.classList.contains('visible') && !shifted) shiftToForeign();
       });
     });
@@ -665,6 +687,8 @@
       });
     });
     setTimeout(function() {
+      var b1 = document.getElementById('d4-bullet-1');
+      if (b1) obs.observe(b1, { attributes: true, attributeFilter: ['class'] });
       var b2 = document.getElementById('d4-bullet-2');
       if (b2) obs.observe(b2, { attributes: true, attributeFilter: ['class'] });
       var s4 = document.getElementById('s4');
