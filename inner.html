@@ -206,6 +206,16 @@
         <li>But growth (<strong>g</strong>) seldom is as high as forecast</li>
         <li>And interest rates (<strong>r</strong>) are rarely as low as hoped for</li>
       </ul>
+      <div style="margin-top:12px;">
+        <button onclick="var p=document.getElementById('learn-rg');p.style.display=p.style.display==='none'?'block':'none';this.textContent=p.style.display==='none'?'Learn more: the (r − g) condition ▸':'Hide ▾'" style="background:none;border:1px solid #30363d;color:#58a6ff;font-size:12px;padding:5px 14px;border-radius:6px;cursor:pointer;font-family:-apple-system,system-ui,sans-serif;">Learn more: the (r − g) condition ▸</button>
+        <div id="learn-rg" style="display:none;margin-top:12px;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:20px 24px;max-width:700px;font-size:13px;line-height:1.7;color:#8b949e;">
+          <p style="color:#e6edf3;font-weight:600;margin-bottom:8px;">Debt Dynamics: It All Comes Down to (r − g)</p>
+          <p style="font-family:'Courier New',monospace;color:#58a6ff;font-size:16px;font-weight:700;margin-bottom:12px;">Δd = (r − g) / (1+g) × d − ps</p>
+          <p><strong style="color:#58a6ff">d</strong> = debt/GDP &nbsp; <strong style="color:#58a6ff">r</strong> = real interest rate &nbsp; <strong style="color:#58a6ff">g</strong> = real GDP growth &nbsp; <strong style="color:#58a6ff">ps</strong> = primary surplus</p>
+          <p style="margin-top:10px;">When <strong style="color:#3fb950">r &lt; g</strong>, growth outpaces interest costs and debt/GDP can fall even with deficits. When <strong style="color:#f78166">r &gt; g</strong>, interest costs compound faster than the economy grows and debt/GDP ratchets up.</p>
+          <p style="margin-top:8px;">South Africa borrows ~4% of GDP each year. At d ≈ 30%, this was only stable if <strong style="color:#3fb950">r − g was sufficiently negative</strong>. It wasn't.</p>
+        </div>
+      </div>
     </div>
   </div>
   <script class="hope-anim-script">
@@ -314,73 +324,10 @@
   })();
   </script>
 
-  <!-- SLIDE 3: The r-g condition -->
+  <!-- SLIDE 3: Supply — debt stock -->
   <div class="slide" id="s3">
     <div class="slide-inner">
-      <div class="eyebrow">The South African Government Bond Market</div>
-      <h1>The Bet</h1>
-      <p class="subtitle">What are they hoping for?</p>
-      <div class="chart-wrap">
-        <svg viewBox="0 0 620 320" xmlns="http://www.w3.org/2000/svg">
-          <defs><style>
-            .fm-title { fill: #e6edf3; font-size: 18px; font-weight: 700; font-family: Georgia, serif; }
-            .fm-formula { fill: #58a6ff; font-size: 20px; font-weight: 700; font-family: 'Courier New', monospace; }
-            .fm-label { fill: #8b949e; font-size: 13px; font-family: -apple-system, system-ui, sans-serif; }
-            .fm-val { fill: #e6edf3; font-size: 14px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
-            .fm-accent { fill: #58a6ff; font-size: 14px; font-weight: 700; font-family: -apple-system, system-ui, sans-serif; }
-            .fm-green { fill: #3fb950; font-size: 14px; font-weight: 700; font-family: -apple-system, system-ui, sans-serif; }
-            .fm-red { fill: #f78166; font-size: 14px; font-weight: 700; font-family: -apple-system, system-ui, sans-serif; }
-            .fm-box { fill: #161b22; stroke: #30363d; stroke-width: 1; rx: 10; }
-          </style></defs>
-
-          <!-- Title -->
-          <text x="310" y="24" text-anchor="middle" class="fm-title">Debt Dynamics: It All Comes Down to (r − g)</text>
-
-          <!-- The key equation -->
-          <rect x="70" y="38" width="480" height="44" class="fm-box"/>
-          <text x="310" y="67" text-anchor="middle" class="fm-formula">Δd = (r − g) / (1+g) × d − ps</text>
-
-          <!-- Variables -->
-          <text x="50" y="106" class="fm-label">where:</text>
-          <text x="95" y="106" class="fm-accent">d</text><text x="108" y="106" class="fm-label">= debt / GDP</text>
-          <text x="230" y="106" class="fm-accent">r</text><text x="243" y="106" class="fm-label">= real interest rate</text>
-          <text x="400" y="106" class="fm-accent">g</text><text x="413" y="106" class="fm-label">= real GDP growth</text>
-          <text x="95" y="124" class="fm-accent">ps</text><text x="115" y="124" class="fm-label">= primary surplus (revenue minus non-interest spending)</text>
-
-          <!-- The key insight -->
-          <text x="310" y="152" text-anchor="middle" class="fm-val">The critical variable is (r − g):</text>
-
-          <!-- Two scenarios side by side -->
-          <rect x="40" y="164" width="255" height="80" rx="10" fill="none" stroke="#3fb950" stroke-width="1.5"/>
-          <text x="167" y="186" text-anchor="middle" class="fm-green">r &lt; g</text>
-          <text x="167" y="204" text-anchor="middle" class="fm-label">Growth outpaces interest costs</text>
-          <text x="167" y="222" text-anchor="middle" class="fm-label">Debt/GDP falls even with deficits</text>
-          <text x="167" y="238" text-anchor="middle" style="fill:#3fb950;font-size:11px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">The "hope" scenario</text>
-
-          <rect x="325" y="164" width="255" height="80" rx="10" fill="none" stroke="#f78166" stroke-width="1.5"/>
-          <text x="452" y="186" text-anchor="middle" class="fm-red">r &gt; g</text>
-          <text x="452" y="204" text-anchor="middle" class="fm-label">Interest costs outpace growth</text>
-          <text x="452" y="222" text-anchor="middle" class="fm-label">Debt/GDP rises, compounding</text>
-          <text x="452" y="238" text-anchor="middle" style="fill:#f78166;font-size:11px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">What actually happened</text>
-
-          <!-- SA specifics -->
-          <rect x="40" y="258" width="540" height="52" rx="10" fill="none" stroke="#30363d" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="310" y="280" text-anchor="middle" class="fm-val">South Africa borrows ~4% of GDP each year</text>
-          <text x="310" y="300" text-anchor="middle" class="fm-label">At d ≈ 30%, this is only stable if <tspan style="fill:#3fb950;font-weight:700">r − g is sufficiently negative</tspan></text>
-        </svg>
-      </div>
-      <ul class="bullets">
-        <li>The government hopes for <strong style="color:#3fb950">low r</strong> (cheap borrowing) and <strong style="color:#3fb950">high g</strong> (strong growth)</li>
-        <li>When <strong style="color:#f78166">r &gt; g</strong>, the same 4% deficit causes debt/GDP to ratchet up year after year</li>
-        <li class="highlight">This is exactly what happened: (r − g) was unfavourable, and debt went from 31% to 77%</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- SLIDE 4: Supply — debt stock -->
-  <div class="slide" id="s4">
-    <div class="slide-inner">
-      <div class="slide-num">03 / The Result</div>
+      <div class="slide-num">02 / The Result</div>
       <h2>The debt stock keeps growing</h2>
       <p class="subtitle">Each year's deficit adds to the outstanding total</p>
       <div class="chart-wrap">
@@ -436,9 +383,9 @@
   </div>
 
 <!-- SLIDE 2 -->
-  <div class="slide" id="s5">
+  <div class="slide" id="s3">
     <div class="slide-inner">
-      <div class="slide-num">04 / The Framework</div>
+      <div class="slide-num">03 / The Framework</div>
       <h2>Governments borrow. Always.</h2>
       <p class="subtitle">Supply is quasi-fixed — the analysis lives on the demand side</p>
 
@@ -586,9 +533,9 @@
   </div>
 
   <!-- SLIDE 3 -->
-  <div class="slide" id="s6">
+  <div class="slide" id="s3">
     <div class="slide-inner">
-      <div class="slide-num">05 / The Global Market</div>
+      <div class="slide-num">04 / The Global Market</div>
       <h2>$100 trillion of government bonds</h2>
       <p class="subtitle">Theory says: diversify globally, hold in proportion to market size</p>
       <div class="stat-row">
@@ -606,9 +553,9 @@
   </div>
 
   <!-- SLIDE 4 -->
-  <div class="slide" id="s7">
+  <div class="slide" id="s3">
     <div class="slide-inner">
-      <div class="slide-num">06 / Home Bias</div>
+      <div class="slide-num">05 / Home Bias</div>
       <h2>Investors stay close to home</h2>
       <p class="subtitle">EM participation is an active bet, not the default</p>
       <div class="cols">
@@ -638,9 +585,9 @@
   </div>
 
   <!-- SLIDE 5 -->
-  <div class="slide" id="s8">
+  <div class="slide" id="s3">
     <div class="slide-inner">
-      <div class="slide-num">07 / The Puzzle</div>
+      <div class="slide-num">06 / The Puzzle</div>
       <h2>Foreign participation swings far too much</h2>
       <p class="subtitle">Markets aren't clearing the way textbooks say they should</p>
       <ul class="bullets">
@@ -654,9 +601,9 @@
   </div>
 
   <!-- SLIDE 6 -->
-  <div class="slide" id="s9">
+  <div class="slide" id="s3">
     <div class="slide-inner">
-      <div class="slide-num">08 / Why the Swings?</div>
+      <div class="slide-num">07 / Why the Swings?</div>
       <h2>Three mechanisms break the feedback loop</h2>
       <p class="subtitle">Why yields don't automatically equilibrate foreign demand</p>
       <ul class="bullets">
@@ -670,9 +617,9 @@
   </div>
 
   <!-- SLIDE 7 -->
-  <div class="slide" id="s10">
+  <div class="slide" id="s3">
     <div class="slide-inner">
-      <div class="slide-num">09 / The Analytical Payoff</div>
+      <div class="slide-num">08 / The Analytical Payoff</div>
       <h2>Flows tell you what prices can't</h2>
       <p class="subtitle">If markets were efficient, just watch yields. They're not — so track who holds what</p>
       <div class="cols">
