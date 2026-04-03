@@ -61,16 +61,19 @@
   .slides-wrap .slide-title h1 { font-size: clamp(32px, 5vw, 64px); }
   .slides-wrap .slide-title .meta { font-size: 13px; color: var(--muted); margin-top: 32px; }
   /* ── Chart ── */
-  .slides-wrap .chart-wrap { max-width: 780px; margin: 0 auto 24px; opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .slides-wrap .chart-wrap { max-width: 100%; margin: 0 auto 20px; opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
   .slides-wrap .chart-wrap.visible { opacity: 1; transform: translateY(0); }
-  .slides-wrap .chart-wrap svg { width: 100%; height: auto; }
-  .slides-wrap .chart-layout { max-width: 900px; margin: 0 auto 20px; display: grid; grid-template-columns: 1fr; grid-template-rows: auto auto; gap: 16px; }
-  .slides-wrap .chart-wrap { margin: 0; }
-  .slides-wrap .chart-row { display: flex; gap: 16px; }
-  .slides-wrap .chart-small { flex: 1; min-width: 0; opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
-  .slides-wrap .chart-small.visible { opacity: 1; transform: translateY(0); }
-  .slides-wrap .chart-small svg { width: 100%; height: auto; }
-  @media (max-width: 600px) { .slides-wrap .cols { grid-template-columns: 1fr; } .slides-wrap .stat-row { gap: 16px; } .slides-wrap .stat { min-width: 100px; padding: 14px 18px; } .slides-wrap .chart-wrap { max-width: 100%; } }
+  .slides-wrap .chart-wrap svg { width: 100%; height: auto; max-height: 55vh; }
+  @media (max-width: 600px) {
+    .slides-wrap .slide { padding: 24px 16px; }
+    .slides-wrap .cols { grid-template-columns: 1fr; }
+    .slides-wrap .stat-row { gap: 12px; }
+    .slides-wrap .stat { min-width: 80px; padding: 12px 16px; }
+    .slides-wrap .chart-wrap svg { max-height: 45vh; }
+    .slides-wrap .subtitle { margin-bottom: 16px; }
+    .slides-wrap .bullets { gap: 10px; }
+    .slides-wrap .bullets li { font-size: 14px; }
+  }
 </style>
 
 <div class="slides-wrap">
@@ -79,15 +82,13 @@
 
 <div id="deck">
 
-  <!-- SLIDE 1: Supply — what actually happened -->
+    <!-- SLIDE 1: Supply — deficit flow -->
   <div class="slide" id="s1">
     <div class="slide-inner">
       <div class="eyebrow">The South African Government Bond Market</div>
       <h1>Supply</h1>
       <p class="subtitle">A fairly steady flow of supply</p>
-
-      <div class="chart-row">
-      <div class="chart-small">
+      <div class="chart-wrap">
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <defs><style>
             .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
@@ -137,8 +138,20 @@
           <text x="210" y="296" text-anchor="middle" class="src-label">Source: SARB QB Mar 2026 (KBP4602F), NT Budget Review (deficit/GDP)</text>
         </svg>
       </div>
+      <ul class="bullets">
+        <li>The deficit spiked to <strong>R552bn</strong> in 2020/21 (COVID) and remains above <strong>R300bn/yr</strong></li>
+        <li class="highlight">Governments borrow every year. The amounts vary, but the pattern never stops.</li>
+      </ul>
+    </div>
+  </div>
 
-      <div class="chart-small">
+  <!-- SLIDE 2: Supply — debt stock -->
+  <div class="slide" id="s2">
+    <div class="slide-inner">
+      <div class="slide-num">01 / The Result</div>
+      <h2>The debt stock keeps growing</h2>
+      <p class="subtitle">Each year's deficit adds to the outstanding total</p>
+      <div class="chart-wrap">
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <defs><style>
             .stk-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
@@ -184,19 +197,17 @@
           <text x="210" y="296" text-anchor="middle" class="src-label">Source: SARB QB March 2026 (KBP4114M)</text>
         </svg>
       </div>
-      </div><!-- .chart-row -->
-
       <ul class="bullets">
-        <li>The deficit spiked to <strong>R552bn</strong> in 2020/21 (COVID) and remains above <strong>R300bn/yr</strong></li>
         <li>Gross debt grew 7x from R805bn to R5.7tr in 15 years, now <strong>77% of GDP</strong></li>
+        <li class="highlight">Supply is a given. The interesting question is on the demand side: <strong>who buys?</strong></li>
       </ul>
     </div>
   </div>
 
-  <!-- SLIDE 2 -->
-  <div class="slide" id="s2">
+<!-- SLIDE 2 -->
+  <div class="slide" id="s3">
     <div class="slide-inner">
-      <div class="slide-num">01 / The Framework</div>
+      <div class="slide-num">02 / The Framework</div>
       <h2>Governments borrow. Always.</h2>
       <p class="subtitle">Supply is quasi-fixed — the analysis lives on the demand side</p>
 
@@ -344,9 +355,9 @@
   </div>
 
   <!-- SLIDE 3 -->
-  <div class="slide" id="s3">
+  <div class="slide" id="s4">
     <div class="slide-inner">
-      <div class="slide-num">02 / The Global Market</div>
+      <div class="slide-num">03 / The Global Market</div>
       <h2>$100 trillion of government bonds</h2>
       <p class="subtitle">Theory says: diversify globally, hold in proportion to market size</p>
       <div class="stat-row">
@@ -364,9 +375,9 @@
   </div>
 
   <!-- SLIDE 4 -->
-  <div class="slide" id="s4">
+  <div class="slide" id="s5">
     <div class="slide-inner">
-      <div class="slide-num">03 / Home Bias</div>
+      <div class="slide-num">04 / Home Bias</div>
       <h2>Investors stay close to home</h2>
       <p class="subtitle">EM participation is an active bet, not the default</p>
       <div class="cols">
@@ -396,9 +407,9 @@
   </div>
 
   <!-- SLIDE 5 -->
-  <div class="slide" id="s5">
+  <div class="slide" id="s6">
     <div class="slide-inner">
-      <div class="slide-num">04 / The Puzzle</div>
+      <div class="slide-num">05 / The Puzzle</div>
       <h2>Foreign participation swings far too much</h2>
       <p class="subtitle">Markets aren't clearing the way textbooks say they should</p>
       <ul class="bullets">
@@ -412,9 +423,9 @@
   </div>
 
   <!-- SLIDE 6 -->
-  <div class="slide" id="s6">
+  <div class="slide" id="s7">
     <div class="slide-inner">
-      <div class="slide-num">05 / Why the Swings?</div>
+      <div class="slide-num">06 / Why the Swings?</div>
       <h2>Three mechanisms break the feedback loop</h2>
       <p class="subtitle">Why yields don't automatically equilibrate foreign demand</p>
       <ul class="bullets">
@@ -428,9 +439,9 @@
   </div>
 
   <!-- SLIDE 7 -->
-  <div class="slide" id="s7">
+  <div class="slide" id="s8">
     <div class="slide-inner">
-      <div class="slide-num">06 / The Analytical Payoff</div>
+      <div class="slide-num">07 / The Analytical Payoff</div>
       <h2>Flows tell you what prices can't</h2>
       <p class="subtitle">If markets were efficient, just watch yields. They're not — so track who holds what</p>
       <div class="cols">
