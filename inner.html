@@ -87,8 +87,84 @@
     .slides-wrap .bullets { gap: 10px; }
     .slides-wrap .bullets li { font-size: 14px; }
   }
+
+  /* ── Landing menu ── */
+  .landing-menu {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 24px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: #e6edf3;
+  }
+  .landing-menu h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 48px;
+    color: #e6edf3;
+  }
+  .landing-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 560px;
+    width: 100%;
+  }
+  .landing-list li {
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 20px 28px;
+    background: linear-gradient(180deg, #1c1f24 0%, #161b22 100%);
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #8b949e;
+  }
+  .landing-list li:hover {
+    border-color: #58a6ff;
+    transform: translateX(4px);
+    color: #e6edf3;
+  }
+  .landing-list li.active-item {
+    border-color: #3fb950;
+    color: #e6edf3;
+  }
+  .landing-list li .item-num {
+    color: #58a6ff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-right: 12px;
+  }
+  .landing-list li.active-item .item-num {
+    color: #3fb950;
+  }
+  .landing-list li .coming-soon {
+    font-size: 0.75rem;
+    color: #555d66;
+    font-weight: 400;
+    margin-left: 8px;
+  }
 </style>
 
+
+<div id="landing-menu" class="landing-menu">
+  <h1>Mike Trounce</h1>
+  <ol class="landing-list">
+    <li><span class="item-num">1.</span>Flow Superintelligence<span class="coming-soon">coming soon</span></li>
+    <li><span class="item-num">2.</span>Asset Pricing: Supply, Demand, Flows and Positions<span class="coming-soon">coming soon</span></li>
+    <li><span class="item-num">3.</span>Government Bonds and their Investors<span class="coming-soon">coming soon</span></li>
+    <li class="active-item" onclick="document.getElementById('landing-menu').style.display='none';document.getElementById('slides-container').style.display='block';"><span class="item-num">4.</span>The South African Government Bond Market: a Flows Analysis</li>
+  </ol>
+</div>
+
+<div id="slides-container" style="display:none;">
 <div class="slides-wrap">
 
 
@@ -1378,3 +1454,4 @@
   revealNext(slides[0]);
   updateUI();
 </script>
+</div><!-- slides-container -->
