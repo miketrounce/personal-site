@@ -455,7 +455,7 @@
           <g id="hope-old-paths"></g>
           <polyline id="gdp-line" points="" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <g id="gdp-dots"></g>
-          <line id="hope-future" x1="0" y1="0" x2="0" y2="0" stroke="#3fb950" stroke-width="2" stroke-dasharray="5,3" opacity="0"/>
+          <polyline id="hope-future" points="" fill="none" stroke="#e6edf3" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round" opacity="0"/>
         </svg>
         <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
       </div>
@@ -469,20 +469,33 @@
   </div>
     <script class="hope-anim-script">
   (function(){
-    // Green line: debt/GDP % (animated). Blue line is static in SVG.
     var ax = [71,90,108,126,145,164,182,200,219,238,256,274,293,312,330,348];
-    // debt/GDP y-coords: 0%=y250, 30%=y184, 60%=y114, 90%=y46. Scale: 1%=2.2px
     var gy = [181.8,172.3,166.0,158.9,152.5,146.6,138.9,137.8,133.4,125.3,110.7,96.2,98.2,99.1,89.8,80.6];
-    var dgdp = [31.0,35.3,38.2,41.4,44.3,47.0,50.5,51.0,53.0,56.7,63.3,69.9,69.0,68.6,72.8,77.0];
-    var N = ax.length, XEND = 360;
-    var gdpLine, gdpDots, hopeFuture, oldPaths;
-    var played = false;
+    var N = ax.length;
+    // Real debt/GDP projections from verified National Budget Reviews
+    var projData = [
+      {idx:2, pts:'108,166.0 126,162.0 145,159.8 164,165.3'},
+      {idx:4, pts:'145,155.4 164,152.5 182,152.5 200,153.2'},
+      {idx:5, pts:'164,146.6 182,144.4 200,143.3 219,143.3'},
+      {idx:6, pts:'182,138.9 200,136.7 219,148.4 238,149.9'},
+      {idx:7, pts:'200,137.8 219,135.6 238,133.4 256,132.3'},
+      {idx:8, pts:'219,133.4 238,129.0 256,126.8 274,126.4'},
+      {idx:9, pts:'238,125.3 256,121.3 274,118.0 293,117.6'},
+      {idx:10, pts:'256,110.7 274,105.7 293,104.8 312,105.9'},
+      {idx:11, pts:'274,73.3 293,63.0 312,57.5 330,54.4'},
+      {idx:12, pts:'293,95.1 312,89.4 330,86.1 348,84.8'},
+      {idx:13, pts:'312,92.9 330,89.4 348,88.1'},
+      {idx:14, pts:'330,87.4 348,85.0'},
+      {idx:15, pts:'348,80.6 367,76.4'},
+    ];
+    var gdpLine, gdpDots, hopeLine, oldPaths;
+    var played = false, timer;
 
     function init() {
       var svg = document.getElementById('hope-svg'); if (!svg) return;
       gdpLine = document.getElementById('gdp-line');
       gdpDots = document.getElementById('gdp-dots');
-      hopeFuture = document.getElementById('hope-future');
+      hopeLine = document.getElementById('hope-future');
       oldPaths = document.getElementById('hope-old-paths');
     }
 
@@ -495,55 +508,58 @@
       setTimeout(function(){c.style.opacity='1';},50); return c;
     }
 
-    function showHope(fromIdx) {
-      hopeFuture.setAttribute('x1', ax[fromIdx]);
-      hopeFuture.setAttribute('y1', gy[fromIdx]);
-      hopeFuture.setAttribute('x2', XEND);
-      hopeFuture.setAttribute('y2', gy[fromIdx]);
-      hopeFuture.setAttribute('opacity', '0.7');
+    function ghostProj(ptsStr) {
+      var p = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+      p.setAttribute('points', ptsStr);
+      p.setAttribute('fill', 'none');
+      p.setAttribute('stroke', '#e6edf3');
+      p.setAttribute('stroke-width', '1');
+      p.setAttribute('stroke-dasharray', '3,3');
+      p.setAttribute('opacity', '0.15');
+      return p;
     }
 
-    function fadeHope(fromIdx) {
-      var ghost = document.createElementNS('http://www.w3.org/2000/svg','line');
-      ghost.setAttribute('x1', ax[fromIdx]); ghost.setAttribute('y1', gy[fromIdx]);
-      ghost.setAttribute('x2', XEND); ghost.setAttribute('y2', gy[fromIdx]);
-      ghost.setAttribute('stroke', '#3fb950'); ghost.setAttribute('stroke-width', '1');
-      ghost.setAttribute('stroke-dasharray', '3,4'); ghost.setAttribute('opacity', '0.15');
-      oldPaths.appendChild(ghost);
-      hopeFuture.setAttribute('opacity', '0');
-    }
+    function step(n) {
+      if (n >= N) { hopeLine.setAttribute('points', ''); return; }
 
-    function animateYear(n) {
-      if (n >= N) { hopeFuture.setAttribute('opacity', '0'); return; }
-      if (n === 0) {
-        gdpLine.setAttribute('points', pts(0));
-        gdpDots.innerHTML = '';
-        gdpDots.appendChild(dot(ax[0], gy[0]));
-        setTimeout(function() { showHope(0); setTimeout(function() { animateYear(1); }, 1000); }, 800);
-        return;
-      }
-      fadeHope(n - 1);
+      // Extend actual green line
       gdpLine.setAttribute('points', pts(n));
       gdpDots.appendChild(dot(ax[n], gy[n]));
-      setTimeout(function() {
-        showHope(n);
-        setTimeout(function() { animateYear(n + 1); }, 700);
-      }, 500);
+
+      // Ghost previous projection
+      var prevPts = hopeLine.getAttribute('points');
+      if (prevPts) oldPaths.appendChild(ghostProj(prevPts));
+
+      // Find projection for this index
+      var thisProj = null;
+      for (var j = 0; j < projData.length; j++) {
+        if (projData[j].idx === n) { thisProj = projData[j]; break; }
+      }
+
+      if (thisProj) {
+        hopeLine.setAttribute('points', thisProj.pts);
+        hopeLine.setAttribute('opacity', '0.8');
+      } else {
+        hopeLine.setAttribute('points', '');
+      }
+
+      timer = setTimeout(function() { step(n + 1); }, 500);
     }
 
     function reset() {
       played = false;
+      clearTimeout(timer);
       init();
       if (gdpLine) gdpLine.setAttribute('points', '');
       if (gdpDots) gdpDots.innerHTML = '';
       if (oldPaths) oldPaths.innerHTML = '';
-      if (hopeFuture) hopeFuture.setAttribute('opacity', '0');
+      if (hopeLine) { hopeLine.setAttribute('points', ''); hopeLine.setAttribute('opacity', '0'); }
     }
 
     var observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(m) {
         if (m.target.id === 's3' && m.target.classList.contains('active') && !played) {
-          played = true; init(); setTimeout(function() { animateYear(0); }, 500);
+          played = true; init(); setTimeout(function() { step(0); }, 500);
         }
         if (m.target.id === 's3' && !m.target.classList.contains('active') && played) {
           reset();
@@ -554,7 +570,7 @@
       var slide = document.getElementById('s3');
       if (slide) {
         observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
-        if (slide.classList.contains('active')) { played = true; init(); setTimeout(function(){ animateYear(0); }, 500); }
+        if (slide.classList.contains('active')) { played = true; init(); setTimeout(function(){ step(0); }, 500); }
       }
     }, 100);
   })();
