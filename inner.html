@@ -10,9 +10,8 @@
       }
 
       .page.expanded {
-        justify-content: flex-start;
+        justify-content: center;
         gap: 80px;
-        padding-left: 10vw;
       }
 
       /* ── Career timeline (left) ── */
@@ -138,20 +137,12 @@
         }
       }
 
-      /* ── Detail panel (right) ── */
+      /* ── Detail panel ── */
       .detail {
-        display: none;
-        opacity: 0;
-        transform: translateX(40px);
-        transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
-        pointer-events: none;
-      }
-
-      .page.expanded .detail {
         display: block;
-        opacity: 1;
-        transform: translateX(0);
-        pointer-events: auto;
+        opacity: 0;
+        transform: translateY(12px);
+        animation: fadeInUp 0.5s ease 0.3s forwards;
       }
 
       /* ── 2x2 grid ── */
@@ -171,14 +162,14 @@
         transform: translateY(12px);
       }
 
-      .page.expanded .grid-box {
+      .grid-box {
         animation: fadeInUp 0.4s ease forwards;
       }
 
-      .page.expanded .grid-box:nth-child(1) { animation-delay: 0.4s; }
-      .page.expanded .grid-box:nth-child(2) { animation-delay: 0.6s; }
-      .page.expanded .grid-box:nth-child(3) { animation-delay: 0.8s; }
-      .page.expanded .grid-box:nth-child(4) { animation-delay: 1.0s; }
+      .grid-box:nth-child(1) { animation-delay: 0.4s; }
+      .grid-box:nth-child(2) { animation-delay: 0.6s; }
+      .grid-box:nth-child(3) { animation-delay: 0.8s; }
+      .grid-box:nth-child(4) { animation-delay: 1.0s; }
 
       .grid-box.grid-wide {
         grid-column: span 2;
@@ -297,38 +288,6 @@
 
 <main class="page expanded">
 
-  <!-- Timeline -->
-  <div class="career">
-    <h1>Mike Trounce</h1>
-
-    <div class="timeline">
-      <div class="timeline-item now">
-        <p class="timeline-dates">FLOW SUPERINTELLIGENCE</p>
-        <p class="timeline-role">Data, research and education</p>
-      </div>
-      <div class="timeline-item">
-        <p class="timeline-dates">FRICTIONS</p>
-        <p class="timeline-role">Supply, demand, flows and positions</p>
-      </div>
-      <div class="timeline-item">
-        <p class="timeline-dates">GOVERNMENT BONDS AND THEIR INVESTORS</p>
-        <p class="timeline-role">A database</p>
-      </div>
-      <div class="timeline-item">
-        <p class="timeline-dates">MUTUAL FUNDS &amp; ETFS</p>
-        <p class="timeline-role">A database, including fund flows</p>
-      </div>
-      <div class="timeline-item now">
-        <p class="timeline-dates">EMERGING ECONOMY SOVEREIGN BOND MARKETS</p>
-        <p class="timeline-role">South Africa</p>
-      </div>
-    </div>
-
-    <div class="lock-wrap">
-      <input type="text" class="lock-input" placeholder="lock" autocomplete="off" spellcheck="false">
-    </div>
-  </div>
-
   <!-- Detail grid -->
   <div class="detail">
     <div class="detail-grid">
@@ -350,7 +309,7 @@
 
       <div class="grid-box grid-wide">
         <p class="grid-box-title">Emerging Economy Sovereign Bond Markets</p>
-        <p class="grid-box-desc" style="color: var(--accent);">South Africa</p>
+        <p class="grid-box-desc"><a href="/sa/" style="color: var(--accent); text-decoration: none; transition: opacity 0.15s;">South Africa</a></p>
       </div>
 
     </div>
