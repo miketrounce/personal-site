@@ -224,6 +224,11 @@
         opacity: 0.4;
         margin: 8px 0 0;
         line-height: 1.4;
+        transition: opacity 0.3s;
+      }
+
+      .pw-hint.glow {
+        opacity: 1;
       }
 
       .pw-status {
@@ -725,6 +730,11 @@
         pwInput.value = '';
         setTimeout(() => pwInput.classList.remove('error'), 500);
       }
+
+      pwInput.addEventListener('focus', function() {
+        pwHint.classList.add('glow');
+        setTimeout(() => pwHint.classList.remove('glow'), 1200);
+      });
 
       pwInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && pwInput.value.trim()) {
