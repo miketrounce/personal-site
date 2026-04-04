@@ -228,6 +228,10 @@
         border-color: var(--muted);
       }
 
+      .lock-btn:hover {
+        color: var(--text);
+      }
+
       /* ── Mobile ── */
       @media (max-width: 768px) {
         .page {
@@ -313,6 +317,17 @@
       </div>
 
     </div>
+    <a class="lock-btn" style="display:inline-block;margin-top:24px;font-size:0.9rem;font-weight:700;color:var(--muted);text-decoration:none;cursor:pointer;transition:color 0.15s;">Lock →</a>
   </div>
 
 </main>
+
+<script>
+  var lockBtn = document.querySelector('.lock-btn');
+  if (lockBtn) {
+    lockBtn.addEventListener('click', function() {
+      try { localStorage.removeItem('mt-key'); localStorage.removeItem('mt-key-sa'); } catch(_) {}
+      location.reload();
+    });
+  }
+</script>
