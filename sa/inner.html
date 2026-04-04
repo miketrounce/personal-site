@@ -1693,4 +1693,8 @@
     }
   }
 
+  // Auto-start from URL hash
+  if (location.hash === '#play') { startPlay(); }
+  else if (location.hash === '#interact') { startInteract(); }
+
 </script>
