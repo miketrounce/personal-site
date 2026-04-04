@@ -329,89 +329,67 @@
 
       /* ── Detail panel (right) ── */
       .detail {
-        max-width: 420px;
-        max-height: 80vh;
         display: none;
-        flex-direction: column;
         opacity: 0;
         transform: translateX(40px);
         transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
         pointer-events: none;
-        overflow-y: auto;
-        scrollbar-width: thin;
-        scrollbar-color: var(--border) transparent;
-      }
-
-      .detail::-webkit-scrollbar {
-        width: 4px;
-      }
-
-      .detail::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      .detail::-webkit-scrollbar-thumb {
-        background: var(--border);
-        border-radius: 4px;
       }
 
       .page.expanded .detail {
-        display: flex;
+        display: block;
         opacity: 1;
         transform: translateX(0);
         pointer-events: auto;
       }
 
-      /* ── Detail timeline (right panel) ── */
-      .detail-timeline {
-        padding-left: 32px;
+      /* ── 2x2 grid ── */
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        max-width: 560px;
       }
 
-      .detail-item {
+      .grid-box {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        background: linear-gradient(180deg, #3a3632 0%, #2f2c28 100%);
         opacity: 0;
         transform: translateY(12px);
       }
 
-      .page.expanded .detail-item {
+      .page.expanded .grid-box {
         animation: fadeInUp 0.4s ease forwards;
       }
 
-      .page.expanded .detail-item:nth-child(1)  { animation-delay: 0.4s; }
-      .page.expanded .detail-item:nth-child(2)  { animation-delay: 0.5s; }
-      .page.expanded .detail-item:nth-child(3)  { animation-delay: 0.6s; }
-      .page.expanded .detail-item:nth-child(4)  { animation-delay: 0.7s; }
-      .page.expanded .detail-item:nth-child(5)  { animation-delay: 0.8s; }
-      .page.expanded .detail-item:nth-child(6)  { animation-delay: 0.9s; }
-      .page.expanded .detail-item:nth-child(7)  { animation-delay: 1.0s; }
-      .page.expanded .detail-item:nth-child(8)  { animation-delay: 1.1s; }
-      .page.expanded .detail-item:nth-child(9)  { animation-delay: 1.2s; }
-      .page.expanded .detail-item:nth-child(10) { animation-delay: 1.3s; }
-      .page.expanded .detail-item:nth-child(11) { animation-delay: 1.4s; }
-      .page.expanded .detail-item:nth-child(12) { animation-delay: 1.5s; }
+      .page.expanded .grid-box:nth-child(1) { animation-delay: 0.4s; }
+      .page.expanded .grid-box:nth-child(2) { animation-delay: 0.6s; }
+      .page.expanded .grid-box:nth-child(3) { animation-delay: 0.8s; }
+      .page.expanded .grid-box:nth-child(4) { animation-delay: 1.0s; }
 
-      .detail-role::before {
-        width: 6px !important;
-        height: 6px !important;
-        left: -27px !important;
-        top: 6px !important;
-        background: var(--border) !important;
-        box-shadow: none !important;
-      }
-
-      .detail-role {
-        padding-bottom: 12px;
-      }
-
-      .detail-timeline .timeline-dates {
+      .grid-box-dates {
         font-size: 0.65rem;
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        margin: 0 0 4px;
       }
 
-      .detail-timeline .timeline-role {
-        font-size: 0.85rem;
+      .grid-box-title {
+        font-size: 0.9rem;
+        color: var(--text);
+        font-weight: 600;
+        margin: 0 0 12px;
       }
 
-      .detail-timeline .timeline-item {
-        padding-bottom: 14px;
+      .grid-box-role {
+        margin-bottom: 8px;
+      }
+
+      .grid-box-role:last-child {
+        margin-bottom: 0;
       }
 
       .bio-heading {
@@ -540,7 +518,10 @@
         .detail {
           max-width: 100%;
           width: 100%;
-          max-height: 60vh;
+        }
+
+        .detail-grid {
+          grid-template-columns: 1fr;
         }
 
         .inner-greeting {
@@ -587,57 +568,64 @@
 
       <!-- About (shown on Expand click) -->
       <div class="detail">
-        <div class="timeline detail-timeline">
-          <div class="timeline-item detail-item">
-            <p class="timeline-dates">1998 — 2007</p>
-            <p class="timeline-role">Macro Strategist</p>
-          </div>
-          <div class="timeline-item detail-item detail-role">
-            <p class="bio-heading">BNP Paribas</p>
-            <p class="bio-sub">Fixed Income Research, Europe. 1998–2000.</p>
-          </div>
-          <div class="timeline-item detail-item detail-role">
-            <p class="bio-heading">Soci&eacute;t&eacute; G&eacute;n&eacute;rale</p>
-            <p class="bio-sub">Fixed Income Research, Europe. 2000–2003.</p>
-          </div>
-          <div class="timeline-item detail-item detail-role">
-            <p class="bio-heading">University of York</p>
-            <p class="bio-sub">MSc Finance (Distinction). 2003–2005.</p>
-          </div>
-          <div class="timeline-item detail-item detail-role">
-            <p class="bio-heading">Markit</p>
-            <p class="bio-sub">Credit Default Swap Pricing. 2006.</p>
-          </div>
-          <div class="timeline-item detail-item detail-role">
-            <p class="bio-heading">Nomura</p>
-            <p class="bio-sub">G10 Rates Strategy. 2006–2007.</p>
+        <div class="detail-grid">
+
+          <div class="grid-box">
+            <p class="grid-box-dates">1998 — 2003</p>
+            <p class="grid-box-title">Macro Strategist</p>
+            <div class="grid-box-role">
+              <p class="bio-heading">BNP Paribas</p>
+              <p class="bio-sub">Fixed Income Research, Europe. 1998–2000.</p>
+            </div>
+            <div class="grid-box-role">
+              <p class="bio-heading">Soci&eacute;t&eacute; G&eacute;n&eacute;rale</p>
+              <p class="bio-sub">Fixed Income Research, Europe. 2000–2003.</p>
+            </div>
           </div>
 
-          <div class="timeline-item detail-item">
-            <p class="timeline-dates">2007 — 2016</p>
-            <p class="timeline-role">Macro &amp; Flows Strategist</p>
-          </div>
-          <div class="timeline-item detail-item detail-role">
-            <p class="bio-heading">JPMorgan</p>
-            <p class="bio-sub">Emerging Markets Research, Local Markets Strategist. 2007–2012.</p>
-          </div>
-          <div class="timeline-item detail-item detail-role">
-            <p class="bio-heading">Standard Chartered</p>
-            <p class="bio-sub">Macro Research, Head of Local Market Strategy, West. 2012–2016.</p>
+          <div class="grid-box">
+            <p class="grid-box-dates">2003 — 2007</p>
+            <p class="grid-box-title">Macro Strategist</p>
+            <div class="grid-box-role">
+              <p class="bio-heading">University of York</p>
+              <p class="bio-sub">MSc Finance (Distinction). 2003–2005.</p>
+            </div>
+            <div class="grid-box-role">
+              <p class="bio-heading">Markit</p>
+              <p class="bio-sub">Credit Default Swap Pricing. 2006.</p>
+            </div>
+            <div class="grid-box-role">
+              <p class="bio-heading">Nomura</p>
+              <p class="bio-sub">G10 Rates Strategy. 2006–2007.</p>
+            </div>
           </div>
 
-          <div class="timeline-item detail-item">
-            <p class="timeline-dates">2016 — 2026</p>
-            <p class="timeline-role">Flow Data Entrepreneur</p>
+          <div class="grid-box">
+            <p class="grid-box-dates">2007 — 2016</p>
+            <p class="grid-box-title">Macro &amp; Flows Strategist</p>
+            <div class="grid-box-role">
+              <p class="bio-heading">JPMorgan</p>
+              <p class="bio-sub">Emerging Markets Research, Local Markets Strategist. 2007–2012.</p>
+            </div>
+            <div class="grid-box-role">
+              <p class="bio-heading">Standard Chartered</p>
+              <p class="bio-sub">Macro Research, Head of Local Market Strategy, West. 2012–2016.</p>
+            </div>
           </div>
-          <div class="timeline-item detail-item detail-role">
-            <p class="bio-heading">Trounceflow</p>
-            <p class="bio-sub">Founded, acquired by Exante Data. 2016–2023.</p>
+
+          <div class="grid-box">
+            <p class="grid-box-dates">2016 — 2026</p>
+            <p class="grid-box-title">Flow Data Entrepreneur</p>
+            <div class="grid-box-role">
+              <p class="bio-heading">Trounceflow</p>
+              <p class="bio-sub">Founded, acquired by Exante Data. 2016–2023.</p>
+            </div>
+            <div class="grid-box-role">
+              <p class="bio-heading">Exante Data</p>
+              <p class="bio-sub">Director of FlowPro. 2023–2026.</p>
+            </div>
           </div>
-          <div class="timeline-item detail-item detail-role">
-            <p class="bio-heading">Exante Data</p>
-            <p class="bio-sub">Director of FlowPro. 2023–2026.</p>
-          </div>
+
         </div>
       </div>
 
