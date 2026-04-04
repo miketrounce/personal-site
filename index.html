@@ -167,7 +167,156 @@
         }
       }
 
-      /* ── Detail timeline (right) ── */
+      /* ── Unlock input ── */
+      .pw-wrap {
+        display: none;
+        margin-top: 20px;
+        opacity: 0;
+        animation: fadeInUp 0.4s ease forwards;
+      }
+
+      .pw-wrap.visible { display: block; }
+
+      .page.expanded .pw-wrap {
+        margin-top: 16px;
+      }
+
+      .pw-input {
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid var(--border);
+        color: var(--text);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1rem;
+        padding: 6px 0;
+        outline: none;
+        width: 260px;
+        letter-spacing: 0.08em;
+        caret-color: var(--accent);
+        transition: border-color 0.2s;
+      }
+
+      .pw-input::placeholder {
+        color: var(--muted);
+        opacity: 0.5;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+      }
+
+      .pw-input:focus {
+        border-color: var(--muted);
+      }
+
+      .pw-input.error {
+        animation: shake 0.4s ease;
+        border-color: #c44;
+      }
+
+      .pw-hint {
+        font-size: 0.7rem;
+        color: var(--muted);
+        opacity: 0.4;
+        margin: 8px 0 0;
+        line-height: 1.4;
+      }
+
+      .pw-status {
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin: 10px 0 0;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .pw-status.visible {
+        opacity: 1;
+      }
+
+      .pw-status.success {
+        color: var(--accent);
+      }
+
+      .pw-status.error {
+        color: #c44;
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-6px); }
+        40%, 80% { transform: translateX(6px); }
+      }
+
+      /* ── Crossfade transition ── */
+      .page.fading-out {
+        animation: fadeOut 0.6s ease forwards;
+      }
+
+      @keyframes fadeOut {
+        to { opacity: 0; }
+      }
+
+      /* ── Inner page (post-password) ── */
+      .inner-landing {
+        display: none;
+        min-height: 100vh;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease 0.3s forwards;
+      }
+
+      .inner-landing.visible {
+        display: block;
+      }
+
+      .inner-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .inner-greeting {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 2.8rem;
+        font-weight: 900;
+        color: var(--text);
+        opacity: 0;
+        animation: fadeInUp 0.6s ease 0.5s forwards;
+      }
+
+      .inner-name {
+        font-size: 1rem;
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease 0.9s forwards;
+      }
+
+      .inner-pulse {
+        width: 40px;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 1px;
+        margin: 8px 0;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease 1.2s forwards, breathe 3s ease-in-out 1.7s infinite;
+      }
+
+      @keyframes breathe {
+        0%, 100% { opacity: 0.4; transform: scaleX(1); }
+        50% { opacity: 1; transform: scaleX(1.5); }
+      }
+
+      .inner-msg {
+        font-size: 1rem;
+        color: var(--muted);
+        font-weight: 400;
+        opacity: 0;
+        animation: fadeInUp 0.5s ease 1.5s forwards;
+      }
+
+      /* ── Detail panel (right) ── */
       .detail {
         max-width: 420px;
         max-height: 80vh;
@@ -177,9 +326,6 @@
         transform: translateX(40px);
         transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
         pointer-events: none;
-      }
-
-      .detail {
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: var(--border) transparent;
@@ -276,21 +422,6 @@
         color: var(--text);
       }
 
-      .tempora-link {
-        text-decoration: none;
-        transition: opacity 0.15s;
-      }
-
-      .tempora-link:hover {
-        opacity: 0.7;
-      }
-
-      .tempora-img {
-        height: 1.1em;
-        vertical-align: -0.2em;
-        filter: invert(1);
-      }
-
       .logo-inline {
         text-decoration: none;
         font-weight: 900;
@@ -339,6 +470,8 @@
           margin-top: 24px;
           font-size: 1.1rem;
         }
+
+        .pw-wrap { margin-top: 16px; }
 
         .page.expanded {
           flex-direction: column;
@@ -395,6 +528,10 @@
           width: 100%;
           max-height: 60vh;
         }
+
+        .inner-greeting {
+          font-size: 2rem;
+        }
       }
     </style>
   </head>
@@ -420,15 +557,21 @@
             <p class="timeline-role">Flow Data Entrepreneur</p>
           </div>
           <div class="timeline-item now">
-            <p class="timeline-dates">2026 — ?</p>
-            <p class="timeline-role">Strategist / Risk Taker</p>
+            <p class="timeline-dates">2026 —</p>
+            <p class="timeline-role">Flow Superintelligence</p>
           </div>
         </div>
 
         <a class="more-link" id="more-btn">More →</a>
+
+        <div class="pw-wrap visible" id="pw-wrap" style="animation-delay: 2s;">
+          <input type="text" class="pw-input" id="pw-input" placeholder="unlock" autocomplete="off" spellcheck="false">
+          <p class="pw-hint" id="pw-hint">password or email / phone to request access</p>
+          <p class="pw-status" id="pw-status"></p>
+        </div>
       </div>
 
-      <!-- About -->
+      <!-- About (shown on More click) -->
       <div class="detail">
         <div class="bio-section bio-intro">
           <p class="bio-text">Macro strategist turned founder turned builder. 25+ years in global markets — rates, FX, flows, EM — across BNP Paribas, Societe Generale, Nomura, JPMorgan, and Standard Chartered.</p>
@@ -458,16 +601,138 @@
         </div>
       </div>
 
+      <script id="encrypted-data" type="application/json">"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"</script>
+
     </main>
 
+    <!-- Inner landing (shown after decrypt) -->
+    <div class="inner-landing" id="inner-landing"></div>
+
     <script>
+      const page     = document.getElementById('page');
+      const pwInput  = document.getElementById('pw-input');
+      const inner    = document.getElementById('inner-landing');
+      const pwHint   = document.getElementById('pw-hint');
+      const pwStatus = document.getElementById('pw-status');
+
+      // ── More button ──
       function expand() {
-        document.getElementById('page').classList.add('expanded');
+        page.classList.add('expanded');
       }
       document.getElementById('more-btn').addEventListener('click', expand);
-      document.addEventListener('keydown', function(e) {
-        if (!e.ctrlKey && !e.metaKey && !e.altKey) expand();
-      }, { once: true });
+
+      // ── HubSpot config ──
+      const HUBSPOT_PORTAL_ID = '5848423';
+      const HUBSPOT_FORM_GUID = '79391f64-6994-4465-82bd-bbb1910dfda9';
+
+      function isEmail(v)  { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+      function isPhone(v)  { return v.replace(/[^\d]/g, '').length >= 7; }
+
+      function showStatus(msg, type) {
+        pwStatus.textContent = msg;
+        pwStatus.className = 'pw-status visible ' + type;
+        if (type === 'success') {
+          pwHint.style.display = 'none';
+        }
+      }
+
+      async function tryDecrypt(password) {
+        const b64  = JSON.parse(document.getElementById('encrypted-data').textContent);
+        const raw  = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+        const salt = raw.slice(0, 16);
+        const iv   = raw.slice(16, 28);
+        const tag  = raw.slice(28, 44);
+        const ct   = raw.slice(44);
+
+        const enc    = new TextEncoder();
+        const keyMat = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+        const key    = await crypto.subtle.deriveKey(
+          { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+          keyMat,
+          { name: 'AES-GCM', length: 256 },
+          false,
+          ['decrypt']
+        );
+
+        const combined = new Uint8Array(ct.length + tag.length);
+        combined.set(ct);
+        combined.set(tag, ct.length);
+
+        const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, combined);
+        const html  = new TextDecoder().decode(plain);
+
+        // Save password for auto-login
+        try { localStorage.setItem('mt-key', password); } catch(_) {}
+
+        page.classList.add('fading-out');
+        setTimeout(() => {
+          page.style.display = 'none';
+          inner.innerHTML = html;
+          inner.classList.add('visible');
+          // Scripts inserted via innerHTML don't execute — re-create them
+          inner.querySelectorAll('script').forEach(old => {
+            const s = document.createElement('script');
+            s.textContent = old.textContent;
+            old.replaceWith(s);
+          });
+        }, 600);
+      }
+
+      async function submitContact(value) {
+        const fieldName = isEmail(value) ? 'email' : 'phone';
+        const url = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
+
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fields: [{ name: fieldName, value: value }]
+          })
+        });
+
+        if (!res.ok) throw new Error('Submit failed');
+      }
+
+      async function handleUnlock(value) {
+        // 1. Try password decryption first
+        try {
+          await tryDecrypt(value);
+          return;
+        } catch (_) {}
+
+        // 2. Not a valid password. Check if it's a contact request.
+        if (isEmail(value) || isPhone(value)) {
+          pwInput.disabled = true;
+          try {
+            await submitContact(value);
+            pwInput.value = '';
+            showStatus('Request sent. Mike will be in touch.', 'success');
+          } catch (_) {
+            pwInput.disabled = false;
+            showStatus('Something went wrong. Try again.', 'error');
+          }
+          return;
+        }
+
+        // 3. Not a password, email, or phone. Shake it off.
+        pwInput.classList.add('error');
+        pwInput.value = '';
+        setTimeout(() => pwInput.classList.remove('error'), 500);
+      }
+
+      pwInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && pwInput.value.trim()) {
+          handleUnlock(pwInput.value.trim());
+        }
+      });
+
+      // Auto-login if password saved from previous visit
+      (function() {
+        try {
+          const saved = localStorage.getItem('mt-key');
+          if (saved) tryDecrypt(saved).catch(function() {});
+        } catch(_) {}
+      })();
     </script>
 
   </body>
