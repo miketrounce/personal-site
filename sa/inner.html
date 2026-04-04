@@ -164,17 +164,34 @@
     color: #8b949e;
   }
 
-  /* ── Autoplay ── */
-  .watch-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    margin-top: 28px; padding: 10px 24px;
-    background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.08));
-    border: 1px solid rgba(88,166,255,0.35); border-radius: 10px;
-    color: #e6edf3; font-size: 14px; font-weight: 500; font-family: inherit;
-    cursor: pointer; transition: border-color 0.2s, background 0.2s;
+  /* ── Splash ── */
+  #splash {
+    position: absolute; inset: 0; z-index: 50;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    gap: 48px; background: #0d1117;
   }
-  .watch-btn:hover { border-color: #58a6ff; background: rgba(88,166,255,0.18); }
-  .watch-btn svg { width: 16px; height: 16px; fill: #58a6ff; }
+  #splash.hidden { display: none; }
+  #splash .splash-title {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #58a6ff; text-align: center;
+  }
+  #splash .splash-choices {
+    display: flex; flex-direction: column; gap: 16px; align-items: center;
+  }
+  #splash .splash-btn {
+    display: flex; align-items: center; gap: 10px;
+    width: 200px; padding: 14px 24px;
+    background: transparent; border: 1px solid #30363d; border-radius: 10px;
+    color: #e6edf3; font-size: 15px; font-weight: 500; font-family: inherit;
+    cursor: pointer; transition: border-color 0.25s, background 0.25s, transform 0.15s;
+  }
+  #splash .splash-btn:hover {
+    border-color: #58a6ff; background: rgba(88,166,255,0.08); transform: translateY(-1px);
+  }
+  #splash .splash-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+  #splash .splash-btn .btn-label { font-size: 12px; color: #8b949e; font-weight: 400; margin-left: auto; }
+
+  /* ── Autoplay ── */
 
   .autoplay-bar {
     display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
@@ -209,6 +226,22 @@
 
 <div id="deck">
 
+<div id="splash">
+  <div class="splash-title">The South African Government Bond Market</div>
+  <div class="splash-choices">
+    <button class="splash-btn" onclick="startPlay()">
+      <svg viewBox="0 0 24 24" fill="#58a6ff"><polygon points="5,3 19,12 5,21"/></svg>
+      Play
+      <span class="btn-label">narrated</span>
+    </button>
+    <button class="splash-btn" onclick="startInteract()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2" stroke-linecap="round"><polyline points="4,7 4,4 20,4 20,7"/><line x1="12" y1="4" x2="12" y2="14"/><polyline points="8,10 12,14 16,10"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
+      Interact
+      <span class="btn-label">manual</span>
+    </button>
+  </div>
+</div>
+
   <!-- SLIDE 1: Supply Summary -->
   <div class="slide" id="s1">
     <div class="slide-inner">
@@ -219,10 +252,6 @@
         <li>Non-fundamental demand is variable, as revealed by foreign investor behaviour and price swings</li>
         <li>Explosive debt dynamics could impact fundamental demand in nonlinear ways</li>
       </ul>
-      <button class="watch-btn" id="watch-btn" onclick="startAutoplay()">
-        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-        Watch Presentation
-      </button>
     </div>
   </div>
 
@@ -1365,6 +1394,10 @@
       dotsEl.appendChild(d);
     });
 
+    document.getElementById('nav').style.display = '';
+    document.getElementById('hint').style.display = '';
+    document.getElementById('progress').style.display = '';
+
     slides[0].classList.add('active');
     revealNext(slides[0]);
     updateUI();
@@ -1441,8 +1474,12 @@
     }
   });
 
-  // Defer init to ensure DOM is settled after script re-creation
-  setTimeout(initDeck, 50);
+  // Hide deck UI until user chooses Play or Interact from splash
+  setTimeout(() => {
+    document.getElementById('nav').style.display = 'none';
+    document.getElementById('hint').style.display = 'none';
+    document.getElementById('progress').style.display = 'none';
+  }, 10);
 
   /* ── Autoplay engine ── */
   const NARRATION = [
@@ -1508,10 +1545,16 @@
   let autoplayTimer = null;
   let ttsUtterance = null;
 
-  function startAutoplay() {
+  function hideSplash() {
+    const splash = document.getElementById('splash');
+    if (splash) splash.classList.add('hidden');
+  }
+
+  function startPlay() {
+    hideSplash();
+    if (!slides) initDeck();
     autoplayActive = true;
     autoplayPaused = false;
-    document.getElementById('watch-btn').style.display = 'none';
     document.getElementById('nav').style.display = 'none';
     document.getElementById('hint').style.display = 'none';
     document.getElementById('autoplay-bar').classList.add('visible');
@@ -1520,15 +1563,21 @@
     if (current !== 0) {
       showSlide(0);
     } else {
-      // Reset bullets on current slide
       bulletIndex = 0;
       getBullets(slides[0]).forEach(el => el.classList.remove('visible'));
       revealNext(slides[0]);
     }
     updateApStatus();
-    // Begin after a short pause
     autoplayTimer = setTimeout(() => autoAdvance(), 800);
   }
+
+  function startInteract() {
+    hideSplash();
+    if (!slides) initDeck();
+  }
+
+  // Legacy alias
+  function startAutoplay() { startPlay(); }
 
   function pauseAutoplay() {
     autoplayPaused = true;
@@ -1567,8 +1616,6 @@
     document.getElementById('resume-pill').classList.remove('visible');
     document.getElementById('nav').style.display = '';
     document.getElementById('hint').style.display = '';
-    // Show watch button again if on slide 1
-    if (current === 0) document.getElementById('watch-btn').style.display = '';
     updateUI();
   }
 
