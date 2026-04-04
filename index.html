@@ -766,7 +766,7 @@
         const html  = new TextDecoder().decode(plain);
 
         // Save password for auto-login
-        try { localStorage.setItem('mt-key', password); } catch(_) {}
+        try { localStorage.setItem('mt-key', password); localStorage.setItem('mt-key-sa', password); } catch(_) {}
 
         page.classList.add('fading-out');
         setTimeout(() => {
