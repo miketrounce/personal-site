@@ -1,152 +1,32 @@
 <style>
-  .inner-landing { background: #0d1117 !important; padding: 0 !important; min-height: 100vh; }
-
-  .landing {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px 40px;
-    max-width: 720px;
-    margin: 0 auto;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    color: #e6edf3;
-  }
-
-  .landing-name {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(2.4rem, 6vw, 3.6rem);
-    font-weight: 900;
-    color: #f4f2ec;
-    margin: 0 0 12px;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-
-  .landing-tagline {
-    font-size: 1.1rem;
-    color: #8b949e;
-    margin: 0 0 56px;
-    line-height: 1.6;
-    max-width: 480px;
-  }
-
-  .landing-section {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #58a6ff;
-    margin: 0 0 20px;
-  }
-
-  .landing-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .landing-items li {
-    padding: 18px 24px;
-    border-left: 3px solid transparent;
-    cursor: default;
-    transition: border-color 0.2s, background 0.2s;
-  }
-
-  .landing-items li.clickable {
-    cursor: pointer;
-    border-left-color: #30363d;
-  }
-
-  .landing-items li.clickable:hover {
-    border-left-color: #3fb950;
-    background: rgba(63, 185, 80, 0.04);
-  }
-
-  .landing-items li .item-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #e6edf3;
-    margin: 0;
-  }
-
-  .landing-items li.coming .item-title {
-    color: #555d66;
-  }
-
-  .landing-items li .item-tag {
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #30363d;
-    margin-left: 10px;
-  }
-
-  .landing-items li.clickable .item-tag {
-    color: #3fb950;
-  }
-
-  .landing-items li .item-desc {
-    font-size: 0.85rem;
-    color: #555d66;
-    margin: 4px 0 0;
-    line-height: 1.5;
-  }
-
-  .landing-items li.clickable .item-desc {
-    color: #8b949e;
-  }
-
-  .landing-items li .item-arrow {
-    float: right;
-    color: #30363d;
-    font-size: 1.1rem;
-    margin-top: 2px;
-    transition: color 0.2s, transform 0.2s;
-  }
-
-  .landing-items li.clickable:hover .item-arrow {
-    color: #3fb950;
-    transform: translateX(3px);
-  }
-
-  @media (max-width: 600px) {
-    .landing { padding: 40px 20px; }
-    .landing-items li { padding: 14px 16px; }
-  }
+  .inner-landing { background: transparent !important; padding: 0 !important; min-height: 100vh; }
 </style>
 
-<div class="landing">
-  <h1 class="landing-name">Mike Trounce</h1>
-  <p class="landing-tagline">Macro strategist and flows analyst. Building tools to understand asset prices through the lens of who is buying and selling.</p>
+<main class="page" id="inner-page">
+  <div class="career">
+    <h1>Mike Trounce</h1>
 
-  <p class="landing-section">Research</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p class="timeline-dates">FLOW SUPERINTELLIGENCE</p>
+        <p class="timeline-role" style="color: var(--muted);">Towards a unified system</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-dates">FRICTIONS</p>
+        <p class="timeline-role" style="color: var(--muted);">Why supply, demand, flows and positions matter</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-dates">GOVERNMENT BONDS AND THEIR INVESTORS</p>
+        <p class="timeline-role" style="color: var(--muted);">A database</p>
+      </div>
+      <div class="timeline-item now" style="cursor:pointer;" onclick="window.location.href='/sa/'">
+        <p class="timeline-dates">EMERGING ECONOMY SOVEREIGN BOND MARKETS</p>
+        <p class="timeline-role">South Africa</p>
+      </div>
+    </div>
 
-  <ul class="landing-items">
-    <li class="coming">
-      <p class="item-title">Flow Superintelligence <span class="item-tag">coming soon</span></p>
-      <p class="item-desc">AI applied to predicting asset prices using flows and positions data</p>
-    </li>
-    <li class="coming">
-      <p class="item-title">Asset Pricing: Supply, Demand, Flows and Positions <span class="item-tag">coming soon</span></p>
-      <p class="item-desc">A general framework for understanding prices through the lens of who is buying and selling</p>
-    </li>
-    <li class="coming">
-      <p class="item-title">Government Bonds and their Investors <span class="item-tag">coming soon</span></p>
-      <p class="item-desc">The framework applied to sovereign debt markets and investor behaviour</p>
-    </li>
-    <li class="clickable" onclick="window.location.href='/sa/'">
-      <span class="item-arrow">→</span>
-      <p class="item-title">The South African Government Bond Market <span class="item-tag">live</span></p>
-      <p class="item-desc">Supply, demand, and the forces that drive SA bond prices. A flows analysis.</p>
-    </li>
-  </ul>
-
-  <div style="margin-top:48px;">
-    <button onclick="localStorage.removeItem('mt-key');window.location.reload();" style="background:none;border:1px solid #30363d;color:#555d66;font-size:0.75rem;padding:6px 14px;border-radius:6px;cursor:pointer;font-family:-apple-system,system-ui,sans-serif;transition:color 0.2s,border-color 0.2s;" onmouseover="this.style.color='#e6edf3';this.style.borderColor='#8b949e'" onmouseout="this.style.color='#555d66';this.style.borderColor='#30363d'">Lock</button>
+    <div style="margin-top:48px;">
+      <button onclick="localStorage.removeItem('mt-key');window.location.reload();" style="background:transparent;border:none;color:var(--muted);font-size:0.8rem;padding:0;cursor:pointer;font-family:inherit;opacity:0.5;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">lock</button>
+    </div>
   </div>
-</div>
+</main>
