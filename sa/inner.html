@@ -163,6 +163,42 @@
   .landing-list li.active-item .item-desc {
     color: #8b949e;
   }
+
+  /* ── Autoplay ── */
+  .watch-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 28px; padding: 10px 24px;
+    background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(63,185,80,0.08));
+    border: 1px solid rgba(88,166,255,0.35); border-radius: 10px;
+    color: #e6edf3; font-size: 14px; font-weight: 500; font-family: inherit;
+    cursor: pointer; transition: border-color 0.2s, background 0.2s;
+  }
+  .watch-btn:hover { border-color: #58a6ff; background: rgba(88,166,255,0.18); }
+  .watch-btn svg { width: 16px; height: 16px; fill: #58a6ff; }
+
+  .autoplay-bar {
+    display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+    background: rgba(22,27,34,0.95); border-top: 1px solid #30363d;
+    padding: 12px 32px; align-items: center; justify-content: center; gap: 16px;
+    backdrop-filter: blur(8px);
+  }
+  .autoplay-bar.visible { display: flex; }
+  .autoplay-bar button {
+    background: none; border: 1px solid #30363d; color: #e6edf3;
+    padding: 6px 18px; border-radius: 8px; font-size: 13px; font-family: inherit;
+    cursor: pointer; transition: background 0.2s, border-color 0.2s;
+  }
+  .autoplay-bar button:hover { background: #30363d; }
+  .autoplay-bar .ap-status { font-size: 12px; color: #8b949e; min-width: 80px; text-align: center; }
+
+  .resume-pill {
+    display: none; position: fixed; bottom: 80px; right: 20px; z-index: 150;
+    background: rgba(22,27,34,0.9); border: 1px solid #58a6ff; border-radius: 20px;
+    padding: 6px 16px; color: #58a6ff; font-size: 12px; font-family: inherit;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .resume-pill:hover { background: rgba(88,166,255,0.15); }
+  .resume-pill.visible { display: block; }
 </style>
 <a href="/" style="position:fixed;top:16px;left:20px;z-index:200;color:#e6edf3;font-size:12px;font-family:-apple-system,system-ui,sans-serif;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">← Menu</a>
 
@@ -183,6 +219,10 @@
         <li>Non-fundamental demand is variable, as revealed by foreign investor behaviour and price swings</li>
         <li>Explosive debt dynamics could impact fundamental demand in nonlinear ways</li>
       </ul>
+      <button class="watch-btn" id="watch-btn" onclick="startAutoplay()">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+        Watch Presentation
+      </button>
     </div>
   </div>
 
@@ -1298,21 +1338,37 @@
 
 <div id="hint">← → arrow keys to navigate · click to advance bullets</div>
 
+<div class="autoplay-bar" id="autoplay-bar">
+  <button id="ap-pause" onclick="toggleAutoplay()">Pause</button>
+  <span class="ap-status" id="ap-status"></span>
+  <button onclick="exitAutoplay()">Exit</button>
+</div>
+<button class="resume-pill" id="resume-pill" onclick="resumeAutoplay()">&#9654; Resume</button>
+
 </div><!-- .slides-wrap -->
 
 <script>
-  const slides = document.querySelectorAll('.slides-wrap .slide');
-  const total = slides.length;
+  let slides, total;
   let current = 0;
   let bulletIndex = 0;
 
-  const dotsEl = document.getElementById('dots');
-  slides.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', () => goTo(i));
-    dotsEl.appendChild(d);
-  });
+  function initDeck() {
+    slides = document.querySelectorAll('.slides-wrap .slide');
+    total = slides.length;
+
+    const dotsEl = document.getElementById('dots');
+    dotsEl.innerHTML = '';
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(d);
+    });
+
+    slides[0].classList.add('active');
+    revealNext(slides[0]);
+    updateUI();
+  }
 
   function getBullets(slide) {
     return [...slide.querySelectorAll('.chart-wrap, .chart-small, .bullets li, .stat, .col-box, .punchline')];
@@ -1360,6 +1416,7 @@
 
   document.getElementById('deck').addEventListener('click', (e) => {
     if (e.target.closest('button, a, [onclick]')) return;
+    if (autoplayActive && !autoplayPaused) { pauseAutoplay(); return; }
     const advanced = revealNext(slides[current]);
     if (!advanced && current < total - 1) goTo(current + 1);
   });
@@ -1374,6 +1431,7 @@
   });
 
   document.addEventListener('keydown', e => {
+    if (autoplayActive && !autoplayPaused) { pauseAutoplay(); return; }
     if (e.key === 'ArrowRight' || e.key === ' ') {
       e.preventDefault();
       const advanced = revealNext(slides[current]);
@@ -1383,7 +1441,209 @@
     }
   });
 
-  slides[0].classList.add('active');
-  revealNext(slides[0]);
-  updateUI();
+  // Defer init to ensure DOM is settled after script re-creation
+  setTimeout(initDeck, 50);
+
+  /* ── Autoplay engine ── */
+  const NARRATION = [
+    { intro: 'This presentation covers the South African government bond market.',
+      bullets: [
+        'Government behaviour reveals that supply is effectively fixed at four and a half percent of GDP per year.',
+        'Non-fundamental demand is variable, as revealed by foreign investor behaviour and price swings.',
+        'Explosive debt dynamics could impact fundamental demand in nonlinear ways.'
+      ]},
+    { intro: 'Let us begin with supply. This fan chart shows the main budget deficit as a percentage of GDP.',
+      bullets: [
+        'The dashed lines are deficit projections from every National Budget Review from 2011 to 2026.',
+        'It has been politically impossible to borrow less than four percent of GDP.',
+        'Projections of debt supply cannot be relied on.',
+        'I view the flow rate of supply as endogenously fixed at four and a half percent of GDP.'
+      ]},
+    { intro: 'This chart shows the same deficit data, but now in Rand and Dollar terms.',
+      bullets: [
+        'Naturally, for a growing economy, the Rand value of four and a half percent of GDP grows over time.',
+        'In US Dollar terms, South Africa borrows a roughly constant fifteen to twenty billion dollars per year.',
+        'To be confirmed.',
+        'To be confirmed.'
+      ]},
+    { intro: 'Now let us look at the stock of debt. This shows gross loan debt and the debt to GDP ratio.',
+      bullets: [
+        'The stock chart reveals something important: debt is on an explosive path.',
+        'The combination of growth and borrowing costs that South Africa faces cannot tolerate supply of four and a half percent of GDP year after year.',
+        'Debt is on an explosive path.',
+        'Projected improvements rarely materialise.'
+      ]},
+    { intro: 'This is a classic supply and demand framework applied to the bond market.',
+      bullets: [
+        'My supply schedule is steep and fixed.',
+        'Steep means that changes in borrowing costs have little impact on how much the government borrows.',
+        'Fixed means there is neither appetite for austerity nor a go-for-growth strategy.',
+        'This fits with the significant variation observed in bond yields, caused by demand variation.'
+      ]},
+    { intro: 'South Africa borrows in both local and foreign currency.',
+      bullets: [
+        'South Africa borrows in both local currency, the Rand, and foreign currency.',
+        'Local currency debt dominates, consistently around ninety percent of the total.',
+        'Foreign currency debt is small but growing.',
+        'The rest of this presentation focuses on the local currency market.'
+      ]},
+    { intro: 'Now we turn to demand. This shows bond holdings by investor type.',
+      bullets: [
+        'I will show demand as the composition by residence of the investor.',
+        'There is large variation in the stock of foreign holdings.',
+        'Large jumps in 2011 to 2013, 2016 to 2018, and 2023 to 2025.',
+        'Little change in other periods.'
+      ]},
+    { intro: 'Finally, the flow of bond purchases by foreigners and residents.',
+      bullets: [
+        'This shows the annual flow of bond purchases by foreigners and residents.',
+        'Now overlay the bond yield. When foreigners buy, yields fall.',
+        'The causal link is clear: foreign demand shifts drive bond prices.',
+        'This is the core insight of flow-of-funds analysis.'
+      ]}
+  ];
+
+  let autoplayActive = false;
+  let autoplayPaused = false;
+  let autoplayTimer = null;
+  let ttsUtterance = null;
+
+  function startAutoplay() {
+    autoplayActive = true;
+    autoplayPaused = false;
+    document.getElementById('watch-btn').style.display = 'none';
+    document.getElementById('nav').style.display = 'none';
+    document.getElementById('hint').style.display = 'none';
+    document.getElementById('autoplay-bar').classList.add('visible');
+    document.getElementById('resume-pill').classList.remove('visible');
+    // Start from slide 0
+    if (current !== 0) {
+      showSlide(0);
+    } else {
+      // Reset bullets on current slide
+      bulletIndex = 0;
+      getBullets(slides[0]).forEach(el => el.classList.remove('visible'));
+      revealNext(slides[0]);
+    }
+    updateApStatus();
+    // Begin after a short pause
+    autoplayTimer = setTimeout(() => autoAdvance(), 800);
+  }
+
+  function pauseAutoplay() {
+    autoplayPaused = true;
+    clearTimeout(autoplayTimer);
+    speechSynthesis.cancel();
+    document.getElementById('ap-pause').textContent = 'Resume';
+    document.getElementById('autoplay-bar').classList.remove('visible');
+    document.getElementById('nav').style.display = '';
+    document.getElementById('hint').style.display = '';
+    document.getElementById('resume-pill').classList.add('visible');
+    updateUI();
+  }
+
+  function resumeAutoplay() {
+    autoplayPaused = false;
+    document.getElementById('ap-pause').textContent = 'Pause';
+    document.getElementById('nav').style.display = 'none';
+    document.getElementById('hint').style.display = 'none';
+    document.getElementById('autoplay-bar').classList.add('visible');
+    document.getElementById('resume-pill').classList.remove('visible');
+    updateApStatus();
+    autoAdvance();
+  }
+
+  function toggleAutoplay() {
+    if (autoplayPaused) resumeAutoplay();
+    else pauseAutoplay();
+  }
+
+  function exitAutoplay() {
+    autoplayActive = false;
+    autoplayPaused = false;
+    clearTimeout(autoplayTimer);
+    speechSynthesis.cancel();
+    document.getElementById('autoplay-bar').classList.remove('visible');
+    document.getElementById('resume-pill').classList.remove('visible');
+    document.getElementById('nav').style.display = '';
+    document.getElementById('hint').style.display = '';
+    // Show watch button again if on slide 1
+    if (current === 0) document.getElementById('watch-btn').style.display = '';
+    updateUI();
+  }
+
+  function updateApStatus() {
+    document.getElementById('ap-status').textContent = 'Slide ' + (current + 1) + ' of ' + total;
+  }
+
+  function speak(text) {
+    return new Promise((resolve) => {
+      if (!('speechSynthesis' in window) || !text) { resolve(); return; }
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.95;
+      u.pitch = 1;
+      u.volume = 0.8;
+      u.onend = () => resolve();
+      u.onerror = () => resolve();
+      ttsUtterance = u;
+      speechSynthesis.speak(u);
+    });
+  }
+
+  async function autoAdvance() {
+    if (!autoplayActive || autoplayPaused) return;
+
+    const narr = NARRATION[current];
+    if (!narr) { exitAutoplay(); return; }
+
+    // Speak intro for this slide
+    updateApStatus();
+    await speak(narr.intro);
+    if (!autoplayActive || autoplayPaused) return;
+
+    // Reveal remaining bullets one by one
+    const items = getBullets(slides[current]);
+    while (bulletIndex < items.length) {
+      if (!autoplayActive || autoplayPaused) return;
+
+      // Figure out which narration bullet this corresponds to
+      // bulletIndex starts at 1 because revealNext was called once in showSlide
+      const narrIdx = bulletIndex; // 1-indexed into items, 0-indexed narr.bullets needs (bulletIndex - 1) but we already revealed first
+      // Actually: after showSlide, bulletIndex=1 (first item revealed). The first item is usually chart-wrap.
+      // Narration bullets map to .bullets li elements specifically.
+      // Let's just reveal and speak in sequence.
+
+      items[bulletIndex].classList.add('visible');
+      bulletIndex++;
+
+      // Speak matching narration if available
+      const bIdx = bulletIndex - 2; // -1 for 0-index, -1 because first reveal happened in showSlide
+      if (bIdx >= 0 && bIdx < narr.bullets.length) {
+        await speak(narr.bullets[bIdx]);
+      } else {
+        // Pause briefly for chart animations etc
+        await new Promise(r => { autoplayTimer = setTimeout(r, 1500); });
+      }
+      if (!autoplayActive || autoplayPaused) return;
+    }
+
+    // Wait before advancing to next slide
+    await new Promise(r => { autoplayTimer = setTimeout(r, 1200); });
+    if (!autoplayActive || autoplayPaused) return;
+
+    // Advance to next slide or finish
+    if (current < total - 1) {
+      goTo(current + 1);
+      updateApStatus();
+      // Wait for slide transition
+      await new Promise(r => { autoplayTimer = setTimeout(r, 800); });
+      if (!autoplayActive || autoplayPaused) return;
+      autoAdvance();
+    } else {
+      // Finished
+      exitAutoplay();
+    }
+  }
+
 </script>
