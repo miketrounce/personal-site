@@ -1,10 +1,10 @@
 <style>
   /* ── Slides reset (scoped inside inner-landing) ── */
-  .inner-landing { background: #0d1117 !important; padding: 0 !important; min-height: 100vh; }
+  .inner-landing { background: #2b2926 !important; padding: 0 !important; min-height: 100vh; }
   .slides-wrap {
-    --bg: #0d1117; --surface: #161b22; --border: #30363d;
-    --accent: #58a6ff; --accent2: #3fb950; --text: #e6edf3;
-    --muted: #8b949e; --danger: #f78166; --slide-max: 960px;
+    --bg: #2b2926; --surface: #34312d; --border: #45403a;
+    --accent: #81b64c; --accent2: #81b64c; --text: #f4f2ec;
+    --muted: #b8b0a4; --danger: #c44; --slide-max: 960px;
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     height: 100vh; display: flex; flex-direction: column; overflow: hidden; user-select: none;
@@ -21,8 +21,8 @@
   .slides-wrap .slide-inner { width: 100%; max-width: var(--slide-max); }
   .slides-wrap .slide-num { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
   .slides-wrap .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-  .slides-wrap h1 { font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--text); }
-  .slides-wrap h2 { font-size: clamp(22px, 3vw, 38px); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 8px; color: var(--text); }
+  .slides-wrap h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(28px, 4vw, 52px); font-weight: 900; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--text); }
+  .slides-wrap h2 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(22px, 3vw, 38px); font-weight: 900; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 8px; color: var(--text); }
   .slides-wrap .subtitle { font-size: clamp(15px, 2vw, 20px); color: var(--muted); margin-bottom: 36px; font-style: italic; }
   .slides-wrap .bullets { list-style: none; display: flex; flex-direction: column; gap: 14px; }
   .slides-wrap .bullets li { display: flex; align-items: flex-start; gap: 12px; font-size: clamp(15px, 1.8vw, 19px); line-height: 1.5; opacity: 0; transform: translateY(12px); transition: opacity 0.35s ease, transform 0.35s ease; }
@@ -37,7 +37,7 @@
   .slides-wrap .stat-value { font-size: clamp(24px, 3vw, 40px); font-weight: 700; color: var(--accent); }
   .slides-wrap .stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
   .slides-wrap .divider { height: 1px; background: var(--border); margin: 32px 0; }
-  .slides-wrap .punchline { background: linear-gradient(135deg, rgba(88,166,255,0.1), rgba(63,185,80,0.08)); border: 1px solid rgba(88,166,255,0.3); border-radius: 12px; padding: 20px 24px; font-size: clamp(15px, 1.8vw, 18px); line-height: 1.6; margin-top: 28px; opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s; }
+  .slides-wrap .punchline { background: linear-gradient(135deg, rgba(129,182,76,0.1), rgba(129,182,76,0.08)); border: 1px solid rgba(129,182,76,0.3); border-radius: 12px; padding: 20px 24px; font-size: clamp(15px, 1.8vw, 18px); line-height: 1.6; margin-top: 28px; opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s; }
   .slides-wrap .punchline.visible { opacity: 1; transform: translateY(0); }
   .slides-wrap .punchline strong { color: var(--accent); }
   .slides-wrap .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px; }
@@ -97,14 +97,14 @@
     align-items: center;
     padding: 40px 24px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    color: #e6edf3;
+    color: #f4f2ec;
   }
   .landing-menu h1 {
     font-family: Georgia, "Times New Roman", serif;
     font-size: 2rem;
     font-weight: 900;
     margin-bottom: 48px;
-    color: #e6edf3;
+    color: #f4f2ec;
   }
   .landing-list {
     list-style: none;
@@ -117,37 +117,37 @@
     width: 100%;
   }
   .landing-list li {
-    border: 1px solid #30363d;
+    border: 1px solid #45403a;
     border-radius: 12px;
     padding: 20px 28px;
-    background: linear-gradient(180deg, #1c1f24 0%, #161b22 100%);
+    background: linear-gradient(180deg, #3a3632 0%, #34312d 100%);
     cursor: pointer;
     transition: border-color 0.2s, transform 0.15s;
     font-size: 1.05rem;
     font-weight: 600;
-    color: #8b949e;
+    color: #b8b0a4;
   }
   .landing-list li:hover {
-    border-color: #58a6ff;
+    border-color: #81b64c;
     transform: translateX(4px);
-    color: #e6edf3;
+    color: #f4f2ec;
   }
   .landing-list li.active-item {
-    border-color: #3fb950;
-    color: #e6edf3;
+    border-color: #81b64c;
+    color: #f4f2ec;
   }
   .landing-list li .item-num {
-    color: #58a6ff;
+    color: #81b64c;
     font-size: 0.85rem;
     font-weight: 700;
     margin-right: 12px;
   }
   .landing-list li.active-item .item-num {
-    color: #3fb950;
+    color: #81b64c;
   }
   .landing-list li .coming-soon {
     font-size: 0.75rem;
-    color: #555d66;
+    color: #7a7368;
     font-weight: 400;
     margin-left: 8px;
   }
@@ -155,25 +155,25 @@
     display: block;
     font-size: 0.8rem;
     font-weight: 400;
-    color: #555d66;
+    color: #7a7368;
     margin-top: 6px;
     line-height: 1.5;
   }
   .landing-list li:hover .item-desc,
   .landing-list li.active-item .item-desc {
-    color: #8b949e;
+    color: #b8b0a4;
   }
 
   /* ── Splash ── */
   #splash {
     position: absolute; inset: 0; z-index: 50;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    gap: 48px; background: #0d1117;
+    gap: 48px; background: #2b2926;
   }
   #splash.hidden { display: none; }
   #splash .splash-title {
     font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-    color: #58a6ff; text-align: center;
+    color: #81b64c; text-align: center;
   }
   #splash .splash-choices {
     display: flex; flex-direction: column; gap: 16px; align-items: center;
@@ -181,43 +181,43 @@
   #splash .splash-btn {
     display: flex; align-items: center; gap: 10px;
     width: 200px; padding: 14px 24px;
-    background: transparent; border: 1px solid #30363d; border-radius: 10px;
-    color: #e6edf3; font-size: 15px; font-weight: 500; font-family: inherit;
+    background: transparent; border: 1px solid #45403a; border-radius: 10px;
+    color: #f4f2ec; font-size: 15px; font-weight: 500; font-family: inherit;
     cursor: pointer; transition: border-color 0.25s, background 0.25s, transform 0.15s;
   }
   #splash .splash-btn:hover {
-    border-color: #58a6ff; background: rgba(88,166,255,0.08); transform: translateY(-1px);
+    border-color: #81b64c; background: rgba(129,182,76,0.08); transform: translateY(-1px);
   }
   #splash .splash-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
-  #splash .splash-btn .btn-label { font-size: 12px; color: #8b949e; font-weight: 400; margin-left: auto; }
+  #splash .splash-btn .btn-label { font-size: 12px; color: #b8b0a4; font-weight: 400; margin-left: auto; }
 
   /* ── Autoplay ── */
 
   .autoplay-bar {
     display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
-    background: rgba(22,27,34,0.95); border-top: 1px solid #30363d;
+    background: rgba(52,49,45,0.95); border-top: 1px solid #45403a;
     padding: 12px 32px; align-items: center; justify-content: center; gap: 16px;
     backdrop-filter: blur(8px);
   }
   .autoplay-bar.visible { display: flex; }
   .autoplay-bar button {
-    background: none; border: 1px solid #30363d; color: #e6edf3;
+    background: none; border: 1px solid #45403a; color: #f4f2ec;
     padding: 6px 18px; border-radius: 8px; font-size: 13px; font-family: inherit;
     cursor: pointer; transition: background 0.2s, border-color 0.2s;
   }
-  .autoplay-bar button:hover { background: #30363d; }
-  .autoplay-bar .ap-status { font-size: 12px; color: #8b949e; min-width: 80px; text-align: center; }
+  .autoplay-bar button:hover { background: #45403a; }
+  .autoplay-bar .ap-status { font-size: 12px; color: #b8b0a4; min-width: 80px; text-align: center; }
 
   .resume-pill {
     display: none; position: fixed; bottom: 80px; right: 20px; z-index: 150;
-    background: rgba(22,27,34,0.9); border: 1px solid #58a6ff; border-radius: 20px;
-    padding: 6px 16px; color: #58a6ff; font-size: 12px; font-family: inherit;
+    background: rgba(52,49,45,0.9); border: 1px solid #81b64c; border-radius: 20px;
+    padding: 6px 16px; color: #81b64c; font-size: 12px; font-family: inherit;
     cursor: pointer; transition: background 0.2s;
   }
-  .resume-pill:hover { background: rgba(88,166,255,0.15); }
+  .resume-pill:hover { background: rgba(129,182,76,0.15); }
   .resume-pill.visible { display: block; }
 </style>
-<a href="/" style="position:fixed;top:16px;left:20px;z-index:200;color:#e6edf3;font-size:12px;font-family:-apple-system,system-ui,sans-serif;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">← Menu</a>
+<a href="/" style="position:fixed;top:16px;left:20px;z-index:200;color:#f4f2ec;font-size:12px;font-family:-apple-system,system-ui,sans-serif;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">← Menu</a>
 
 <div class="slides-wrap">
 
@@ -230,12 +230,12 @@
   <div class="splash-title">The South African Government Bond Market</div>
   <div class="splash-choices">
     <button class="splash-btn" onclick="startPlay()">
-      <svg viewBox="0 0 24 24" fill="#58a6ff"><polygon points="5,3 19,12 5,21"/></svg>
+      <svg viewBox="0 0 24 24" fill="#81b64c"><polygon points="5,3 19,12 5,21"/></svg>
       Play
       <span class="btn-label">narrated</span>
     </button>
     <button class="splash-btn" onclick="startInteract()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2" stroke-linecap="round"><polyline points="4,7 4,4 20,4 20,7"/><line x1="12" y1="4" x2="12" y2="14"/><polyline points="8,10 12,14 16,10"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#81b64c" stroke-width="2" stroke-linecap="round"><polyline points="4,7 4,4 20,4 20,7"/><line x1="12" y1="4" x2="12" y2="14"/><polyline points="8,10 12,14 16,10"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
       Interact
       <span class="btn-label">manual</span>
     </button>
@@ -263,30 +263,30 @@
       <div class="chart-wrap">
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <defs><style>
-            .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-            .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
-            .src-label { fill: #555d66; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-label { fill: #b8b0a4; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #f4f2ec; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .src-label { fill: #7a7368; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
           </style></defs>
           <text x="210" y="16" text-anchor="middle" class="bar-title">Main Budget Deficit</text>
           <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
-          <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="60" y1="208.4" x2="360" y2="208.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="166.8" x2="360" y2="166.8" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="125.2" x2="360" y2="125.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="83.6" x2="360" y2="83.6" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <text x="54" y="254" text-anchor="end" style="fill:#e6edf3" class="bar-label">0%</text>
-          <text x="54" y="212" text-anchor="end" style="fill:#e6edf3" class="bar-label">2%</text>
-          <text x="54" y="171" text-anchor="end" style="fill:#e6edf3" class="bar-label">4%</text>
-          <text x="54" y="129" text-anchor="end" style="fill:#e6edf3" class="bar-label">6%</text>
-          <text x="54" y="88" text-anchor="end" style="fill:#e6edf3" class="bar-label">8%</text>
-          <text x="54" y="46" text-anchor="end" style="fill:#e6edf3" class="bar-label">10%</text>
-          <text x="54" y="28" text-anchor="end" style="fill:#e6edf3;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">Deficit %</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="42" x2="60" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="208.4" x2="360" y2="208.4" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="166.8" x2="360" y2="166.8" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="125.2" x2="360" y2="125.2" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="83.6" x2="360" y2="83.6" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text x="54" y="254" text-anchor="end" style="fill:#f4f2ec" class="bar-label">0%</text>
+          <text x="54" y="212" text-anchor="end" style="fill:#f4f2ec" class="bar-label">2%</text>
+          <text x="54" y="171" text-anchor="end" style="fill:#f4f2ec" class="bar-label">4%</text>
+          <text x="54" y="129" text-anchor="end" style="fill:#f4f2ec" class="bar-label">6%</text>
+          <text x="54" y="88" text-anchor="end" style="fill:#f4f2ec" class="bar-label">8%</text>
+          <text x="54" y="46" text-anchor="end" style="fill:#f4f2ec" class="bar-label">10%</text>
+          <text x="54" y="28" text-anchor="end" style="fill:#f4f2ec;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">Deficit %</text>
           <text x="68" y="264" text-anchor="middle" class="bar-label">10</text><text x="86" y="264" text-anchor="middle" class="bar-label">11</text><text x="103" y="264" text-anchor="middle" class="bar-label">12</text><text x="120" y="264" text-anchor="middle" class="bar-label">13</text><text x="138" y="264" text-anchor="middle" class="bar-label">14</text><text x="156" y="264" text-anchor="middle" class="bar-label">15</text><text x="173" y="264" text-anchor="middle" class="bar-label">16</text><text x="190" y="264" text-anchor="middle" class="bar-label">17</text><text x="208" y="264" text-anchor="middle" class="bar-label">18</text><text x="226" y="264" text-anchor="middle" class="bar-label">19</text><text x="243" y="264" text-anchor="middle" class="bar-label">20</text><text x="260" y="264" text-anchor="middle" class="bar-label">21</text><text x="278" y="264" text-anchor="middle" class="bar-label">22</text><text x="296" y="264" text-anchor="middle" class="bar-label">23</text><text x="313" y="264" text-anchor="middle" class="bar-label">24</text><text x="330" y="264" text-anchor="middle" class="bar-label">25</text><text x="348" y="264" text-anchor="middle" class="bar-label">26</text>
           <!-- Dynamic elements drawn by JS -->
           <g id="fan-ghost-projections"></g>
-          <polyline id="fan-projection" points="" fill="none" stroke="#e6edf3" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round" opacity="0.8"/>
-          <polyline id="fan-actual" points="" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline id="fan-projection" points="" fill="none" stroke="#f4f2ec" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round" opacity="0.8"/>
+          <polyline id="fan-actual" points="" fill="none" stroke="#81b64c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           <g id="fan-dots"></g>
           <!-- Source -->
           <text x="210" y="290" text-anchor="middle" class="src-label">Source: SA National Budget Reviews 2011-2026 (16 verified fiscal framework tables)</text>
@@ -331,7 +331,7 @@
     function dot(x, y) {
       var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
       c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r','2.5');
-      c.setAttribute('fill','#3fb950');
+      c.setAttribute('fill','#81b64c');
       return c;
     }
 
@@ -339,7 +339,7 @@
       var p = document.createElementNS('http://www.w3.org/2000/svg','polyline');
       p.setAttribute('points', pts);
       p.setAttribute('fill', 'none');
-      p.setAttribute('stroke', '#e6edf3');
+      p.setAttribute('stroke', '#f4f2ec');
       p.setAttribute('stroke-width', '1');
       p.setAttribute('stroke-dasharray', '3,3');
       p.setAttribute('opacity', '0.15');
@@ -441,49 +441,49 @@
       <div class="chart-wrap">
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <defs><style>
-            .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-            .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
-            .pct-label { fill: #3fb950; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-            .src-label { fill: #555d66; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-label { fill: #b8b0a4; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #f4f2ec; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .pct-label { fill: #81b64c; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .src-label { fill: #7a7368; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
           </style></defs>
           <text x="210" y="16" text-anchor="middle" class="bar-title">Main Budget Deficit</text>
           <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
-          <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="360" y1="42" x2="360" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
-          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <text id="s2-y0" x="54" y="254" text-anchor="end" style="fill:#58a6ff;transition:all 0.6s" class="bar-label">0</text>
-          <text id="s2-y1" x="54" y="184" text-anchor="end" style="fill:#58a6ff;transition:all 0.6s" class="bar-label">200</text>
-          <text id="s2-y2" x="54" y="114" text-anchor="end" style="fill:#58a6ff;transition:all 0.6s" class="bar-label">400</text>
-          <text id="s2-y3" x="54" y="46" text-anchor="end" style="fill:#58a6ff;transition:all 0.6s" class="bar-label">600</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="42" x2="60" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="360" y1="42" x2="360" y2="250" stroke="#81b64c" stroke-width="0.5" stroke-dasharray="2,2"/>
+          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text id="s2-y0" x="54" y="254" text-anchor="end" style="fill:#81b64c;transition:all 0.6s" class="bar-label">0</text>
+          <text id="s2-y1" x="54" y="184" text-anchor="end" style="fill:#81b64c;transition:all 0.6s" class="bar-label">200</text>
+          <text id="s2-y2" x="54" y="114" text-anchor="end" style="fill:#81b64c;transition:all 0.6s" class="bar-label">400</text>
+          <text id="s2-y3" x="54" y="46" text-anchor="end" style="fill:#81b64c;transition:all 0.6s" class="bar-label">600</text>
           <text x="366" y="254" class="pct-label">0%</text>
           <text x="366" y="184" class="pct-label">4%</text>
           <text x="366" y="114" class="pct-label">8%</text>
           <text x="366" y="46" class="pct-label">12%</text>
           <!-- SARB KBP4602F: 09/10=129, 10/11=114, 11/12=148, 12/13=177, 13/14=167, 14/15=175, 15/16=175, 16/17=171, 17/18=210, 18/19=229, 19/20=346, 20/21=552, 21/22=326, 22/23=300, 23/24=313, 24/25=337 -->
-          <rect x="63" y="205.2" width="16" height="44.8" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="71" y="264" text-anchor="middle" class="bar-label">10</text>
-          <rect x="82" y="210.6" width="16" height="39.4" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="90" y="264" text-anchor="middle" class="bar-label">11</text>
-          <rect x="100" y="198.6" width="16" height="51.4" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="108" y="264" text-anchor="middle" class="bar-label">12</text>
-          <rect x="118" y="188.7" width="16" height="61.3" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="126" y="264" text-anchor="middle" class="bar-label">13</text>
-          <rect x="137" y="192.1" width="16" height="57.9" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="145" y="264" text-anchor="middle" class="bar-label">14</text>
-          <rect x="156" y="189.5" width="16" height="60.5" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="164" y="264" text-anchor="middle" class="bar-label">15</text>
-          <rect x="174" y="189.4" width="16" height="60.6" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="182" y="264" text-anchor="middle" class="bar-label">16</text>
-          <rect x="192" y="190.6" width="16" height="59.4" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="200" y="264" text-anchor="middle" class="bar-label">17</text>
-          <rect x="211" y="177.1" width="16" height="72.9" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="219" y="264" text-anchor="middle" class="bar-label">18</text>
-          <rect x="230" y="170.6" width="16" height="79.4" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="238" y="264" text-anchor="middle" class="bar-label">19</text>
-          <rect x="248" y="129.9" width="16" height="120.1" rx="2" fill="#58a6ff" opacity="0.8"/><text x="256" y="264" text-anchor="middle" class="bar-label">20</text>
-          <rect x="266" y="58.7" width="16" height="191.3" rx="2" fill="#58a6ff" opacity="0.85"/><text x="274" y="264" text-anchor="middle" class="bar-label">21</text>
-          <rect x="285" y="137.1" width="16" height="112.9" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="293" y="264" text-anchor="middle" class="bar-label">22</text>
-          <rect x="304" y="146.1" width="16" height="103.9" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="312" y="264" text-anchor="middle" class="bar-label">23</text>
-          <rect x="322" y="141.7" width="16" height="108.3" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="330" y="264" text-anchor="middle" class="bar-label">24</text>
-          <rect x="340" y="133.3" width="16" height="116.7" rx="2" class="s2-bar" fill="#58a6ff" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
+          <rect x="63" y="205.2" width="16" height="44.8" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="71" y="264" text-anchor="middle" class="bar-label">10</text>
+          <rect x="82" y="210.6" width="16" height="39.4" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="90" y="264" text-anchor="middle" class="bar-label">11</text>
+          <rect x="100" y="198.6" width="16" height="51.4" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="108" y="264" text-anchor="middle" class="bar-label">12</text>
+          <rect x="118" y="188.7" width="16" height="61.3" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="126" y="264" text-anchor="middle" class="bar-label">13</text>
+          <rect x="137" y="192.1" width="16" height="57.9" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="145" y="264" text-anchor="middle" class="bar-label">14</text>
+          <rect x="156" y="189.5" width="16" height="60.5" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="164" y="264" text-anchor="middle" class="bar-label">15</text>
+          <rect x="174" y="189.4" width="16" height="60.6" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="182" y="264" text-anchor="middle" class="bar-label">16</text>
+          <rect x="192" y="190.6" width="16" height="59.4" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="200" y="264" text-anchor="middle" class="bar-label">17</text>
+          <rect x="211" y="177.1" width="16" height="72.9" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="219" y="264" text-anchor="middle" class="bar-label">18</text>
+          <rect x="230" y="170.6" width="16" height="79.4" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="238" y="264" text-anchor="middle" class="bar-label">19</text>
+          <rect x="248" y="129.9" width="16" height="120.1" rx="2" fill="#81b64c" opacity="0.8"/><text x="256" y="264" text-anchor="middle" class="bar-label">20</text>
+          <rect x="266" y="58.7" width="16" height="191.3" rx="2" fill="#81b64c" opacity="0.85"/><text x="274" y="264" text-anchor="middle" class="bar-label">21</text>
+          <rect x="285" y="137.1" width="16" height="112.9" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="293" y="264" text-anchor="middle" class="bar-label">22</text>
+          <rect x="304" y="146.1" width="16" height="103.9" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="312" y="264" text-anchor="middle" class="bar-label">23</text>
+          <rect x="322" y="141.7" width="16" height="108.3" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="330" y="264" text-anchor="middle" class="bar-label">24</text>
+          <rect x="340" y="133.3" width="16" height="116.7" rx="2" class="s2-bar" fill="#81b64c" opacity="0.7" style="transition: y 0.6s, height 0.6s;"/><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
           <!-- Deficit % GDP line -->
-          <polyline points="71,163.4 90,182.4 108,172.0 126,163.4 145,173.7 164,175.5 182,180.7 200,184.1 219,173.7 238,172.0 256,137.4 274,81.9 293,154.7 312,170.3 330,172.0 348,172.0" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <g fill="#3fb950"><circle cx="71" cy="163.4" r="2.5"/><circle cx="90" cy="182.4" r="2.5"/><circle cx="108" cy="172.0" r="2.5"/><circle cx="126" cy="163.4" r="2.5"/><circle cx="145" cy="173.7" r="2.5"/><circle cx="164" cy="175.5" r="2.5"/><circle cx="182" cy="180.7" r="2.5"/><circle cx="200" cy="184.1" r="2.5"/><circle cx="219" cy="173.7" r="2.5"/><circle cx="238" cy="172.0" r="2.5"/><circle cx="256" cy="137.4" r="2.5"/><circle cx="274" cy="81.9" r="2.5"/><circle cx="293" cy="154.7" r="2.5"/><circle cx="312" cy="170.3" r="2.5"/><circle cx="330" cy="172.0" r="2.5"/><circle cx="348" cy="172.0" r="2.5"/></g>
+          <polyline points="71,163.4 90,182.4 108,172.0 126,163.4 145,173.7 164,175.5 182,180.7 200,184.1 219,173.7 238,172.0 256,137.4 274,81.9 293,154.7 312,170.3 330,172.0 348,172.0" fill="none" stroke="#81b64c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#81b64c"><circle cx="71" cy="163.4" r="2.5"/><circle cx="90" cy="182.4" r="2.5"/><circle cx="108" cy="172.0" r="2.5"/><circle cx="126" cy="163.4" r="2.5"/><circle cx="145" cy="173.7" r="2.5"/><circle cx="164" cy="175.5" r="2.5"/><circle cx="182" cy="180.7" r="2.5"/><circle cx="200" cy="184.1" r="2.5"/><circle cx="219" cy="173.7" r="2.5"/><circle cx="238" cy="172.0" r="2.5"/><circle cx="256" cy="137.4" r="2.5"/><circle cx="274" cy="81.9" r="2.5"/><circle cx="293" cy="154.7" r="2.5"/><circle cx="312" cy="170.3" r="2.5"/><circle cx="330" cy="172.0" r="2.5"/><circle cx="348" cy="172.0" r="2.5"/></g>
           <!-- Axis top labels instead of legend -->
-          <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR bn</text>
-          <text x="366" y="28" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
+          <text x="54" y="28" text-anchor="end" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR bn</text>
+          <text x="366" y="28" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
         </svg>
         <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-deficit').classList.add('open')">Source</button></div>
       </div>
@@ -569,52 +569,52 @@
       <div class="chart-wrap">
         <svg id="hope-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <defs><style>
-            .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-            .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
-            .pct-label { fill: #3fb950; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-            .src-label { fill: #555d66; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-label { fill: #b8b0a4; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #f4f2ec; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .pct-label { fill: #81b64c; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .src-label { fill: #7a7368; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
           </style></defs>
           <text x="210" y="16" text-anchor="middle" class="bar-title">Gross Loan Debt: Actual vs "Hope"</text>
           <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
-          <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="360" y1="42" x2="360" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
-          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <text x="54" y="254" text-anchor="end" style="fill:#58a6ff" class="bar-label">0</text>
-          <text x="54" y="184" text-anchor="end" style="fill:#58a6ff" class="bar-label">2</text>
-          <text x="54" y="114" text-anchor="end" style="fill:#58a6ff" class="bar-label">4</text>
-          <text x="54" y="46" text-anchor="end" style="fill:#58a6ff" class="bar-label">6</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="42" x2="60" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="360" y1="42" x2="360" y2="250" stroke="#81b64c" stroke-width="0.5" stroke-dasharray="2,2"/>
+          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text x="54" y="254" text-anchor="end" style="fill:#81b64c" class="bar-label">0</text>
+          <text x="54" y="184" text-anchor="end" style="fill:#81b64c" class="bar-label">2</text>
+          <text x="54" y="114" text-anchor="end" style="fill:#81b64c" class="bar-label">4</text>
+          <text x="54" y="46" text-anchor="end" style="fill:#81b64c" class="bar-label">6</text>
           <text x="366" y="254" class="pct-label">0%</text>
           <text x="366" y="184" class="pct-label">30%</text>
           <text x="366" y="114" class="pct-label">60%</text>
           <text x="366" y="46" class="pct-label">90%</text><text x="71" y="264" text-anchor="middle" class="bar-label">10</text><text x="90" y="264" text-anchor="middle" class="bar-label">11</text><text x="108" y="264" text-anchor="middle" class="bar-label">12</text><text x="126" y="264" text-anchor="middle" class="bar-label">13</text><text x="145" y="264" text-anchor="middle" class="bar-label">14</text><text x="164" y="264" text-anchor="middle" class="bar-label">15</text><text x="182" y="264" text-anchor="middle" class="bar-label">16</text><text x="200" y="264" text-anchor="middle" class="bar-label">17</text><text x="219" y="264" text-anchor="middle" class="bar-label">18</text><text x="238" y="264" text-anchor="middle" class="bar-label">19</text><text x="256" y="264" text-anchor="middle" class="bar-label">20</text><text x="274" y="264" text-anchor="middle" class="bar-label">21</text><text x="293" y="264" text-anchor="middle" class="bar-label">22</text><text x="312" y="264" text-anchor="middle" class="bar-label">23</text><text x="330" y="264" text-anchor="middle" class="bar-label">24</text><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
           <!-- Axis top labels instead of legend -->
-          <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tn</text>
-          <text x="366" y="28" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
+          <text x="54" y="28" text-anchor="end" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tn</text>
+          <text x="366" y="28" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
 
           <!-- Blue bars: ZAR tn debt stock (STATIC, reads against left axis) -->
-          <rect x="63" y="223.4" width="16" height="26.6" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="82" y="217.1" width="16" height="32.9" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="100" y="210.8" width="16" height="39.2" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="118" y="204.9" width="16" height="45.1" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="137" y="197.7" width="16" height="52.3" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="156" y="190.6" width="16" height="59.4" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="174" y="183.4" width="16" height="66.6" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="192" y="176.3" width="16" height="73.7" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="211" y="167.8" width="16" height="82.2" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="230" y="158.0" width="16" height="92.0" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="248" y="142.4" width="16" height="107.6" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="266" y="120.1" width="16" height="129.9" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="285" y="108.8" width="16" height="141.2" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="304" y="92.7" width="16" height="157.3" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="322" y="76.5" width="16" height="173.5" rx="2" fill="#58a6ff" opacity="0.7"/>
-          <rect x="340" y="62.1" width="16" height="187.9" rx="2" fill="#58a6ff" opacity="0.7"/>
+          <rect x="63" y="223.4" width="16" height="26.6" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="82" y="217.1" width="16" height="32.9" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="100" y="210.8" width="16" height="39.2" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="118" y="204.9" width="16" height="45.1" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="137" y="197.7" width="16" height="52.3" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="156" y="190.6" width="16" height="59.4" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="174" y="183.4" width="16" height="66.6" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="192" y="176.3" width="16" height="73.7" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="211" y="167.8" width="16" height="82.2" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="230" y="158.0" width="16" height="92.0" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="248" y="142.4" width="16" height="107.6" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="266" y="120.1" width="16" height="129.9" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="285" y="108.8" width="16" height="141.2" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="304" y="92.7" width="16" height="157.3" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="322" y="76.5" width="16" height="173.5" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="340" y="62.1" width="16" height="187.9" rx="2" fill="#81b64c" opacity="0.7"/>
           <!-- Dynamic elements: green debt/GDP line animated by JS -->
           <g id="hope-old-paths"></g>
-          <polyline id="gdp-line" points="" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline id="gdp-line" points="" fill="none" stroke="#81b64c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <g id="gdp-dots"></g>
-          <polyline id="hope-future" points="" fill="none" stroke="#e6edf3" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round" opacity="0"/>
+          <polyline id="hope-future" points="" fill="none" stroke="#f4f2ec" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round" opacity="0"/>
         </svg>
         <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
       </div>
@@ -663,7 +663,7 @@
     function dot(x, y) {
       var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
       c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r','3');
-      c.setAttribute('fill','#3fb950'); c.style.opacity='0'; c.style.transition='opacity 0.3s';
+      c.setAttribute('fill','#81b64c'); c.style.opacity='0'; c.style.transition='opacity 0.3s';
       setTimeout(function(){c.style.opacity='1';},50); return c;
     }
 
@@ -671,7 +671,7 @@
       var p = document.createElementNS('http://www.w3.org/2000/svg','polyline');
       p.setAttribute('points', ptsStr);
       p.setAttribute('fill', 'none');
-      p.setAttribute('stroke', '#e6edf3');
+      p.setAttribute('stroke', '#f4f2ec');
       p.setAttribute('stroke-width', '1');
       p.setAttribute('stroke-dasharray', '3,3');
       p.setAttribute('opacity', '0.15');
@@ -747,14 +747,14 @@
         <svg viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <style>
-              .ax-label { fill: #8b949e; font-size: 13px; font-family: -apple-system, system-ui, sans-serif; }
-              .ax-title { fill: #8b949e; font-size: 14px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
-              .tick-label { fill: #8b949e; font-size: 11px; font-family: -apple-system, system-ui, sans-serif; }
-              .tick-sub { fill: #555d66; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+              .ax-label { fill: #b8b0a4; font-size: 13px; font-family: -apple-system, system-ui, sans-serif; }
+              .ax-title { fill: #b8b0a4; font-size: 14px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+              .tick-label { fill: #b8b0a4; font-size: 11px; font-family: -apple-system, system-ui, sans-serif; }
+              .tick-sub { fill: #7a7368; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
               .curve-label { font-size: 20px; font-weight: 700; font-family: -apple-system, system-ui, sans-serif; }
               .ann-title { font-size: 12px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
-              .ann-body { fill: #8b949e; font-size: 11px; font-family: -apple-system, system-ui, sans-serif; }
-              .eq-label { fill: #e6edf3; font-size: 12px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+              .ann-body { fill: #b8b0a4; font-size: 11px; font-family: -apple-system, system-ui, sans-serif; }
+              .eq-label { fill: #f4f2ec; font-size: 12px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
             </style>
           </defs>
 
@@ -763,7 +763,7 @@
           <!-- X-axis: 0% GDP at x=100, 7% GDP at x=700. Each 1% = 85.7px -->
 
           <!-- Gridlines -->
-          <g stroke="#30363d" stroke-width="0.5" stroke-dasharray="4,4">
+          <g stroke="#45403a" stroke-width="0.5" stroke-dasharray="4,4">
             <!-- Horizontal: 1% through 7% -->
             <line x1="100" y1="337.5" x2="700" y2="337.5"/>
             <line x1="100" y1="295" x2="700" y2="295"/>
@@ -782,10 +782,10 @@
           </g>
 
           <!-- Axes -->
-          <line x1="100" y1="380" x2="710" y2="380" stroke="#8b949e" stroke-width="1.5"/>
-          <line x1="100" y1="35" x2="100" y2="380" stroke="#8b949e" stroke-width="1.5"/>
-          <polygon points="710,380 702,376 702,384" fill="#8b949e"/>
-          <polygon points="100,35 96,43 104,43" fill="#8b949e"/>
+          <line x1="100" y1="380" x2="710" y2="380" stroke="#b8b0a4" stroke-width="1.5"/>
+          <line x1="100" y1="35" x2="100" y2="380" stroke="#b8b0a4" stroke-width="1.5"/>
+          <polygon points="710,380 702,376 702,384" fill="#b8b0a4"/>
+          <polygon points="100,35 96,43 104,43" fill="#b8b0a4"/>
 
           <!-- Y-axis tick labels (real interest rate) -->
           <text x="90" y="384" text-anchor="end" class="tick-label">0%</text>
@@ -798,7 +798,7 @@
           <text x="90" y="86" text-anchor="end" class="tick-label">7%</text>
 
           <!-- Y-axis tick marks -->
-          <g stroke="#8b949e" stroke-width="1">
+          <g stroke="#b8b0a4" stroke-width="1">
             <line x1="96" y1="337.5" x2="100" y2="337.5"/>
             <line x1="96" y1="295" x2="100" y2="295"/>
             <line x1="96" y1="252.5" x2="100" y2="252.5"/>
@@ -817,7 +817,7 @@
           <text x="614.3" y="398" text-anchor="middle" class="tick-label">6%</text>
 
           <!-- X-axis tick marks -->
-          <g stroke="#8b949e" stroke-width="1">
+          <g stroke="#b8b0a4" stroke-width="1">
             <line x1="185.7" y1="380" x2="185.7" y2="384"/>
             <line x1="271.4" y1="380" x2="271.4" y2="384"/>
             <line x1="357.1" y1="380" x2="357.1" y2="384"/>
@@ -831,42 +831,42 @@
           <text x="32" y="210" text-anchor="middle" class="ax-title" transform="rotate(-90, 32, 210)">Real interest rate (%)</text>
 
           <!-- Supply curve: steep/nearly vertical. Intersection at 4.5% GDP, 4% rate -->
-          <path d="M 417,55 C 443,120 473,280 571,360" fill="none" stroke="#58a6ff" stroke-width="3" stroke-linecap="round"/>
-          <text x="578" y="355" class="curve-label" fill="#58a6ff">S</text>
+          <path d="M 417,55 C 443,120 473,280 571,360" fill="none" stroke="#81b64c" stroke-width="3" stroke-linecap="round"/>
+          <text x="578" y="355" class="curve-label" fill="#81b64c">S</text>
 
           <!-- Demand curve: upward sloping (steep/inelastic) -->
-          <path id="sd-demand" d="M 357,337 C 403,290 473,220 589,68" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" style="transition: d 0.8s ease;"/>
-          <text id="sd-d-label" x="595" y="62" class="curve-label" fill="#3fb950" style="transition: x 0.8s ease;">D</text>
+          <path id="sd-demand" d="M 357,337 C 403,290 473,220 589,68" fill="none" stroke="#81b64c" stroke-width="3" stroke-linecap="round" style="transition: d 0.8s ease;"/>
+          <text id="sd-d-label" x="595" y="62" class="curve-label" fill="#81b64c" style="transition: x 0.8s ease;">D</text>
           <!-- Ghost of original demand (shown after shift) -->
-          <path id="sd-demand-ghost" d="M 357,337 C 403,290 473,220 589,68" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4,4" opacity="0"/>
-          <text id="sd-d-ghost-label" x="595" y="62" class="curve-label" fill="#3fb950" opacity="0" font-size="14">D</text>
+          <path id="sd-demand-ghost" d="M 357,337 C 403,290 473,220 589,68" fill="none" stroke="#81b64c" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4,4" opacity="0"/>
+          <text id="sd-d-ghost-label" x="595" y="62" class="curve-label" fill="#81b64c" opacity="0" font-size="14">D</text>
 
           <!-- Intersection: 4.5% GDP, 4% real rate = (486, 210) -->
-          <circle id="sd-eq-dot" cx="486" cy="210" r="6" fill="#e6edf3" stroke="#0d1117" stroke-width="2" style="transition: cx 0.8s ease, cy 0.8s ease;"/>
+          <circle id="sd-eq-dot" cx="486" cy="210" r="6" fill="#f4f2ec" stroke="#2b2926" stroke-width="2" style="transition: cx 0.8s ease, cy 0.8s ease;"/>
 
           <!-- Dashed lines to axes from intersection -->
-          <line id="sd-eq-hline" x1="100" y1="210" x2="486" y2="210" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: y1 0.8s ease, y2 0.8s ease, x2 0.8s ease;"/>
-          <line id="sd-eq-vline" x1="486" y1="210" x2="486" y2="380" stroke="#e6edf3" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: x1 0.8s ease, x2 0.8s ease, y1 0.8s ease;"/>
+          <line id="sd-eq-hline" x1="100" y1="210" x2="486" y2="210" stroke="#f4f2ec" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: y1 0.8s ease, y2 0.8s ease, x2 0.8s ease;"/>
+          <line id="sd-eq-vline" x1="486" y1="210" x2="486" y2="380" stroke="#f4f2ec" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: x1 0.8s ease, x2 0.8s ease, y1 0.8s ease;"/>
 
           <!-- Equilibrium labels -->
           <text id="sd-eq-rate" x="108" y="206" class="eq-label" opacity="0.8">4%</text>
           <text id="sd-eq-gdp" x="486" y="375" text-anchor="middle" class="eq-label" opacity="0.6" font-size="10">4.5% GDP</text>
           <!-- Arrow showing price effect (hidden until demand shifts) -->
           <g id="sd-price-note" opacity="0" style="transition: opacity 0.5s ease;">
-            <text x="180" y="255" style="fill:#3fb950;font-size:11px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">↓ rates = ↑ bond prices</text>
+            <text x="180" y="255" style="fill:#81b64c;font-size:11px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">↓ rates = ↑ bond prices</text>
           </g>
 
           <!-- Annotation: Supply -->
-          <rect x="550" y="108" width="190" height="46" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-          <text x="564" y="128" class="ann-title" fill="#58a6ff">Supply is fixed and steep</text>
+          <rect x="550" y="108" width="190" height="46" rx="8" fill="#34312d" stroke="#45403a" stroke-width="1"/>
+          <text x="564" y="128" class="ann-title" fill="#81b64c">Supply is fixed and steep</text>
           <text x="564" y="148" class="ann-body">Borrowing is endogenously fixed</text>
-          <line x1="510" y1="133" x2="480" y2="170" stroke="#30363d" stroke-width="1"/>
+          <line x1="510" y1="133" x2="480" y2="170" stroke="#45403a" stroke-width="1"/>
 
           <!-- Annotation: Demand (left) -->
-          <rect x="120" y="275" width="210" height="46" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-          <text x="134" y="295" class="ann-title" fill="#3fb950">Demand is variable</text>
+          <rect x="120" y="275" width="210" height="46" rx="8" fill="#34312d" stroke="#45403a" stroke-width="1"/>
+          <text x="134" y="295" class="ann-title" fill="#81b64c">Demand is variable</text>
           <text x="134" y="313" class="ann-body">Demand blows hot and cold</text>
-          <line x1="315" y1="300" x2="435" y2="250" stroke="#30363d" stroke-width="1"/>
+          <line x1="315" y1="300" x2="435" y2="250" stroke="#45403a" stroke-width="1"/>
         </svg>
       </div>
       <ul class="bullets" id="sd-bullets">
@@ -949,56 +949,56 @@
       <div class="chart-wrap">
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <defs><style>
-            .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-            .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-label { fill: #b8b0a4; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #f4f2ec; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
           </style></defs>
           <text x="210" y="16" text-anchor="middle" class="bar-title">Government Debt by Currency</text>
           <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
-          <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <text x="54" y="254" text-anchor="end" style="fill:#58a6ff" class="bar-label">0</text>
-          <text x="54" y="184" text-anchor="end" style="fill:#58a6ff" class="bar-label">2</text>
-          <text x="54" y="114" text-anchor="end" style="fill:#58a6ff" class="bar-label">4</text>
-          <text x="54" y="46" text-anchor="end" style="fill:#58a6ff" class="bar-label">6</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="42" x2="60" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text x="54" y="254" text-anchor="end" style="fill:#81b64c" class="bar-label">0</text>
+          <text x="54" y="184" text-anchor="end" style="fill:#81b64c" class="bar-label">2</text>
+          <text x="54" y="114" text-anchor="end" style="fill:#81b64c" class="bar-label">4</text>
+          <text x="54" y="46" text-anchor="end" style="fill:#81b64c" class="bar-label">6</text>
           <text x="71" y="264" text-anchor="middle" class="bar-label">10</text><text x="90" y="264" text-anchor="middle" class="bar-label">11</text><text x="108" y="264" text-anchor="middle" class="bar-label">12</text><text x="126" y="264" text-anchor="middle" class="bar-label">13</text><text x="145" y="264" text-anchor="middle" class="bar-label">14</text><text x="164" y="264" text-anchor="middle" class="bar-label">15</text><text x="182" y="264" text-anchor="middle" class="bar-label">16</text><text x="200" y="264" text-anchor="middle" class="bar-label">17</text><text x="219" y="264" text-anchor="middle" class="bar-label">18</text><text x="238" y="264" text-anchor="middle" class="bar-label">19</text><text x="256" y="264" text-anchor="middle" class="bar-label">20</text><text x="274" y="264" text-anchor="middle" class="bar-label">21</text><text x="293" y="264" text-anchor="middle" class="bar-label">22</text><text x="312" y="264" text-anchor="middle" class="bar-label">23</text><text x="330" y="264" text-anchor="middle" class="bar-label">24</text><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
-          <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tn</text>
+          <text x="54" y="28" text-anchor="end" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tn</text>
           <!-- Stacked: Foreign currency (gold, bottom) + Domestic (blue, top) -->
           <rect x="63" y="246.6" width="16" height="3.4" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="63" y="222.6" width="16" height="24.0" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="63" y="222.6" width="16" height="24.0" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="82" y="246.7" width="16" height="3.3" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="82" y="216.1" width="16" height="30.5" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="82" y="216.1" width="16" height="30.5" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="100" y="246.0" width="16" height="4.0" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="100" y="209.6" width="16" height="36.4" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="100" y="209.6" width="16" height="36.4" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="118" y="245.8" width="16" height="4.2" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="118" y="203.6" width="16" height="42.2" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="118" y="203.6" width="16" height="42.2" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="137" y="245.1" width="16" height="4.9" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="137" y="196.1" width="16" height="49.0" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="137" y="196.1" width="16" height="49.0" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="156" y="244.3" width="16" height="5.7" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="156" y="188.8" width="16" height="55.5" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="156" y="188.8" width="16" height="55.5" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="174" y="243.2" width="16" height="6.8" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="174" y="181.4" width="16" height="61.8" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="174" y="181.4" width="16" height="61.8" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="192" y="242.8" width="16" height="7.2" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="192" y="174.1" width="16" height="68.7" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="192" y="174.1" width="16" height="68.7" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="211" y="242.6" width="16" height="7.4" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="211" y="165.3" width="16" height="77.2" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="211" y="165.3" width="16" height="77.2" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="230" y="240.1" width="16" height="9.9" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="230" y="155.2" width="16" height="84.9" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="230" y="155.2" width="16" height="84.9" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="248" y="236.8" width="16" height="13.2" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="248" y="139.1" width="16" height="97.7" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="248" y="139.1" width="16" height="97.7" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="266" y="236.7" width="16" height="13.3" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="266" y="116.2" width="16" height="120.5" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="266" y="116.2" width="16" height="120.5" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="285" y="236.0" width="16" height="14.0" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="285" y="104.5" width="16" height="131.4" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="285" y="104.5" width="16" height="131.4" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="304" y="231.1" width="16" height="18.9" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="304" y="88.0" width="16" height="143.1" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="304" y="88.0" width="16" height="143.1" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="322" y="229.9" width="16" height="20.1" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="322" y="71.2" width="16" height="158.7" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="322" y="71.2" width="16" height="158.7" rx="0" fill="#81b64c" opacity="0.7"/>
           <rect x="340" y="229.5" width="16" height="20.5" rx="0" fill="#d4a855" opacity="0.8"/>
-          <rect x="340" y="56.4" width="16" height="173.1" rx="0" fill="#58a6ff" opacity="0.7"/>
+          <rect x="340" y="56.4" width="16" height="173.1" rx="0" fill="#81b64c" opacity="0.7"/>
           <!-- Legend -->
-          <rect x="80" y="276" width="10" height="10" rx="1" fill="#58a6ff" opacity="0.7"/>
+          <rect x="80" y="276" width="10" height="10" rx="1" fill="#81b64c" opacity="0.7"/>
           <text x="95" y="284" class="bar-label">Local currency (ZAR)</text>
           <rect x="220" y="276" width="10" height="10" rx="1" fill="#d4a855" opacity="0.8"/>
           <text x="235" y="284" class="bar-label">Foreign currency</text>
@@ -1022,69 +1022,69 @@
       <div class="chart-wrap">
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <defs><style>
-            .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-            .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-label { fill: #b8b0a4; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #f4f2ec; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
           </style></defs>
           <text x="210" y="16" text-anchor="middle" class="bar-title">Bond Holdings by Investor Type</text>
           <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
-          <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line id="d4-yaxis" x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1" style="transition: stroke 0.6s;"/>
-          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <text id="d4-y0" x="54" y="254" text-anchor="end" style="fill:#58a6ff;transition:fill 0.6s" class="bar-label">0</text>
-          <text id="d4-y1" x="54" y="184" text-anchor="end" style="fill:#58a6ff;transition:fill 0.6s" class="bar-label">2</text>
-          <text id="d4-y2" x="54" y="114" text-anchor="end" style="fill:#58a6ff;transition:fill 0.6s" class="bar-label">4</text>
-          <text id="d4-y3" x="54" y="46" text-anchor="end" style="fill:#58a6ff;transition:fill 0.6s" class="bar-label">6</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line id="d4-yaxis" x1="60" y1="42" x2="60" y2="250" stroke="#b8b0a4" stroke-width="1" style="transition: stroke 0.6s;"/>
+          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text id="d4-y0" x="54" y="254" text-anchor="end" style="fill:#81b64c;transition:fill 0.6s" class="bar-label">0</text>
+          <text id="d4-y1" x="54" y="184" text-anchor="end" style="fill:#81b64c;transition:fill 0.6s" class="bar-label">2</text>
+          <text id="d4-y2" x="54" y="114" text-anchor="end" style="fill:#81b64c;transition:fill 0.6s" class="bar-label">4</text>
+          <text id="d4-y3" x="54" y="46" text-anchor="end" style="fill:#81b64c;transition:fill 0.6s" class="bar-label">6</text>
           <text x="71" y="264" text-anchor="middle" class="bar-label">10</text><text x="90" y="264" text-anchor="middle" class="bar-label">11</text><text x="108" y="264" text-anchor="middle" class="bar-label">12</text><text x="126" y="264" text-anchor="middle" class="bar-label">13</text><text x="145" y="264" text-anchor="middle" class="bar-label">14</text><text x="164" y="264" text-anchor="middle" class="bar-label">15</text><text x="182" y="264" text-anchor="middle" class="bar-label">16</text><text x="200" y="264" text-anchor="middle" class="bar-label">17</text><text x="219" y="264" text-anchor="middle" class="bar-label">18</text><text x="238" y="264" text-anchor="middle" class="bar-label">19</text><text x="256" y="264" text-anchor="middle" class="bar-label">20</text><text x="274" y="264" text-anchor="middle" class="bar-label">21</text><text x="293" y="264" text-anchor="middle" class="bar-label">22</text><text x="312" y="264" text-anchor="middle" class="bar-label">23</text><text x="330" y="264" text-anchor="middle" class="bar-label">24</text><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
-          <text id="d4-ytitle" x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;transition:fill 0.6s">ZAR tn</text>
+          <text id="d4-ytitle" x="54" y="28" text-anchor="end" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;transition:fill 0.6s">ZAR tn</text>
           <!-- Right y-axis + green line (hidden initially, revealed on bullet 1) -->
           <g id="d4-green-group" opacity="0" style="transition: opacity 0.6s;">
-          <line x1="360" y1="42" x2="360" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
-          <text x="366" y="254" class="bar-label" style="fill:#3fb950">0%</text>
-          <text x="366" y="172" class="bar-label" style="fill:#3fb950">20%</text>
-          <text x="366" y="91" class="bar-label" style="fill:#3fb950">40%</text>
-          <text x="366" y="28" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% foreign</text>
-          <polyline points="71,161.1 90,157.0 108,130.9 126,95.0 145,102.7 164,107.2 182,110.9 200,93.7 219,75.4 238,91.3 256,111.3 274,130.5 293,133.3 312,147.2 330,149.6 348,148.0" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <g fill="#3fb950"><circle cx="71" cy="161.1" r="2.5"/><circle cx="90" cy="157.0" r="2.5"/><circle cx="108" cy="130.9" r="2.5"/><circle cx="126" cy="95.0" r="2.5"/><circle cx="145" cy="102.7" r="2.5"/><circle cx="164" cy="107.2" r="2.5"/><circle cx="182" cy="110.9" r="2.5"/><circle cx="200" cy="93.7" r="2.5"/><circle cx="219" cy="75.4" r="2.5"/><circle cx="238" cy="91.3" r="2.5"/><circle cx="256" cy="111.3" r="2.5"/><circle cx="274" cy="130.5" r="2.5"/><circle cx="293" cy="133.3" r="2.5"/><circle cx="312" cy="147.2" r="2.5"/><circle cx="330" cy="149.6" r="2.5"/><circle cx="348" cy="148.0" r="2.5"/></g>
+          <line x1="360" y1="42" x2="360" y2="250" stroke="#81b64c" stroke-width="0.5" stroke-dasharray="2,2"/>
+          <text x="366" y="254" class="bar-label" style="fill:#81b64c">0%</text>
+          <text x="366" y="172" class="bar-label" style="fill:#81b64c">20%</text>
+          <text x="366" y="91" class="bar-label" style="fill:#81b64c">40%</text>
+          <text x="366" y="28" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% foreign</text>
+          <polyline points="71,161.1 90,157.0 108,130.9 126,95.0 145,102.7 164,107.2 182,110.9 200,93.7 219,75.4 238,91.3 256,111.3 274,130.5 293,133.3 312,147.2 330,149.6 348,148.0" fill="none" stroke="#81b64c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#81b64c"><circle cx="71" cy="161.1" r="2.5"/><circle cx="90" cy="157.0" r="2.5"/><circle cx="108" cy="130.9" r="2.5"/><circle cx="126" cy="95.0" r="2.5"/><circle cx="145" cy="102.7" r="2.5"/><circle cx="164" cy="107.2" r="2.5"/><circle cx="182" cy="110.9" r="2.5"/><circle cx="200" cy="93.7" r="2.5"/><circle cx="219" cy="75.4" r="2.5"/><circle cx="238" cy="91.3" r="2.5"/><circle cx="256" cy="111.3" r="2.5"/><circle cx="274" cy="130.5" r="2.5"/><circle cx="293" cy="133.3" r="2.5"/><circle cx="312" cy="147.2" r="2.5"/><circle cx="330" cy="149.6" r="2.5"/><circle cx="348" cy="148.0" r="2.5"/></g>
           </g>
           <!-- Stacked bars: Foreigners (orange, bottom) + Residents (blue, top) -->
           <!-- Source: SARB KBP4114M (total), NT Investor Relations (foreign %) -->
-          <rect x="63" y="244.0" width="16" height="6.0" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="63" y="222.6" width="16" height="21.4" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="82" y="242.3" width="16" height="7.7" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="82" y="216.1" width="16" height="26.1" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="100" y="238.2" width="16" height="11.8" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="100" y="209.6" width="16" height="28.6" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="118" y="232.4" width="16" height="17.6" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="118" y="203.6" width="16" height="28.8" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="137" y="230.5" width="16" height="19.5" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="137" y="196.1" width="16" height="34.4" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="156" y="228.6" width="16" height="21.4" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="156" y="188.8" width="16" height="39.8" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="174" y="226.6" width="16" height="23.4" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="174" y="181.4" width="16" height="45.2" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="192" y="220.9" width="16" height="29.1" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="192" y="174.1" width="16" height="46.8" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="211" y="213.8" width="16" height="36.2" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="211" y="165.3" width="16" height="48.4" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="230" y="213.1" width="16" height="36.9" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="230" y="155.2" width="16" height="57.9" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="248" y="212.3" width="16" height="37.7" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="248" y="139.1" width="16" height="73.2" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="266" y="210.8" width="16" height="39.2" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="266" y="116.2" width="16" height="94.6" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="285" y="208.4" width="16" height="41.6" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="285" y="104.5" width="16" height="103.9" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="304" y="209.2" width="16" height="40.8" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="304" y="88.0" width="16" height="121.2" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="322" y="206.0" width="16" height="44.0" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="322" y="71.2" width="16" height="134.8" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
-          <rect x="340" y="201.6" width="16" height="48.4" rx="0" class="d4-foreign" fill="#f78166" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
-          <rect x="340" y="56.4" width="16" height="145.2" rx="0" class="d4-resident" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="63" y="244.0" width="16" height="6.0" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="63" y="222.6" width="16" height="21.4" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="82" y="242.3" width="16" height="7.7" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="82" y="216.1" width="16" height="26.1" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="100" y="238.2" width="16" height="11.8" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="100" y="209.6" width="16" height="28.6" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="118" y="232.4" width="16" height="17.6" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="118" y="203.6" width="16" height="28.8" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="137" y="230.5" width="16" height="19.5" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="137" y="196.1" width="16" height="34.4" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="156" y="228.6" width="16" height="21.4" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="156" y="188.8" width="16" height="39.8" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="174" y="226.6" width="16" height="23.4" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="174" y="181.4" width="16" height="45.2" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="192" y="220.9" width="16" height="29.1" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="192" y="174.1" width="16" height="46.8" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="211" y="213.8" width="16" height="36.2" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="211" y="165.3" width="16" height="48.4" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="230" y="213.1" width="16" height="36.9" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="230" y="155.2" width="16" height="57.9" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="248" y="212.3" width="16" height="37.7" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="248" y="139.1" width="16" height="73.2" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="266" y="210.8" width="16" height="39.2" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="266" y="116.2" width="16" height="94.6" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="285" y="208.4" width="16" height="41.6" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="285" y="104.5" width="16" height="103.9" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="304" y="209.2" width="16" height="40.8" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="304" y="88.0" width="16" height="121.2" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="322" y="206.0" width="16" height="44.0" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="322" y="71.2" width="16" height="134.8" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="340" y="201.6" width="16" height="48.4" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="340" y="56.4" width="16" height="145.2" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
           <!-- Legend -->
-          <rect id="d4-leg-res" x="100" y="276" width="10" height="10" rx="1" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect id="d4-leg-res" x="100" y="276" width="10" height="10" rx="1" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
           <text id="d4-leg-res-txt" x="115" y="284" class="bar-label" style="transition: opacity 0.6s;">Residents</text>
-          <rect x="185" y="276" width="10" height="10" rx="1" fill="#f78166" opacity="0.8"/>
+          <rect x="185" y="276" width="10" height="10" rx="1" fill="#cc4444" opacity="0.8"/>
           <text x="200" y="284" class="bar-label">Foreigners</text>
         </svg>
         <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="event.stopPropagation();document.getElementById('src-demand').classList.add('open')">Source</button></div>
@@ -1123,9 +1123,9 @@
       storeOriginals();
       // Change left axis color from blue to orange
       ['d4-y0','d4-y1','d4-y2','d4-y3','d4-ytitle'].forEach(function(id) {
-        var el = document.getElementById(id); if(el) el.style.fill = '#f78166';
+        var el = document.getElementById(id); if(el) el.style.fill = '#cc4444';
       });
-      var axLine = document.getElementById('d4-yaxis'); if(axLine) axLine.style.stroke = '#f78166';
+      var axLine = document.getElementById('d4-yaxis'); if(axLine) axLine.style.stroke = '#cc4444';
       document.querySelectorAll('.d4-resident').forEach(function(r) { r.style.opacity = '0'; });
       var lr = document.getElementById('d4-leg-res'); if(lr) lr.style.opacity = '0';
       var lt = document.getElementById('d4-leg-res-txt'); if(lt) lt.style.opacity = '0';
@@ -1146,9 +1146,9 @@
       var g = document.getElementById('d4-green-group'); if(g) g.setAttribute('opacity','0');
       // Restore left axis color to blue
       ['d4-y0','d4-y1','d4-y2','d4-y3','d4-ytitle'].forEach(function(id) {
-        var el = document.getElementById(id); if(el) el.style.fill = '#58a6ff';
+        var el = document.getElementById(id); if(el) el.style.fill = '#81b64c';
       });
-      var axLine = document.getElementById('d4-yaxis'); if(axLine) axLine.style.stroke = '#8b949e';
+      var axLine = document.getElementById('d4-yaxis'); if(axLine) axLine.style.stroke = '#b8b0a4';
       document.querySelectorAll('.d4-resident').forEach(function(r) { r.style.opacity = '0.7'; });
       var lr = document.getElementById('d4-leg-res'); if(lr) lr.style.opacity = '0.7';
       var lt = document.getElementById('d4-leg-res-txt'); if(lt) lt.style.opacity = '1';
@@ -1191,70 +1191,70 @@
       <div class="chart-wrap">
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <defs><style>
-            .bar-label { fill: #8b949e; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-            .bar-title { fill: #e6edf3; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-label { fill: #b8b0a4; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #f4f2ec; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
           </style></defs>
           <text x="210" y="16" text-anchor="middle" class="bar-title">Annual Change in Bond Holdings</text>
           <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
-          <line x1="60" y1="250" x2="365" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="60" y1="42" x2="60" y2="250" stroke="#8b949e" stroke-width="1"/>
-          <line x1="60" y1="199" x2="360" y2="199" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="148" x2="360" y2="148" stroke="#30363d" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <text x="54" y="254" text-anchor="end" style="fill:#58a6ff" class="bar-label">0</text>
-          <text x="54" y="203" text-anchor="end" style="fill:#58a6ff" class="bar-label">200</text>
-          <text x="54" y="152" text-anchor="end" style="fill:#58a6ff" class="bar-label">400</text>
-          <text x="54" y="101" text-anchor="end" style="fill:#58a6ff" class="bar-label">600</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="42" x2="60" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="199" x2="360" y2="199" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="148" x2="360" y2="148" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text x="54" y="254" text-anchor="end" style="fill:#81b64c" class="bar-label">0</text>
+          <text x="54" y="203" text-anchor="end" style="fill:#81b64c" class="bar-label">200</text>
+          <text x="54" y="152" text-anchor="end" style="fill:#81b64c" class="bar-label">400</text>
+          <text x="54" y="101" text-anchor="end" style="fill:#81b64c" class="bar-label">600</text>
           <text x="76" y="264" text-anchor="middle" class="bar-label">11</text><text x="95" y="264" text-anchor="middle" class="bar-label">12</text><text x="114" y="264" text-anchor="middle" class="bar-label">13</text><text x="133" y="264" text-anchor="middle" class="bar-label">14</text><text x="152" y="264" text-anchor="middle" class="bar-label">15</text><text x="171" y="264" text-anchor="middle" class="bar-label">16</text><text x="190" y="264" text-anchor="middle" class="bar-label">17</text><text x="209" y="264" text-anchor="middle" class="bar-label">18</text><text x="228" y="264" text-anchor="middle" class="bar-label">19</text><text x="247" y="264" text-anchor="middle" class="bar-label">20</text><text x="266" y="264" text-anchor="middle" class="bar-label">21</text><text x="285" y="264" text-anchor="middle" class="bar-label">22</text><text x="304" y="264" text-anchor="middle" class="bar-label">23</text><text x="323" y="264" text-anchor="middle" class="bar-label">24</text><text x="342" y="264" text-anchor="middle" class="bar-label">25</text>
-          <text x="54" y="28" text-anchor="end" style="fill:#58a6ff;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR bn</text>
+          <text x="54" y="28" text-anchor="end" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR bn</text>
           <!-- Stacked flow bars: Foreigners (orange, bottom) + Residents (blue, top) -->
-          <rect x="68" y="236.8" width="16" height="13.2" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="68" y="201.3" width="16" height="35.5" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="87" y="219.4" width="16" height="30.6" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="87" y="201.0" width="16" height="18.4" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="106" y="206.1" width="16" height="43.9" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="106" y="204.6" width="16" height="1.5" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="125" y="236.5" width="16" height="13.5" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="125" y="194.2" width="16" height="42.3" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="144" y="235.3" width="16" height="14.7" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="144" y="195.4" width="16" height="39.9" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="163" y="235.0" width="16" height="15.0" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="163" y="193.9" width="16" height="41.1" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="182" y="207.5" width="16" height="42.5" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="182" y="195.4" width="16" height="12.0" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="201" y="196.3" width="16" height="53.7" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="201" y="184.5" width="16" height="11.9" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="220" y="245.2" width="16" height="4.8" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="220" y="174.0" width="16" height="71.2" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="239" y="243.8" width="16" height="6.2" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="239" y="129.4" width="16" height="114.4" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="258" y="238.7" width="16" height="11.3" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="258" y="77.9" width="16" height="160.8" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="277" y="232.1" width="16" height="17.9" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="277" y="162.8" width="16" height="69.3" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="296" y="250.0" width="16" height="0.0" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="296" y="119.8" width="16" height="130.2" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="315" y="226.4" width="16" height="23.6" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="315" y="124.3" width="16" height="102.1" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
-          <rect x="334" y="216.9" width="16" height="33.1" rx="0" fill="#f78166" opacity="0.8"/>
-          <rect x="334" y="139.1" width="16" height="77.8" rx="0" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="68" y="236.8" width="16" height="13.2" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="68" y="201.3" width="16" height="35.5" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="87" y="219.4" width="16" height="30.6" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="87" y="201.0" width="16" height="18.4" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="106" y="206.1" width="16" height="43.9" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="106" y="204.6" width="16" height="1.5" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="125" y="236.5" width="16" height="13.5" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="125" y="194.2" width="16" height="42.3" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="144" y="235.3" width="16" height="14.7" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="144" y="195.4" width="16" height="39.9" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="163" y="235.0" width="16" height="15.0" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="163" y="193.9" width="16" height="41.1" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="182" y="207.5" width="16" height="42.5" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="182" y="195.4" width="16" height="12.0" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="201" y="196.3" width="16" height="53.7" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="201" y="184.5" width="16" height="11.9" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="220" y="245.2" width="16" height="4.8" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="220" y="174.0" width="16" height="71.2" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="239" y="243.8" width="16" height="6.2" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="239" y="129.4" width="16" height="114.4" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="258" y="238.7" width="16" height="11.3" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="258" y="77.9" width="16" height="160.8" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="277" y="232.1" width="16" height="17.9" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="277" y="162.8" width="16" height="69.3" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="296" y="250.0" width="16" height="0.0" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="296" y="119.8" width="16" height="130.2" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="315" y="226.4" width="16" height="23.6" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="315" y="124.3" width="16" height="102.1" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="334" y="216.9" width="16" height="33.1" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="334" y="139.1" width="16" height="77.8" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
           <!-- Legend -->
-          <rect x="100" y="276" width="10" height="10" rx="1" fill="#f78166" opacity="0.8"/>
+          <rect x="100" y="276" width="10" height="10" rx="1" fill="#cc4444" opacity="0.8"/>
           <text x="115" y="284" class="bar-label">Foreigners</text>
-          <rect x="195" y="276" width="10" height="10" rx="1" class="s6-blue" fill="#58a6ff" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="195" y="276" width="10" height="10" rx="1" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
           <text x="210" y="284" class="bar-label">Residents</text>
         
           <!-- Hidden: Right axis + inverted yield line (revealed on animation) -->
           <g id="s6-yield-group" opacity="0" style="transition: opacity 0.8s;">
-          <line x1="360" y1="42" x2="360" y2="250" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2,2"/>
-          <text x="366" y="76" class="bar-label" style="fill:#3fb950">7%</text>
-          <text x="366" y="105" class="bar-label" style="fill:#3fb950">8%</text>
-          <text x="366" y="135" class="bar-label" style="fill:#3fb950">9%</text>
-          <text x="366" y="165" class="bar-label" style="fill:#3fb950">10%</text>
-          <text x="366" y="195" class="bar-label" style="fill:#3fb950">11%</text>
-          <text x="366" y="224" class="bar-label" style="fill:#3fb950">12%</text>
-          <text x="366" y="28" style="fill:#3fb950;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">Yield &#x2193;</text>
-          <polyline points="76,154.9 95,154.9 114,134.1 133,134.1 152,140.1 171,157.9 190,146.0 209,122.2 228,172.7 247,217.3 266,160.9 285,149.0 304,211.4 323,199.5 342,178.7" fill="none" stroke="#3fb950" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <g fill="#3fb950"><circle cx="76" cy="154.9" r="2.5"/><circle cx="95" cy="154.9" r="2.5"/><circle cx="114" cy="134.1" r="2.5"/><circle cx="133" cy="134.1" r="2.5"/><circle cx="152" cy="140.1" r="2.5"/><circle cx="171" cy="157.9" r="2.5"/><circle cx="190" cy="146.0" r="2.5"/><circle cx="209" cy="122.2" r="2.5"/><circle cx="228" cy="172.7" r="2.5"/><circle cx="247" cy="217.3" r="2.5"/><circle cx="266" cy="160.9" r="2.5"/><circle cx="285" cy="149.0" r="2.5"/><circle cx="304" cy="211.4" r="2.5"/><circle cx="323" cy="199.5" r="2.5"/><circle cx="342" cy="178.7" r="2.5"/></g>
+          <line x1="360" y1="42" x2="360" y2="250" stroke="#81b64c" stroke-width="0.5" stroke-dasharray="2,2"/>
+          <text x="366" y="76" class="bar-label" style="fill:#81b64c">7%</text>
+          <text x="366" y="105" class="bar-label" style="fill:#81b64c">8%</text>
+          <text x="366" y="135" class="bar-label" style="fill:#81b64c">9%</text>
+          <text x="366" y="165" class="bar-label" style="fill:#81b64c">10%</text>
+          <text x="366" y="195" class="bar-label" style="fill:#81b64c">11%</text>
+          <text x="366" y="224" class="bar-label" style="fill:#81b64c">12%</text>
+          <text x="366" y="28" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">Yield &#x2193;</text>
+          <polyline points="76,154.9 95,154.9 114,134.1 133,134.1 152,140.1 171,157.9 190,146.0 209,122.2 228,172.7 247,217.3 266,160.9 285,149.0 304,211.4 323,199.5 342,178.7" fill="none" stroke="#81b64c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#81b64c"><circle cx="76" cy="154.9" r="2.5"/><circle cx="95" cy="154.9" r="2.5"/><circle cx="114" cy="134.1" r="2.5"/><circle cx="133" cy="134.1" r="2.5"/><circle cx="152" cy="140.1" r="2.5"/><circle cx="171" cy="157.9" r="2.5"/><circle cx="190" cy="146.0" r="2.5"/><circle cx="209" cy="122.2" r="2.5"/><circle cx="228" cy="172.7" r="2.5"/><circle cx="247" cy="217.3" r="2.5"/><circle cx="266" cy="160.9" r="2.5"/><circle cx="285" cy="149.0" r="2.5"/><circle cx="304" cy="211.4" r="2.5"/><circle cx="323" cy="199.5" r="2.5"/><circle cx="342" cy="178.7" r="2.5"/></g>
           </g>
         </svg>
         <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-demand').classList.add('open')">Source</button></div>
@@ -1315,10 +1315,10 @@
       <tr><td>Main budget deficit</td><td>KBP4602F</td><td>ZAR millions</td><td>SARB QB Mar 2026</td><td>Absolute value, converted to ZAR billions</td></tr>
       <tr><td>Deficit / GDP</td><td>—</td><td>%</td><td>NT Budget Review 2026</td><td>None</td></tr>
     </table>
-    <p style="font-size:12px;color:#8b949e;">
+    <p style="font-size:12px;color:#b8b0a4;">
       SARB = South African Reserve Bank Quarterly Bulletin. NT = National Treasury.<br>
       Data file: Kbp4-PFD-March 2026.xlsx from
-      <a href="https://www.resbank.co.za/en/home/publications/quarterly-bulletin1/download-information-from-xlsx-data-files" target="_blank" rel="noopener" style="color:#58a6ff;">resbank.co.za</a>
+      <a href="https://www.resbank.co.za/en/home/publications/quarterly-bulletin1/download-information-from-xlsx-data-files" target="_blank" rel="noopener" style="color:#81b64c;">resbank.co.za</a>
     </p>
   </div>
 </div>
@@ -1332,10 +1332,10 @@
       <tr><td>Gross loan debt</td><td>KBP4114M</td><td>ZAR millions</td><td>SARB QB Mar 2026</td><td>End-March values, converted to ZAR trillions</td></tr>
       <tr><td>Debt / GDP</td><td>—</td><td>%</td><td>NT Budget Review 2026</td><td>None</td></tr>
     </table>
-    <p style="font-size:12px;color:#8b949e;">
+    <p style="font-size:12px;color:#b8b0a4;">
       SARB = South African Reserve Bank Quarterly Bulletin. NT = National Treasury.<br>
       Data file: Kbp4-PFD-March 2026.xlsx from
-      <a href="https://www.resbank.co.za/en/home/publications/quarterly-bulletin1/download-information-from-xlsx-data-files" target="_blank" rel="noopener" style="color:#58a6ff;">resbank.co.za</a>
+      <a href="https://www.resbank.co.za/en/home/publications/quarterly-bulletin1/download-information-from-xlsx-data-files" target="_blank" rel="noopener" style="color:#81b64c;">resbank.co.za</a>
     </p>
   </div>
 </div>
@@ -1350,10 +1350,10 @@
       <tr><td>Foreign holdings %</td><td>—</td><td>%</td><td>NT Investor Relations</td><td>March values from monthly series</td></tr>
       <tr><td>Resident holdings</td><td>—</td><td>ZAR tn</td><td>Derived</td><td>Total × (1 − foreign %)</td></tr>
     </table>
-    <p style="font-size:12px;color:#8b949e;">
+    <p style="font-size:12px;color:#b8b0a4;">
       NT = National Treasury Investor Relations.<br>
       Data file: Historical government bond holdings February 2026.xlsx from
-      <a href="https://investor.treasury.gov.za/Debt%20Operations%20and%20Data/Holdings%20of%20Domestic%20Bonds/" target="_blank" rel="noopener" style="color:#58a6ff;">investor.treasury.gov.za</a>
+      <a href="https://investor.treasury.gov.za/Debt%20Operations%20and%20Data/Holdings%20of%20Domestic%20Bonds/" target="_blank" rel="noopener" style="color:#81b64c;">investor.treasury.gov.za</a>
     </p>
   </div>
 </div>
