@@ -201,6 +201,12 @@
         opacity: 0.5;
         font-size: 0.85rem;
         letter-spacing: 0.02em;
+        transition: color 0.15s, opacity 0.15s;
+      }
+
+      .pw-input:hover::placeholder {
+        color: var(--text);
+        opacity: 1;
       }
 
       .pw-input:focus {
