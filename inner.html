@@ -1,36 +1,359 @@
 <style>
-  .inner-landing { background: transparent !important; padding: 0 !important; min-height: 100vh; }
+      /* ── Layout ── */
+      .page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 40px 24px;
+        transition: justify-content 0.6s ease;
+      }
+
+      .page.expanded {
+        justify-content: flex-start;
+        gap: 80px;
+        padding-left: 10vw;
+      }
+
+      /* ── Career timeline (left) ── */
+      .career {
+        width: 100%;
+        max-width: 420px;
+        transition: all 0.6s ease;
+      }
+
+      .page.expanded .career {
+        max-width: 280px;
+        flex-shrink: 0;
+      }
+
+      .career h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 2.4rem;
+        font-weight: 900;
+        color: var(--text);
+        margin: 0 0 48px;
+        transition: font-size 0.6s ease;
+      }
+
+      .page.expanded .career h1 {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+      }
+
+      .career .timeline-role,
+      .career .timeline-dates {
+        transition: font-size 0.6s ease;
+      }
+
+      .page.expanded .career .timeline-role {
+        font-size: 0.85rem;
+      }
+
+      .page.expanded .career .timeline-dates {
+        font-size: 0.65rem;
+      }
+
+      .page.expanded .career .timeline-item {
+        padding-bottom: 14px;
+      }
+
+      /* ── Shared timeline ── */
+      .timeline {
+        position: relative;
+        padding: 0 0 0 32px;
+      }
+
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        background: var(--border);
+      }
+
+      .timeline-item {
+        position: relative;
+        padding: 0 0 32px;
+        transition: padding 0.6s ease;
+      }
+
+      .timeline-item:last-child { padding-bottom: 0; }
+
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -29px;
+        top: 8px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--muted);
+        border: 2px solid #2f2c28;
+      }
+
+      .timeline-item.now::before {
+        background: var(--accent);
+        box-shadow: 0 0 8px rgba(129, 182, 76, 0.5);
+      }
+
+      .timeline-dates {
+        font-size: 0.8rem;
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        margin: 0;
+      }
+
+      .timeline-role {
+        font-size: 1.1rem;
+        color: var(--text);
+        font-weight: 600;
+        margin: 2px 0 0;
+      }
+
+      .timeline-item.now .timeline-role {
+        color: var(--accent);
+      }
+
+      /* ── Career animation ── */
+      .career .timeline-item {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeInUp 0.5s ease forwards;
+      }
+
+      .career .timeline-item:nth-child(1) { animation-delay: 0.3s; }
+      .career .timeline-item:nth-child(2) { animation-delay: 0.7s; }
+      .career .timeline-item:nth-child(3) { animation-delay: 1.1s; }
+      .career .timeline-item:nth-child(4) { animation-delay: 1.5s; }
+      .career .timeline-item:nth-child(5) { animation-delay: 1.9s; }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── Detail panel (right) ── */
+      .detail {
+        display: none;
+        opacity: 0;
+        transform: translateX(40px);
+        transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+        pointer-events: none;
+      }
+
+      .page.expanded .detail {
+        display: block;
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: auto;
+      }
+
+      /* ── 2x2 grid ── */
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 16px;
+        max-width: 900px;
+      }
+
+      .grid-box {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        background: linear-gradient(180deg, #3a3632 0%, #2f2c28 100%);
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      .page.expanded .grid-box {
+        animation: fadeInUp 0.4s ease forwards;
+      }
+
+      .page.expanded .grid-box:nth-child(1) { animation-delay: 0.4s; }
+      .page.expanded .grid-box:nth-child(2) { animation-delay: 0.6s; }
+      .page.expanded .grid-box:nth-child(3) { animation-delay: 0.8s; }
+      .page.expanded .grid-box:nth-child(4) { animation-delay: 1.0s; }
+
+      .grid-box.grid-wide {
+        grid-column: span 2;
+      }
+
+      .grid-box-title {
+        font-size: 0.65rem;
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin: 0 0 8px;
+      }
+
+      .grid-box-desc {
+        font-size: 0.9rem;
+        color: var(--text);
+        font-weight: 600;
+        margin: 0;
+      }
+
+      /* ── Lock input ── */
+      .lock-wrap {
+        margin-top: 20px;
+      }
+
+      .lock-input {
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid var(--border);
+        color: var(--text);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1rem;
+        padding: 6px 0;
+        outline: none;
+        width: 260px;
+        letter-spacing: 0.08em;
+        caret-color: var(--accent);
+        transition: border-color 0.2s;
+      }
+
+      .lock-input::placeholder {
+        color: var(--muted);
+        opacity: 0.5;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+        transition: color 0.15s, opacity 0.15s;
+      }
+
+      .lock-input:hover::placeholder {
+        color: var(--text);
+        opacity: 1;
+      }
+
+      .lock-input:focus {
+        border-color: var(--muted);
+      }
+
+      /* ── Mobile ── */
+      @media (max-width: 768px) {
+        .page {
+          padding: 32px 20px;
+          align-items: flex-start;
+          justify-content: center;
+          min-height: 100vh;
+        }
+
+        .page.expanded {
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+          gap: 40px;
+          padding: 32px 20px;
+        }
+
+        .page.expanded .career {
+          max-width: 100%;
+        }
+
+        .career h1 {
+          font-size: 1.6rem;
+          margin-bottom: 20px;
+        }
+
+        .timeline-item {
+          padding-bottom: 20px;
+        }
+
+        .timeline-dates {
+          font-size: 0.7rem;
+        }
+
+        .page.expanded .career h1 {
+          font-size: 1.4rem;
+          margin-bottom: 20px;
+        }
+
+        .timeline-role {
+          font-size: 0.95rem;
+        }
+
+        .page.expanded .career .timeline-item {
+          padding-bottom: 16px;
+        }
+
+        .detail {
+          max-width: 100%;
+          width: 100%;
+        }
+
+        .detail-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
 </style>
 
-<main class="page" id="inner-page">
+<main class="page expanded">
+
+  <!-- Timeline -->
   <div class="career">
     <h1>Mike Trounce</h1>
 
     <div class="timeline">
-      <div class="timeline-item">
+      <div class="timeline-item now">
         <p class="timeline-dates">FLOW SUPERINTELLIGENCE</p>
-        <p class="timeline-role" >Data, research and education</p>
+        <p class="timeline-role">Data, research and education</p>
       </div>
       <div class="timeline-item">
         <p class="timeline-dates">FRICTIONS</p>
-        <p class="timeline-role" >Supply, demand, flows and positions</p>
+        <p class="timeline-role">Supply, demand, flows and positions</p>
       </div>
       <div class="timeline-item">
         <p class="timeline-dates">GOVERNMENT BONDS AND THEIR INVESTORS</p>
-        <p class="timeline-role" >A database</p>
+        <p class="timeline-role">A database</p>
       </div>
       <div class="timeline-item">
-        <p class="timeline-dates">MUTUAL FUNDS & ETFS</p>
-        <p class="timeline-role" >A database, including fund flows</p>
+        <p class="timeline-dates">MUTUAL FUNDS &amp; ETFS</p>
+        <p class="timeline-role">A database, including fund flows</p>
       </div>
-      <div class="timeline-item now" style="cursor:pointer;" onclick="window.location.href='/sa/'">
+      <div class="timeline-item now">
         <p class="timeline-dates">EMERGING ECONOMY SOVEREIGN BOND MARKETS</p>
         <p class="timeline-role">South Africa</p>
       </div>
     </div>
 
-    <div style="margin-top:48px;">
-      <button onclick="localStorage.removeItem('mt-key');window.location.reload();" style="background:transparent;border:none;color:var(--muted);font-size:0.8rem;padding:0;cursor:pointer;font-family:inherit;opacity:0.5;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">lock</button>
+    <div class="lock-wrap">
+      <input type="text" class="lock-input" placeholder="lock" autocomplete="off" spellcheck="false">
     </div>
   </div>
+
+  <!-- Detail grid -->
+  <div class="detail">
+    <div class="detail-grid">
+
+      <div class="grid-box grid-wide">
+        <p class="grid-box-title">Frictions</p>
+        <p class="grid-box-desc">Supply, demand, flows and positions</p>
+      </div>
+
+      <div class="grid-box grid-wide">
+        <p class="grid-box-title">Government Bonds and Their Investors</p>
+        <p class="grid-box-desc">A database</p>
+      </div>
+
+      <div class="grid-box grid-wide">
+        <p class="grid-box-title">Mutual Funds &amp; ETFs</p>
+        <p class="grid-box-desc">A database, including fund flows</p>
+      </div>
+
+      <div class="grid-box grid-wide">
+        <p class="grid-box-title">Emerging Economy Sovereign Bond Markets</p>
+        <p class="grid-box-desc" style="color: var(--accent);">South Africa</p>
+      </div>
+
+    </div>
+  </div>
+
 </main>
