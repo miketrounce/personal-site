@@ -1693,8 +1693,8 @@
     }
   }
 
-  // Auto-start from URL hash
+  // Auto-start from URL hash (default to interact if no hash)
   if (location.hash === '#play') { startPlay(); }
-  else if (location.hash === '#interact') { startInteract(); }
+  else { startInteract(); }
 
 </script>
