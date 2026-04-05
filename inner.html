@@ -249,9 +249,17 @@
 
       <div class="grid-box grid-wide" style="min-height:140px;">
         <p class="grid-box-title">South Africa</p>
-        <div style="display:flex;gap:12px;">
+        <div style="display:flex;gap:12px;margin-bottom:12px;">
           <a href="/sa/#play" style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;transition:border-color 0.15s;">▶ ANALYSIS</a>
           <a href="/sa/#interact" style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;transition:border-color 0.15s;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> DECK</a>
+        </div>
+        <div style="position:relative;">
+          <div style="display:flex;gap:6px;">
+            <input id="sa-search" type="text" placeholder="Ask about SA bonds..." autocomplete="off" spellcheck="false"
+              style="flex:1;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text);font-size:0.8rem;padding:6px 0;outline:none;caret-color:var(--accent);">
+            <button id="sa-ask" style="background:none;border:1px solid var(--border);border-radius:6px;color:var(--accent);font-size:0.65rem;font-weight:700;padding:4px 10px;cursor:pointer;letter-spacing:0.04em;">ASK AI</button>
+          </div>
+          <div id="sa-results" style="display:none;position:absolute;top:100%;left:0;right:0;background:#2f2c28;border:1px solid var(--border);border-radius:0 0 8px 8px;box-shadow:0 4px 12px rgba(0,0,0,0.3);max-height:300px;overflow-y:auto;z-index:100;margin-top:4px;"></div>
         </div>
       </div>
 
@@ -262,6 +270,68 @@
 </main>
 
 <script>
+  (function() {
+    var input = document.getElementById('sa-search');
+    var btn = document.getElementById('sa-ask');
+    var results = document.getElementById('sa-results');
+    var API = 'http://167.99.83.51/api/search/';
+
+    function render(data) {
+      var html = '';
+      if (data.llm && data.llm.explanation) {
+        html += '<div style="padding:10px 12px;border-bottom:1px solid var(--border);background:rgba(129,182,76,0.08);">';
+        html += '<div style="font-size:0.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">AI</div>';
+        html += '<div style="font-size:0.75rem;color:var(--text);line-height:1.4;">' + data.llm.explanation + '</div>';
+        html += '</div>';
+      }
+      if (data.llm && data.llm.terms && data.llm.terms.length) {
+        html += '<div style="padding:8px 12px;border-bottom:1px solid var(--border);">';
+        data.llm.terms.forEach(function(t) {
+          html += '<span style="display:inline-block;margin:2px 3px 2px 0;padding:2px 6px;background:rgba(129,182,76,0.15);border-radius:3px;font-size:0.6rem;color:var(--accent);">' + t + '</span>';
+        });
+        html += '</div>';
+      } else if (data.suggestions && data.suggestions.length) {
+        html += '<div style="padding:8px 12px;border-bottom:1px solid var(--border);">';
+        data.suggestions.forEach(function(t) {
+          html += '<span style="display:inline-block;margin:2px 3px 2px 0;padding:2px 6px;background:rgba(129,182,76,0.1);border-radius:3px;font-size:0.6rem;color:var(--accent);">' + t + '</span>';
+        });
+        html += '</div>';
+      }
+      if (data.series && data.series.length) {
+        data.series.forEach(function(s) {
+          html += '<a href="' + s.admin_url.replace('/admin/', 'http://167.99.83.51/admin/') + '" target="_blank" style="display:block;padding:8px 12px;text-decoration:none;color:var(--text);border-bottom:1px solid var(--border);font-size:0.75rem;">';
+          html += '<div style="font-weight:600;">' + s.name + '</div>';
+          var meta = [];
+          if (s.instrument_class) meta.push(s.instrument_class);
+          if (s.frequency) meta.push(s.frequency);
+          meta.push(s.observations + ' obs');
+          html += '<div style="font-size:0.65rem;color:var(--muted);margin-top:1px;">' + meta.join(' · ') + '</div>';
+          html += '</a>';
+        });
+      } else {
+        html += '<div style="padding:10px 12px;color:var(--muted);font-size:0.7rem;">No matching series</div>';
+      }
+      results.innerHTML = html;
+      results.style.display = 'block';
+    }
+
+    function doSearch(useLlm) {
+      var q = input.value.trim();
+      if (q.length < 2) return;
+      if (useLlm) { btn.textContent = '...'; btn.disabled = true; }
+      fetch(API + '?q=' + encodeURIComponent(q) + (useLlm ? '&llm=1' : ''))
+        .then(function(r) { return r.json(); })
+        .then(function(d) { btn.textContent = 'ASK AI'; btn.disabled = false; render(d); })
+        .catch(function() { btn.textContent = 'ASK AI'; btn.disabled = false; });
+    }
+
+    var timer;
+    input.addEventListener('input', function() { clearTimeout(timer); timer = setTimeout(function() { doSearch(false); }, 300); });
+    btn.addEventListener('click', function() { doSearch(true); });
+    input.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); doSearch(true); } if (e.key === 'Escape') results.style.display = 'none'; });
+    document.addEventListener('click', function(e) { if (!results.contains(e.target) && e.target !== input && e.target !== btn) results.style.display = 'none'; });
+  })();
+
   var lockBtn = document.querySelector('.lock-btn');
   if (lockBtn) {
     lockBtn.addEventListener('click', function() {
