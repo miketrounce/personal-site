@@ -61,7 +61,6 @@
 
   <div class="search-wrap">
     <input class="search-input" type="text" placeholder="e.g. how much does government borrow?" autocomplete="off" spellcheck="false" id="searchInput">
-    <button class="ask-btn" id="askBtn">ASK AI</button>
   </div>
   <div class="hint">Try: deficit, supply, borrowing, projections, rand, dollar</div>
   <div class="suggestions" id="suggestions"></div>
@@ -72,7 +71,88 @@
 </div>
 
 <script>
-var API = 'http://167.99.83.51/api/charts/';
+// ── Semantic alias map (from timeseries/search.py) ──
+var ALIASES = {
+  "bond":["AF.32","debt securities"],"bonds":["AF.32","debt securities"],
+  "govvies":["AF.32","debt securities","government"],"govvy":["AF.32","debt securities","government"],
+  "bill":["AF.31"],"bills":["AF.31"],"tbill":["AF.31"],
+  "equity":["AF.5"],"shares":["AF.5"],"loan":["AF.4"],
+  "foreign":["S.1N","non-resident"],"foreigners":["S.1N","non-resident"],
+  "nonresident":["S.1N"],"non-resident":["S.1N"],
+  "local":["S.1","resident"],"domestic":["S.1","resident"],
+  "bank":["S.122"],"banks":["S.122"],
+  "pension":["S.126"],"insurance":["S.125"],
+  "central bank":["S.121","SARB"],"reserve bank":["S.121","SARB"],
+  "government":["S.13","RSA","fiscal","budget","deficit"],
+  "sovereign":["S.13","RSA","fiscal"],"treasury":["RSA","budget"],
+  "south africa":["ZA","ZAF"],"sa":["ZA","ZAF"],
+  "flow":["net purchases","supply"],"flows":["net purchases","supply"],
+  "holding":["holdings","stock"],"holdings":["holdings","stock"],
+  "buying":["net purchases"],"selling":["net purchases"],"purchases":["net purchases"],
+  "debt":["gross loan debt","debt securities","stock"],
+  "deficit":["budget","supply","borrowing","fiscal"],
+  "budget":["deficit","fiscal","supply"],
+  "gdp":["GDP","ratio"],
+  "borrowing":["deficit","supply","budget","fiscal"],
+  "borrow":["deficit","supply","budget","fiscal"],
+  "rand":["ZAR"],"dollar":["USD"],"usd":["USD"],"zar":["ZAR"],
+  "projections":["forecast","projection","fan"],"forecast":["projections","projection","fan"],
+  "supply":["deficit","budget","borrowing"],
+  "how much":["deficit","supply","absolute","ZAR","USD"],
+};
+
+// ── Chart catalog ──
+var CHARTS = [
+  {
+    id: "fan",
+    title: "Main Budget Deficit \u2014 Fan Chart",
+    description: "Deficit as % of GDP with projections from every National Budget Review (2011\u20132026)",
+    tags: ["% of GDP", "Projections", "Budget Review"],
+    keywords: "deficit budget supply projections forecast fan gdp borrowing fiscal projection percentage"
+  },
+  {
+    id: "flow",
+    title: "Supply (Flow) \u2014 Deficit in ZAR & USD",
+    description: "Annual deficit in ZAR billions (bars) with % of GDP overlay. Click chart to toggle ZAR/USD.",
+    tags: ["ZAR bn", "USD bn", "% of GDP", "Dual axis"],
+    keywords: "deficit supply flow zar usd rand dollar budget absolute borrowing fiscal how much"
+  }
+];
+
+function expandQuery(q) {
+  var words = q.toLowerCase().trim().split(/\s+/);
+  var text = q.toLowerCase().trim();
+  var terms = new Set();
+  // Multi-word matches
+  Object.keys(ALIASES).forEach(function(alias) {
+    if (text.indexOf(alias) !== -1) {
+      ALIASES[alias].forEach(function(t) { terms.add(t.toLowerCase()); });
+      terms.add(alias);
+    }
+  });
+  // Single word matches
+  words.forEach(function(w) {
+    if (ALIASES[w]) ALIASES[w].forEach(function(t) { terms.add(t.toLowerCase()); });
+    terms.add(w);
+  });
+  return Array.from(terms);
+}
+
+function searchCharts(q) {
+  if (!q || q.length < 2) return CHARTS;
+  var terms = expandQuery(q);
+  var scored = [];
+  CHARTS.forEach(function(chart) {
+    var haystack = (chart.title + ' ' + chart.description + ' ' + chart.keywords + ' ' + chart.tags.join(' ')).toLowerCase();
+    var score = 0;
+    terms.forEach(function(t) {
+      if (haystack.indexOf(t) !== -1) score += 1;
+    });
+    if (score > 0) scored.push({score: score, chart: chart});
+  });
+  scored.sort(function(a, b) { return b.score - a.score; });
+  return scored.length ? scored.map(function(s) { return s.chart; }) : CHARTS;
+}
 
 // ── Chart builders ──
 var BUILDERS = {
@@ -143,52 +223,36 @@ function renderCards(charts) {
 }
 
 // ── Search ──
-function doSearch(useLlm) {
+function doSearch() {
   var q = document.getElementById('searchInput').value.trim();
-  var url = API + '?q=' + encodeURIComponent(q) + (useLlm ? '&llm=1' : '');
-  var btn = document.getElementById('askBtn');
   var sugEl = document.getElementById('suggestions');
-  var llmEl = document.getElementById('llmNote');
 
-  if (useLlm) { btn.textContent = '...'; btn.disabled = true; }
+  // Show expanded terms
+  if (q.length >= 2) {
+    var terms = expandQuery(q);
+    sugEl.innerHTML = terms.map(function(s) { return '<span class="suggestion">' + s + '</span>'; }).join('');
+  } else {
+    sugEl.innerHTML = '';
+  }
 
-  fetch(url)
-    .then(function(r) { return r.json(); })
-    .then(function(d) {
-      btn.textContent = 'ASK AI'; btn.disabled = false;
-
-      // Show suggestions
-      sugEl.innerHTML = d.suggestions ? d.suggestions.map(function(s) { return '<span class="suggestion">' + s + '</span>'; }).join('') : '';
-
-      // Show LLM explanation
-      if (d.llm && d.llm.explanation) {
-        llmEl.textContent = d.llm.explanation;
-        llmEl.classList.add('visible');
-      } else {
-        llmEl.classList.remove('visible');
-      }
-
-      // Render chart cards
-      // Reset builders so charts can be rebuilt with fresh canvases
-      Object.keys(BUILDERS).forEach(function(k) { BUILDERS[k].built = false; BUILDERS[k].instance = null; });
-      renderCards(d.charts);
-    })
-    .catch(function() { btn.textContent = 'ASK AI'; btn.disabled = false; });
+  // Search and render
+  var results = searchCharts(q);
+  Object.keys(BUILDERS).forEach(function(k) { BUILDERS[k].built = false; BUILDERS[k].instance = null; });
+  renderCards(results);
 }
 
 // ── Events ──
 var timer;
 document.getElementById('searchInput').addEventListener('input', function() {
   clearTimeout(timer);
-  timer = setTimeout(function() { doSearch(false); }, 300);
+  timer = setTimeout(doSearch, 200);
 });
-document.getElementById('askBtn').addEventListener('click', function() { doSearch(true); });
 document.getElementById('searchInput').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') { e.preventDefault(); doSearch(true); }
+  if (e.key === 'Enter') { e.preventDefault(); doSearch(); }
 });
 
 // Initial load — show all charts
-doSearch(false);
+doSearch();
 </script>
 </body>
 </html>
