@@ -255,42 +255,15 @@
     </div>
   </div>
 
-  <!-- SLIDE 1: Fan Chart (animated) -->
+  <!-- SLIDE 1: Fan Chart (animated) — Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <div class="slide" id="s2">
     <div class="slide-inner">
       <div class="eyebrow">The South African Government Bond Market</div>
       <h1>Supply</h1>
       <div class="chart-wrap">
-        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-          <defs><style>
-            .bar-label { fill: #b8b0a4; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
-            .bar-title { fill: #f4f2ec; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
-            .src-label { fill: #7a7368; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
-          </style></defs>
-          <text x="210" y="16" text-anchor="middle" class="bar-title">Main Budget Deficit</text>
-          <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
-          <line x1="60" y1="250" x2="365" y2="250" stroke="#b8b0a4" stroke-width="1"/>
-          <line x1="60" y1="42" x2="60" y2="250" stroke="#b8b0a4" stroke-width="1"/>
-          <line x1="60" y1="208.4" x2="360" y2="208.4" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="166.8" x2="360" y2="166.8" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="125.2" x2="360" y2="125.2" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <line x1="60" y1="83.6" x2="360" y2="83.6" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
-          <text x="54" y="254" text-anchor="end" style="fill:#f4f2ec" class="bar-label">0%</text>
-          <text x="54" y="212" text-anchor="end" style="fill:#f4f2ec" class="bar-label">2%</text>
-          <text x="54" y="171" text-anchor="end" style="fill:#f4f2ec" class="bar-label">4%</text>
-          <text x="54" y="129" text-anchor="end" style="fill:#f4f2ec" class="bar-label">6%</text>
-          <text x="54" y="88" text-anchor="end" style="fill:#f4f2ec" class="bar-label">8%</text>
-          <text x="54" y="46" text-anchor="end" style="fill:#f4f2ec" class="bar-label">10%</text>
-          <text x="54" y="28" text-anchor="end" style="fill:#f4f2ec;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">Deficit %</text>
-          <text x="68" y="264" text-anchor="middle" class="bar-label">10</text><text x="86" y="264" text-anchor="middle" class="bar-label">11</text><text x="103" y="264" text-anchor="middle" class="bar-label">12</text><text x="120" y="264" text-anchor="middle" class="bar-label">13</text><text x="138" y="264" text-anchor="middle" class="bar-label">14</text><text x="156" y="264" text-anchor="middle" class="bar-label">15</text><text x="173" y="264" text-anchor="middle" class="bar-label">16</text><text x="190" y="264" text-anchor="middle" class="bar-label">17</text><text x="208" y="264" text-anchor="middle" class="bar-label">18</text><text x="226" y="264" text-anchor="middle" class="bar-label">19</text><text x="243" y="264" text-anchor="middle" class="bar-label">20</text><text x="260" y="264" text-anchor="middle" class="bar-label">21</text><text x="278" y="264" text-anchor="middle" class="bar-label">22</text><text x="296" y="264" text-anchor="middle" class="bar-label">23</text><text x="313" y="264" text-anchor="middle" class="bar-label">24</text><text x="330" y="264" text-anchor="middle" class="bar-label">25</text><text x="348" y="264" text-anchor="middle" class="bar-label">26</text>
-          <!-- Dynamic elements drawn by JS -->
-          <g id="fan-ghost-projections"></g>
-          <polyline id="fan-projection" points="" fill="none" stroke="#f4f2ec" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round" opacity="0.8"/>
-          <polyline id="fan-actual" points="" fill="none" stroke="#81b64c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <g id="fan-dots"></g>
-          <!-- Source -->
-          <text x="210" y="290" text-anchor="middle" class="src-label">Source: SA National Budget Reviews 2011-2026 (16 verified fiscal framework tables)</text>
-        </svg>
+        <div style="position:relative;max-width:100%;"><canvas id="fanChart"></canvas></div>
+        <div style="text-align:center;margin-top:4px;font-size:0.5rem;color:#7a7368;">Source: SA National Budget Reviews 2011-2026 (16 verified fiscal framework tables)</div>
         <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
       </div>
       <ul class="bullets">
@@ -303,123 +276,196 @@
   </div>
   <script>
   (function(){
-    // Actual deficit data: FY 10/11 through 24/25 (15 points)
-    var ax = [68,86,103,120,138,156,173,190,208,226,243,260,278,296,313];
-    var ay = [139.8,156.4,146.0,158.5,160.6,166.8,171.0,158.5,156.4,114.8,48.2,135.6,154.3,156.4,156.4];
-    // Budget years and their projection polyline points (index = which actual point they start from)
-    // Index 0 = FY 10/11, index 1 = FY 11/12, etc.
-    var projs = [
-      {idx:0, pts:'68,139.8 86,139.8 103,150.2 120,171.0'},          // 2011
-      {idx:1, pts:'86,150.2 103,154.3 120,166.8 138,187.6'},          // 2012
-      {idx:2, pts:'103,141.8 120,154.3 138,168.9 156,185.5'},         // 2013
-      {idx:3, pts:'120,166.8 138,166.8 156,175.1 173,191.8'},         // 2014
-      {idx:4, pts:'138,168.9 156,168.9 173,195.9 190,198.0'},         // 2015
-      {idx:5, pts:'156,168.9 173,183.4 190,191.8 208,200.1'},         // 2016
-      {idx:6, pts:'173,179.3 190,185.5 208,191.8 226,195.9'},         // 2017
-      {idx:7, pts:'190,154.3 208,171.0 226,171.0 243,173.0'},         // 2018
-      {idx:8, pts:'208,158.5 226,152.2 243,156.4 260,160.6'},         // 2019
-      {idx:9, pts:'226,114.8 243,108.6 260,116.9 278,127.3'},         // 2020 Feb
-      {idx:10, pts:'243,42.0 260,56.6 278,89.8'},                     // 2020 Supp
-      {idx:10, pts:'243,42.0 260,56.6 278,89.8 296,102.3'},           // 2021
-      {idx:11, pts:'260,135.6 278,133.5 296,152.2 313,158.5'},        // 2022
-      {idx:12, pts:'278,162.6 296,166.8 313,171.0 330,183.4'},        // 2023
-      {idx:13, pts:'296,152.2 313,156.4 330,162.6 348,171.0'},        // 2024
-      {idx:14, pts:'313,156.4 330,156.4 348,173.0'},                  // 2026
+    var allLabels = ['10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29'];
+    var actuals =   [5.3, 4.3, 4.8, 5.3, 4.6, 4.5, 4.2, 3.8, 4.6, 4.8, 7.7,11.6, 5.7, 4.9, 4.8, 4.8,null,null,null,null];
+
+    // Projections: [startLabelIndex, [values mapped to consecutive labels from startIndex]]
+    var projections = [
+      {start:0,  vals:{0:5.3, 1:5.3, 2:4.8, 3:3.3}},              // 2011 BR (anchored to actual)
+      {start:2,  vals:{2:4.2, 3:4.8, 4:4.6, 5:4.0}},              // 2012 BR
+      {start:3,  vals:{3:5.2, 4:5.2, 5:4.1, 6:3.5}},              // 2013 BR
+      {start:4,  vals:{4:4.9, 5:4.7, 6:3.9, 7:3.2}},              // 2014 BR
+      {start:5,  vals:{5:5.0, 6:4.4, 7:3.5, 8:3.0}},              // 2015 BR
+      {start:6,  vals:{6:4.2, 7:4.2, 8:3.6, 9:3.1}},              // 2016 BR
+      {start:7,  vals:{7:4.3, 8:3.9, 9:3.6,10:3.4}},              // 2017 BR
+      {start:8,  vals:{8:4.1, 9:3.8,10:3.8,11:3.7}},              // 2018 BR
+      {start:9,  vals:{9:4.4,10:4.4,11:4.2,12:4.0}},              // 2019 BR
+      {start:10, vals:{10:6.5,11:6.8,12:6.4,13:5.9}},             // 2020 Feb
+      {start:11, vals:{11:14.6,12:9.3,13:7.7}},                   // 2020 Supp
+      {start:11, vals:{11:14.0,12:7.3,13:6.3,14:5.7}},            // 2021 BR
+      {start:12, vals:{12:5.5,13:6.0,14:5.2,15:4.6}},             // 2022 BR
+      {start:13, vals:{13:4.5,14:4.5,15:3.7,16:3.2}},             // 2023 BR
+      {start:14, vals:{14:4.7,15:4.3,16:3.7,17:3.3}},             // 2024 BR
+      {start:15, vals:{15:4.7,16:4.6,17:3.9,18:3.6}},             // 2025 BR
+      {start:16, vals:{16:4.5,17:3.7,18:3.3,19:2.9}},             // 2026 BR
     ];
-    var played = false, timer;
 
-    function dot(x, y) {
-      var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-      c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r','2.5');
-      c.setAttribute('fill','#81b64c');
-      return c;
+    var fanChart = null;
+    var played = false;
+    var stepTimer;
+    var currentStep = 0;
+
+    function makeProjData(proj) {
+      return allLabels.map(function(_,i) { return (i in proj.vals) ? proj.vals[i] : null; });
     }
 
-    function ghostProj(pts) {
-      var p = document.createElementNS('http://www.w3.org/2000/svg','polyline');
-      p.setAttribute('points', pts);
-      p.setAttribute('fill', 'none');
-      p.setAttribute('stroke', '#f4f2ec');
-      p.setAttribute('stroke-width', '1');
-      p.setAttribute('stroke-dasharray', '3,3');
-      p.setAttribute('opacity', '0.15');
-      return p;
-    }
-
-    function step(n) {
-      if (n >= ax.length) return;
-      var actualLine = document.getElementById('fan-actual');
-      var dots = document.getElementById('fan-dots');
-      var proj = document.getElementById('fan-projection');
-      var ghosts = document.getElementById('fan-ghost-projections');
-
-      // 1. Extend actual line to include point n
-      var pts = [];
-      for (var i = 0; i <= n; i++) pts.push(ax[i]+','+ay[i]);
-      actualLine.setAttribute('points', pts.join(' '));
-
-      // 2. Add dot
-      dots.appendChild(dot(ax[n], ay[n]));
-
-      // 3. Show this year's projection (if one exists for this index)
-      // Find the projection that starts at this index
-      var thisProj = null;
-      for (var j = 0; j < projs.length; j++) {
-        if (projs[j].idx === n) { thisProj = projs[j]; break; }
-      }
-
-      // 4. Ghost the previous projection
-      var prevPts = proj.getAttribute('points');
-      if (prevPts) {
-        ghosts.appendChild(ghostProj(prevPts));
-      }
-
-      // 5. Show new projection (or clear if none)
-      if (thisProj) {
-        proj.setAttribute('points', thisProj.pts);
-        proj.setAttribute('opacity', '0.8');
-      } else {
-        proj.setAttribute('points', '');
-      }
-
-      // Handle double projections (2020 has Feb + Supp at same index)
-      // Check for second projection at same index
-      if (thisProj) {
-        var second = null;
-        for (var j = projs.indexOf(thisProj)+1; j < projs.length; j++) {
-          if (projs[j].idx === n) { second = projs[j]; break; }
+    function buildChart() {
+      var ctx = document.getElementById('fanChart');
+      if (!ctx) return;
+      fanChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: allLabels,
+          datasets: [{
+            label: 'Actual deficit (% of GDP)',
+            data: allLabels.map(function() { return null; }),
+            borderColor: '#81b64c',
+            borderWidth: 3,
+            pointBackgroundColor: '#81b64c',
+            pointRadius: 3,
+            pointHoverRadius: 5,
+            tension: 0,
+            spanGaps: false,
+            order: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 1.5,
+          animation: { duration: 300 },
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: ['Main Budget Deficit','Fiscal years ending March'],
+              color: ['#f4f2ec','#b8b0a4'],
+              font: [{size:14,weight:'bold'},{size:11,weight:'normal'}],
+              padding: {bottom:12}
+            },
+            tooltip: {
+              filter: function(item) { return item.raw !== null; },
+              callbacks: {
+                label: function(ctx) { return ctx.dataset.label + ': ' + ctx.raw.toFixed(1) + '%'; }
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: { color: '#b8b0a4', font: {size:10} },
+              grid: { color: 'rgba(69,64,58,0.5)' }
+            },
+            y: {
+              min: 0, max: 16,
+              ticks: {
+                color: '#b8b0a4',
+                font: {size:10},
+                callback: function(v) { return v + '%'; }
+              },
+              grid: { color: 'rgba(69,64,58,0.5)' },
+              title: { display: true, text: 'Deficit %', color: '#7a7368', font: {size:11,weight:'bold'} }
+            }
+          }
         }
-        if (second) {
-          // Show first briefly, then switch to second
-          timer = setTimeout(function() {
-            ghosts.appendChild(ghostProj(thisProj.pts));
-            proj.setAttribute('points', second.pts);
-            timer = setTimeout(function() { step(n+1); }, 600);
-          }, 400);
-          return;
-        }
-      }
-
-      timer = setTimeout(function() { step(n+1); }, 600);
+      });
     }
 
-    function reset() {
+    function animateStep(n) {
+      if (!fanChart || n >= actuals.length) return;
+      if (actuals[n] === null) return;
+
+      // Reveal actual data up to step n
+      var actualsDs = fanChart.data.datasets[0];
+      actualsDs.data[n] = actuals[n];
+
+      // Find projection(s) starting at this step
+      var found = [];
+      projections.forEach(function(p) { if (p.start === n) found.push(p); });
+
+      // Ghost previous active projection (change its color to faded)
+      fanChart.data.datasets.forEach(function(ds,i) {
+        if (i === 0) return;
+        if (ds.borderColor === 'rgba(244,242,236,0.6)') {
+          ds.borderColor = 'rgba(244,242,236,0.15)';
+          ds.borderWidth = 1;
+        }
+      });
+
+      // Add new projection datasets
+      found.forEach(function(p) {
+        fanChart.data.datasets.push({
+          label: 'Projection',
+          data: makeProjData(p),
+          borderColor: 'rgba(244,242,236,0.6)',
+          borderWidth: 2,
+          borderDash: [4,3],
+          pointRadius: 0,
+          tension: 0,
+          spanGaps: false,
+          order: 1
+        });
+      });
+
+      fanChart.update('none');
+      currentStep = n + 1;
+
+      // Handle double projections at same index (brief pause between)
+      if (found.length > 1) {
+        stepTimer = setTimeout(function() {
+          // Ghost the first, keep the second active
+          var datasets = fanChart.data.datasets;
+          var secondLast = datasets[datasets.length - 2];
+          if (secondLast && secondLast.label === 'Projection') {
+            secondLast.borderColor = 'rgba(244,242,236,0.15)';
+            secondLast.borderWidth = 1;
+          }
+          fanChart.update('none');
+          stepTimer = setTimeout(function() { animateStep(n + 1); }, 500);
+        }, 400);
+        return;
+      }
+
+      stepTimer = setTimeout(function() { animateStep(n + 1); }, 500);
+    }
+
+    function resetChart() {
       played = false;
-      clearTimeout(timer);
-      document.getElementById('fan-actual').setAttribute('points', '');
-      document.getElementById('fan-dots').innerHTML = '';
-      document.getElementById('fan-projection').setAttribute('points', '');
-      document.getElementById('fan-ghost-projections').innerHTML = '';
+      currentStep = 0;
+      clearTimeout(stepTimer);
+      if (fanChart) {
+        fanChart.data.datasets = [{
+          label: 'Actual deficit (% of GDP)',
+          data: allLabels.map(function() { return null; }),
+          borderColor: '#81b64c',
+          borderWidth: 3,
+          pointBackgroundColor: '#81b64c',
+          pointRadius: 3,
+          pointHoverRadius: 5,
+          tension: 0,
+          spanGaps: false,
+          order: 0
+        }];
+        fanChart.update('none');
+      }
+    }
+
+    function startAnimation() {
+      if (played) return;
+      played = true;
+      if (!fanChart) buildChart();
+      else resetChart();
+      played = true;
+      setTimeout(function() { animateStep(0); }, 500);
     }
 
     var obs = new MutationObserver(function(muts) {
       muts.forEach(function(m) {
         if (m.target.id === 's2' && m.target.classList.contains('active') && !played) {
-          played = true;
-          setTimeout(function() { step(0); }, 500);
+          startAnimation();
         }
         if (m.target.id === 's2' && !m.target.classList.contains('active') && played) {
-          reset();
+          resetChart();
         }
       });
     });
@@ -427,7 +473,7 @@
       var s = document.getElementById('s2');
       if (s) {
         obs.observe(s, { attributes: true, attributeFilter: ['class'] });
-        if (s.classList.contains('active')) { played = true; setTimeout(function(){ step(0); }, 500); }
+        if (s.classList.contains('active')) startAnimation();
       }
     }, 100);
   })();
