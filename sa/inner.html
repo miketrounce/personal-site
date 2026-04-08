@@ -19,6 +19,11 @@
   .slides-wrap .slide.active { opacity: 1; transform: translateX(0); pointer-events: all; }
   .slides-wrap .slide.exit { opacity: 0; transform: translateX(-60px); }
   .slides-wrap .slide-inner { width: 100%; max-width: var(--slide-max); }
+  .slides-wrap .slide-inner.two-col { display: grid; grid-template-columns: 1fr 1.4fr; gap: 32px; align-items: center; }
+  .slides-wrap .two-col .col-text { display: flex; flex-direction: column; justify-content: center; }
+  .slides-wrap .two-col .col-chart { display: flex; align-items: center; justify-content: center; }
+  .slides-wrap .two-col .col-chart canvas { max-height: 60vh; }
+  @media (max-width: 768px) { .slides-wrap .slide-inner.two-col { grid-template-columns: 1fr; } }
   .slides-wrap .slide-num { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
   .slides-wrap .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
   .slides-wrap h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(28px, 4vw, 52px); font-weight: 900; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--text); }
@@ -257,20 +262,21 @@
 
   <!-- SLIDE 1: Fan Chart (animated) — Chart.js -->
   <div class="slide" id="s2">
-    <div class="slide-inner">
-      <div class="eyebrow">The South African Government Bond Market</div>
-      <h1>Supply</h1>
-      <div class="chart-wrap">
-        <div style="position:relative;max-width:600px;max-height:45vh;margin:0 auto;"><canvas id="fanChart"></canvas></div>
-        <div style="text-align:center;margin-top:4px;font-size:0.5rem;color:#7a7368;">Source: SA National Budget Reviews 2011-2026 (16 verified fiscal framework tables)</div>
-        <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
+    <div class="slide-inner two-col">
+      <div class="col-text">
+        <div class="eyebrow">The South African Government Bond Market</div>
+        <h1>Supply</h1>
+        <ul class="bullets" style="margin-top:16px;">
+          <li>The dashed lines are deficit projections from every National Budget Review (2011-2026)</li>
+          <li>I think that it has been politically impossible to borrow less than 4% of GDP</li>
+          <li>Projections of debt supply cannot be relied on</li>
+          <li>I view the flow rate of supply of government debt as endogenously fixed at <strong>4.5% of GDP</strong></li>
+        </ul>
+        <div style="margin-top:12px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
       </div>
-      <ul class="bullets">
-        <li>The dashed lines are deficit projections from every National Budget Review (2011-2026)</li>
-        <li>I think that it has been politically impossible to borrow less than 4% of GDP</li>
-        <li>Projections of debt supply cannot be relied on</li>
-        <li>I view the flow rate of supply of government debt as endogenously fixed at <strong>4.5% of GDP</strong></li>
-      </ul>
+      <div class="col-chart">
+        <div style="position:relative;width:100%;"><canvas id="fanChart"></canvas></div>
+      </div>
     </div>
   </div>
   <script>
@@ -480,19 +486,21 @@
 
     <!-- SLIDE 1: Supply — deficit flow — Chart.js -->
   <div class="slide" id="s3">
-    <div class="slide-inner">
-      <div class="eyebrow">The South African Government Bond Market</div>
-      <h1>Supply (Flow)</h1>
-      <div class="chart-wrap">
-        <div style="position:relative;max-width:600px;max-height:45vh;margin:0 auto;"><canvas id="flowChart"></canvas></div>
-        <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-deficit').classList.add('open')">Source</button></div>
+    <div class="slide-inner two-col">
+      <div class="col-text">
+        <div class="eyebrow">The South African Government Bond Market</div>
+        <h1>Supply (Flow)</h1>
+        <ul class="bullets" style="margin-top:16px;">
+          <li>Naturally, for a growing economy, the ZAR value of 4.5% of GDP grows over time</li>
+          <li id="s3-bullet-usd">In USD terms, SA borrows a roughly constant <strong>$15-20bn per year</strong></li>
+          <li>tbc</li>
+          <li>tbc</li>
+        </ul>
+        <div style="margin-top:12px;"><button class="src-btn" onclick="document.getElementById('src-deficit').classList.add('open')">Source</button></div>
       </div>
-      <ul class="bullets">
-        <li>Naturally, for a growing economy, the ZAR value of 4.5% of GDP grows over time</li>
-        <li id="s3-bullet-usd">In USD terms, SA borrows a roughly constant <strong>$15-20bn per year</strong></li>
-        <li>tbc</li>
-        <li>tbc</li>
-      </ul>
+      <div class="col-chart">
+        <div style="position:relative;width:100%;"><canvas id="flowChart"></canvas></div>
+      </div>
     </div>
   </div>
   <script>
