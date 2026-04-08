@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charts — South Africa</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #1a1714; color: #f4f2ec; font-family: -apple-system, system-ui, sans-serif; min-height: 100vh; }
+  .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+  h1 { font-size: 1.6rem; margin-bottom: 4px; }
+  .sub { color: #7a7368; font-size: 0.85rem; margin-bottom: 24px; }
+  .search-wrap { position: relative; margin-bottom: 12px; display: flex; gap: 8px; }
+  .search-input {
+    flex: 1; padding: 12px 16px; background: #2f2c28; border: 1px solid #45403a;
+    border-radius: 10px; color: #f4f2ec; font-size: 0.95rem; outline: none;
+    caret-color: #81b64c; transition: border-color 0.15s;
+  }
+  .search-input:focus { border-color: #81b64c; }
+  .search-input::placeholder { color: #7a7368; }
+  .ask-btn {
+    padding: 0 18px; background: none; border: 1px solid #45403a; border-radius: 10px;
+    color: #81b64c; font-size: 0.7rem; font-weight: 700; cursor: pointer;
+    letter-spacing: 0.04em; transition: border-color 0.15s;
+  }
+  .ask-btn:hover { border-color: #81b64c; }
+  .suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; min-height: 24px; }
+  .suggestion {
+    padding: 3px 10px; border-radius: 4px; font-size: 0.6rem; font-weight: 600;
+    background: rgba(129,182,76,0.1); color: #81b64c;
+  }
+  .llm-note { font-size: 0.75rem; color: #b8b0a4; margin-bottom: 16px; padding: 10px 14px; background: rgba(129,182,76,0.06); border-radius: 8px; line-height: 1.4; display: none; }
+  .llm-note.visible { display: block; }
+  .chart-cards { display: flex; flex-direction: column; gap: 20px; }
+  .chart-card {
+    border: 1px solid #45403a; border-radius: 12px; padding: 24px;
+    background: linear-gradient(180deg, #2f2c28 0%, #262320 100%);
+    cursor: pointer; transition: border-color 0.15s, transform 0.15s;
+  }
+  .chart-card:hover { border-color: #81b64c; transform: translateY(-2px); }
+  .chart-card.hidden { display: none; }
+  .card-title { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+  .card-desc { font-size: 0.8rem; color: #7a7368; margin-bottom: 12px; }
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .card-tag { font-size: 0.6rem; padding: 2px 8px; border-radius: 4px; background: rgba(111,181,255,0.1); color: #6fb5ff; }
+  .chart-area { margin-top: 20px; display: none; }
+  .chart-area.open { display: block; }
+  .chart-area canvas { max-height: 50vh; }
+  .no-results { color: #7a7368; font-size: 0.85rem; padding: 20px 0; display: none; }
+  .back-link { display: inline-block; margin-bottom: 20px; color: #81b64c; text-decoration: none; font-size: 0.8rem; font-weight: 600; }
+  .back-link:hover { text-decoration: underline; }
+  .hint { color: #45403a; font-size: 0.7rem; margin-bottom: 24px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="/" class="back-link">&larr; Back</a>
+  <h1>Charts</h1>
+  <p class="sub">South African government bond market</p>
+
+  <div class="search-wrap">
+    <input class="search-input" type="text" placeholder="e.g. how much does government borrow?" autocomplete="off" spellcheck="false" id="searchInput">
+    <button class="ask-btn" id="askBtn">ASK AI</button>
+  </div>
+  <div class="hint">Try: deficit, supply, borrowing, projections, rand, dollar</div>
+  <div class="suggestions" id="suggestions"></div>
+  <div class="llm-note" id="llmNote"></div>
+  <div class="no-results" id="noResults">No charts match your query. Try different terms or click ASK AI for deeper search.</div>
+
+  <div class="chart-cards" id="cardList"></div>
+</div>
+
+<script>
+var API = 'http://167.99.83.51/api/charts/';
+
+// ── Chart builders ──
+var BUILDERS = {
+  fan: {
+    built: false, instance: null,
+    build: function(canvasId) {
+      if (this.built) return; this.built = true;
+      var allLabels = ['10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29'];
+      var actuals = [5.3,4.3,4.8,5.3,4.6,4.5,4.2,3.8,4.6,4.8,7.7,11.6,5.7,4.9,4.8,4.8,null,null,null,null];
+      var projections = [
+        {start:2,vals:{2:4.2,3:4.8,4:4.6,5:4.0}},{start:3,vals:{3:5.2,4:5.2,5:4.1,6:3.5}},
+        {start:4,vals:{4:4.9,5:4.7,6:3.9,7:3.2}},{start:5,vals:{5:5.0,6:4.4,7:3.5,8:3.0}},
+        {start:6,vals:{6:4.2,7:4.2,8:3.6,9:3.1}},{start:7,vals:{7:4.3,8:3.9,9:3.6,10:3.4}},
+        {start:8,vals:{8:4.1,9:3.8,10:3.8,11:3.7}},{start:9,vals:{9:4.4,10:4.4,11:4.2,12:4.0}},
+        {start:10,vals:{10:6.5,11:6.8,12:6.4,13:5.9}},{start:11,vals:{11:14.6,12:9.3,13:7.7}},
+        {start:11,vals:{11:14.0,12:7.3,13:6.3,14:5.7}},{start:12,vals:{12:5.5,13:6.0,14:5.2,15:4.6}},
+        {start:13,vals:{13:4.5,14:4.5,15:3.7,16:3.2}},{start:14,vals:{14:4.7,15:4.3,16:3.7,17:3.3}},
+        {start:15,vals:{15:4.7,16:4.6,17:3.9,18:3.6}},{start:16,vals:{16:4.5,17:3.7,18:3.3,19:2.9}},
+      ];
+      var datasets = [{label:'Actual deficit (% of GDP)',data:actuals,borderColor:'#81b64c',borderWidth:3,pointBackgroundColor:'#81b64c',pointRadius:3,tension:0,spanGaps:false,order:0}];
+      projections.forEach(function(p){var d=allLabels.map(function(_,i){return(i in p.vals)?p.vals[i]:null;});datasets.push({label:'Projection',data:d,borderColor:'rgba(244,242,236,0.2)',borderWidth:1,borderDash:[4,3],pointRadius:0,tension:0,spanGaps:false,order:1});});
+      this.instance = new Chart(document.getElementById(canvasId),{type:'line',data:{labels:allLabels,datasets:datasets},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,plugins:{legend:{display:false},title:{display:true,text:'Main Budget Deficit — % of GDP',color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{filter:function(i){return i.raw!==null;},callbacks:{label:function(c){return c.dataset.label+': '+c.raw.toFixed(1)+'%';}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{min:0,max:16,ticks:{color:'#b8b0a4',callback:function(v){return v+'%';}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'Deficit %',color:'#7a7368',font:{weight:'bold'}}}}}});
+    }
+  },
+  flow: {
+    built: false, instance: null, showingUSD: false,
+    build: function(canvasId) {
+      if (this.built) return; this.built = true;
+      var labels=['10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25'];
+      var zarBn=[129,114,148,177,167,175,175,171,210,229,346,552,326,300,313,337];
+      var usdBn=[17.2,15.4,18.7,19.3,14.5,13.7,11.5,9.8,13.1,15.3,22.1,33.5,21.2,16.3,16.2,16.8];
+      var pctGdp=[5.3,4.3,4.8,5.3,4.6,4.5,4.2,3.8,4.6,4.8,7.7,11.6,5.7,4.9,4.8,4.8];
+      var self=this;
+      this.zarBn=zarBn; this.usdBn=usdBn;
+      this.instance=new Chart(document.getElementById(canvasId),{type:'bar',data:{labels:labels,datasets:[{label:'ZAR bn',data:zarBn.slice(),backgroundColor:'rgba(129,182,76,0.7)',borderRadius:3,yAxisID:'y',order:1},{label:'% of GDP',data:pctGdp,type:'line',borderColor:'#81b64c',borderWidth:2,pointBackgroundColor:'#81b64c',pointRadius:3,tension:0,yAxisID:'y1',order:0}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,animation:{duration:400},interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},title:{display:true,text:'Main Budget Deficit — ZAR bn & % of GDP',color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{callbacks:{label:function(c){if(c.dataset.yAxisID==='y1')return c.raw.toFixed(1)+'% of GDP';return c.dataset.label+': '+c.raw;}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{position:'left',min:0,ticks:{color:'#81b64c'},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'ZAR bn',color:'#81b64c',font:{weight:'bold'}}},y1:{position:'right',min:0,max:14,ticks:{color:'#81b64c',callback:function(v){return v+'%';}},grid:{drawOnChartArea:false},title:{display:true,text:'% of GDP',color:'#81b64c',font:{weight:'bold'}}}},onClick:function(){if(!self.showingUSD){self.showingUSD=true;self.instance.data.datasets[0].data=self.usdBn;self.instance.data.datasets[0].label='USD bn';self.instance.options.scales.y.title.text='USD bn';self.instance.options.plugins.title.text='Main Budget Deficit — USD bn & % of GDP';}else{self.showingUSD=false;self.instance.data.datasets[0].data=self.zarBn.slice();self.instance.data.datasets[0].label='ZAR bn';self.instance.options.scales.y.title.text='ZAR bn';self.instance.options.plugins.title.text='Main Budget Deficit — ZAR bn & % of GDP';}self.instance.update();}}});
+    }
+  }
+};
+
+// ── Render cards from API response ──
+function renderCards(charts) {
+  var list = document.getElementById('cardList');
+  var noResults = document.getElementById('noResults');
+  list.innerHTML = '';
+  noResults.style.display = charts.length ? 'none' : 'block';
+
+  charts.forEach(function(chart) {
+    var card = document.createElement('div');
+    card.className = 'chart-card';
+    card.dataset.chart = chart.id;
+    var tagsHtml = chart.tags.map(function(t) { return '<span class="card-tag">' + t + '</span>'; }).join('');
+    card.innerHTML = '<div class="card-title">' + chart.title + '</div>'
+      + '<div class="card-desc">' + chart.description + '</div>'
+      + '<div class="card-tags">' + tagsHtml + '</div>'
+      + '<div class="chart-area" id="chart-' + chart.id + '"><canvas id="canvas-' + chart.id + '"></canvas></div>';
+    card.addEventListener('click', function(e) {
+      if (e.target.closest('.chart-area')) return;
+      var area = card.querySelector('.chart-area');
+      var isOpen = area.classList.contains('open');
+      document.querySelectorAll('.chart-area.open').forEach(function(a) { a.classList.remove('open'); });
+      if (!isOpen) {
+        area.classList.add('open');
+        if (BUILDERS[chart.id]) BUILDERS[chart.id].build('canvas-' + chart.id);
+      }
+    });
+    list.appendChild(card);
+  });
+}
+
+// ── Search ──
+function doSearch(useLlm) {
+  var q = document.getElementById('searchInput').value.trim();
+  var url = API + '?q=' + encodeURIComponent(q) + (useLlm ? '&llm=1' : '');
+  var btn = document.getElementById('askBtn');
+  var sugEl = document.getElementById('suggestions');
+  var llmEl = document.getElementById('llmNote');
+
+  if (useLlm) { btn.textContent = '...'; btn.disabled = true; }
+
+  fetch(url)
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      btn.textContent = 'ASK AI'; btn.disabled = false;
+
+      // Show suggestions
+      sugEl.innerHTML = d.suggestions ? d.suggestions.map(function(s) { return '<span class="suggestion">' + s + '</span>'; }).join('') : '';
+
+      // Show LLM explanation
+      if (d.llm && d.llm.explanation) {
+        llmEl.textContent = d.llm.explanation;
+        llmEl.classList.add('visible');
+      } else {
+        llmEl.classList.remove('visible');
+      }
+
+      // Render chart cards
+      // Reset builders so charts can be rebuilt with fresh canvases
+      Object.keys(BUILDERS).forEach(function(k) { BUILDERS[k].built = false; BUILDERS[k].instance = null; });
+      renderCards(d.charts);
+    })
+    .catch(function() { btn.textContent = 'ASK AI'; btn.disabled = false; });
+}
+
+// ── Events ──
+var timer;
+document.getElementById('searchInput').addEventListener('input', function() {
+  clearTimeout(timer);
+  timer = setTimeout(function() { doSearch(false); }, 300);
+});
+document.getElementById('askBtn').addEventListener('click', function() { doSearch(true); });
+document.getElementById('searchInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') { e.preventDefault(); doSearch(true); }
+});
+
+// Initial load — show all charts
+doSearch(false);
+</script>
+</body>
+</html>
