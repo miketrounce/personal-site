@@ -126,7 +126,7 @@ var SLIDE_DATA = [
     eyebrow: 'The South African Government Bond Market',
     title: 'Supply',
     description: 'Budget deficit fan chart — projections vs reality',
-    chartType: 'Fan',
+    chartName: 'Deficit Fan',
     bullets: [
       'The dashed lines are deficit projections from every National Budget Review (2011–2026)',
       'It has been politically impossible to borrow less than 4% of GDP',
@@ -169,7 +169,7 @@ var SLIDE_DATA = [
     eyebrow: 'The South African Government Bond Market',
     title: 'Debt Stock',
     description: 'Gross loan debt & debt-to-GDP ratio — explosive path',
-    chartType: 'Combo',
+    chartName: 'Debt Combo',
     bullets: [
       'The stock chart reveals something important: debt is on an explosive path',
       'The combination of growth and borrowing costs cannot tolerate supply of 4.5% of GDP year after year',
@@ -234,7 +234,7 @@ var SLIDE_DATA = [
     var tr = document.createElement('tr');
     tr.innerHTML =
       '<td><div class="td-name">' + slide.title + '</div><div class="td-desc">' + slide.description + '</div></td>' +
-      '<td><span class="td-type">' + slide.chartType + '</span></td>' +
+      '<td><span class="td-type">' + slide.chartName + '</span></td>' +
       '<td class="td-chart">' + slide.bullets.length + ' points</td>';
 
     var detail = document.createElement('tr');
