@@ -133,7 +133,7 @@
 <a href="/" style="position:fixed;top:16px;left:20px;z-index:200;color:#f4f2ec;font-size:12px;font-family:-apple-system,system-ui,sans-serif;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">&larr; Menu</a>
 
 <div class="slides-wrap">
-<div id="progress"><div id="progress-fill"></div></div>
+<div id="progress" style="display:none;"><div id="progress-fill"></div></div>
 <div id="deck">
   <div id="splash">
     <div class="splash-title">The South African Government Bond Market</div>
@@ -203,13 +203,13 @@
   </div>
 </div>
 
-<div id="nav">
+<div id="nav" style="display:none;">
   <button class="nav-btn" id="prev">&larr; Prev</button>
   <div class="dot-row" id="dots"></div>
   <span id="slide-counter">1 / 1</span>
   <button class="nav-btn" id="next">Next &rarr;</button>
 </div>
-<div id="hint">&larr; &rarr; arrow keys to navigate &middot; click to advance bullets</div>
+<div id="hint" style="display:none;">&larr; &rarr; arrow keys to navigate &middot; click to advance bullets</div>
 
 <div class="autoplay-bar" id="autoplay-bar">
   <button id="ap-pause" onclick="toggleAutoplay()">Pause</button>
@@ -1074,12 +1074,8 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// Hide UI until splash dismissed
-setTimeout(function() {
-  document.getElementById('nav').style.display = 'none';
-  document.getElementById('hint').style.display = 'none';
-  document.getElementById('progress').style.display = 'none';
-}, 10);
+// Nav, hint, progress are hidden by default (inline style).
+// initDeck() shows them when the user starts interacting.
 
 
 /* ── Autoplay / TTS ── */
