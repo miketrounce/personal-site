@@ -369,7 +369,7 @@ var SLIDE_DATA = [
     buildChart: function(canvas) {
       fetch(API + '?name=' + encodeURIComponent('SA Net Bond Sales to Foreigners'))
         .then(function(r){return r.json();}).then(function(data) {
-        var colors = data.values.map(function(v){return v>=0?'rgba(129,182,76,0.7)':'rgba(204,68,68,0.7)';});
+        var colors = 'rgba(129,182,76,0.7)';
         var axisPlugin = {id:'singleAxisLabel', afterDraw:function(chart){var ctx=chart.ctx;ctx.save();ctx.font='bold 11px -apple-system,system-ui,sans-serif';ctx.textBaseline='bottom';ctx.fillStyle='#b8b0a4';ctx.textAlign='left';ctx.fillText('ZAR mn',chart.scales.y.left,chart.scales.y.top-8);ctx.restore();}};
         new Chart(canvas, {type:'bar', data:{labels:data.labels, datasets:[
           {label:'Net foreign purchases', data:data.values, backgroundColor:colors, borderRadius:0, barPercentage:1.0, categoryPercentage:1.0}
