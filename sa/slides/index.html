@@ -105,7 +105,10 @@ var SLIDE_DATA = [
     eyebrow: 'The South African Government Bond Market',
     title: 'Supply',
     bullets: [
-      'The dashed lines are deficit projections from every National Budget Review (2011–2026)'
+      'The dashed lines are deficit projections from every National Budget Review (2011–2026)',
+      'It has been politically impossible to borrow less than 4% of GDP',
+      'Projections of debt supply cannot be relied on',
+      'I view the flow rate of supply of government debt as endogenously fixed at <strong>4.5% of GDP</strong>'
     ],
     chart: 'fan'
   }
@@ -126,9 +129,19 @@ var CHART_BUILDERS = {
       {start:13,vals:{13:4.5,14:4.5,15:3.7,16:3.2}},{start:14,vals:{14:4.7,15:4.3,16:3.7,17:3.3}},
       {start:15,vals:{15:4.7,16:4.6,17:3.9,18:3.6}},{start:16,vals:{16:4.5,17:3.7,18:3.3,19:2.9}}
     ];
-    var datasets = [{label:'Actual deficit (% of GDP)',data:actuals,borderColor:'#81b64c',borderWidth:3,pointBackgroundColor:'#81b64c',pointRadius:3,tension:0,spanGaps:false,order:0}];
-    projections.forEach(function(p){var d=allLabels.map(function(_,i){return(i in p.vals)?p.vals[i]:null;});datasets.push({label:'Projection',data:d,borderColor:'rgba(244,242,236,0.2)',borderWidth:1,borderDash:[4,3],pointRadius:0,tension:0,spanGaps:false,order:1});});
-    new Chart(canvas,{type:'line',data:{labels:allLabels,datasets:datasets},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,plugins:{legend:{display:false},title:{display:true,text:['Main Budget Deficit','Fiscal years ending March'],color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{filter:function(i){return i.raw!==null;},callbacks:{label:function(c){return c.dataset.label+': '+c.raw.toFixed(1)+'%';}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{min:0,max:16,ticks:{color:'#b8b0a4',callback:function(v){return v+'%';}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'Deficit %',color:'#7a7368',font:{weight:'bold'}}}}}});
+    var chart = new Chart(canvas,{type:'line',data:{labels:allLabels,datasets:[
+      {label:'Actual deficit (% of GDP)',data:actuals,borderColor:'#81b64c',borderWidth:3,pointBackgroundColor:'#81b64c',pointRadius:3,tension:0,spanGaps:false,order:0}
+    ]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,animation:{duration:400},plugins:{legend:{display:false},title:{display:true,text:['Main Budget Deficit','Fiscal years ending March'],color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{filter:function(i){return i.raw!==null;},callbacks:{label:function(c){return c.dataset.label+': '+c.raw.toFixed(1)+'%';}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{min:0,max:16,ticks:{color:'#b8b0a4',callback:function(v){return v+'%';}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'Deficit %',color:'#7a7368',font:{weight:'bold'}}}}}});
+    // Animate: reveal projections one by one
+    var pIdx = 0;
+    var interval = setInterval(function() {
+      if (pIdx >= projections.length) { clearInterval(interval); return; }
+      var p = projections[pIdx];
+      var d = allLabels.map(function(_, i) { return (i in p.vals) ? p.vals[i] : null; });
+      chart.data.datasets.push({label:'Projection',data:d,borderColor:'rgba(244,242,236,0.25)',borderWidth:1,borderDash:[4,3],pointRadius:0,tension:0,spanGaps:false,order:1});
+      chart.update();
+      pIdx++;
+    }, 500);
   }
 };
 
