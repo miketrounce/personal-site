@@ -172,7 +172,7 @@ var CHARTS = [
     source: 'SA Macro',
     series: 'Main budget balance',
     projections: 'Main budget balance (projection)',
-    title: 'Main Budget Deficit — % of GDP',
+    title: 'Main Budget Deficit',
     yLabel: 'Deficit %',
     yMax: 16,
     negate: true,
@@ -185,7 +185,7 @@ var CHARTS = [
     chart: 'combo',
     source: 'SA Macro',
     series: ['Main budget deficit', 'Main budget balance'],
-    title: 'Main Budget Deficit — ZAR bn & % of GDP',
+    title: 'Main Budget Deficit',
     bar:  { label: 'ZAR bn',   index: 0, transform: '/1000', yLabel: 'ZAR bn',    unit: 'ZAR bn' },
     line: { label: '% of GDP', index: 1, transform: 'abs',   yLabel: '% of GDP',  unit: '%', yMax: 14 },
     previewSeries: 'Main budget deficit'
@@ -198,7 +198,7 @@ var CHARTS = [
     source: 'SA Macro',
     series: 'Gross debt-to-GDP ratio',
     projections: 'Gross debt-to-GDP ratio (projection)',
-    title: 'Gross Debt-to-GDP Ratio — %',
+    title: 'Gross Debt-to-GDP Ratio',
     yLabel: 'Debt / GDP %',
     yMax: 90,
     negate: false,
@@ -211,7 +211,7 @@ var CHARTS = [
     chart: 'line',
     source: 'SA Macro',
     series: 'Foreign holdings of government bonds',
-    title: 'Foreign Holdings — % of Total Outstanding',
+    title: 'Foreign Holdings of Government Bonds',
     yLabel: '% of total',
     yMax: 40,
     unit: '%',
@@ -224,7 +224,7 @@ var CHARTS = [
     chart: 'bar',
     source: 'SA Macro',
     series: 'Gross loan debt of national government',
-    title: 'Gross Loan Debt — ZAR bn',
+    title: 'Gross Loan Debt',
     yLabel: 'ZAR billions',
     unit: 'ZAR bn',
     transform: '/1000'
@@ -236,7 +236,7 @@ var CHARTS = [
     chart: 'combo',
     source: 'SA Macro',
     series: ['Gross loan debt of national government', 'Gross debt-to-GDP ratio'],
-    title: 'Gross Loan Debt & Debt-to-GDP Ratio',
+    title: 'Gross Loan Debt & Debt-to-GDP',
     bar:  { label: 'ZAR bn',     index: 0, transform: '/1000', yLabel: 'ZAR bn',       unit: 'ZAR bn' },
     line: { label: 'Debt/GDP %', index: 1,                     yLabel: 'Debt / GDP %',  unit: '%', yMax: 90, color: '#e8c547' },
     previewSeries: 'Gross loan debt of national government'
@@ -248,7 +248,7 @@ var CHARTS = [
     chart: 'signed-bar',
     source: 'SA Macro',
     series: 'SA Net Bond Sales to Foreigners',
-    title: 'SABO Index — Daily Net Foreign Bond Purchases',
+    title: 'Net Foreign Bond Purchases',
     yLabel: 'ZAR millions',
     unit: 'ZAR mn'
   }
@@ -268,11 +268,10 @@ function applyTransform(values, transform) {
   return values;
 }
 
+function commas(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+
 function formatTick(unit) {
-  if (unit === '%')      return function(v) { return v; };
-  if (unit === 'ZAR bn') return function(v) { return v; };
-  if (unit === 'ZAR mn') return function(v) { return v / 1000 + 'k'; };
-  return function(v) { return v; };
+  return function(v) { return commas(v); };
 }
 
 function formatTooltip(unit) {
