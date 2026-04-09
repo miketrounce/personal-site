@@ -94,131 +94,275 @@
 <script>
 var API = 'https://api.miketrounce.com/api/series/';
 
-// ── Shared helpers ──
-function fanLabels(n) { var a=[]; for(var i=10;i<10+n;i++) a.push(String(i)); return a; }
+// ── Chart data: add entries here to create new charts ──
+// Every chart is purely declarative. Only these fields change.
+//
+//   chart:        'fan' | 'line' | 'bar' | 'combo' | 'signed-bar'
+//   series:       string (series name) or [string, string] for combo charts
+//   projections:  projection series name (fan charts only)
+//   negate:       flip sign of values (fan charts only, for deficit-as-positive)
+//   title:        chart title shown above the chart
+//   yLabel:       y-axis label
+//   yMax/yMin:    y-axis bounds (optional)
+//   unit:         '%' | 'ZAR mn' | 'ZAR bn' — controls tick/tooltip formatting
+//   transform:    'abs' | '/1000' — transform values before display
+//   fill:         true to fill area under line
+//   color:        primary color (default: accent green)
+//   color2:       second series color (combo charts)
+//   previewSeries: series name for preview when different from primary series
 
-function buildFanChart(canvas, title, yLabel, yMax, actuals, projections, negate) {
-  var maxYear = Math.max.apply(null, Object.keys(projections).map(function(k){
-    return Math.max.apply(null, Object.keys(projections[k]).map(Number));
-  }));
-  var allLabels = fanLabels(maxYear - 10 + 1);
-  var actualData = allLabels.map(function(l){ var v = actuals[l]; return v != null ? (negate ? -v : v) : null; });
-  var datasets = [{label:'Actual',data:actualData,borderColor:'#81b64c',borderWidth:3,pointBackgroundColor:'#81b64c',pointRadius:3,tension:0,spanGaps:false,order:0}];
-  Object.keys(projections).forEach(function(vintage){
-    var pv = projections[vintage];
-    var d = allLabels.map(function(l){ var v = pv[l]; return v != null ? (negate ? -v : v) : null; });
-    datasets.push({label:'Projection',data:d,borderColor:'rgba(244,242,236,0.2)',borderWidth:1,borderDash:[4,3],pointRadius:0,tension:0,spanGaps:false,order:1});
-  });
-  new Chart(canvas,{type:'line',data:{labels:allLabels,datasets:datasets},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,plugins:{legend:{display:false},title:{display:true,text:title,color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{filter:function(i){return i.raw!==null;},callbacks:{label:function(c){return c.dataset.label+': '+c.raw.toFixed(1)+'%';}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{min:0,max:yMax,ticks:{color:'#b8b0a4',callback:function(v){return v+'%';}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:yLabel,color:'#7a7368',font:{weight:'bold'}}}}}});
-}
-
-// ── Chart registry — data fetched from API ──
 var CHARTS = [
   {
     id: 'fan',
     name: 'Main Budget Deficit — Fan Chart',
     description: 'Deficit as % of GDP with projections from every National Budget Review (2011–2026)',
-    type: 'Line',
+    chart: 'fan',
     source: 'National Treasury',
-    api: API + '?name=Main+budget+balance&projections=Main+budget+balance+(projection)',
-    build: function(canvas, data) {
-      var actuals = {}; data.labels.forEach(function(l,i){ actuals[l] = data.values[i]; });
-      buildFanChart(canvas, 'Main Budget Deficit — % of GDP', 'Deficit %', 16, actuals, data.projections, true);
-    }
+    series: 'Main budget balance',
+    projections: 'Main budget balance (projection)',
+    title: 'Main Budget Deficit — % of GDP',
+    yLabel: 'Deficit %',
+    yMax: 16,
+    negate: true
   },
   {
     id: 'flow',
     name: 'Supply (Flow) — Deficit in ZAR & USD',
     description: 'Annual deficit in ZAR billions (bars) with % of GDP overlay.',
-    type: 'Bar',
+    chart: 'combo',
     source: 'National Treasury',
-    api: null, // needs two series — fetched manually
-    build: function(canvas) {
-      Promise.all([
-        fetch(API + '?name=Main+budget+deficit').then(function(r){return r.json();}),
-        fetch(API + '?name=Main+budget+balance').then(function(r){return r.json();})
-      ]).then(function(results) {
-        var deficit = results[0], balance = results[1];
-        var labels = deficit.labels;
-        var zarBn = deficit.values.map(function(v){ return Math.round(v / 1000); });
-        var pctGdp = balance.values.map(function(v){ return Math.abs(v); });
-        new Chart(canvas,{type:'bar',data:{labels:labels,datasets:[{label:'ZAR bn',data:zarBn,backgroundColor:'rgba(129,182,76,0.7)',borderRadius:3,yAxisID:'y',order:1},{label:'% of GDP',data:pctGdp,type:'line',borderColor:'#81b64c',borderWidth:2,pointBackgroundColor:'#81b64c',pointRadius:3,tension:0,yAxisID:'y1',order:0}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},title:{display:true,text:'Main Budget Deficit — ZAR bn & % of GDP',color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{callbacks:{label:function(c){if(c.dataset.yAxisID==='y1')return c.raw.toFixed(1)+'% of GDP';return c.dataset.label+': '+c.raw;}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{position:'left',min:0,ticks:{color:'#81b64c'},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'ZAR bn',color:'#81b64c',font:{weight:'bold'}}},y1:{position:'right',min:0,max:14,ticks:{color:'#81b64c',callback:function(v){return v+'%';}},grid:{drawOnChartArea:false},title:{display:true,text:'% of GDP',color:'#81b64c',font:{weight:'bold'}}}}}});
-      });
-    }
+    series: ['Main budget deficit', 'Main budget balance'],
+    title: 'Main Budget Deficit — ZAR bn & % of GDP',
+    bar:  { label: 'ZAR bn',   index: 0, transform: '/1000', yLabel: 'ZAR bn',    unit: 'ZAR bn' },
+    line: { label: '% of GDP', index: 1, transform: 'abs',   yLabel: '% of GDP',  unit: '%', yMax: 14 },
+    previewSeries: 'Main budget deficit'
   },
   {
     id: 'debt',
     name: 'Gross Debt-to-GDP Ratio — Fan Chart',
     description: 'Gross loan debt as % of GDP with projections from every National Budget Review (2013–2026)',
-    type: 'Line',
+    chart: 'fan',
     source: 'National Treasury',
-    api: API + '?name=Gross+debt-to-GDP+ratio&projections=Gross+debt-to-GDP+ratio+(projection)',
-    build: function(canvas, data) {
-      var actuals = {}; data.labels.forEach(function(l,i){ actuals[l] = data.values[i]; });
-      buildFanChart(canvas, 'Gross Debt-to-GDP Ratio — %', 'Debt / GDP %', 90, actuals, data.projections, false);
-    }
+    series: 'Gross debt-to-GDP ratio',
+    projections: 'Gross debt-to-GDP ratio (projection)',
+    title: 'Gross Debt-to-GDP Ratio — %',
+    yLabel: 'Debt / GDP %',
+    yMax: 90,
+    negate: false
   },
   {
     id: 'foreign',
     name: 'Foreign Holdings of Government Bonds',
     description: 'Non-resident share of outstanding government bonds (% of total)',
-    type: 'Line',
+    chart: 'line',
     source: 'National Treasury',
-    api: API + '?name=Foreign+holdings+of+government+bonds',
-    build: function(canvas, data) {
-      new Chart(canvas,{type:'line',data:{labels:data.labels,datasets:[{label:'Foreign holdings (% of total)',data:data.values,borderColor:'#81b64c',borderWidth:3,pointBackgroundColor:'#81b64c',pointRadius:3,tension:0,fill:{target:'origin',backgroundColor:'rgba(129,182,76,0.1)'}}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,plugins:{legend:{display:false},title:{display:true,text:'Foreign Holdings — % of Total Outstanding',color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{callbacks:{label:function(c){return c.raw.toFixed(1)+'%';}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{min:0,max:40,ticks:{color:'#b8b0a4',callback:function(v){return v+'%';}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'% of total',color:'#7a7368',font:{weight:'bold'}}}}}});
-    }
+    series: 'Foreign holdings of government bonds',
+    title: 'Foreign Holdings — % of Total Outstanding',
+    yLabel: '% of total',
+    yMax: 40,
+    unit: '%',
+    fill: true
   },
   {
     id: 'loandebt',
     name: 'Gross Loan Debt',
     description: 'Total gross loan debt of national government in ZAR billions',
-    type: 'Bar',
+    chart: 'bar',
     source: 'National Treasury',
-    api: API + '?name=Gross+loan+debt+of+national+government',
-    build: function(canvas, data) {
-      var zarBn = data.values.map(function(v){ return Math.round(v / 1000); });
-      new Chart(canvas,{type:'bar',data:{labels:data.labels,datasets:[{label:'ZAR bn',data:zarBn,backgroundColor:'rgba(129,182,76,0.7)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,plugins:{legend:{display:false},title:{display:true,text:'Gross Loan Debt — ZAR bn',color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{callbacks:{label:function(c){return 'R'+c.raw+' bn';}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{min:0,ticks:{color:'#b8b0a4',callback:function(v){return 'R'+v+' bn';}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'ZAR billions',color:'#7a7368',font:{weight:'bold'}}}}}});
-    }
+    series: 'Gross loan debt of national government',
+    title: 'Gross Loan Debt — ZAR bn',
+    yLabel: 'ZAR billions',
+    unit: 'ZAR bn',
+    transform: '/1000'
   },
   {
     id: 'debtcombo',
     name: 'Debt Level vs Debt-to-GDP',
     description: 'Gross loan debt (ZAR bn) alongside debt-to-GDP ratio (%)',
-    type: 'Bar',
+    chart: 'combo',
     source: 'National Treasury',
-    api: null,
-    build: function(canvas) {
-      Promise.all([
-        fetch(API + '?name=Gross+loan+debt+of+national+government').then(function(r){return r.json();}),
-        fetch(API + '?name=Gross+debt-to-GDP+ratio').then(function(r){return r.json();})
-      ]).then(function(results) {
-        var debt = results[0], ratio = results[1];
-        var zarBn = debt.values.map(function(v){ return Math.round(v / 1000); });
-        new Chart(canvas,{type:'bar',data:{labels:debt.labels,datasets:[{label:'ZAR bn',data:zarBn,backgroundColor:'rgba(129,182,76,0.7)',borderRadius:3,yAxisID:'y',order:1},{label:'Debt/GDP %',data:ratio.values,type:'line',borderColor:'#e8c547',borderWidth:2,pointBackgroundColor:'#e8c547',pointRadius:3,tension:0,yAxisID:'y1',order:0}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:'#b8b0a4'}},title:{display:true,text:'Gross Loan Debt & Debt-to-GDP Ratio',color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{callbacks:{label:function(c){if(c.dataset.yAxisID==='y1')return c.raw.toFixed(1)+'% of GDP';return 'R'+c.raw+' bn';}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{position:'left',min:0,ticks:{color:'#81b64c',callback:function(v){return 'R'+v;}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'ZAR bn',color:'#81b64c',font:{weight:'bold'}}},y1:{position:'right',min:0,max:90,ticks:{color:'#e8c547',callback:function(v){return v+'%';}},grid:{drawOnChartArea:false},title:{display:true,text:'Debt / GDP %',color:'#e8c547',font:{weight:'bold'}}}}}});
-      });
-    }
+    series: ['Gross loan debt of national government', 'Gross debt-to-GDP ratio'],
+    title: 'Gross Loan Debt & Debt-to-GDP Ratio',
+    bar:  { label: 'ZAR bn',     index: 0, transform: '/1000', yLabel: 'ZAR bn',       unit: 'ZAR bn' },
+    line: { label: 'Debt/GDP %', index: 1,                     yLabel: 'Debt / GDP %',  unit: '%', yMax: 90, color: '#e8c547' },
+    previewSeries: 'Gross loan debt of national government'
   },
   {
     id: 'sabo',
     name: 'Net Foreign Bond Flows — Daily',
     description: 'Daily net foreign purchases of SA government bonds (Bloomberg SABO Index)',
-    type: 'Bar',
+    chart: 'signed-bar',
     source: 'Bloomberg',
-    api: API + '?name=SA+Net+Bond+Sales+to+Foreigners',
-    build: function(canvas, data) {
-      var chartData = data.values.map(function(v,i){ return {x:data.labels[i],y:v}; });
-      var colors = data.values.map(function(v){ return v >= 0 ? 'rgba(129,182,76,0.7)' : 'rgba(204,68,68,0.7)'; });
-      new Chart(canvas,{type:'bar',data:{labels:data.labels,datasets:[{label:'Net purchases (ZAR mn)',data:data.values,backgroundColor:colors,borderRadius:0,barPercentage:1.0,categoryPercentage:1.0}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,plugins:{legend:{display:false},title:{display:true,text:'SABO Index — Daily Net Foreign Bond Purchases',color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{callbacks:{label:function(c){return (c.raw>=0?'+':'')+Math.round(c.raw)+' ZAR mn';}}}},scales:{x:{ticks:{color:'#b8b0a4',maxTicksLimit:12},grid:{color:'rgba(69,64,58,0.5)'}},y:{ticks:{color:'#b8b0a4',callback:function(v){return v/1000+'k';}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'ZAR millions',color:'#7a7368',font:{weight:'bold'}}}}}});
-    }
+    series: 'SA Net Bond Sales to Foreigners',
+    title: 'SABO Index — Daily Net Foreign Bond Purchases',
+    yLabel: 'ZAR millions',
+    unit: 'ZAR mn'
   }
 ];
 
-// ── Build preview sparkline from API data ──
+// ── Generic chart builders ──
+var theme = {
+  text: '#f4f2ec', muted: '#b8b0a4', grid: 'rgba(69,64,58,0.5)',
+  accent: '#81b64c', negative: '#cc4444',
+  base: { responsive: true, maintainAspectRatio: true, aspectRatio: 1.6 }
+};
+
+function applyTransform(values, transform) {
+  if (!transform) return values;
+  if (transform === '/1000') return values.map(function(v) { return Math.round(v / 1000); });
+  if (transform === 'abs')   return values.map(function(v) { return Math.abs(v); });
+  return values;
+}
+
+function formatTick(unit) {
+  if (unit === '%')      return function(v) { return v + '%'; };
+  if (unit === 'ZAR bn') return function(v) { return 'R' + v + ' bn'; };
+  if (unit === 'ZAR mn') return function(v) { return v / 1000 + 'k'; };
+  return function(v) { return v; };
+}
+
+function formatTooltip(unit) {
+  if (unit === '%')      return function(c) { return c.raw.toFixed(1) + '%'; };
+  if (unit === 'ZAR bn') return function(c) { return 'R' + c.raw + ' bn'; };
+  if (unit === 'ZAR mn') return function(c) { return (c.raw >= 0 ? '+' : '') + Math.round(c.raw) + ' ZAR mn'; };
+  return function(c) { return c.raw; };
+}
+
+function yScale(cfg) {
+  var s = {
+    ticks: { color: cfg.tickColor || theme.muted, callback: formatTick(cfg.unit) },
+    grid: { color: cfg.grid !== false ? theme.grid : undefined, drawOnChartArea: cfg.grid !== false },
+    title: { display: !!cfg.label, text: cfg.label, color: cfg.titleColor || theme.muted, font: { weight: 'bold' } }
+  };
+  if (cfg.min != null) s.min = cfg.min;
+  if (cfg.max != null) s.max = cfg.max;
+  if (cfg.position) s.position = cfg.position;
+  return s;
+}
+
+var BUILDERS = {
+  fan: function(canvas, cfg, datasets) {
+    var data = datasets[0];
+    var actuals = {};
+    data.labels.forEach(function(l, i) { actuals[l] = data.values[i]; });
+    var maxYear = Math.max.apply(null, Object.keys(data.projections).map(function(k) {
+      return Math.max.apply(null, Object.keys(data.projections[k]).map(Number));
+    }));
+    var allLabels = [];
+    for (var i = 10; i <= maxYear; i++) allLabels.push(String(i));
+    var actualData = allLabels.map(function(l) {
+      var v = actuals[l]; return v != null ? (cfg.negate ? -v : v) : null;
+    });
+    var ds = [{ label: 'Actual', data: actualData, borderColor: theme.accent, borderWidth: 3,
+      pointBackgroundColor: theme.accent, pointRadius: 3, tension: 0, spanGaps: false, order: 0 }];
+    Object.keys(data.projections).forEach(function(vintage) {
+      var pv = data.projections[vintage];
+      var d = allLabels.map(function(l) { var v = pv[l]; return v != null ? (cfg.negate ? -v : v) : null; });
+      ds.push({ label: 'Projection', data: d, borderColor: 'rgba(244,242,236,0.2)', borderWidth: 1,
+        borderDash: [4, 3], pointRadius: 0, tension: 0, spanGaps: false, order: 1 });
+    });
+    new Chart(canvas, { type: 'line', data: { labels: allLabels, datasets: ds }, options: {
+      responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      plugins: { legend: { display: false },
+        title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
+        tooltip: { filter: function(i) { return i.raw !== null; },
+          callbacks: { label: function(c) { return c.dataset.label + ': ' + c.raw.toFixed(1) + '%'; } } } },
+      scales: { x: { ticks: { color: theme.muted }, grid: { color: theme.grid } },
+        y: yScale({ min: 0, max: cfg.yMax, unit: '%', label: cfg.yLabel }) }
+    }});
+  },
+
+  line: function(canvas, cfg, datasets) {
+    var data = datasets[0];
+    var color = cfg.color || theme.accent;
+    var values = applyTransform(data.values, cfg.transform);
+    var fillOpt = cfg.fill ? { target: 'origin', backgroundColor: color.replace(')', ',0.1)').replace('rgb(', 'rgba(') } : false;
+    if (cfg.fill && color === theme.accent) fillOpt = { target: 'origin', backgroundColor: 'rgba(129,182,76,0.1)' };
+    new Chart(canvas, { type: 'line', data: { labels: data.labels, datasets: [{
+      label: cfg.name, data: values, borderColor: color, borderWidth: 3,
+      pointBackgroundColor: color, pointRadius: 3, tension: 0, fill: fillOpt }] }, options: {
+      responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      plugins: { legend: { display: false },
+        title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
+        tooltip: { callbacks: { label: formatTooltip(cfg.unit) } } },
+      scales: { x: { ticks: { color: theme.muted }, grid: { color: theme.grid } },
+        y: yScale({ min: cfg.yMin || 0, max: cfg.yMax, unit: cfg.unit, label: cfg.yLabel }) }
+    }});
+  },
+
+  bar: function(canvas, cfg, datasets) {
+    var data = datasets[0];
+    var values = applyTransform(data.values, cfg.transform);
+    new Chart(canvas, { type: 'bar', data: { labels: data.labels, datasets: [{
+      label: cfg.name, data: values, backgroundColor: 'rgba(129,182,76,0.7)', borderRadius: 3 }] }, options: {
+      responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      plugins: { legend: { display: false },
+        title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
+        tooltip: { callbacks: { label: formatTooltip(cfg.unit) } } },
+      scales: { x: { ticks: { color: theme.muted }, grid: { color: theme.grid } },
+        y: yScale({ min: 0, max: cfg.yMax, unit: cfg.unit, label: cfg.yLabel }) }
+    }});
+  },
+
+  'signed-bar': function(canvas, cfg, datasets) {
+    var data = datasets[0];
+    var colors = data.values.map(function(v) { return v >= 0 ? 'rgba(129,182,76,0.7)' : 'rgba(204,68,68,0.7)'; });
+    new Chart(canvas, { type: 'bar', data: { labels: data.labels, datasets: [{
+      label: cfg.name, data: data.values, backgroundColor: colors, borderRadius: 0,
+      barPercentage: 1.0, categoryPercentage: 1.0 }] }, options: {
+      responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      plugins: { legend: { display: false },
+        title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
+        tooltip: { callbacks: { label: formatTooltip(cfg.unit) } } },
+      scales: { x: { ticks: { color: theme.muted, maxTicksLimit: 12 }, grid: { color: theme.grid } },
+        y: yScale({ unit: cfg.unit, label: cfg.yLabel }) }
+    }});
+  },
+
+  combo: function(canvas, cfg, datasets) {
+    var b = cfg.bar, l = cfg.line;
+    var barColor = b.color || theme.accent;
+    var lineColor = l.color || theme.accent;
+    var barVals = applyTransform(datasets[b.index].values, b.transform);
+    var lineVals = applyTransform(datasets[l.index].values, l.transform);
+    var showLegend = lineColor !== barColor;
+    new Chart(canvas, { type: 'bar', data: { labels: datasets[0].labels, datasets: [
+      { label: b.label, data: barVals, backgroundColor: barColor.indexOf('rgba') === 0 ? barColor : barColor.replace(')', ',0.7)').replace('rgb(', 'rgba('),
+        borderRadius: 3, yAxisID: 'y', order: 1 },
+      { label: l.label, data: lineVals, type: 'line', borderColor: lineColor, borderWidth: 2,
+        pointBackgroundColor: lineColor, pointRadius: 3, tension: 0, yAxisID: 'y1', order: 0 }
+    ]}, options: {
+      responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { display: showLegend, labels: { color: theme.muted } },
+        title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
+        tooltip: { callbacks: { label: function(c) {
+          if (c.dataset.yAxisID === 'y1') return formatTooltip(l.unit)(c);
+          return formatTooltip(b.unit)(c);
+        }}}},
+      scales: { x: { ticks: { color: theme.muted }, grid: { color: theme.grid } },
+        y:  yScale({ position: 'left',  min: 0, max: b.yMax, unit: b.unit, label: b.yLabel, tickColor: barColor }),
+        y1: yScale({ position: 'right', min: 0, max: l.yMax, unit: l.unit, label: l.yLabel, tickColor: lineColor, grid: false }) }
+    }});
+  }
+};
+
+// ── Fetch helpers ──
+function seriesUrl(name) { return API + '?name=' + encodeURIComponent(name); }
+
+function fetchSeries(cfg) {
+  var names = typeof cfg.series === 'string' ? [cfg.series] : cfg.series;
+  var urls = names.map(function(n) { return seriesUrl(n); });
+  if (cfg.projections) urls[0] += '&projections=' + encodeURIComponent(cfg.projections);
+  return Promise.all(urls.map(function(u) { return fetch(u).then(function(r) { return r.json(); }); }));
+}
+
+// ── Build preview sparkline ──
 function buildPreview(canvasId, labels, values) {
   new Chart(document.getElementById(canvasId), {
     type: 'line',
-    data: { labels: labels, datasets: [{ data: values.map(function(v){return Math.abs(v);}), borderColor: '#81b64c', borderWidth: 1.5, pointRadius: 0, tension: 0, fill: false }] },
+    data: { labels: labels, datasets: [{ data: values.map(function(v) { return Math.abs(v); }),
+      borderColor: '#81b64c', borderWidth: 1.5, pointRadius: 0, tension: 0, fill: false }] },
     options: {
       responsive: true, maintainAspectRatio: false, animation: false,
       plugins: { legend: { display: false }, title: { display: false }, tooltip: { enabled: false } },
@@ -230,46 +374,37 @@ function buildPreview(canvasId, labels, values) {
 // ── Build table ──
 (function() {
   var tbody = document.getElementById('chart-table');
+  var typeLabels = { fan: 'Line', line: 'Line', bar: 'Bar', 'signed-bar': 'Bar', combo: 'Bar' };
 
-  CHARTS.forEach(function(chart) {
+  CHARTS.forEach(function(cfg) {
     var tr = document.createElement('tr');
     tr.innerHTML =
-      '<td><div class="td-name">' + chart.name + '</div><div class="td-desc">' + chart.description + '</div></td>' +
-      '<td><span class="td-type">' + chart.type + '</span></td>' +
-      '<td class="td-source">' + chart.source + '</td>' +
-      '<td class="td-preview"><canvas id="preview-' + chart.id + '"></canvas></td>';
+      '<td><div class="td-name">' + cfg.name + '</div><div class="td-desc">' + cfg.description + '</div></td>' +
+      '<td><span class="td-type">' + (typeLabels[cfg.chart] || cfg.chart) + '</span></td>' +
+      '<td class="td-source">' + cfg.source + '</td>' +
+      '<td class="td-preview"><canvas id="preview-' + cfg.id + '"></canvas></td>';
 
     var detail = document.createElement('tr');
     detail.className = 'chart-detail';
-    detail.id = 'detail-' + chart.id;
-    detail.innerHTML = '<td colspan="4"><canvas id="full-' + chart.id + '"></canvas></td>';
+    detail.id = 'detail-' + cfg.id;
+    detail.innerHTML = '<td colspan="4"><canvas id="full-' + cfg.id + '"></canvas></td>';
 
-    // Cache fetched data
-    chart._data = null;
-    chart._fetching = null;
+    cfg._data = null;
+    cfg._fetching = null;
 
     function fetchData() {
-      if (chart._data) return Promise.resolve(chart._data);
-      if (chart._fetching) return chart._fetching;
-      if (!chart.api) return Promise.resolve(null);
-      chart._fetching = fetch(chart.api).then(function(r){return r.json();}).then(function(d){
-        chart._data = d;
-        return d;
-      });
-      return chart._fetching;
+      if (cfg._data) return Promise.resolve(cfg._data);
+      if (cfg._fetching) return cfg._fetching;
+      cfg._fetching = fetchSeries(cfg).then(function(d) { cfg._data = d; return d; });
+      return cfg._fetching;
     }
 
-    // Fetch data for preview
-    if (chart.api) {
-      fetchData().then(function(data) {
-        if (data) buildPreview('preview-' + chart.id, data.labels, data.values);
-      });
-    } else {
-      // Flow chart: fetch deficit series for preview
-      fetch(API + '?name=Main+budget+deficit').then(function(r){return r.json();}).then(function(d){
-        buildPreview('preview-' + chart.id, d.labels, d.values.map(function(v){return v/1000;}));
-      });
-    }
+    // Preview: use previewSeries if specified, otherwise first series
+    var previewName = cfg.previewSeries || (typeof cfg.series === 'string' ? cfg.series : cfg.series[0]);
+    fetch(seriesUrl(previewName)).then(function(r) { return r.json(); }).then(function(d) {
+      var vals = cfg.transform === '/1000' ? d.values.map(function(v) { return v / 1000; }) : d.values;
+      buildPreview('preview-' + cfg.id, d.labels, vals);
+    });
 
     tr.addEventListener('click', function() {
       var isOpen = detail.classList.contains('open');
@@ -278,12 +413,9 @@ function buildPreview(canvasId, labels, values) {
         detail.classList.add('open');
         if (!detail._built) {
           detail._built = true;
-          var canvas = document.getElementById('full-' + chart.id);
-          if (chart.api) {
-            fetchData().then(function(data) { chart.build(canvas, data); });
-          } else {
-            chart.build(canvas);
-          }
+          fetchData().then(function(datasets) {
+            BUILDERS[cfg.chart](document.getElementById('full-' + cfg.id), cfg, datasets);
+          });
         }
       }
     });
