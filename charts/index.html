@@ -66,6 +66,59 @@
   }
   .chart-detail canvas { max-height: 50vh; }
 
+  /* ── Mode toggle ── */
+  .mode-toggle {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .mode-toggle button {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 6px 16px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .mode-toggle button.active {
+    background: var(--accent);
+    color: #1a1714;
+  }
+  .mode-toggle button:not(.active):hover {
+    background: rgba(129,182,76,0.1);
+    color: var(--text);
+  }
+
+  /* ── Animated controls ── */
+  .anim-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .anim-controls button {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .anim-controls button:hover { border-color: var(--accent); }
+  .anim-vintage {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
   @media (max-width: 600px) {
     .td-preview { display: none; }
     thead th:last-child, tbody td:last-child { display: none; }
@@ -123,7 +176,8 @@ var CHARTS = [
     title: 'Main Budget Deficit — % of GDP',
     yLabel: 'Deficit %',
     yMax: 16,
-    negate: true
+    negate: true,
+    animated: true
   },
   {
     id: 'flow',
@@ -148,7 +202,8 @@ var CHARTS = [
     title: 'Gross Debt-to-GDP Ratio — %',
     yLabel: 'Debt / GDP %',
     yMax: 90,
-    negate: false
+    negate: false,
+    animated: true
   },
   {
     id: 'foreign',
@@ -272,6 +327,82 @@ var BUILDERS = {
     }});
   },
 
+  'fan-animated': function(canvas, cfg, datasets) {
+    var data = datasets[0];
+    var actuals = {};
+    data.labels.forEach(function(l, i) { actuals[l] = data.values[i]; });
+    var vintageKeys = Object.keys(data.projections).sort();
+    var maxYear = Math.max.apply(null, vintageKeys.map(function(k) {
+      return Math.max.apply(null, Object.keys(data.projections[k]).map(Number));
+    }));
+    var allLabels = [];
+    for (var i = 10; i <= maxYear; i++) allLabels.push(String(i));
+    var actualData = allLabels.map(function(l) {
+      var v = actuals[l]; return v != null ? (cfg.negate ? -v : v) : null;
+    });
+
+    var chart = new Chart(canvas, { type: 'line', data: { labels: allLabels, datasets: [
+      { label: 'Actual', data: actualData, borderColor: theme.accent, borderWidth: 3,
+        pointBackgroundColor: theme.accent, pointRadius: 3, tension: 0, spanGaps: false, order: 0 }
+    ]}, options: {
+      responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      animation: { duration: 400 },
+      plugins: { legend: { display: false },
+        title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
+        tooltip: { filter: function(i) { return i.raw !== null; },
+          callbacks: { label: function(c) { return c.dataset.label + ': ' + c.raw.toFixed(1) + '%'; } } } },
+      scales: { x: { ticks: { color: theme.muted }, grid: { color: theme.grid } },
+        y: yScale({ min: 0, max: cfg.yMax, unit: '%', label: cfg.yLabel }) }
+    }});
+
+    var currentIdx = 0;
+    var timer = null;
+    var controls = canvas.parentNode.querySelector('.anim-controls');
+    var vintageLabel = controls.querySelector('.anim-vintage');
+    var playBtn = controls.querySelector('.anim-play');
+    var stepBtn = controls.querySelector('.anim-step');
+    var resetBtn = controls.querySelector('.anim-reset');
+
+    function addVintage(idx) {
+      if (idx >= vintageKeys.length) { stopPlay(); return; }
+      var vintage = vintageKeys[idx];
+      var pv = data.projections[vintage];
+      var d = allLabels.map(function(l) { var v = pv[l]; return v != null ? (cfg.negate ? -v : v) : null; });
+      chart.data.datasets.push({ label: vintage, data: d, borderColor: 'rgba(244,242,236,0.25)', borderWidth: 1,
+        borderDash: [4, 3], pointRadius: 0, tension: 0, spanGaps: false, order: 1 });
+      chart.update();
+      currentIdx = idx + 1;
+      vintageLabel.textContent = 'Budget ' + vintage + '  (' + currentIdx + '/' + vintageKeys.length + ')';
+    }
+
+    function startPlay() {
+      if (currentIdx >= vintageKeys.length) { resetAll(); }
+      playBtn.textContent = '⏸ Pause';
+      timer = setInterval(function() {
+        if (currentIdx >= vintageKeys.length) { stopPlay(); return; }
+        addVintage(currentIdx);
+      }, 600);
+    }
+
+    function stopPlay() {
+      clearInterval(timer); timer = null;
+      playBtn.textContent = '▶ Play';
+    }
+
+    function resetAll() {
+      stopPlay();
+      chart.data.datasets = [chart.data.datasets[0]];
+      chart.update();
+      currentIdx = 0;
+      vintageLabel.textContent = '';
+    }
+
+    playBtn.addEventListener('click', function() { timer ? stopPlay() : startPlay(); });
+    stepBtn.addEventListener('click', function() { stopPlay(); if (currentIdx < vintageKeys.length) addVintage(currentIdx); });
+    resetBtn.addEventListener('click', resetAll);
+    controls.style.display = 'flex';
+  },
+
   line: function(canvas, cfg, datasets) {
     var data = datasets[0];
     var color = cfg.color || theme.accent;
@@ -374,7 +505,7 @@ function buildPreview(canvasId, labels, values) {
 // ── Build table ──
 (function() {
   var tbody = document.getElementById('chart-table');
-  var typeLabels = { fan: 'Line', line: 'Line', bar: 'Bar', 'signed-bar': 'Bar', combo: 'Bar' };
+  var typeLabels = { fan: 'Fan', line: 'Line', bar: 'Bar', 'signed-bar': 'Bar', combo: 'Combo' };
 
   CHARTS.forEach(function(cfg) {
     var tr = document.createElement('tr');
@@ -387,7 +518,25 @@ function buildPreview(canvasId, labels, values) {
     var detail = document.createElement('tr');
     detail.className = 'chart-detail';
     detail.id = 'detail-' + cfg.id;
-    detail.innerHTML = '<td colspan="4"><canvas id="full-' + cfg.id + '"></canvas></td>';
+
+    var detailHTML = '<td colspan="4">';
+    if (cfg.animated) {
+      detailHTML += '<div class="mode-toggle">' +
+        '<button class="mode-btn active" data-mode="static">Static</button>' +
+        '<button class="mode-btn" data-mode="animated">Animated</button></div>';
+    }
+    detailHTML += '<div class="chart-pane chart-pane-static"><canvas id="full-' + cfg.id + '"></canvas></div>';
+    if (cfg.animated) {
+      detailHTML += '<div class="chart-pane chart-pane-animated" style="display:none;">' +
+        '<canvas id="anim-' + cfg.id + '"></canvas>' +
+        '<div class="anim-controls" style="display:none;">' +
+        '<button class="anim-play">▶ Play</button>' +
+        '<button class="anim-step">Step →</button>' +
+        '<button class="anim-reset">Reset</button>' +
+        '<span class="anim-vintage"></span></div></div>';
+    }
+    detailHTML += '</td>';
+    detail.innerHTML = detailHTML;
 
     cfg._data = null;
     cfg._fetching = null;
@@ -397,6 +546,34 @@ function buildPreview(canvasId, labels, values) {
       if (cfg._fetching) return cfg._fetching;
       cfg._fetching = fetchSeries(cfg).then(function(d) { cfg._data = d; return d; });
       return cfg._fetching;
+    }
+
+    // Toggle handling
+    if (cfg.animated) {
+      var btns = detail.querySelectorAll('.mode-btn');
+      var staticPane = detail.querySelector('.chart-pane-static');
+      var animPane = detail.querySelector('.chart-pane-animated');
+      var animBuilt = false;
+      btns.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          btns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          if (btn.dataset.mode === 'static') {
+            staticPane.style.display = '';
+            animPane.style.display = 'none';
+          } else {
+            staticPane.style.display = 'none';
+            animPane.style.display = '';
+            if (!animBuilt) {
+              animBuilt = true;
+              fetchData().then(function(datasets) {
+                BUILDERS['fan-animated'](document.getElementById('anim-' + cfg.id), cfg, datasets);
+              });
+            }
+          }
+        });
+      });
     }
 
     // Preview: use previewSeries if specified, otherwise first series
