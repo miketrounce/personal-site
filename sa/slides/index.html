@@ -119,6 +119,7 @@
 
 <script>
 var API = 'https://api.miketrounce.com/api/series/';
+function commas(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
 
 var SLIDE_DATA = [
   {
@@ -149,10 +150,10 @@ var SLIDE_DATA = [
       var chart = new Chart(canvas, {type:'line', data:{labels:allLabels, datasets:[
         {label:'Actual deficit (% of GDP)', data:actuals, borderColor:'#81b64c', borderWidth:3, pointBackgroundColor:'#81b64c', pointRadius:3, tension:0, spanGaps:false, order:0}
       ]}, options:{responsive:true, maintainAspectRatio:true, aspectRatio:1.6, animation:{duration:400},
-        plugins:{legend:{display:false}, title:{display:true, text:['Main Budget Deficit','Fiscal years ending March'], color:'#f4f2ec', font:{size:14, weight:'bold'}},
+        plugins:{legend:{display:false}, title:{display:true, text:'Main Budget Deficit', color:'#f4f2ec', font:{size:14, weight:'bold'}},
           tooltip:{filter:function(i){return i.raw!==null;}, callbacks:{label:function(c){return c.dataset.label+': '+c.raw.toFixed(1)+'%';}}}},
         scales:{x:{ticks:{color:'#b8b0a4'}, grid:{color:'rgba(69,64,58,0.5)'}},
-          y:{min:0, max:16, ticks:{color:'#b8b0a4', callback:function(v){return v+'%';}}, grid:{color:'rgba(69,64,58,0.5)'}, title:{display:true, text:'Deficit %', color:'#7a7368', font:{weight:'bold'}}}}}});
+          y:{min:0, max:16, ticks:{color:'#b8b0a4'}, grid:{color:'rgba(69,64,58,0.5)'}}}}});
       var pIdx = 0;
       var interval = setInterval(function() {
         if (pIdx >= projections.length) { clearInterval(interval); return; }
@@ -211,14 +212,14 @@ var SLIDE_DATA = [
                 layout:{padding:{top:20}},
                 interaction:{mode:'index', intersect:false},
                 plugins:{legend:{display:false},
-                  title:{display:true, text:'Gross Loan Debt & Debt-to-GDP Ratio', color:'#f4f2ec', font:{size:14, weight:'bold'}},
+                  title:{display:true, text:'Gross Loan Debt & Debt-to-GDP', color:'#f4f2ec', font:{size:14, weight:'bold'}},
                   tooltip:{callbacks:{label:function(c){
                     if (c.dataset.yAxisID==='y1') return c.raw.toFixed(1)+'%';
                     return 'R'+c.raw+' bn';
                   }}}},
                 scales:{x:{ticks:{color:'#b8b0a4'}, grid:{color:'rgba(69,64,58,0.5)'}},
-                  y:{position:'left', min:0, ticks:{color:'#81b64c'}, grid:{color:'rgba(69,64,58,0.5)'}},
-                  y1:{position:'right', min:0, max:90, ticks:{color:'#e8c547'}, grid:{drawOnChartArea:false}}
+                  y:{position:'left', min:0, ticks:{color:'#81b64c', callback:function(v){return commas(v);}}, grid:{color:'rgba(69,64,58,0.5)'}},
+                  y1:{position:'right', min:0, max:90, ticks:{color:'#e8c547', callback:function(v){return commas(v);}}, grid:{drawOnChartArea:false}}
                 }}, plugins:[axisTopLabels]});
             });
         });
