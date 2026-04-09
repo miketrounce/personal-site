@@ -251,6 +251,27 @@ var CHARTS = [
     title: 'Net Foreign Bond Purchases',
     yLabel: 'ZAR mn',
     unit: 'ZAR mn'
+  },
+  {
+    id: 'investor-composition',
+    name: 'Investor Base Composition',
+    description: 'Holdings of SA government bonds by investor category (% of total)',
+    chart: 'stacked-area',
+    source: 'SA Macro',
+    series: [
+      'Bond holdings: Non-residents',
+      'Bond holdings: Banks',
+      'Bond holdings: Pension funds',
+      'Bond holdings: Insurers',
+      'Bond holdings: Other financial',
+      'Bond holdings: Other'
+    ],
+    title: 'Investor Base Composition',
+    yLabel: '% of total',
+    yMax: 100,
+    unit: '%',
+    seriesLabels: ['Non-residents', 'Banks', 'Pension funds', 'Insurers', 'Other financial', 'Other'],
+    seriesColors: ['#81b64c', '#e8c547', '#6fb5ff', '#e0976e', '#b48cff', '#7a7368']
   }
 ];
 
@@ -289,6 +310,7 @@ function yScale(cfg) {
   if (cfg.min != null) s.min = cfg.min;
   if (cfg.max != null) s.max = cfg.max;
   if (cfg.position) s.position = cfg.position;
+  if (cfg.stacked) s.stacked = true;
   return s;
 }
 
@@ -514,6 +536,41 @@ var BUILDERS = {
         y:  yScale({ position: 'left',  min: 0, max: b.yMax, unit: b.unit, tickColor: barColor }),
         y1: yScale({ position: 'right', min: 0, max: l.yMax, unit: l.unit, tickColor: lineColor, grid: false }) }
     }, plugins: [axisTopLabels] });
+  },
+
+  'stacked-area': function(canvas, cfg, datasets) {
+    var labels = datasets[0].labels;
+    var ds = datasets.map(function(d, i) {
+      return {
+        label: cfg.seriesLabels[i],
+        data: d.values,
+        backgroundColor: cfg.seriesColors[i].replace(')', ',0.6)').replace('#', function() {
+          var hex = cfg.seriesColors[i].slice(1);
+          var r = parseInt(hex.substr(0,2),16), g = parseInt(hex.substr(2,2),16), b = parseInt(hex.substr(4,2),16);
+          return 'rgba(' + r + ',' + g + ',' + b + ',0.6)';
+        }),
+        borderColor: cfg.seriesColors[i],
+        borderWidth: 1,
+        fill: true,
+        pointRadius: 0,
+        tension: 0
+      };
+    });
+    // Fix backgroundColor — the replace trick above doesn't work cleanly, so set directly
+    ds.forEach(function(d, i) {
+      var hex = cfg.seriesColors[i].slice(1);
+      var r = parseInt(hex.substr(0,2),16), g = parseInt(hex.substr(2,2),16), b = parseInt(hex.substr(4,2),16);
+      d.backgroundColor = 'rgba(' + r + ',' + g + ',' + b + ',0.6)';
+    });
+    new Chart(canvas, { type: 'line', data: { labels: labels, datasets: ds }, options: {
+      responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      layout: { padding: { top: 20 } },
+      plugins: { legend: { display: true, position: 'bottom', labels: { color: theme.muted, boxWidth: 12, padding: 12, font: { size: 10 } } },
+        title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
+        tooltip: { mode: 'index', callbacks: { label: function(c) { return c.dataset.label + ': ' + c.raw.toFixed(1) + '%'; } } } },
+      scales: { x: { ticks: { color: theme.muted, maxTicksLimit: 20 }, grid: { color: theme.grid } },
+        y: yScale({ min: 0, max: cfg.yMax, unit: cfg.unit, stacked: true }) }
+    }, plugins: [singleAxisLabel(cfg.yLabel, theme.muted)] });
   }
 };
 
