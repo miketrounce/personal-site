@@ -135,7 +135,6 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Type</th>
         <th>Source</th>
         <th>Preview</th>
       </tr>
@@ -170,7 +169,7 @@ var CHARTS = [
     name: 'Main Budget Deficit — Fan Chart',
     description: 'Deficit as % of GDP with projections from every National Budget Review (2011–2026)',
     chart: 'fan',
-    source: 'National Treasury',
+    source: 'SA Macro',
     series: 'Main budget balance',
     projections: 'Main budget balance (projection)',
     title: 'Main Budget Deficit — % of GDP',
@@ -184,7 +183,7 @@ var CHARTS = [
     name: 'Supply (Flow) — Deficit in ZAR & USD',
     description: 'Annual deficit in ZAR billions (bars) with % of GDP overlay.',
     chart: 'combo',
-    source: 'National Treasury',
+    source: 'SA Macro',
     series: ['Main budget deficit', 'Main budget balance'],
     title: 'Main Budget Deficit — ZAR bn & % of GDP',
     bar:  { label: 'ZAR bn',   index: 0, transform: '/1000', yLabel: 'ZAR bn',    unit: 'ZAR bn' },
@@ -196,7 +195,7 @@ var CHARTS = [
     name: 'Gross Debt-to-GDP Ratio — Fan Chart',
     description: 'Gross loan debt as % of GDP with projections from every National Budget Review (2013–2026)',
     chart: 'fan',
-    source: 'National Treasury',
+    source: 'SA Macro',
     series: 'Gross debt-to-GDP ratio',
     projections: 'Gross debt-to-GDP ratio (projection)',
     title: 'Gross Debt-to-GDP Ratio — %',
@@ -210,7 +209,7 @@ var CHARTS = [
     name: 'Foreign Holdings of Government Bonds',
     description: 'Non-resident share of outstanding government bonds (% of total)',
     chart: 'line',
-    source: 'National Treasury',
+    source: 'SA Macro',
     series: 'Foreign holdings of government bonds',
     title: 'Foreign Holdings — % of Total Outstanding',
     yLabel: '% of total',
@@ -223,7 +222,7 @@ var CHARTS = [
     name: 'Gross Loan Debt',
     description: 'Total gross loan debt of national government in ZAR billions',
     chart: 'bar',
-    source: 'National Treasury',
+    source: 'SA Macro',
     series: 'Gross loan debt of national government',
     title: 'Gross Loan Debt — ZAR bn',
     yLabel: 'ZAR billions',
@@ -235,7 +234,7 @@ var CHARTS = [
     name: 'Debt Level vs Debt-to-GDP',
     description: 'Gross loan debt (ZAR bn) alongside debt-to-GDP ratio (%)',
     chart: 'combo',
-    source: 'National Treasury',
+    source: 'SA Macro',
     series: ['Gross loan debt of national government', 'Gross debt-to-GDP ratio'],
     title: 'Gross Loan Debt & Debt-to-GDP Ratio',
     bar:  { label: 'ZAR bn',     index: 0, transform: '/1000', yLabel: 'ZAR bn',       unit: 'ZAR bn' },
@@ -247,7 +246,7 @@ var CHARTS = [
     name: 'Net Foreign Bond Flows — Daily',
     description: 'Daily net foreign purchases of SA government bonds (Bloomberg SABO Index)',
     chart: 'signed-bar',
-    source: 'Bloomberg',
+    source: 'SA Macro',
     series: 'SA Net Bond Sales to Foreigners',
     title: 'SABO Index — Daily Net Foreign Bond Purchases',
     yLabel: 'ZAR millions',
@@ -286,13 +285,29 @@ function formatTooltip(unit) {
 function yScale(cfg) {
   var s = {
     ticks: { color: cfg.tickColor || theme.muted, callback: formatTick(cfg.unit) },
-    grid: { color: cfg.grid !== false ? theme.grid : undefined, drawOnChartArea: cfg.grid !== false },
-    title: { display: !!cfg.label, text: cfg.label, color: cfg.titleColor || theme.muted, font: { weight: 'bold' } }
+    grid: { color: cfg.grid !== false ? theme.grid : undefined, drawOnChartArea: cfg.grid !== false }
   };
   if (cfg.min != null) s.min = cfg.min;
   if (cfg.max != null) s.max = cfg.max;
   if (cfg.position) s.position = cfg.position;
   return s;
+}
+
+function singleAxisLabel(label, color) {
+  return {
+    id: 'singleAxisLabel',
+    afterDraw: function(chart) {
+      var ctx = chart.ctx;
+      var y = chart.scales.y;
+      ctx.save();
+      ctx.font = 'bold 11px -apple-system, system-ui, sans-serif';
+      ctx.textBaseline = 'bottom';
+      ctx.fillStyle = color || theme.muted;
+      ctx.textAlign = 'left';
+      ctx.fillText(label, y.left, y.top - 8);
+      ctx.restore();
+    }
+  };
 }
 
 var BUILDERS = {
@@ -318,13 +333,14 @@ var BUILDERS = {
     });
     new Chart(canvas, { type: 'line', data: { labels: allLabels, datasets: ds }, options: {
       responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      layout: { padding: { top: 20 } },
       plugins: { legend: { display: false },
         title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
         tooltip: { filter: function(i) { return i.raw !== null; },
           callbacks: { label: function(c) { return c.dataset.label + ': ' + c.raw.toFixed(1) + '%'; } } } },
       scales: { x: { ticks: { color: theme.muted }, grid: { color: theme.grid } },
-        y: yScale({ min: 0, max: cfg.yMax, unit: '%', label: cfg.yLabel }) }
-    }});
+        y: yScale({ min: 0, max: cfg.yMax, unit: '%' }) }
+    }, plugins: [singleAxisLabel(cfg.yLabel, theme.accent)] });
   },
 
   'fan-animated': function(canvas, cfg, datasets) {
@@ -346,14 +362,15 @@ var BUILDERS = {
         pointBackgroundColor: theme.accent, pointRadius: 3, tension: 0, spanGaps: false, order: 0 }
     ]}, options: {
       responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      layout: { padding: { top: 20 } },
       animation: { duration: 400 },
       plugins: { legend: { display: false },
         title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
         tooltip: { filter: function(i) { return i.raw !== null; },
           callbacks: { label: function(c) { return c.dataset.label + ': ' + c.raw.toFixed(1) + '%'; } } } },
       scales: { x: { ticks: { color: theme.muted }, grid: { color: theme.grid } },
-        y: yScale({ min: 0, max: cfg.yMax, unit: '%', label: cfg.yLabel }) }
-    }});
+        y: yScale({ min: 0, max: cfg.yMax, unit: '%' }) }
+    }, plugins: [singleAxisLabel(cfg.yLabel, theme.accent)] });
 
     var currentIdx = 0;
     var timer = null;
@@ -413,12 +430,13 @@ var BUILDERS = {
       label: cfg.name, data: values, borderColor: color, borderWidth: 3,
       pointBackgroundColor: color, pointRadius: 3, tension: 0, fill: fillOpt }] }, options: {
       responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      layout: { padding: { top: 20 } },
       plugins: { legend: { display: false },
         title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
         tooltip: { callbacks: { label: formatTooltip(cfg.unit) } } },
       scales: { x: { ticks: { color: theme.muted }, grid: { color: theme.grid } },
-        y: yScale({ min: cfg.yMin || 0, max: cfg.yMax, unit: cfg.unit, label: cfg.yLabel }) }
-    }});
+        y: yScale({ min: cfg.yMin || 0, max: cfg.yMax, unit: cfg.unit }) }
+    }, plugins: [singleAxisLabel(cfg.yLabel, color)] });
   },
 
   bar: function(canvas, cfg, datasets) {
@@ -427,12 +445,13 @@ var BUILDERS = {
     new Chart(canvas, { type: 'bar', data: { labels: data.labels, datasets: [{
       label: cfg.name, data: values, backgroundColor: 'rgba(129,182,76,0.7)', borderRadius: 3 }] }, options: {
       responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      layout: { padding: { top: 20 } },
       plugins: { legend: { display: false },
         title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
         tooltip: { callbacks: { label: formatTooltip(cfg.unit) } } },
       scales: { x: { ticks: { color: theme.muted }, grid: { color: theme.grid } },
-        y: yScale({ min: 0, max: cfg.yMax, unit: cfg.unit, label: cfg.yLabel }) }
-    }});
+        y: yScale({ min: 0, max: cfg.yMax, unit: cfg.unit }) }
+    }, plugins: [singleAxisLabel(cfg.yLabel, theme.accent)] });
   },
 
   'signed-bar': function(canvas, cfg, datasets) {
@@ -442,12 +461,13 @@ var BUILDERS = {
       label: cfg.name, data: data.values, backgroundColor: colors, borderRadius: 0,
       barPercentage: 1.0, categoryPercentage: 1.0 }] }, options: {
       responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+      layout: { padding: { top: 20 } },
       plugins: { legend: { display: false },
         title: { display: true, text: cfg.title, color: theme.text, font: { size: 14, weight: 'bold' } },
         tooltip: { callbacks: { label: formatTooltip(cfg.unit) } } },
       scales: { x: { ticks: { color: theme.muted, maxTicksLimit: 12 }, grid: { color: theme.grid } },
-        y: yScale({ unit: cfg.unit, label: cfg.yLabel }) }
-    }});
+        y: yScale({ unit: cfg.unit }) }
+    }, plugins: [singleAxisLabel(cfg.yLabel, theme.muted)] });
   },
 
   combo: function(canvas, cfg, datasets) {
@@ -507,11 +527,15 @@ function fetchSeries(cfg) {
 }
 
 // ── Build preview sparkline ──
-function buildPreview(canvasId, labels, values) {
+function buildPreview(canvasId, labels, values, chartType) {
+  var isBar = chartType === 'bar' || chartType === 'signed-bar' || chartType === 'combo';
+  var absVals = values.map(function(v) { return Math.abs(v); });
+  var dataset = isBar
+    ? { data: absVals, backgroundColor: 'rgba(129,182,76,0.7)', borderRadius: 1 }
+    : { data: absVals, borderColor: '#81b64c', borderWidth: 1.5, pointRadius: 0, tension: 0, fill: false };
   new Chart(document.getElementById(canvasId), {
-    type: 'line',
-    data: { labels: labels, datasets: [{ data: values.map(function(v) { return Math.abs(v); }),
-      borderColor: '#81b64c', borderWidth: 1.5, pointRadius: 0, tension: 0, fill: false }] },
+    type: isBar ? 'bar' : 'line',
+    data: { labels: labels, datasets: [dataset] },
     options: {
       responsive: true, maintainAspectRatio: false, animation: false,
       plugins: { legend: { display: false }, title: { display: false }, tooltip: { enabled: false } },
@@ -529,15 +553,14 @@ function buildPreview(canvasId, labels, values) {
     var tr = document.createElement('tr');
     tr.innerHTML =
       '<td><div class="td-name">' + cfg.name + '</div><div class="td-desc">' + cfg.description + '</div></td>' +
-      '<td><span class="td-type">' + (typeLabels[cfg.chart] || cfg.chart) + '</span></td>' +
-      '<td class="td-source">' + cfg.source + '</td>' +
+      '<td><span class="td-type">' + cfg.source + '</span></td>' +
       '<td class="td-preview"><canvas id="preview-' + cfg.id + '"></canvas></td>';
 
     var detail = document.createElement('tr');
     detail.className = 'chart-detail';
     detail.id = 'detail-' + cfg.id;
 
-    var detailHTML = '<td colspan="4">';
+    var detailHTML = '<td colspan="3">';
     if (cfg.animated) {
       detailHTML += '<div class="mode-toggle">' +
         '<button class="mode-btn active" data-mode="static">Static</button>' +
@@ -598,7 +621,7 @@ function buildPreview(canvasId, labels, values) {
     var previewName = cfg.previewSeries || (typeof cfg.series === 'string' ? cfg.series : cfg.series[0]);
     fetch(seriesUrl(previewName)).then(function(r) { return r.json(); }).then(function(d) {
       var vals = cfg.transform === '/1000' ? d.values.map(function(v) { return v / 1000; }) : d.values;
-      buildPreview('preview-' + cfg.id, d.labels, vals);
+      buildPreview('preview-' + cfg.id, d.labels, vals, cfg.chart);
     });
 
     tr.addEventListener('click', function() {
