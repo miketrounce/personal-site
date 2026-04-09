@@ -157,6 +157,60 @@ var CHARTS = [
       var actuals = {}; data.labels.forEach(function(l,i){ actuals[l] = data.values[i]; });
       buildFanChart(canvas, 'Gross Debt-to-GDP Ratio — %', 'Debt / GDP %', 90, actuals, data.projections, false);
     }
+  },
+  {
+    id: 'foreign',
+    name: 'Foreign Holdings of Government Bonds',
+    description: 'Non-resident share of outstanding government bonds (% of total)',
+    type: 'Line',
+    source: 'National Treasury',
+    api: API + '?name=Foreign+holdings+of+government+bonds',
+    build: function(canvas, data) {
+      new Chart(canvas,{type:'line',data:{labels:data.labels,datasets:[{label:'Foreign holdings (% of total)',data:data.values,borderColor:'#81b64c',borderWidth:3,pointBackgroundColor:'#81b64c',pointRadius:3,tension:0,fill:{target:'origin',backgroundColor:'rgba(129,182,76,0.1)'}}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,plugins:{legend:{display:false},title:{display:true,text:'Foreign Holdings — % of Total Outstanding',color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{callbacks:{label:function(c){return c.raw.toFixed(1)+'%';}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{min:0,max:40,ticks:{color:'#b8b0a4',callback:function(v){return v+'%';}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'% of total',color:'#7a7368',font:{weight:'bold'}}}}}});
+    }
+  },
+  {
+    id: 'loandebt',
+    name: 'Gross Loan Debt',
+    description: 'Total gross loan debt of national government in ZAR billions',
+    type: 'Bar',
+    source: 'National Treasury',
+    api: API + '?name=Gross+loan+debt+of+national+government',
+    build: function(canvas, data) {
+      var zarBn = data.values.map(function(v){ return Math.round(v / 1000); });
+      new Chart(canvas,{type:'bar',data:{labels:data.labels,datasets:[{label:'ZAR bn',data:zarBn,backgroundColor:'rgba(129,182,76,0.7)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,plugins:{legend:{display:false},title:{display:true,text:'Gross Loan Debt — ZAR bn',color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{callbacks:{label:function(c){return 'R'+c.raw+' bn';}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{min:0,ticks:{color:'#b8b0a4',callback:function(v){return 'R'+v+' bn';}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'ZAR billions',color:'#7a7368',font:{weight:'bold'}}}}}});
+    }
+  },
+  {
+    id: 'debtcombo',
+    name: 'Debt Level vs Debt-to-GDP',
+    description: 'Gross loan debt (ZAR bn) alongside debt-to-GDP ratio (%)',
+    type: 'Bar',
+    source: 'National Treasury',
+    api: null,
+    build: function(canvas) {
+      Promise.all([
+        fetch(API + '?name=Gross+loan+debt+of+national+government').then(function(r){return r.json();}),
+        fetch(API + '?name=Gross+debt-to-GDP+ratio').then(function(r){return r.json();})
+      ]).then(function(results) {
+        var debt = results[0], ratio = results[1];
+        var zarBn = debt.values.map(function(v){ return Math.round(v / 1000); });
+        new Chart(canvas,{type:'bar',data:{labels:debt.labels,datasets:[{label:'ZAR bn',data:zarBn,backgroundColor:'rgba(129,182,76,0.7)',borderRadius:3,yAxisID:'y',order:1},{label:'Debt/GDP %',data:ratio.values,type:'line',borderColor:'#e8c547',borderWidth:2,pointBackgroundColor:'#e8c547',pointRadius:3,tension:0,yAxisID:'y1',order:0}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:'#b8b0a4'}},title:{display:true,text:'Gross Loan Debt & Debt-to-GDP Ratio',color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{callbacks:{label:function(c){if(c.dataset.yAxisID==='y1')return c.raw.toFixed(1)+'% of GDP';return 'R'+c.raw+' bn';}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{position:'left',min:0,ticks:{color:'#81b64c',callback:function(v){return 'R'+v;}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'ZAR bn',color:'#81b64c',font:{weight:'bold'}}},y1:{position:'right',min:0,max:90,ticks:{color:'#e8c547',callback:function(v){return v+'%';}},grid:{drawOnChartArea:false},title:{display:true,text:'Debt / GDP %',color:'#e8c547',font:{weight:'bold'}}}}}});
+      });
+    }
+  },
+  {
+    id: 'sabo',
+    name: 'Net Foreign Bond Flows — Daily',
+    description: 'Daily net foreign purchases of SA government bonds (Bloomberg SABO Index)',
+    type: 'Bar',
+    source: 'Bloomberg',
+    api: API + '?name=SA+Net+Bond+Sales+to+Foreigners',
+    build: function(canvas, data) {
+      var chartData = data.values.map(function(v,i){ return {x:data.labels[i],y:v}; });
+      var colors = data.values.map(function(v){ return v >= 0 ? 'rgba(129,182,76,0.7)' : 'rgba(204,68,68,0.7)'; });
+      new Chart(canvas,{type:'bar',data:{labels:data.labels,datasets:[{label:'Net purchases (ZAR mn)',data:data.values,backgroundColor:colors,borderRadius:0,barPercentage:1.0,categoryPercentage:1.0}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,plugins:{legend:{display:false},title:{display:true,text:'SABO Index — Daily Net Foreign Bond Purchases',color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{callbacks:{label:function(c){return (c.raw>=0?'+':'')+Math.round(c.raw)+' ZAR mn';}}}},scales:{x:{ticks:{color:'#b8b0a4',maxTicksLimit:12},grid:{color:'rgba(69,64,58,0.5)'}},y:{ticks:{color:'#b8b0a4',callback:function(v){return v/1000+'k';}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'ZAR millions',color:'#7a7368',font:{weight:'bold'}}}}}});
+    }
   }
 ];
 
