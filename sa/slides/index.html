@@ -14,20 +14,20 @@
   body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
 
   /* ── Navigation ── */
-  .nav { padding: 20px 32px; }
+  .nav { position: absolute; top: 0; left: 0; padding: 20px 32px; z-index: 10; }
   .back-link { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
   .back-link:hover { color: var(--text); }
 
   /* ── Slide container ── */
-  .slide-viewport { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 60px); padding: 0 32px 32px; }
+  .slide-viewport { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; padding: 0 64px; }
 
   /* ── Slide template — defines the ONLY layout a slide can have ── */
   .slide {
     width: 100%;
-    max-width: 960px;
+    max-width: 1400px;
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 32px;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 64px;
     align-items: center;
   }
   .slide-text {
@@ -79,7 +79,7 @@
     justify-content: center;
   }
   .slide-chart canvas {
-    max-height: 60vh;
+    max-height: 75vh;
   }
 
   /* ── Mobile ── */
