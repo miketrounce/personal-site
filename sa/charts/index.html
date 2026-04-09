@@ -270,8 +270,8 @@ function applyTransform(values, transform) {
 }
 
 function formatTick(unit) {
-  if (unit === '%')      return function(v) { return v + '%'; };
-  if (unit === 'ZAR bn') return function(v) { return 'R' + v + ' bn'; };
+  if (unit === '%')      return function(v) { return v; };
+  if (unit === 'ZAR bn') return function(v) { return v; };
   if (unit === 'ZAR mn') return function(v) { return v / 1000 + 'k'; };
   return function(v) { return v; };
 }
