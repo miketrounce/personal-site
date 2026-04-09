@@ -455,7 +455,7 @@ var BUILDERS = {
 
   'signed-bar': function(canvas, cfg, datasets) {
     var data = datasets[0];
-    var colors = data.values.map(function(v) { return v >= 0 ? 'rgba(129,182,76,0.7)' : 'rgba(204,68,68,0.7)'; });
+    var colors = 'rgba(129,182,76,0.7)';
     new Chart(canvas, { type: 'bar', data: { labels: data.labels, datasets: [{
       label: cfg.name, data: data.values, backgroundColor: colors, borderRadius: 0,
       barPercentage: 1.0, categoryPercentage: 1.0 }] }, options: {
