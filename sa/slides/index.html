@@ -8,191 +8,241 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #2b2926; --surface: #34312d; --border: #45403a;
-    --accent: #81b64c; --text: #f4f2ec; --muted: #b8b0a4;
+    --bg: #1a1714; --surface: #2f2c28; --border: #45403a;
+    --accent: #81b64c; --text: #f4f2ec; --muted: #7a7368;
   }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, system-ui, sans-serif; min-height: 100vh; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
 
-  /* ── Navigation ── */
-  .nav { position: absolute; top: 0; left: 0; padding: 20px 32px; z-index: 10; }
-  .back-link { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
-  .back-link:hover { color: var(--text); }
+  .back-link { display: inline-block; margin-bottom: 20px; color: var(--accent); text-decoration: none; font-size: 0.8rem; font-weight: 600; }
+  .back-link:hover { text-decoration: underline; }
 
-  /* ── Slide container ── */
-  .slide-viewport { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; height: 100vh; padding: 80px 64px 32px; }
+  h1 { font-size: 1.6rem; margin-bottom: 4px; }
+  .sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 24px; }
 
-  /* ── Slide template — defines the ONLY layout a slide can have ── */
-  .slide {
-    width: 100%;
-    max-width: 1400px;
+  /* ── Table ── */
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    text-align: left;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 16px;
+    border-bottom: 2px solid var(--border);
+  }
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: var(--surface); }
+  tbody td { padding: 14px 16px; vertical-align: middle; }
+
+  .td-name { font-weight: 600; font-size: 0.9rem; color: var(--text); }
+  .td-desc { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+  .td-type {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: rgba(129,182,76,0.1);
+    color: var(--accent);
+  }
+  .td-chart { font-size: 0.7rem; color: var(--muted); }
+
+  /* ── Slide detail (expanded row) ── */
+  .slide-detail { display: none; }
+  .slide-detail.open { display: table-row; }
+  .slide-detail td {
+    padding: 24px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── Slide preview (mini slide layout) ── */
+  .slide-preview {
     display: grid;
     grid-template-columns: 1fr 1.6fr;
-    gap: 64px;
+    gap: 32px;
     align-items: start;
+    max-width: 100%;
   }
-  .slide-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 0;
+  .slide-preview-text { display: flex; flex-direction: column; justify-content: flex-start; }
+  .slide-preview-eyebrow {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
   }
-  .slide-eyebrow {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-  .slide-title {
+  .slide-preview-title {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(28px, 4vw, 52px);
-    font-weight: 900;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    color: var(--text);
-    margin-bottom: 24px;
+    font-size: 1.4rem; font-weight: 900; line-height: 1.15;
+    color: var(--text); margin-bottom: 14px;
   }
-  .slide-bullets {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+  .slide-preview-bullets {
+    list-style: none; display: flex; flex-direction: column; gap: 10px;
   }
-  .slide-bullets li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: clamp(15px, 1.8vw, 19px);
-    line-height: 1.5;
-    color: var(--muted);
+  .slide-preview-bullets li {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 0.8rem; line-height: 1.5; color: #b8b0a4;
   }
-  .slide-bullets li::before {
-    content: '▸';
-    color: var(--accent);
-    flex-shrink: 0;
-    margin-top: 2px;
-    font-size: 14px;
+  .slide-preview-bullets li::before {
+    content: '▸'; color: var(--accent); flex-shrink: 0; margin-top: 1px; font-size: 12px;
   }
-  .slide-chart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .slide-chart canvas {
-    max-height: 75vh;
-  }
+  .slide-preview-chart { display: flex; align-items: center; justify-content: center; }
+  .slide-preview-chart canvas { max-height: 45vh; }
 
-  /* ── Mobile ── */
   @media (max-width: 768px) {
-    .slide { grid-template-columns: 1fr; }
+    .slide-preview { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
+<div class="container">
+  <a href="/" class="back-link">&larr; Back</a>
+  <h1>Slides</h1>
+  <p class="sub">Analyst-curated — chart + commentary, one point per slide</p>
 
-<nav class="nav">
-  <a href="/" class="back-link">&larr; Menu</a>
-</nav>
-
-<div class="slide-viewport" id="slide-viewport"></div>
+  <table>
+    <thead>
+      <tr>
+        <th>Slide</th>
+        <th>Chart</th>
+        <th>Bullets</th>
+      </tr>
+    </thead>
+    <tbody id="slide-table"></tbody>
+  </table>
+</div>
 
 <script>
-// ── Slide data: add entries here to create new slides ──
-// Every slide uses the EXACT same template. Only these fields change.
+var API = 'https://api.miketrounce.com/api/series/';
+
 var SLIDE_DATA = [
   {
+    id: 'supply',
     eyebrow: 'The South African Government Bond Market',
     title: 'Supply',
+    description: 'Budget deficit fan chart — projections vs reality',
+    chartType: 'Fan',
     bullets: [
       'The dashed lines are deficit projections from every National Budget Review (2011–2026)',
       'It has been politically impossible to borrow less than 4% of GDP',
       'Projections of debt supply cannot be relied on',
       'I view the flow rate of supply of government debt as endogenously fixed at <strong>4.5% of GDP</strong>'
     ],
-    chart: 'fan'
+    buildChart: function(canvas) {
+      var allLabels = ['10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29'];
+      var actuals = [5.3,4.3,4.8,5.3,4.6,4.5,4.2,3.8,4.6,4.8,7.7,11.6,5.7,4.9,4.8,4.8,null,null,null,null];
+      var projections = [
+        {2:4.2,3:4.8,4:4.6,5:4.0},{3:5.2,4:5.2,5:4.1,6:3.5},
+        {4:4.9,5:4.7,6:3.9,7:3.2},{5:5.0,6:4.4,7:3.5,8:3.0},
+        {6:4.2,7:4.2,8:3.6,9:3.1},{7:4.3,8:3.9,9:3.6,10:3.4},
+        {8:4.1,9:3.8,10:3.8,11:3.7},{9:4.4,10:4.4,11:4.2,12:4.0},
+        {10:6.5,11:6.8,12:6.4,13:5.9},{11:14.6,12:9.3,13:7.7},
+        {11:14.0,12:7.3,13:6.3,14:5.7},{12:5.5,13:6.0,14:5.2,15:4.6},
+        {13:4.5,14:4.5,15:3.7,16:3.2},{14:4.7,15:4.3,16:3.7,17:3.3},
+        {15:4.7,16:4.6,17:3.9,18:3.6},{16:4.5,17:3.7,18:3.3,19:2.9}
+      ];
+      var chart = new Chart(canvas, {type:'line', data:{labels:allLabels, datasets:[
+        {label:'Actual deficit (% of GDP)', data:actuals, borderColor:'#81b64c', borderWidth:3, pointBackgroundColor:'#81b64c', pointRadius:3, tension:0, spanGaps:false, order:0}
+      ]}, options:{responsive:true, maintainAspectRatio:true, aspectRatio:1.6, animation:{duration:400},
+        plugins:{legend:{display:false}, title:{display:true, text:['Main Budget Deficit','Fiscal years ending March'], color:'#f4f2ec', font:{size:14, weight:'bold'}},
+          tooltip:{filter:function(i){return i.raw!==null;}, callbacks:{label:function(c){return c.dataset.label+': '+c.raw.toFixed(1)+'%';}}}},
+        scales:{x:{ticks:{color:'#b8b0a4'}, grid:{color:'rgba(69,64,58,0.5)'}},
+          y:{min:0, max:16, ticks:{color:'#b8b0a4', callback:function(v){return v+'%';}}, grid:{color:'rgba(69,64,58,0.5)'}, title:{display:true, text:'Deficit %', color:'#7a7368', font:{weight:'bold'}}}}}});
+      var pIdx = 0;
+      var interval = setInterval(function() {
+        if (pIdx >= projections.length) { clearInterval(interval); return; }
+        var p = projections[pIdx];
+        var d = allLabels.map(function(_, i) { return p[i] != null ? p[i] : null; });
+        chart.data.datasets.push({label:'Projection', data:d, borderColor:'rgba(244,242,236,0.25)', borderWidth:1, borderDash:[4,3], pointRadius:0, tension:0, spanGaps:false, order:1});
+        chart.update();
+        pIdx++;
+      }, 500);
+    }
+  },
+  {
+    id: 'debt-stock',
+    eyebrow: 'The South African Government Bond Market',
+    title: 'Debt Stock',
+    description: 'Gross loan debt & debt-to-GDP ratio — explosive path',
+    chartType: 'Combo',
+    bullets: [
+      'The stock chart reveals something important: debt is on an explosive path',
+      'The combination of growth and borrowing costs cannot tolerate supply of 4.5% of GDP year after year',
+      'Debt-to-GDP has risen from 25% to over 75% in fifteen years',
+      'Projected improvements rarely materialise'
+    ],
+    buildChart: function(canvas) {
+      fetch(API + '?name=' + encodeURIComponent('Gross loan debt of national government'))
+        .then(function(r) { return r.json(); })
+        .then(function(barData) {
+          fetch(API + '?name=' + encodeURIComponent('Gross debt-to-GDP ratio'))
+            .then(function(r) { return r.json(); })
+            .then(function(lineData) {
+              var barVals = barData.values.map(function(v) { return Math.round(v / 1000); });
+              new Chart(canvas, {type:'bar', data:{labels:barData.labels, datasets:[
+                {label:'ZAR bn', data:barVals, backgroundColor:'rgba(129,182,76,0.7)', borderRadius:3, yAxisID:'y', order:1},
+                {label:'Debt/GDP %', data:lineData.values, type:'line', borderColor:'#e8c547', borderWidth:2, pointBackgroundColor:'#e8c547', pointRadius:3, tension:0, yAxisID:'y1', order:0}
+              ]}, options:{responsive:true, maintainAspectRatio:true, aspectRatio:1.6,
+                interaction:{mode:'index', intersect:false},
+                plugins:{legend:{display:true, labels:{color:'#b8b0a4'}},
+                  title:{display:true, text:'Gross Loan Debt & Debt-to-GDP Ratio', color:'#f4f2ec', font:{size:14, weight:'bold'}},
+                  tooltip:{callbacks:{label:function(c){
+                    if (c.dataset.yAxisID==='y1') return c.raw.toFixed(1)+'%';
+                    return 'R'+c.raw+' bn';
+                  }}}},
+                scales:{x:{ticks:{color:'#b8b0a4'}, grid:{color:'rgba(69,64,58,0.5)'}},
+                  y:{position:'left', min:0, ticks:{color:'#81b64c', callback:function(v){return 'R'+v+' bn';}}, grid:{color:'rgba(69,64,58,0.5)'}, title:{display:true, text:'ZAR bn', color:'#b8b0a4', font:{weight:'bold'}}},
+                  y1:{position:'right', min:0, max:90, ticks:{color:'#e8c547', callback:function(v){return v+'%';}}, grid:{drawOnChartArea:false}, title:{display:true, text:'Debt / GDP %', color:'#b8b0a4', font:{weight:'bold'}}}
+                }}});
+            });
+        });
+    }
   }
 ];
 
-// ── Chart builders (keyed by chart ID) ──
-var CHART_BUILDERS = {
-  fan: function(canvas) {
-    var allLabels = ['10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29'];
-    var actuals = [5.3,4.3,4.8,5.3,4.6,4.5,4.2,3.8,4.6,4.8,7.7,11.6,5.7,4.9,4.8,4.8,null,null,null,null];
-    var projections = [
-      {start:2,vals:{2:4.2,3:4.8,4:4.6,5:4.0}},{start:3,vals:{3:5.2,4:5.2,5:4.1,6:3.5}},
-      {start:4,vals:{4:4.9,5:4.7,6:3.9,7:3.2}},{start:5,vals:{5:5.0,6:4.4,7:3.5,8:3.0}},
-      {start:6,vals:{6:4.2,7:4.2,8:3.6,9:3.1}},{start:7,vals:{7:4.3,8:3.9,9:3.6,10:3.4}},
-      {start:8,vals:{8:4.1,9:3.8,10:3.8,11:3.7}},{start:9,vals:{9:4.4,10:4.4,11:4.2,12:4.0}},
-      {start:10,vals:{10:6.5,11:6.8,12:6.4,13:5.9}},{start:11,vals:{11:14.6,12:9.3,13:7.7}},
-      {start:11,vals:{11:14.0,12:7.3,13:6.3,14:5.7}},{start:12,vals:{12:5.5,13:6.0,14:5.2,15:4.6}},
-      {start:13,vals:{13:4.5,14:4.5,15:3.7,16:3.2}},{start:14,vals:{14:4.7,15:4.3,16:3.7,17:3.3}},
-      {start:15,vals:{15:4.7,16:4.6,17:3.9,18:3.6}},{start:16,vals:{16:4.5,17:3.7,18:3.3,19:2.9}}
-    ];
-    var chart = new Chart(canvas,{type:'line',data:{labels:allLabels,datasets:[
-      {label:'Actual deficit (% of GDP)',data:actuals,borderColor:'#81b64c',borderWidth:3,pointBackgroundColor:'#81b64c',pointRadius:3,tension:0,spanGaps:false,order:0}
-    ]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,animation:{duration:400},plugins:{legend:{display:false},title:{display:true,text:['Main Budget Deficit','Fiscal years ending March'],color:'#f4f2ec',font:{size:14,weight:'bold'}},tooltip:{filter:function(i){return i.raw!==null;},callbacks:{label:function(c){return c.dataset.label+': '+c.raw.toFixed(1)+'%';}}}},scales:{x:{ticks:{color:'#b8b0a4'},grid:{color:'rgba(69,64,58,0.5)'}},y:{min:0,max:16,ticks:{color:'#b8b0a4',callback:function(v){return v+'%';}},grid:{color:'rgba(69,64,58,0.5)'},title:{display:true,text:'Deficit %',color:'#7a7368',font:{weight:'bold'}}}}}});
-    // Animate: reveal projections one by one
-    var pIdx = 0;
-    var interval = setInterval(function() {
-      if (pIdx >= projections.length) { clearInterval(interval); return; }
-      var p = projections[pIdx];
-      var d = allLabels.map(function(_, i) { return (i in p.vals) ? p.vals[i] : null; });
-      chart.data.datasets.push({label:'Projection',data:d,borderColor:'rgba(244,242,236,0.25)',borderWidth:1,borderDash:[4,3],pointRadius:0,tension:0,spanGaps:false,order:1});
-      chart.update();
-      pIdx++;
-    }, 500);
-  }
-};
-
-// ── Render slides from SLIDE_DATA using one template ──
+// ── Build table ──
 (function() {
-  var viewport = document.getElementById('slide-viewport');
-  if (!viewport) return;
+  var tbody = document.getElementById('slide-table');
 
-  SLIDE_DATA.forEach(function(slide, idx) {
-    var el = document.createElement('div');
-    el.className = 'slide';
+  SLIDE_DATA.forEach(function(slide) {
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td><div class="td-name">' + slide.title + '</div><div class="td-desc">' + slide.description + '</div></td>' +
+      '<td><span class="td-type">' + slide.chartType + '</span></td>' +
+      '<td class="td-chart">' + slide.bullets.length + ' points</td>';
 
-    // Left: text
-    var text = document.createElement('div');
-    text.className = 'slide-text';
+    var detail = document.createElement('tr');
+    detail.className = 'slide-detail';
+    detail.innerHTML = '<td colspan="3">' +
+      '<div class="slide-preview">' +
+      '<div class="slide-preview-text">' +
+      '<p class="slide-preview-eyebrow">' + slide.eyebrow + '</p>' +
+      '<h2 class="slide-preview-title">' + slide.title + '</h2>' +
+      '<ul class="slide-preview-bullets">' +
+      slide.bullets.map(function(b) { return '<li>' + b + '</li>'; }).join('') +
+      '</ul></div>' +
+      '<div class="slide-preview-chart"><canvas id="slide-' + slide.id + '"></canvas></div>' +
+      '</div></td>';
 
-    var eyebrow = document.createElement('p');
-    eyebrow.className = 'slide-eyebrow';
-    eyebrow.textContent = slide.eyebrow;
-
-    var title = document.createElement('h1');
-    title.className = 'slide-title';
-    title.textContent = slide.title;
-
-    var ul = document.createElement('ul');
-    ul.className = 'slide-bullets';
-    slide.bullets.forEach(function(b) {
-      var li = document.createElement('li');
-      li.textContent = b;
-      ul.appendChild(li);
+    tr.addEventListener('click', function() {
+      var isOpen = detail.classList.contains('open');
+      document.querySelectorAll('.slide-detail').forEach(function(d) { d.classList.remove('open'); });
+      if (!isOpen) {
+        detail.classList.add('open');
+        if (!detail._built) {
+          detail._built = true;
+          slide.buildChart(document.getElementById('slide-' + slide.id));
+        }
+      }
     });
 
-    text.appendChild(eyebrow);
-    text.appendChild(title);
-    text.appendChild(ul);
-
-    // Right: chart
-    var chartDiv = document.createElement('div');
-    chartDiv.className = 'slide-chart';
-    var canvas = document.createElement('canvas');
-    canvas.id = 'slide-chart-' + idx;
-    chartDiv.appendChild(canvas);
-
-    el.appendChild(text);
-    el.appendChild(chartDiv);
-    viewport.appendChild(el);
-
-    // Build chart
-    if (CHART_BUILDERS[slide.chart]) {
-      CHART_BUILDERS[slide.chart](canvas);
-    }
+    tbody.appendChild(tr);
+    tbody.appendChild(detail);
   });
 })();
 </script>
