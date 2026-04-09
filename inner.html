@@ -12,8 +12,8 @@
       .page.expanded {
         justify-content: center;
         gap: 80px;
-        padding-left: 10vw;
-        padding-right: 10vw;
+        padding-left: 6vw;
+        padding-right: 6vw;
       }
 
       /* ── Shared timeline ── */
@@ -83,7 +83,7 @@
         }
       }
 
-      /* ── Detail panel (right) ── */
+      /* ── Detail panel ── */
       .detail {
         display: none;
         opacity: 0;
@@ -99,39 +99,41 @@
         pointer-events: auto;
       }
 
-      /* ── Backend → Frontend layout ── */
-      .detail-grid {
+      /* ── Flow layout: Databases → Charts → Slides → Deck ── */
+      .flow-grid {
         display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        grid-template-rows: auto auto auto;
+        grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
         gap: 16px;
-        max-width: 900px;
-        align-items: center;
+        max-width: 1200px;
+        align-items: start;
       }
 
-      .grid-backend-1 { grid-row: 1; grid-column: 1; }
-      .grid-backend-2 { grid-row: 2; grid-column: 1; }
-      .grid-backend-3 { grid-row: 3; grid-column: 1; }
+      .flow-col {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
 
-      .grid-arrows {
+      .flow-arrows {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 24px;
-        grid-row: 1 / 4;
-        grid-column: 2;
         color: var(--muted);
         font-size: 1.2rem;
-        opacity: 0;
-        animation: fadeInUp 0.4s ease forwards;
-        animation-delay: 0.7s;
+        padding-top: 60px;
       }
-      .grid-arrows svg { opacity: 0.4; }
+      .flow-arrows svg { opacity: 0.4; }
 
-      .grid-frontend {
-        grid-row: 1 / 4;
-        grid-column: 3;
+      .flow-col-label {
+        font-size: 0.55rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+        margin: 0 0 4px;
+        padding-left: 2px;
       }
 
       .grid-box {
@@ -145,19 +147,6 @@
 
       .page.expanded .grid-box {
         animation: fadeInUp 0.4s ease forwards;
-      }
-
-      .page.expanded .grid-box:nth-child(1) { animation-delay: 0.4s; }
-      .page.expanded .grid-box:nth-child(3) { animation-delay: 0.6s; }
-      .page.expanded .grid-box:nth-child(4) { animation-delay: 0.8s; }
-      .page.expanded .grid-box:nth-child(5) { animation-delay: 1.0s; }
-
-      .grid-box-dates {
-        font-size: 0.65rem;
-        color: var(--muted);
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        margin: 0 0 4px;
       }
 
       .grid-box-title {
@@ -175,24 +164,6 @@
         margin-bottom: 0;
       }
 
-      .grid-box.grid-wide {
-        grid-column: span 1;
-      }
-
-      .grid-wide-inner {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-      }
-
-      .grid-box-role-dates {
-        font-size: 0.6rem;
-        color: var(--muted);
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        margin: 0 0 1px;
-      }
-
       .bio-heading {
         font-size: 0.7rem;
         color: var(--text);
@@ -208,9 +179,35 @@
         margin: 2px 0 0;
       }
 
+      .flow-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        transition: border-color 0.15s;
+      }
+
+      .flow-link:hover {
+        border-color: var(--accent);
+      }
+
       .lock-btn:hover {
         color: var(--text);
       }
+
+      /* ── Animation delays ── */
+      .page.expanded .anim-1 { animation-delay: 0.3s; }
+      .page.expanded .anim-2 { animation-delay: 0.5s; }
+      .page.expanded .anim-3 { animation-delay: 0.7s; }
+      .page.expanded .anim-4 { animation-delay: 0.9s; }
+      .page.expanded .anim-5 { animation-delay: 1.1s; }
+      .page.expanded .anim-6 { animation-delay: 1.3s; }
 
       /* ── Mobile ── */
       @media (max-width: 768px) {
@@ -238,18 +235,19 @@
           width: 100%;
         }
 
-        .detail-grid {
+        .flow-grid {
           grid-template-columns: 1fr;
+          gap: 12px;
         }
-        .grid-arrows {
-          grid-row: auto;
-          grid-column: 1;
+
+        .flow-arrows {
           flex-direction: row;
-          transform: rotate(90deg);
+          padding-top: 0;
+          justify-content: center;
         }
-        .grid-frontend {
-          grid-row: auto;
-          grid-column: 1;
+
+        .flow-arrows svg {
+          transform: rotate(90deg);
         }
       }
 </style>
@@ -258,123 +256,162 @@
 
   <!-- About -->
   <div class="detail">
-    <div class="detail-grid">
 
-      <!-- Backend: Govbonds -->
-      <div class="grid-box grid-wide grid-backend-1" style="min-height:140px;">
-        <p style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin:0 0 6px;font-weight:700;">Backend</p>
-        <p class="grid-box-title">Macro</p>
+    <!-- Section heading -->
+    <p style="font-size:1.2rem;font-weight:700;color:var(--text);margin:0 0 6px;">South Africa</p>
+    <p style="font-size:0.75rem;color:var(--muted);margin:0 0 24px;">Government bond market — data pipeline and presentation layer</p>
 
-        <!-- Pipeline visual -->
-        <div style="display:flex;align-items:center;gap:8px;margin:12px 0 14px;">
-          <!-- Sources -->
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <div style="display:flex;gap:4px;">
-              <span style="font-size:0.55rem;padding:3px 7px;background:rgba(111,181,255,0.1);border:1px solid rgba(111,181,255,0.2);border-radius:4px;color:#6fb5ff;font-weight:600;">PDF</span>
-              <span style="font-size:0.55rem;padding:3px 7px;background:rgba(111,181,255,0.1);border:1px solid rgba(111,181,255,0.2);border-radius:4px;color:#6fb5ff;font-weight:600;">XLSX</span>
+    <div class="flow-grid">
+
+      <!-- ═══ COLUMN 1: Databases ═══ -->
+      <div class="flow-col">
+        <p class="flow-col-label">Databases</p>
+
+        <!-- Macro DB -->
+        <div class="grid-box anim-1">
+          <p class="grid-box-title">Macro</p>
+          <div style="display:flex;align-items:center;gap:8px;margin:0 0 14px;">
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;gap:4px;">
+                <span style="font-size:0.55rem;padding:3px 7px;background:rgba(111,181,255,0.1);border:1px solid rgba(111,181,255,0.2);border-radius:4px;color:#6fb5ff;font-weight:600;">PDF</span>
+                <span style="font-size:0.55rem;padding:3px 7px;background:rgba(111,181,255,0.1);border:1px solid rgba(111,181,255,0.2);border-radius:4px;color:#6fb5ff;font-weight:600;">XLSX</span>
+              </div>
+              <div style="font-size:0.5rem;color:var(--muted);line-height:1.3;">National Treasury · SARB · Bloomberg</div>
             </div>
-            <div style="font-size:0.5rem;color:var(--muted);line-height:1.3;">National Treasury<br>SARB · Bloomberg</div>
-          </div>
-          <!-- Arrow -->
-          <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
-          <!-- Extract -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
             <span style="font-size:0.5rem;padding:3px 8px;background:rgba(214,170,88,0.12);border:1px solid rgba(214,170,88,0.25);border-radius:4px;color:#d6aa58;font-weight:600;">AI Extract</span>
-          </div>
-          <!-- Arrow -->
-          <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
-          <!-- Database -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6fb5ff" stroke-width="1.5" stroke-linecap="round" style="flex-shrink:0;"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 5v14c0 1.66-4.03 3-9 3s-9-1.34-9-3V5"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/></svg>
           </div>
+          <a href="http://167.99.83.51/admin/" target="_blank" rel="noopener" class="flow-link" style="color:#6fb5ff;">⇆ DATABASE</a>
         </div>
 
-        <a href="http://167.99.83.51/admin/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:8px;color:#6fb5ff;text-decoration:none;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;transition:border-color 0.15s;">⇆ DATABASE</a>
-      </div>
-
-      <!-- Arrows -->
-      <div class="grid-arrows">
-        <svg width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10h24M20 4l6 6-6 6"/></svg>
-        <svg width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10h24M20 4l6 6-6 6"/></svg>
-        <svg width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10h24M20 4l6 6-6 6"/></svg>
-      </div>
-
-      <!-- Frontend: South Africa -->
-      <div class="grid-box grid-wide grid-frontend" style="min-height:140px;">
-        <p style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin:0 0 6px;font-weight:700;">Frontend</p>
-        <p class="grid-box-title">South Africa</p>
-        <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-start;">
-          <a href="/sa/#play" style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;transition:border-color 0.15s;">▶ ANALYSIS</a>
-          <a href="/sa/#interact" style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;transition:border-color 0.15s;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> DECK</a>
-          <a href="/charts/" style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:8px;color:var(--accent);text-decoration:none;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;transition:border-color 0.15s;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> CHARTS</a>
-        </div>
-      </div>
-
-      <!-- Backend: Fundinfo -->
-      <div class="grid-box grid-wide grid-backend-2" style="min-height:140px;">
-        <p style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin:0 0 6px;font-weight:700;">Backend</p>
-        <p class="grid-box-title">Mutual Funds &amp; ETFs</p>
-
-        <!-- Pipeline visual -->
-        <div style="display:flex;align-items:center;gap:8px;margin:12px 0 14px;">
-          <!-- Sources -->
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <div style="display:flex;gap:4px;flex-wrap:wrap;">
-              <span style="font-size:0.55rem;padding:3px 7px;background:rgba(111,181,255,0.1);border:1px solid rgba(111,181,255,0.2);border-radius:4px;color:#6fb5ff;font-weight:600;">API</span>
-              <span style="font-size:0.55rem;padding:3px 7px;background:rgba(111,181,255,0.1);border:1px solid rgba(111,181,255,0.2);border-radius:4px;color:#6fb5ff;font-weight:600;">HTML</span>
+        <!-- Funds DB -->
+        <div class="grid-box anim-2">
+          <p class="grid-box-title">Mutual Funds &amp; ETFs</p>
+          <div style="display:flex;align-items:center;gap:8px;margin:0 0 14px;">
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                <span style="font-size:0.55rem;padding:3px 7px;background:rgba(111,181,255,0.1);border:1px solid rgba(111,181,255,0.2);border-radius:4px;color:#6fb5ff;font-weight:600;">API</span>
+                <span style="font-size:0.55rem;padding:3px 7px;background:rgba(111,181,255,0.1);border:1px solid rgba(111,181,255,0.2);border-radius:4px;color:#6fb5ff;font-weight:600;">HTML</span>
+              </div>
+              <div style="font-size:0.5rem;color:var(--muted);line-height:1.3;">fundinfo · etfinfo · iShares · SPDR · EDGAR</div>
             </div>
-            <div style="font-size:0.5rem;color:var(--muted);line-height:1.3;">fundinfo · etfinfo<br>iShares · SPDR · EDGAR</div>
-          </div>
-          <!-- Arrow -->
-          <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
-          <!-- Scrape -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
             <span style="font-size:0.5rem;padding:3px 8px;background:rgba(214,170,88,0.12);border:1px solid rgba(214,170,88,0.25);border-radius:4px;color:#d6aa58;font-weight:600;">Scraper</span>
-          </div>
-          <!-- Arrow -->
-          <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
-          <!-- Database -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6fb5ff" stroke-width="1.5" stroke-linecap="round" style="flex-shrink:0;"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 5v14c0 1.66-4.03 3-9 3s-9-1.34-9-3V5"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/></svg>
           </div>
+          <a href="http://167.71.130.110/admin/" target="_blank" rel="noopener" class="flow-link" style="color:#6fb5ff;">⇆ DATABASE</a>
         </div>
 
-        <a href="http://167.71.130.110/admin/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:8px;color:#6fb5ff;text-decoration:none;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;transition:border-color 0.15s;">⇆ DATABASE</a>
-      </div>
-
-      <!-- Backend: Wiki -->
-      <div class="grid-box grid-wide grid-backend-3" style="min-height:140px;">
-        <p style="font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin:0 0 6px;font-weight:700;">Backend</p>
-        <p class="grid-box-title">Wiki</p>
-
-        <!-- Pipeline visual -->
-        <div style="display:flex;align-items:center;gap:8px;margin:12px 0 14px;">
-          <!-- Sources -->
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <div style="display:flex;gap:4px;">
-              <span style="font-size:0.55rem;padding:3px 7px;background:rgba(180,140,255,0.1);border:1px solid rgba(180,140,255,0.2);border-radius:4px;color:#b48cff;font-weight:600;">MD</span>
-              <span style="font-size:0.55rem;padding:3px 7px;background:rgba(180,140,255,0.1);border:1px solid rgba(180,140,255,0.2);border-radius:4px;color:#b48cff;font-weight:600;">Vault</span>
+        <!-- Wiki -->
+        <div class="grid-box anim-3">
+          <p class="grid-box-title">Wiki</p>
+          <div style="display:flex;align-items:center;gap:8px;margin:0 0 14px;">
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;gap:4px;">
+                <span style="font-size:0.55rem;padding:3px 7px;background:rgba(180,140,255,0.1);border:1px solid rgba(180,140,255,0.2);border-radius:4px;color:#b48cff;font-weight:600;">MD</span>
+                <span style="font-size:0.55rem;padding:3px 7px;background:rgba(180,140,255,0.1);border:1px solid rgba(180,140,255,0.2);border-radius:4px;color:#b48cff;font-weight:600;">Vault</span>
+              </div>
+              <div style="font-size:0.5rem;color:var(--muted);line-height:1.3;">Obsidian notes · Research · Theses</div>
             </div>
-            <div style="font-size:0.5rem;color:var(--muted);line-height:1.3;">Obsidian notes<br>Research · Theses</div>
-          </div>
-          <!-- Arrow -->
-          <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
-          <!-- Claude -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
             <span style="font-size:0.5rem;padding:3px 8px;background:rgba(180,140,255,0.12);border:1px solid rgba(180,140,255,0.25);border-radius:4px;color:#b48cff;font-weight:600;">Claude</span>
-          </div>
-          <!-- Arrow -->
-          <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
-          <!-- Knowledge graph -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <svg width="24" height="16" viewBox="0 0 24 16" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" style="flex-shrink:0;opacity:0.5;"><path d="M2 8h16M14 3l4 5-4 5"/></svg>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b48cff" stroke-width="1.5" stroke-linecap="round" style="flex-shrink:0;"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/><line x1="5" y1="19" x2="19" y2="19"/></svg>
           </div>
+          <a href="#" class="flow-link" style="color:#b48cff;">◇ KNOWLEDGE BASE</a>
         </div>
+      </div>
 
-        <a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:8px;color:#b48cff;text-decoration:none;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;transition:border-color 0.15s;">◇ KNOWLEDGE BASE</a>
+      <!-- ═══ ARROWS: Databases → Charts ═══ -->
+      <div class="flow-arrows">
+        <svg width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10h24M20 4l6 6-6 6"/></svg>
+        <svg width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10h24M20 4l6 6-6 6"/></svg>
+      </div>
+
+      <!-- ═══ COLUMN 2: Charts ═══ -->
+      <div class="flow-col">
+        <p class="flow-col-label">Charts</p>
+
+        <div class="grid-box anim-4" style="min-height: 200px;">
+          <p class="grid-box-title">Chart.js</p>
+          <p style="font-size:0.7rem;color:var(--muted);line-height:1.5;margin:0 0 14px;">
+            Individual visualisations. Each chart pulls data from a database via API and renders it using Chart.js.
+          </p>
+          <div style="display:flex;flex-direction:column;gap:6px;margin:0 0 14px;">
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <span style="font-size:0.5rem;padding:3px 7px;background:rgba(129,182,76,0.1);border:1px solid rgba(129,182,76,0.2);border-radius:4px;color:var(--accent);font-weight:600;">Line</span>
+              <span style="font-size:0.5rem;padding:3px 7px;background:rgba(129,182,76,0.1);border:1px solid rgba(129,182,76,0.2);border-radius:4px;color:var(--accent);font-weight:600;">Bar</span>
+              <span style="font-size:0.5rem;padding:3px 7px;background:rgba(129,182,76,0.1);border:1px solid rgba(129,182,76,0.2);border-radius:4px;color:var(--accent);font-weight:600;">Stacked</span>
+              <span style="font-size:0.5rem;padding:3px 7px;background:rgba(129,182,76,0.1);border:1px solid rgba(129,182,76,0.2);border-radius:4px;color:var(--accent);font-weight:600;">Area</span>
+            </div>
+          </div>
+          <a href="/charts/" class="flow-link" style="color:var(--accent);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> BROWSE CHARTS</a>
+        </div>
+      </div>
+
+      <!-- ═══ ARROWS: Charts → Slides ═══ -->
+      <div class="flow-arrows">
+        <svg width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10h24M20 4l6 6-6 6"/></svg>
+      </div>
+
+      <!-- ═══ COLUMN 3: Slides ═══ -->
+      <div class="flow-col">
+        <p class="flow-col-label">Slides</p>
+
+        <div class="grid-box anim-5" style="min-height: 200px;">
+          <p class="grid-box-title">Slide</p>
+          <p style="font-size:0.7rem;color:var(--muted);line-height:1.5;margin:0 0 14px;">
+            Each slide pairs one chart with one text block — a single point, visualised and explained.
+          </p>
+          <!-- Mini slide mockup -->
+          <div style="display:flex;gap:10px;padding:10px;border:1px solid var(--border);border-radius:8px;background:rgba(0,0,0,0.2);">
+            <div style="flex:1;">
+              <div style="width:100%;height:8px;background:var(--border);border-radius:2px;margin-bottom:4px;"></div>
+              <div style="width:70%;height:8px;background:var(--border);border-radius:2px;margin-bottom:4px;"></div>
+              <div style="width:85%;height:8px;background:var(--border);border-radius:2px;"></div>
+            </div>
+            <div style="flex:1.2;height:50px;border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" style="opacity:0.5;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+          </div>
+          <p style="font-size:0.5rem;color:var(--muted);margin:8px 0 0;text-align:center;">text + chart = slide</p>
+        </div>
+      </div>
+
+      <!-- ═══ ARROWS: Slides → Deck ═══ -->
+      <div class="flow-arrows">
+        <svg width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10h24M20 4l6 6-6 6"/></svg>
+      </div>
+
+      <!-- ═══ COLUMN 4: Deck ═══ -->
+      <div class="flow-col">
+        <p class="flow-col-label">Deck</p>
+
+        <div class="grid-box anim-6" style="min-height: 200px;">
+          <p class="grid-box-title">Deck</p>
+          <p style="font-size:0.7rem;color:var(--muted);line-height:1.5;margin:0 0 14px;">
+            A collection of slides presented as a navigable slideshow. The curated narrative.
+          </p>
+          <!-- Mini deck mockup: stacked slides -->
+          <div style="position:relative;height:55px;margin:0 0 14px;">
+            <div style="position:absolute;top:0;left:8px;right:0;height:44px;border:1px solid var(--border);border-radius:6px;background:#2f2c28;opacity:0.4;"></div>
+            <div style="position:absolute;top:4px;left:4px;right:4px;height:44px;border:1px solid var(--border);border-radius:6px;background:#34312d;opacity:0.6;"></div>
+            <div style="position:absolute;top:8px;left:0;right:8px;height:44px;border:1px solid var(--border);border-radius:6px;background:#3a3632;display:flex;align-items:center;justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6;"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="/sa/#interact" class="flow-link" style="color:var(--accent);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> DECK</a>
+            <a href="/sa/#play" class="flow-link" style="color:var(--accent);">▶ ANALYSIS</a>
+          </div>
+        </div>
       </div>
 
     </div>
+
     <a class="lock-btn" style="display:inline-block;margin-top:24px;font-size:0.9rem;font-weight:700;color:var(--muted);text-decoration:none;cursor:pointer;transition:color 0.15s;">Lock →</a>
   </div>
 
