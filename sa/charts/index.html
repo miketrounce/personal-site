@@ -417,6 +417,8 @@ var BUILDERS = {
     stepBtn.addEventListener('click', function() { stopPlay(); if (currentIdx < vintageKeys.length) addVintage(currentIdx); });
     resetBtn.addEventListener('click', resetAll);
     controls.style.display = 'flex';
+    // Auto-play on reveal
+    startPlay();
   },
 
   line: function(canvas, cfg, datasets) {
