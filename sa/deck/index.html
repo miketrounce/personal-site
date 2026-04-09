@@ -1,0 +1,1792 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>South Africa — Deck</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2334312d'/><text x='50' y='68' font-family='Georgia,serif' font-size='52' font-weight='900' fill='%23f4f2ec' text-anchor='middle'>MT</text></svg>">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body style="margin:0;padding:0;background:#2b2926;">
+<div class="inner-landing" style="display:block;min-height:100vh;">
+<style>
+  /* ── Slides reset (scoped inside inner-landing) ── */
+  .inner-landing { background: #2b2926 !important; padding: 0 !important; min-height: 100vh; }
+  .slides-wrap {
+    --bg: #2b2926; --surface: #34312d; --border: #45403a;
+    --accent: #81b64c; --accent2: #81b64c; --text: #f4f2ec;
+    --muted: #b8b0a4; --danger: #c44; --slide-max: 960px;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    height: 100vh; display: flex; flex-direction: column; overflow: hidden; user-select: none;
+  }
+  .slides-wrap *, .slides-wrap *::before, .slides-wrap *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .slides-wrap #progress { height: 3px; background: var(--border); position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .slides-wrap #progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; }
+
+  .slides-wrap #deck { flex: 1; position: relative; overflow: hidden; }
+  .slides-wrap .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 48px 32px; opacity: 0; transform: translateX(60px); transition: opacity 0.45s ease, transform 0.45s ease; pointer-events: none; }
+  .slides-wrap .slide.active { opacity: 1; transform: translateX(0); pointer-events: all; }
+  .slides-wrap .slide.exit { opacity: 0; transform: translateX(-60px); }
+  .slides-wrap .slide-inner { width: 100%; max-width: var(--slide-max); }
+  .slides-wrap .slide-inner.two-col { display: grid; grid-template-columns: 1fr 1.4fr; gap: 32px; align-items: center; }
+  .slides-wrap .two-col .col-text { display: flex; flex-direction: column; justify-content: center; }
+  .slides-wrap .two-col .col-chart { display: flex; align-items: center; justify-content: center; }
+  .slides-wrap .two-col .col-chart canvas { max-height: 60vh; }
+  @media (max-width: 768px) { .slides-wrap .slide-inner.two-col { grid-template-columns: 1fr; } }
+  .slides-wrap .slide-num { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+  .slides-wrap .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .slides-wrap h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(28px, 4vw, 52px); font-weight: 900; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--text); }
+  .slides-wrap h2 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(22px, 3vw, 38px); font-weight: 900; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 8px; color: var(--text); }
+  .slides-wrap .subtitle { font-size: clamp(15px, 2vw, 20px); color: var(--muted); margin-bottom: 36px; font-style: italic; }
+  .slides-wrap .bullets { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .slides-wrap .bullets li { display: flex; align-items: flex-start; gap: 12px; font-size: clamp(15px, 1.8vw, 19px); line-height: 1.5; opacity: 0; transform: translateY(12px); transition: opacity 0.35s ease, transform 0.35s ease; }
+  .slides-wrap .bullets li.visible { opacity: 1; transform: translateY(0); }
+  .slides-wrap .bullets li::before { content: '▸'; color: var(--accent); flex-shrink: 0; margin-top: 2px; font-size: 14px; }
+  .slides-wrap .bullets li.highlight { color: var(--text); font-weight: 600; }
+  .slides-wrap .bullets li.highlight::before { color: var(--accent2); }
+  .slides-wrap .bullets li.muted-item { color: var(--muted); }
+  .slides-wrap .stat-row { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 36px; }
+  .slides-wrap .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 28px; opacity: 0; transform: translateY(12px); transition: opacity 0.35s ease, transform 0.35s ease; text-align: center; min-width: 140px; }
+  .slides-wrap .stat.visible { opacity: 1; transform: translateY(0); }
+  .slides-wrap .stat-value { font-size: clamp(24px, 3vw, 40px); font-weight: 700; color: var(--accent); }
+  .slides-wrap .stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .slides-wrap .divider { height: 1px; background: var(--border); margin: 32px 0; }
+  .slides-wrap .punchline { background: linear-gradient(135deg, rgba(129,182,76,0.1), rgba(129,182,76,0.08)); border: 1px solid rgba(129,182,76,0.3); border-radius: 12px; padding: 20px 24px; font-size: clamp(15px, 1.8vw, 18px); line-height: 1.6; margin-top: 28px; opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s; }
+  .slides-wrap .punchline.visible { opacity: 1; transform: translateY(0); }
+  .slides-wrap .punchline strong { color: var(--accent); }
+  .slides-wrap .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px; }
+  .slides-wrap .col-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; opacity: 0; transform: translateY(12px); transition: opacity 0.35s ease, transform 0.35s ease; }
+  .slides-wrap .col-box.visible { opacity: 1; transform: translateY(0); }
+  .slides-wrap .col-box h3 { font-size: 14px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .slides-wrap .col-box ul { list-style: none; }
+  .slides-wrap .col-box ul li { font-size: 15px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; opacity: 1; transform: none; }
+  .slides-wrap .col-box ul li::before { display: none; }
+  .slides-wrap .col-box ul li:last-child { border-bottom: none; }
+  .slides-wrap .col-box ul li span { color: var(--text); font-weight: 600; }
+  .slides-wrap #nav { display: flex; align-items: center; justify-content: center; gap: 24px; padding: 16px 32px; background: var(--surface); border-top: 1px solid var(--border); }
+  .slides-wrap .nav-btn { background: none; border: 1px solid var(--border); color: var(--text); padding: 8px 22px; border-radius: 8px; font-size: 14px; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+  .slides-wrap .nav-btn:hover { background: var(--border); }
+  .slides-wrap .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  .slides-wrap #slide-counter { font-size: 13px; color: var(--muted); min-width: 60px; text-align: center; }
+  .slides-wrap .dot-row { display: flex; gap: 8px; align-items: center; }
+  .slides-wrap .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+  .slides-wrap .dot.active { background: var(--accent); transform: scale(1.3); }
+  .slides-wrap #hint { position: fixed; bottom: 72px; right: 20px; font-size: 11px; color: var(--muted); opacity: 0.6; }
+  .slides-wrap .slide-title h1 { font-size: clamp(32px, 5vw, 64px); }
+  .slides-wrap .slide-title .meta { font-size: 13px; color: var(--muted); margin-top: 32px; }
+  /* ── Chart ── */
+  .slides-wrap .chart-wrap { max-width: 100%; margin: 0 auto 8px; opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .slides-wrap .chart-wrap.visible { opacity: 1; transform: translateY(0); }
+  .slides-wrap .chart-wrap svg { width: 100%; height: auto; max-height: 55vh; }
+  /* ── Source panel ── */
+  .slides-wrap .src-btn { background: none; border: none; color: #fff; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; padding: 2px 0; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; text-decoration: underline; text-underline-offset: 2px; }
+  .slides-wrap .src-btn:hover { opacity: 1; }
+  .slides-wrap .src-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.6); }
+  .slides-wrap .src-overlay.open { display: flex; justify-content: center; align-items: center; }
+  .slides-wrap .src-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; max-width: 520px; width: 90%; max-height: 80vh; overflow-y: auto; color: var(--text); font-size: 14px; line-height: 1.7; }
+  .slides-wrap .src-panel h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+  .slides-wrap .src-panel table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 16px; }
+  .slides-wrap .src-panel th { text-align: left; color: var(--accent); font-weight: 600; padding: 6px 8px; border-bottom: 1px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .slides-wrap .src-panel td { padding: 6px 8px; border-bottom: 1px solid var(--border); color: var(--muted); }
+  .slides-wrap .src-panel td:first-child { color: var(--text); font-weight: 600; }
+  .slides-wrap .src-panel .src-close { background: none; border: 1px solid var(--border); color: var(--muted); padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; float: right; }
+  .slides-wrap .src-panel .src-close:hover { color: var(--text); border-color: var(--muted); }
+  @media (max-width: 600px) {
+    .slides-wrap .slide { padding: 24px 16px; }
+    .slides-wrap .cols { grid-template-columns: 1fr; }
+    .slides-wrap .stat-row { gap: 12px; }
+    .slides-wrap .stat { min-width: 80px; padding: 12px 16px; }
+    .slides-wrap .chart-wrap svg { max-height: 45vh; }
+    .slides-wrap .subtitle { margin-bottom: 16px; }
+    .slides-wrap .bullets { gap: 10px; }
+    .slides-wrap .bullets li { font-size: 14px; }
+  }
+
+  /* ── Landing menu ── */
+  .landing-menu {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 24px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: #f4f2ec;
+  }
+  .landing-menu h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 48px;
+    color: #f4f2ec;
+  }
+  .landing-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 560px;
+    width: 100%;
+  }
+  .landing-list li {
+    border: 1px solid #45403a;
+    border-radius: 12px;
+    padding: 20px 28px;
+    background: linear-gradient(180deg, #3a3632 0%, #34312d 100%);
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #b8b0a4;
+  }
+  .landing-list li:hover {
+    border-color: #81b64c;
+    transform: translateX(4px);
+    color: #f4f2ec;
+  }
+  .landing-list li.active-item {
+    border-color: #81b64c;
+    color: #f4f2ec;
+  }
+  .landing-list li .item-num {
+    color: #81b64c;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-right: 12px;
+  }
+  .landing-list li.active-item .item-num {
+    color: #81b64c;
+  }
+  .landing-list li .coming-soon {
+    font-size: 0.75rem;
+    color: #7a7368;
+    font-weight: 400;
+    margin-left: 8px;
+  }
+  .landing-list li .item-desc {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #7a7368;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  .landing-list li:hover .item-desc,
+  .landing-list li.active-item .item-desc {
+    color: #b8b0a4;
+  }
+
+  /* ── Splash ── */
+  #splash {
+    position: absolute; inset: 0; z-index: 50;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    gap: 48px; background: #2b2926;
+  }
+  #splash.hidden { display: none; }
+  #splash .splash-title {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #81b64c; text-align: center;
+  }
+  #splash .splash-choices {
+    display: flex; flex-direction: column; gap: 16px; align-items: center;
+  }
+  #splash .splash-btn {
+    display: flex; align-items: center; gap: 10px;
+    width: 200px; padding: 14px 24px;
+    background: transparent; border: 1px solid #45403a; border-radius: 10px;
+    color: #f4f2ec; font-size: 15px; font-weight: 500; font-family: inherit;
+    cursor: pointer; transition: border-color 0.25s, background 0.25s, transform 0.15s;
+  }
+  #splash .splash-btn:hover {
+    border-color: #81b64c; background: rgba(129,182,76,0.08); transform: translateY(-1px);
+  }
+  #splash .splash-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+  #splash .splash-btn .btn-label { font-size: 12px; color: #b8b0a4; font-weight: 400; margin-left: auto; }
+
+  /* ── Autoplay ── */
+
+  .autoplay-bar {
+    display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+    background: rgba(52,49,45,0.95); border-top: 1px solid #45403a;
+    padding: 12px 32px; align-items: center; justify-content: center; gap: 16px;
+    backdrop-filter: blur(8px);
+  }
+  .autoplay-bar.visible { display: flex; }
+  .autoplay-bar button {
+    background: none; border: 1px solid #45403a; color: #f4f2ec;
+    padding: 6px 18px; border-radius: 8px; font-size: 13px; font-family: inherit;
+    cursor: pointer; transition: background 0.2s, border-color 0.2s;
+  }
+  .autoplay-bar button:hover { background: #45403a; }
+  .autoplay-bar .ap-status { font-size: 12px; color: #b8b0a4; min-width: 80px; text-align: center; }
+
+  .resume-pill {
+    display: none; position: fixed; bottom: 80px; right: 20px; z-index: 150;
+    background: rgba(52,49,45,0.9); border: 1px solid #81b64c; border-radius: 20px;
+    padding: 6px 16px; color: #81b64c; font-size: 12px; font-family: inherit;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .resume-pill:hover { background: rgba(129,182,76,0.15); }
+  .resume-pill.visible { display: block; }
+</style>
+<a href="/" style="position:fixed;top:16px;left:20px;z-index:200;color:#f4f2ec;font-size:12px;font-family:-apple-system,system-ui,sans-serif;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">← Menu</a>
+
+<div class="slides-wrap">
+
+
+<div id="progress"><div id="progress-fill"></div></div>
+
+<div id="deck">
+
+<div id="splash">
+  <div class="splash-title">The South African Government Bond Market</div>
+  <div class="splash-choices">
+    <button class="splash-btn" onclick="startPlay()">
+      <svg viewBox="0 0 24 24" fill="#81b64c"><polygon points="5,3 19,12 5,21"/></svg>
+      Play
+      <span class="btn-label">narrated</span>
+    </button>
+    <button class="splash-btn" onclick="startInteract()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#81b64c" stroke-width="2" stroke-linecap="round"><polyline points="4,7 4,4 20,4 20,7"/><line x1="12" y1="4" x2="12" y2="14"/><polyline points="8,10 12,14 16,10"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
+      Interact
+      <span class="btn-label">manual</span>
+    </button>
+  </div>
+</div>
+
+  <!-- SLIDE 1: Supply Summary -->
+  <div class="slide" id="s1">
+    <div class="slide-inner">
+      <div class="eyebrow">The South African Government Bond Market</div>
+      <h1>Summary</h1>
+      <ul class="bullets">
+        <li>Government behaviour reveals that supply is de-facto fixed at <strong>4.5% of GDP / year</strong></li>
+        <li>Non-fundamental demand is variable, as revealed by foreign investor behaviour and price swings</li>
+        <li>Explosive debt dynamics could impact fundamental demand in nonlinear ways</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SLIDE 1: Fan Chart (animated) — Chart.js -->
+  <div class="slide" id="s2">
+    <div class="slide-inner two-col">
+      <div class="col-text">
+        <div class="eyebrow">The South African Government Bond Market</div>
+        <h1>Supply</h1>
+        <ul class="bullets" style="margin-top:16px;">
+          <li>The dashed lines are deficit projections from every National Budget Review (2011-2026)</li>
+          <li>I think that it has been politically impossible to borrow less than 4% of GDP</li>
+          <li>Projections of debt supply cannot be relied on</li>
+          <li>I view the flow rate of supply of government debt as endogenously fixed at <strong>4.5% of GDP</strong></li>
+        </ul>
+        <div style="margin-top:12px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
+      </div>
+      <div class="col-chart">
+        <div style="position:relative;width:100%;"><canvas id="fanChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var allLabels = ['10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29'];
+    var actuals =   [5.3, 4.3, 4.8, 5.3, 4.6, 4.5, 4.2, 3.8, 4.6, 4.8, 7.7,11.6, 5.7, 4.9, 4.8, 4.8,null,null,null,null];
+
+    // Projections: [startLabelIndex, [values mapped to consecutive labels from startIndex]]
+    var projections = [
+      {start:0,  vals:{0:5.3, 1:5.3, 2:4.8, 3:3.3}},              // 2011 BR (anchored to actual)
+      {start:2,  vals:{2:4.2, 3:4.8, 4:4.6, 5:4.0}},              // 2012 BR
+      {start:3,  vals:{3:5.2, 4:5.2, 5:4.1, 6:3.5}},              // 2013 BR
+      {start:4,  vals:{4:4.9, 5:4.7, 6:3.9, 7:3.2}},              // 2014 BR
+      {start:5,  vals:{5:5.0, 6:4.4, 7:3.5, 8:3.0}},              // 2015 BR
+      {start:6,  vals:{6:4.2, 7:4.2, 8:3.6, 9:3.1}},              // 2016 BR
+      {start:7,  vals:{7:4.3, 8:3.9, 9:3.6,10:3.4}},              // 2017 BR
+      {start:8,  vals:{8:4.1, 9:3.8,10:3.8,11:3.7}},              // 2018 BR
+      {start:9,  vals:{9:4.4,10:4.4,11:4.2,12:4.0}},              // 2019 BR
+      {start:10, vals:{10:6.5,11:6.8,12:6.4,13:5.9}},             // 2020 Feb
+      {start:11, vals:{11:14.6,12:9.3,13:7.7}},                   // 2020 Supp
+      {start:11, vals:{11:14.0,12:7.3,13:6.3,14:5.7}},            // 2021 BR
+      {start:12, vals:{12:5.5,13:6.0,14:5.2,15:4.6}},             // 2022 BR
+      {start:13, vals:{13:4.5,14:4.5,15:3.7,16:3.2}},             // 2023 BR
+      {start:14, vals:{14:4.7,15:4.3,16:3.7,17:3.3}},             // 2024 BR
+      {start:15, vals:{15:4.7,16:4.6,17:3.9,18:3.6}},             // 2025 BR
+      {start:16, vals:{16:4.5,17:3.7,18:3.3,19:2.9}},             // 2026 BR
+    ];
+
+    var fanChart = null;
+    var played = false;
+    var stepTimer;
+    var currentStep = 0;
+
+    function makeProjData(proj) {
+      return allLabels.map(function(_,i) { return (i in proj.vals) ? proj.vals[i] : null; });
+    }
+
+    function buildChart() {
+      var ctx = document.getElementById('fanChart');
+      if (!ctx) return;
+      fanChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: allLabels,
+          datasets: [{
+            label: 'Actual deficit (% of GDP)',
+            data: allLabels.map(function() { return null; }),
+            borderColor: '#81b64c',
+            borderWidth: 3,
+            pointBackgroundColor: '#81b64c',
+            pointRadius: 3,
+            pointHoverRadius: 5,
+            tension: 0,
+            spanGaps: false,
+            order: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 1.5,
+          animation: { duration: 300 },
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: ['Main Budget Deficit','Fiscal years ending March'],
+              color: '#f4f2ec',
+              font: {size:14,weight:'bold'},
+              padding: {bottom:12}
+            },
+            tooltip: {
+              filter: function(item) { return item.raw !== null; },
+              callbacks: {
+                label: function(ctx) { return ctx.dataset.label + ': ' + ctx.raw.toFixed(1) + '%'; }
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: { color: '#b8b0a4', font: {size:10} },
+              grid: { color: 'rgba(69,64,58,0.5)' }
+            },
+            y: {
+              min: 0, max: 16,
+              ticks: {
+                color: '#b8b0a4',
+                font: {size:10},
+                callback: function(v) { return v + '%'; }
+              },
+              grid: { color: 'rgba(69,64,58,0.5)' },
+              title: { display: true, text: 'Deficit %', color: '#7a7368', font: {size:11,weight:'bold'} }
+            }
+          }
+        }
+      });
+    }
+
+    function animateStep(n) {
+      if (!fanChart || n >= actuals.length) return;
+      if (actuals[n] === null) return;
+
+      // Reveal actual data up to step n
+      var actualsDs = fanChart.data.datasets[0];
+      actualsDs.data[n] = actuals[n];
+
+      // Find projection(s) starting at this step
+      var found = [];
+      projections.forEach(function(p) { if (p.start === n) found.push(p); });
+
+      // Ghost previous active projection (change its color to faded)
+      fanChart.data.datasets.forEach(function(ds,i) {
+        if (i === 0) return;
+        if (ds.borderColor === 'rgba(244,242,236,0.6)') {
+          ds.borderColor = 'rgba(244,242,236,0.15)';
+          ds.borderWidth = 1;
+        }
+      });
+
+      // Add new projection datasets
+      found.forEach(function(p) {
+        fanChart.data.datasets.push({
+          label: 'Projection',
+          data: makeProjData(p),
+          borderColor: 'rgba(244,242,236,0.6)',
+          borderWidth: 2,
+          borderDash: [4,3],
+          pointRadius: 0,
+          tension: 0,
+          spanGaps: false,
+          order: 1
+        });
+      });
+
+      fanChart.update('none');
+      currentStep = n + 1;
+
+      // Handle double projections at same index (brief pause between)
+      if (found.length > 1) {
+        stepTimer = setTimeout(function() {
+          // Ghost the first, keep the second active
+          var datasets = fanChart.data.datasets;
+          var secondLast = datasets[datasets.length - 2];
+          if (secondLast && secondLast.label === 'Projection') {
+            secondLast.borderColor = 'rgba(244,242,236,0.15)';
+            secondLast.borderWidth = 1;
+          }
+          fanChart.update('none');
+          stepTimer = setTimeout(function() { animateStep(n + 1); }, 500);
+        }, 400);
+        return;
+      }
+
+      stepTimer = setTimeout(function() { animateStep(n + 1); }, 500);
+    }
+
+    function resetChart() {
+      played = false;
+      currentStep = 0;
+      clearTimeout(stepTimer);
+      if (fanChart) {
+        fanChart.data.datasets = [{
+          label: 'Actual deficit (% of GDP)',
+          data: allLabels.map(function() { return null; }),
+          borderColor: '#81b64c',
+          borderWidth: 3,
+          pointBackgroundColor: '#81b64c',
+          pointRadius: 3,
+          pointHoverRadius: 5,
+          tension: 0,
+          spanGaps: false,
+          order: 0
+        }];
+        fanChart.update('none');
+      }
+    }
+
+    function startAnimation() {
+      if (played) return;
+      played = true;
+      if (!fanChart) buildChart();
+      else resetChart();
+      played = true;
+      setTimeout(function() { animateStep(0); }, 500);
+    }
+
+    var obs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's2' && m.target.classList.contains('active') && !played) {
+          startAnimation();
+        }
+        if (m.target.id === 's2' && !m.target.classList.contains('active') && played) {
+          resetChart();
+        }
+      });
+    });
+    setTimeout(function() {
+      var s = document.getElementById('s2');
+      if (s) {
+        obs.observe(s, { attributes: true, attributeFilter: ['class'] });
+        if (s.classList.contains('active')) startAnimation();
+      }
+    }, 100);
+  })();
+  </script>
+
+    <!-- SLIDE 1: Supply — deficit flow — Chart.js -->
+  <div class="slide" id="s3">
+    <div class="slide-inner two-col">
+      <div class="col-text">
+        <div class="eyebrow">The South African Government Bond Market</div>
+        <h1>Supply (Flow)</h1>
+        <ul class="bullets" style="margin-top:16px;">
+          <li>Naturally, for a growing economy, the ZAR value of 4.5% of GDP grows over time</li>
+          <li id="s3-bullet-usd">In USD terms, SA borrows a roughly constant <strong>$15-20bn per year</strong></li>
+          <li>tbc</li>
+          <li>tbc</li>
+        </ul>
+        <div style="margin-top:12px;"><button class="src-btn" onclick="document.getElementById('src-deficit').classList.add('open')">Source</button></div>
+      </div>
+      <div class="col-chart">
+        <div style="position:relative;width:100%;"><canvas id="flowChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var labels = ['10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25'];
+    // From database: Main budget deficit (ZAR mn) -> ZAR bn
+    var zarBn = [129,114,148,177,167,175,175,171,210,229,346,552,326,300,313,337];
+    // From database: Main budget balance (% GDP), sign flipped
+    var pctGdp = [5.3,4.3,4.8,5.3,4.6,4.5,4.2,3.8,4.6,4.8,7.7,11.6,5.7,4.9,4.8,4.8];
+    // Hardcoded USD (no DB series yet)
+    var usdBn = [17.2,15.4,18.7,19.3,14.5,13.7,11.5,9.8,13.1,15.3,22.1,33.5,21.2,16.3,16.2,16.8];
+
+    var flowChart = null;
+    var showingUSD = false;
+
+    function buildFlowChart() {
+      var ctx = document.getElementById('flowChart');
+      if (!ctx) return;
+      flowChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'ZAR bn',
+              data: zarBn,
+              backgroundColor: 'rgba(129,182,76,0.7)',
+              borderRadius: 3,
+              yAxisID: 'y',
+              order: 1
+            },
+            {
+              label: '% of GDP',
+              data: pctGdp,
+              type: 'line',
+              borderColor: '#81b64c',
+              borderWidth: 2,
+              pointBackgroundColor: '#81b64c',
+              pointRadius: 3,
+              tension: 0,
+              yAxisID: 'y1',
+              order: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 1.5,
+          animation: { duration: 400 },
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: ['Main Budget Deficit','Fiscal years ending March'],
+              color: '#f4f2ec',
+              font: {size:14,weight:'bold'},
+              padding: {bottom:12}
+            },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  if (ctx.dataset.yAxisID === 'y1') return ctx.raw.toFixed(1) + '% of GDP';
+                  return ctx.dataset.label + ': ' + ctx.raw;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: { color: '#b8b0a4', font: {size:10} },
+              grid: { color: 'rgba(69,64,58,0.5)' }
+            },
+            y: {
+              position: 'left',
+              min: 0,
+              ticks: { color: '#81b64c', font: {size:10} },
+              grid: { color: 'rgba(69,64,58,0.5)' },
+              title: { display: true, text: 'ZAR bn', color: '#81b64c', font: {size:11,weight:'bold'} }
+            },
+            y1: {
+              position: 'right',
+              min: 0, max: 14,
+              ticks: {
+                color: '#81b64c',
+                font: {size:10},
+                callback: function(v) { return v + '%'; }
+              },
+              grid: { drawOnChartArea: false },
+              title: { display: true, text: '% of GDP', color: '#81b64c', font: {size:11,weight:'bold'} }
+            }
+          }
+        }
+      });
+    }
+
+    function switchToUSD() {
+      if (!flowChart || showingUSD) return;
+      showingUSD = true;
+      flowChart.data.datasets[0].data = usdBn;
+      flowChart.data.datasets[0].label = 'USD bn';
+      flowChart.options.scales.y.title.text = 'USD bn';
+      flowChart.update();
+    }
+
+    function switchToZAR() {
+      if (!flowChart || !showingUSD) return;
+      showingUSD = false;
+      flowChart.data.datasets[0].data = zarBn;
+      flowChart.data.datasets[0].label = 'ZAR bn';
+      flowChart.options.scales.y.title.text = 'ZAR bn';
+      flowChart.update();
+    }
+
+    // Watch for bullet reveal to trigger USD switch
+    var bulletObs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's3-bullet-usd' && m.target.classList.contains('visible') && !showingUSD) switchToUSD();
+      });
+    });
+    var slideObs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's3' && m.target.classList.contains('active') && !flowChart) buildFlowChart();
+        if (m.target.id === 's3' && !m.target.classList.contains('active') && showingUSD) switchToZAR();
+      });
+    });
+    setTimeout(function() {
+      var b = document.getElementById('s3-bullet-usd');
+      if (b) bulletObs.observe(b, { attributes: true, attributeFilter: ['class'] });
+      var s = document.getElementById('s3');
+      if (s) {
+        slideObs.observe(s, { attributes: true, attributeFilter: ['class'] });
+        if (s.classList.contains('active') && !flowChart) buildFlowChart();
+      }
+    }, 200);
+  })();
+  </script>
+
+  <!-- SLIDE 2: Supply (Stock) — animated -->
+  <div class="slide" id="s4">
+    <div class="slide-inner">
+      <div class="eyebrow">The South African Government Bond Market</div>
+      <h1>Supply (Stock)</h1>
+      <div class="chart-wrap">
+        <svg id="hope-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><style>
+            .bar-label { fill: #b8b0a4; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #f4f2ec; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            .pct-label { fill: #81b64c; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .src-label { fill: #7a7368; font-size: 8px; font-family: -apple-system, system-ui, sans-serif; }
+          </style></defs>
+          <text x="210" y="16" text-anchor="middle" class="bar-title">Gross Loan Debt: Actual vs "Hope"</text>
+          <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="42" x2="60" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="360" y1="42" x2="360" y2="250" stroke="#81b64c" stroke-width="0.5" stroke-dasharray="2,2"/>
+          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text x="54" y="254" text-anchor="end" style="fill:#81b64c" class="bar-label">0</text>
+          <text x="54" y="184" text-anchor="end" style="fill:#81b64c" class="bar-label">2</text>
+          <text x="54" y="114" text-anchor="end" style="fill:#81b64c" class="bar-label">4</text>
+          <text x="54" y="46" text-anchor="end" style="fill:#81b64c" class="bar-label">6</text>
+          <text x="366" y="254" class="pct-label">0%</text>
+          <text x="366" y="184" class="pct-label">30%</text>
+          <text x="366" y="114" class="pct-label">60%</text>
+          <text x="366" y="46" class="pct-label">90%</text><text x="71" y="264" text-anchor="middle" class="bar-label">10</text><text x="90" y="264" text-anchor="middle" class="bar-label">11</text><text x="108" y="264" text-anchor="middle" class="bar-label">12</text><text x="126" y="264" text-anchor="middle" class="bar-label">13</text><text x="145" y="264" text-anchor="middle" class="bar-label">14</text><text x="164" y="264" text-anchor="middle" class="bar-label">15</text><text x="182" y="264" text-anchor="middle" class="bar-label">16</text><text x="200" y="264" text-anchor="middle" class="bar-label">17</text><text x="219" y="264" text-anchor="middle" class="bar-label">18</text><text x="238" y="264" text-anchor="middle" class="bar-label">19</text><text x="256" y="264" text-anchor="middle" class="bar-label">20</text><text x="274" y="264" text-anchor="middle" class="bar-label">21</text><text x="293" y="264" text-anchor="middle" class="bar-label">22</text><text x="312" y="264" text-anchor="middle" class="bar-label">23</text><text x="330" y="264" text-anchor="middle" class="bar-label">24</text><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
+          <!-- Axis top labels instead of legend -->
+          <text x="54" y="28" text-anchor="end" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tn</text>
+          <text x="366" y="28" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% of GDP</text>
+
+          <!-- Blue bars: ZAR tn debt stock (STATIC, reads against left axis) -->
+          <rect x="63" y="223.4" width="16" height="26.6" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="82" y="217.1" width="16" height="32.9" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="100" y="210.8" width="16" height="39.2" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="118" y="204.9" width="16" height="45.1" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="137" y="197.7" width="16" height="52.3" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="156" y="190.6" width="16" height="59.4" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="174" y="183.4" width="16" height="66.6" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="192" y="176.3" width="16" height="73.7" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="211" y="167.8" width="16" height="82.2" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="230" y="158.0" width="16" height="92.0" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="248" y="142.4" width="16" height="107.6" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="266" y="120.1" width="16" height="129.9" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="285" y="108.8" width="16" height="141.2" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="304" y="92.7" width="16" height="157.3" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="322" y="76.5" width="16" height="173.5" rx="2" fill="#81b64c" opacity="0.7"/>
+          <rect x="340" y="62.1" width="16" height="187.9" rx="2" fill="#81b64c" opacity="0.7"/>
+          <!-- Dynamic elements: green debt/GDP line animated by JS -->
+          <g id="hope-old-paths"></g>
+          <polyline id="gdp-line" points="" fill="none" stroke="#81b64c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <g id="gdp-dots"></g>
+          <polyline id="hope-future" points="" fill="none" stroke="#f4f2ec" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round" opacity="0"/>
+        </svg>
+        <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
+      </div>
+      <ul class="bullets">
+        <li>The stock chart reveals something else important: debt is on an explosive path</li>
+        <li>The combination of growth and borrowing costs that South Africa delivers and faces is not one that can tolerate supply of 4.5% of GDP year after year without adjustment</li>
+        <li>Debt is on an explosive path</li>
+        <li>Projected improvements rarely materialise</li>
+      </ul>
+    </div>
+  </div>
+    <script class="hope-anim-script">
+  (function(){
+    var ax = [71,90,108,126,145,164,182,200,219,238,256,274,293,312,330,348];
+    var gy = [181.8,172.3,166.0,158.9,152.5,146.6,138.9,137.8,133.4,125.3,110.7,96.2,98.2,99.1,89.8,80.6];
+    var N = ax.length;
+    // Real debt/GDP projections from verified National Budget Reviews
+    var projData = [
+      {idx:2, pts:'108,166.0 126,162.0 145,159.8 164,165.3'},
+      {idx:4, pts:'145,155.4 164,152.5 182,152.5 200,153.2'},
+      {idx:5, pts:'164,146.6 182,144.4 200,143.3 219,143.3'},
+      {idx:6, pts:'182,138.9 200,136.7 219,148.4 238,149.9'},
+      {idx:7, pts:'200,137.8 219,135.6 238,133.4 256,132.3'},
+      {idx:8, pts:'219,133.4 238,129.0 256,126.8 274,126.4'},
+      {idx:9, pts:'238,125.3 256,121.3 274,118.0 293,117.6'},
+      {idx:10, pts:'256,110.7 274,105.7 293,104.8 312,105.9'},
+      {idx:11, pts:'274,73.3 293,63.0 312,57.5 330,54.4'},
+      {idx:12, pts:'293,95.1 312,89.4 330,86.1 348,84.8'},
+      {idx:13, pts:'312,92.9 330,89.4 348,88.1'},
+      {idx:14, pts:'330,87.4 348,85.0'},
+      {idx:15, pts:'348,80.6 367,76.4'},
+    ];
+    var gdpLine, gdpDots, hopeLine, oldPaths;
+    var played = false, timer;
+
+    function init() {
+      var svg = document.getElementById('hope-svg'); if (!svg) return;
+      gdpLine = document.getElementById('gdp-line');
+      gdpDots = document.getElementById('gdp-dots');
+      hopeLine = document.getElementById('hope-future');
+      oldPaths = document.getElementById('hope-old-paths');
+    }
+
+    function pts(n) { var s=''; for(var i=0;i<=n;i++) s+=(i?' ':'')+ax[i]+','+gy[i]; return s; }
+
+    function dot(x, y) {
+      var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r','3');
+      c.setAttribute('fill','#81b64c'); c.style.opacity='0'; c.style.transition='opacity 0.3s';
+      setTimeout(function(){c.style.opacity='1';},50); return c;
+    }
+
+    function ghostProj(ptsStr) {
+      var p = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+      p.setAttribute('points', ptsStr);
+      p.setAttribute('fill', 'none');
+      p.setAttribute('stroke', '#f4f2ec');
+      p.setAttribute('stroke-width', '1');
+      p.setAttribute('stroke-dasharray', '3,3');
+      p.setAttribute('opacity', '0.15');
+      return p;
+    }
+
+    function step(n) {
+      if (n >= N) { hopeLine.setAttribute('points', ''); return; }
+
+      // Extend actual green line
+      gdpLine.setAttribute('points', pts(n));
+      gdpDots.appendChild(dot(ax[n], gy[n]));
+
+      // Ghost previous projection
+      var prevPts = hopeLine.getAttribute('points');
+      if (prevPts) oldPaths.appendChild(ghostProj(prevPts));
+
+      // Find projection for this index
+      var thisProj = null;
+      for (var j = 0; j < projData.length; j++) {
+        if (projData[j].idx === n) { thisProj = projData[j]; break; }
+      }
+
+      if (thisProj) {
+        hopeLine.setAttribute('points', thisProj.pts);
+        hopeLine.setAttribute('opacity', '0.8');
+      } else {
+        hopeLine.setAttribute('points', '');
+      }
+
+      timer = setTimeout(function() { step(n + 1); }, 500);
+    }
+
+    function reset() {
+      played = false;
+      clearTimeout(timer);
+      init();
+      if (gdpLine) gdpLine.setAttribute('points', '');
+      if (gdpDots) gdpDots.innerHTML = '';
+      if (oldPaths) oldPaths.innerHTML = '';
+      if (hopeLine) { hopeLine.setAttribute('points', ''); hopeLine.setAttribute('opacity', '0'); }
+    }
+
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(m) {
+        if (m.target.id === 's4' && m.target.classList.contains('active') && !played) {
+          played = true; init(); setTimeout(function() { step(0); }, 500);
+        }
+        if (m.target.id === 's3' && !m.target.classList.contains('active') && played) {
+          reset();
+        }
+      });
+    });
+    setTimeout(function() {
+      var slide = document.getElementById('s3');
+      if (slide) {
+        observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
+        if (slide.classList.contains('active')) { played = true; init(); setTimeout(function(){ step(0); }, 500); }
+      }
+    }, 100);
+  })();
+  </script>
+
+
+
+
+    <!-- SLIDE 3: Supply & Demand -->
+  <div class="slide" id="s5">
+    <div class="slide-inner">
+      <div class="eyebrow">The South African Government Bond Market</div>
+      <h1>Supply &amp; Demand</h1>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <style>
+              .ax-label { fill: #b8b0a4; font-size: 13px; font-family: -apple-system, system-ui, sans-serif; }
+              .ax-title { fill: #b8b0a4; font-size: 14px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+              .tick-label { fill: #b8b0a4; font-size: 11px; font-family: -apple-system, system-ui, sans-serif; }
+              .tick-sub { fill: #7a7368; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+              .curve-label { font-size: 20px; font-weight: 700; font-family: -apple-system, system-ui, sans-serif; }
+              .ann-title { font-size: 12px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+              .ann-body { fill: #b8b0a4; font-size: 11px; font-family: -apple-system, system-ui, sans-serif; }
+              .eq-label { fill: #f4f2ec; font-size: 12px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+            </style>
+          </defs>
+
+          <!-- Chart area: x=100..700, y=40..380. -->
+          <!-- Y-axis: 0% at y=380, 8% at y=40. Each 1% = 42.5px -->
+          <!-- X-axis: 0% GDP at x=100, 7% GDP at x=700. Each 1% = 85.7px -->
+
+          <!-- Gridlines -->
+          <g stroke="#45403a" stroke-width="0.5" stroke-dasharray="4,4">
+            <!-- Horizontal: 1% through 7% -->
+            <line x1="100" y1="337.5" x2="700" y2="337.5"/>
+            <line x1="100" y1="295" x2="700" y2="295"/>
+            <line x1="100" y1="252.5" x2="700" y2="252.5"/>
+            <line x1="100" y1="210" x2="700" y2="210"/>
+            <line x1="100" y1="167.5" x2="700" y2="167.5"/>
+            <line x1="100" y1="125" x2="700" y2="125"/>
+            <line x1="100" y1="82.5" x2="700" y2="82.5"/>
+            <!-- Vertical: 1% through 6% GDP -->
+            <line x1="185.7" y1="40" x2="185.7" y2="380"/>
+            <line x1="271.4" y1="40" x2="271.4" y2="380"/>
+            <line x1="357.1" y1="40" x2="357.1" y2="380"/>
+            <line x1="442.9" y1="40" x2="442.9" y2="380"/>
+            <line x1="528.6" y1="40" x2="528.6" y2="380"/>
+            <line x1="614.3" y1="40" x2="614.3" y2="380"/>
+          </g>
+
+          <!-- Axes -->
+          <line x1="100" y1="380" x2="710" y2="380" stroke="#b8b0a4" stroke-width="1.5"/>
+          <line x1="100" y1="35" x2="100" y2="380" stroke="#b8b0a4" stroke-width="1.5"/>
+          <polygon points="710,380 702,376 702,384" fill="#b8b0a4"/>
+          <polygon points="100,35 96,43 104,43" fill="#b8b0a4"/>
+
+          <!-- Y-axis tick labels (real interest rate) -->
+          <text x="90" y="384" text-anchor="end" class="tick-label">0%</text>
+          <text x="90" y="341" text-anchor="end" class="tick-label">1%</text>
+          <text x="90" y="299" text-anchor="end" class="tick-label">2%</text>
+          <text x="90" y="256" text-anchor="end" class="tick-label">3%</text>
+          <text x="90" y="214" text-anchor="end" class="tick-label">4%</text>
+          <text x="90" y="171" text-anchor="end" class="tick-label">5%</text>
+          <text x="90" y="129" text-anchor="end" class="tick-label">6%</text>
+          <text x="90" y="86" text-anchor="end" class="tick-label">7%</text>
+
+          <!-- Y-axis tick marks -->
+          <g stroke="#b8b0a4" stroke-width="1">
+            <line x1="96" y1="337.5" x2="100" y2="337.5"/>
+            <line x1="96" y1="295" x2="100" y2="295"/>
+            <line x1="96" y1="252.5" x2="100" y2="252.5"/>
+            <line x1="96" y1="210" x2="100" y2="210"/>
+            <line x1="96" y1="167.5" x2="100" y2="167.5"/>
+            <line x1="96" y1="125" x2="100" y2="125"/>
+            <line x1="96" y1="82.5" x2="100" y2="82.5"/>
+          </g>
+
+          <!-- X-axis tick labels (% of GDP only) -->
+          <text x="185.7" y="398" text-anchor="middle" class="tick-label">1%</text>
+          <text x="271.4" y="398" text-anchor="middle" class="tick-label">2%</text>
+          <text x="357.1" y="398" text-anchor="middle" class="tick-label">3%</text>
+          <text x="442.9" y="398" text-anchor="middle" class="tick-label">4%</text>
+          <text x="528.6" y="398" text-anchor="middle" class="tick-label">5%</text>
+          <text x="614.3" y="398" text-anchor="middle" class="tick-label">6%</text>
+
+          <!-- X-axis tick marks -->
+          <g stroke="#b8b0a4" stroke-width="1">
+            <line x1="185.7" y1="380" x2="185.7" y2="384"/>
+            <line x1="271.4" y1="380" x2="271.4" y2="384"/>
+            <line x1="357.1" y1="380" x2="357.1" y2="384"/>
+            <line x1="442.9" y1="380" x2="442.9" y2="384"/>
+            <line x1="528.6" y1="380" x2="528.6" y2="384"/>
+            <line x1="614.3" y1="380" x2="614.3" y2="384"/>
+          </g>
+
+          <!-- Axis titles -->
+          <text x="400" y="440" text-anchor="middle" class="ax-title">Issuance per year (% of GDP)</text>
+          <text x="32" y="210" text-anchor="middle" class="ax-title" transform="rotate(-90, 32, 210)">Real interest rate (%)</text>
+
+          <!-- Supply curve: steep/nearly vertical. Intersection at 4.5% GDP, 4% rate -->
+          <path d="M 417,55 C 443,120 473,280 571,360" fill="none" stroke="#81b64c" stroke-width="3" stroke-linecap="round"/>
+          <text x="578" y="355" class="curve-label" fill="#81b64c">S</text>
+
+          <!-- Demand curve: upward sloping (steep/inelastic) -->
+          <path id="sd-demand" d="M 357,337 C 403,290 473,220 589,68" fill="none" stroke="#81b64c" stroke-width="3" stroke-linecap="round" style="transition: d 0.8s ease;"/>
+          <text id="sd-d-label" x="595" y="62" class="curve-label" fill="#81b64c" style="transition: x 0.8s ease;">D</text>
+          <!-- Ghost of original demand (shown after shift) -->
+          <path id="sd-demand-ghost" d="M 357,337 C 403,290 473,220 589,68" fill="none" stroke="#81b64c" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4,4" opacity="0"/>
+          <text id="sd-d-ghost-label" x="595" y="62" class="curve-label" fill="#81b64c" opacity="0" font-size="14">D</text>
+
+          <!-- Intersection: 4.5% GDP, 4% real rate = (486, 210) -->
+          <circle id="sd-eq-dot" cx="486" cy="210" r="6" fill="#f4f2ec" stroke="#2b2926" stroke-width="2" style="transition: cx 0.8s ease, cy 0.8s ease;"/>
+
+          <!-- Dashed lines to axes from intersection -->
+          <line id="sd-eq-hline" x1="100" y1="210" x2="486" y2="210" stroke="#f4f2ec" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: y1 0.8s ease, y2 0.8s ease, x2 0.8s ease;"/>
+          <line id="sd-eq-vline" x1="486" y1="210" x2="486" y2="380" stroke="#f4f2ec" stroke-width="1" stroke-dasharray="5,3" opacity="0.4" style="transition: x1 0.8s ease, x2 0.8s ease, y1 0.8s ease;"/>
+
+          <!-- Equilibrium labels -->
+          <text id="sd-eq-rate" x="108" y="206" class="eq-label" opacity="0.8">4%</text>
+          <text id="sd-eq-gdp" x="486" y="375" text-anchor="middle" class="eq-label" opacity="0.6" font-size="10">4.5% GDP</text>
+          <!-- Arrow showing price effect (hidden until demand shifts) -->
+          <g id="sd-price-note" opacity="0" style="transition: opacity 0.5s ease;">
+            <text x="180" y="255" style="fill:#81b64c;font-size:11px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">↓ rates = ↑ bond prices</text>
+          </g>
+
+          <!-- Annotation: Supply -->
+          <rect x="550" y="108" width="190" height="46" rx="8" fill="#34312d" stroke="#45403a" stroke-width="1"/>
+          <text x="564" y="128" class="ann-title" fill="#81b64c">Supply is fixed and steep</text>
+          <text x="564" y="148" class="ann-body">Borrowing is endogenously fixed</text>
+          <line x1="510" y1="133" x2="480" y2="170" stroke="#45403a" stroke-width="1"/>
+
+          <!-- Annotation: Demand (left) -->
+          <rect x="120" y="275" width="210" height="46" rx="8" fill="#34312d" stroke="#45403a" stroke-width="1"/>
+          <text x="134" y="295" class="ann-title" fill="#81b64c">Demand is variable</text>
+          <text x="134" y="313" class="ann-body">Demand blows hot and cold</text>
+          <line x1="315" y1="300" x2="435" y2="250" stroke="#45403a" stroke-width="1"/>
+        </svg>
+      </div>
+      <ul class="bullets" id="sd-bullets">
+        <li>My supply schedule is steep and fixed</li>
+        <li id="sd-bullet-2">Steep: changes in borrowing costs (bond yields) have little impact</li>
+        <li>Fixed: neither appetite for austerity nor go-for-growth</li>
+        <li>Fits with significant variation observed in bond yields, caused by demand variation</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+  (function(){
+    // Animate S&D chart when bullet 2 is revealed
+    var bullet2 = null;
+    var shifted = false;
+    var obs = new MutationObserver(function(mutations) {
+      mutations.forEach(function(m) {
+        if (m.target.id === 'sd-bullet-2' && m.target.classList.contains('visible') && !shifted) {
+          shifted = true;
+          // Shift demand curve right
+          var demand = document.getElementById('sd-demand');
+          if (demand) {
+            demand.setAttribute('d', 'M 417,337 C 463,290 533,220 649,68');
+            document.getElementById('sd-d-label').setAttribute('x', '655');
+            // Show ghost of old position
+            document.getElementById('sd-demand-ghost').setAttribute('opacity', '0.25');
+            document.getElementById('sd-d-ghost-label').setAttribute('opacity', '0.25');
+            // Move intersection to new equilibrium: 4.2% GDP, 3% rate
+            document.getElementById('sd-eq-dot').setAttribute('cx', '503');
+            document.getElementById('sd-eq-dot').setAttribute('cy', '252');
+            document.getElementById('sd-eq-hline').setAttribute('y1', '252');
+            document.getElementById('sd-eq-hline').setAttribute('y2', '252');
+            document.getElementById('sd-eq-hline').setAttribute('x2', '503');
+            document.getElementById('sd-eq-vline').setAttribute('x1', '503');
+            document.getElementById('sd-eq-vline').setAttribute('x2', '503');
+            document.getElementById('sd-eq-vline').setAttribute('y1', '252');
+            // Update labels
+            document.getElementById('sd-eq-rate').textContent = '3%';
+            document.getElementById('sd-eq-rate').setAttribute('y', '248');
+            document.getElementById('sd-eq-gdp').textContent = '~4.7% GDP';
+            document.getElementById('sd-eq-gdp').setAttribute('x', '503');
+            // Show price note
+            document.getElementById('sd-price-note').setAttribute('opacity', '1');
+          }
+        }
+      });
+    });
+    function resetSD() {
+      shifted = false;
+      var d = document.getElementById('sd-demand'); if(d) d.setAttribute('d','M 357,337 C 403,290 473,220 589,68');
+      var dl = document.getElementById('sd-d-label'); if(dl) dl.setAttribute('x','595');
+      var dg = document.getElementById('sd-demand-ghost'); if(dg) dg.setAttribute('opacity','0');
+      var dgl = document.getElementById('sd-d-ghost-label'); if(dgl) dgl.setAttribute('opacity','0');
+      var dot = document.getElementById('sd-eq-dot'); if(dot){dot.setAttribute('cx','486');dot.setAttribute('cy','210');}
+      var hl = document.getElementById('sd-eq-hline'); if(hl){hl.setAttribute('y1','210');hl.setAttribute('y2','210');hl.setAttribute('x2','486');}
+      var vl = document.getElementById('sd-eq-vline'); if(vl){vl.setAttribute('x1','486');vl.setAttribute('x2','486');vl.setAttribute('y1','210');}
+      var er = document.getElementById('sd-eq-rate'); if(er){er.textContent='4%';er.setAttribute('y','206');}
+      var eg = document.getElementById('sd-eq-gdp'); if(eg){eg.textContent='4.5% GDP';eg.setAttribute('x','486');}
+      var pn = document.getElementById('sd-price-note'); if(pn) pn.setAttribute('opacity','0');
+    }
+    var slideObs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's5' && !m.target.classList.contains('active') && shifted) resetSD();
+      });
+    });
+    setTimeout(function() {
+      var b2 = document.getElementById('sd-bullet-2');
+      if (b2) obs.observe(b2, { attributes: true, attributeFilter: ['class'] });
+      var s3 = document.getElementById('s3');
+      if (s3) slideObs.observe(s3, { attributes: true, attributeFilter: ['class'] });
+    }, 200);
+  })();
+  </script>
+
+    <!-- SLIDE 5: Currency Composition -->
+  <div class="slide" id="s6">
+    <div class="slide-inner">
+      <div class="eyebrow">The South African Government Bond Market</div>
+      <h1>Supply (Currency)</h1>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><style>
+            .bar-label { fill: #b8b0a4; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #f4f2ec; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+          </style></defs>
+          <text x="210" y="16" text-anchor="middle" class="bar-title">Government Debt by Currency</text>
+          <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="42" x2="60" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text x="54" y="254" text-anchor="end" style="fill:#81b64c" class="bar-label">0</text>
+          <text x="54" y="184" text-anchor="end" style="fill:#81b64c" class="bar-label">2</text>
+          <text x="54" y="114" text-anchor="end" style="fill:#81b64c" class="bar-label">4</text>
+          <text x="54" y="46" text-anchor="end" style="fill:#81b64c" class="bar-label">6</text>
+          <text x="71" y="264" text-anchor="middle" class="bar-label">10</text><text x="90" y="264" text-anchor="middle" class="bar-label">11</text><text x="108" y="264" text-anchor="middle" class="bar-label">12</text><text x="126" y="264" text-anchor="middle" class="bar-label">13</text><text x="145" y="264" text-anchor="middle" class="bar-label">14</text><text x="164" y="264" text-anchor="middle" class="bar-label">15</text><text x="182" y="264" text-anchor="middle" class="bar-label">16</text><text x="200" y="264" text-anchor="middle" class="bar-label">17</text><text x="219" y="264" text-anchor="middle" class="bar-label">18</text><text x="238" y="264" text-anchor="middle" class="bar-label">19</text><text x="256" y="264" text-anchor="middle" class="bar-label">20</text><text x="274" y="264" text-anchor="middle" class="bar-label">21</text><text x="293" y="264" text-anchor="middle" class="bar-label">22</text><text x="312" y="264" text-anchor="middle" class="bar-label">23</text><text x="330" y="264" text-anchor="middle" class="bar-label">24</text><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
+          <text x="54" y="28" text-anchor="end" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR tn</text>
+          <!-- Stacked: Foreign currency (gold, bottom) + Domestic (blue, top) -->
+          <rect x="63" y="246.6" width="16" height="3.4" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="63" y="222.6" width="16" height="24.0" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="82" y="246.7" width="16" height="3.3" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="82" y="216.1" width="16" height="30.5" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="100" y="246.0" width="16" height="4.0" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="100" y="209.6" width="16" height="36.4" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="118" y="245.8" width="16" height="4.2" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="118" y="203.6" width="16" height="42.2" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="137" y="245.1" width="16" height="4.9" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="137" y="196.1" width="16" height="49.0" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="156" y="244.3" width="16" height="5.7" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="156" y="188.8" width="16" height="55.5" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="174" y="243.2" width="16" height="6.8" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="174" y="181.4" width="16" height="61.8" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="192" y="242.8" width="16" height="7.2" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="192" y="174.1" width="16" height="68.7" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="211" y="242.6" width="16" height="7.4" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="211" y="165.3" width="16" height="77.2" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="230" y="240.1" width="16" height="9.9" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="230" y="155.2" width="16" height="84.9" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="248" y="236.8" width="16" height="13.2" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="248" y="139.1" width="16" height="97.7" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="266" y="236.7" width="16" height="13.3" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="266" y="116.2" width="16" height="120.5" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="285" y="236.0" width="16" height="14.0" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="285" y="104.5" width="16" height="131.4" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="304" y="231.1" width="16" height="18.9" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="304" y="88.0" width="16" height="143.1" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="322" y="229.9" width="16" height="20.1" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="322" y="71.2" width="16" height="158.7" rx="0" fill="#81b64c" opacity="0.7"/>
+          <rect x="340" y="229.5" width="16" height="20.5" rx="0" fill="#d4a855" opacity="0.8"/>
+          <rect x="340" y="56.4" width="16" height="173.1" rx="0" fill="#81b64c" opacity="0.7"/>
+          <!-- Legend -->
+          <rect x="80" y="276" width="10" height="10" rx="1" fill="#81b64c" opacity="0.7"/>
+          <text x="95" y="284" class="bar-label">Local currency (ZAR)</text>
+          <rect x="220" y="276" width="10" height="10" rx="1" fill="#d4a855" opacity="0.8"/>
+          <text x="235" y="284" class="bar-label">Foreign currency</text>
+        </svg>
+        <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-debt').classList.add('open')">Source</button></div>
+      </div>
+      <ul class="bullets">
+        <li>South Africa borrows in both local currency (ZAR) and foreign currency</li>
+        <li>Local currency debt dominates: consistently <strong>~90%</strong> of the total</li>
+        <li>Foreign currency debt is small but growing (ZAR 100bn → 600bn)</li>
+        <li>The rest of this presentation focuses on the local currency market</li>
+      </ul>
+    </div>
+  </div>
+
+    <!-- SLIDE 4: Demand (Stock) -->
+  <div class="slide" id="s7">
+    <div class="slide-inner">
+      <div class="eyebrow">The South African Government Bond Market</div>
+      <h1>Demand (Stock)</h1>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><style>
+            .bar-label { fill: #b8b0a4; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #f4f2ec; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+          </style></defs>
+          <text x="210" y="16" text-anchor="middle" class="bar-title">Bond Holdings by Investor Type</text>
+          <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line id="d4-yaxis" x1="60" y1="42" x2="60" y2="250" stroke="#b8b0a4" stroke-width="1" style="transition: stroke 0.6s;"/>
+          <line x1="60" y1="180.2" x2="360" y2="180.2" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="110.4" x2="360" y2="110.4" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text id="d4-y0" x="54" y="254" text-anchor="end" style="fill:#81b64c;transition:fill 0.6s" class="bar-label">0</text>
+          <text id="d4-y1" x="54" y="184" text-anchor="end" style="fill:#81b64c;transition:fill 0.6s" class="bar-label">2</text>
+          <text id="d4-y2" x="54" y="114" text-anchor="end" style="fill:#81b64c;transition:fill 0.6s" class="bar-label">4</text>
+          <text id="d4-y3" x="54" y="46" text-anchor="end" style="fill:#81b64c;transition:fill 0.6s" class="bar-label">6</text>
+          <text x="71" y="264" text-anchor="middle" class="bar-label">10</text><text x="90" y="264" text-anchor="middle" class="bar-label">11</text><text x="108" y="264" text-anchor="middle" class="bar-label">12</text><text x="126" y="264" text-anchor="middle" class="bar-label">13</text><text x="145" y="264" text-anchor="middle" class="bar-label">14</text><text x="164" y="264" text-anchor="middle" class="bar-label">15</text><text x="182" y="264" text-anchor="middle" class="bar-label">16</text><text x="200" y="264" text-anchor="middle" class="bar-label">17</text><text x="219" y="264" text-anchor="middle" class="bar-label">18</text><text x="238" y="264" text-anchor="middle" class="bar-label">19</text><text x="256" y="264" text-anchor="middle" class="bar-label">20</text><text x="274" y="264" text-anchor="middle" class="bar-label">21</text><text x="293" y="264" text-anchor="middle" class="bar-label">22</text><text x="312" y="264" text-anchor="middle" class="bar-label">23</text><text x="330" y="264" text-anchor="middle" class="bar-label">24</text><text x="348" y="264" text-anchor="middle" class="bar-label">25</text>
+          <text id="d4-ytitle" x="54" y="28" text-anchor="end" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;transition:fill 0.6s">ZAR tn</text>
+          <!-- Right y-axis + green line (hidden initially, revealed on bullet 1) -->
+          <g id="d4-green-group" opacity="0" style="transition: opacity 0.6s;">
+          <line x1="360" y1="42" x2="360" y2="250" stroke="#81b64c" stroke-width="0.5" stroke-dasharray="2,2"/>
+          <text x="366" y="254" class="bar-label" style="fill:#81b64c">0%</text>
+          <text x="366" y="172" class="bar-label" style="fill:#81b64c">20%</text>
+          <text x="366" y="91" class="bar-label" style="fill:#81b64c">40%</text>
+          <text x="366" y="28" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">% foreign</text>
+          <polyline points="71,161.1 90,157.0 108,130.9 126,95.0 145,102.7 164,107.2 182,110.9 200,93.7 219,75.4 238,91.3 256,111.3 274,130.5 293,133.3 312,147.2 330,149.6 348,148.0" fill="none" stroke="#81b64c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#81b64c"><circle cx="71" cy="161.1" r="2.5"/><circle cx="90" cy="157.0" r="2.5"/><circle cx="108" cy="130.9" r="2.5"/><circle cx="126" cy="95.0" r="2.5"/><circle cx="145" cy="102.7" r="2.5"/><circle cx="164" cy="107.2" r="2.5"/><circle cx="182" cy="110.9" r="2.5"/><circle cx="200" cy="93.7" r="2.5"/><circle cx="219" cy="75.4" r="2.5"/><circle cx="238" cy="91.3" r="2.5"/><circle cx="256" cy="111.3" r="2.5"/><circle cx="274" cy="130.5" r="2.5"/><circle cx="293" cy="133.3" r="2.5"/><circle cx="312" cy="147.2" r="2.5"/><circle cx="330" cy="149.6" r="2.5"/><circle cx="348" cy="148.0" r="2.5"/></g>
+          </g>
+          <!-- Stacked bars: Foreigners (orange, bottom) + Residents (blue, top) -->
+          <!-- Source: SARB KBP4114M (total), NT Investor Relations (foreign %) -->
+          <rect x="63" y="244.0" width="16" height="6.0" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="63" y="222.6" width="16" height="21.4" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="82" y="242.3" width="16" height="7.7" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="82" y="216.1" width="16" height="26.1" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="100" y="238.2" width="16" height="11.8" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="100" y="209.6" width="16" height="28.6" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="118" y="232.4" width="16" height="17.6" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="118" y="203.6" width="16" height="28.8" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="137" y="230.5" width="16" height="19.5" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="137" y="196.1" width="16" height="34.4" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="156" y="228.6" width="16" height="21.4" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="156" y="188.8" width="16" height="39.8" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="174" y="226.6" width="16" height="23.4" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="174" y="181.4" width="16" height="45.2" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="192" y="220.9" width="16" height="29.1" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="192" y="174.1" width="16" height="46.8" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="211" y="213.8" width="16" height="36.2" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="211" y="165.3" width="16" height="48.4" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="230" y="213.1" width="16" height="36.9" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="230" y="155.2" width="16" height="57.9" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="248" y="212.3" width="16" height="37.7" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="248" y="139.1" width="16" height="73.2" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="266" y="210.8" width="16" height="39.2" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="266" y="116.2" width="16" height="94.6" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="285" y="208.4" width="16" height="41.6" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="285" y="104.5" width="16" height="103.9" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="304" y="209.2" width="16" height="40.8" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="304" y="88.0" width="16" height="121.2" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="322" y="206.0" width="16" height="44.0" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="322" y="71.2" width="16" height="134.8" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <rect x="340" y="201.6" width="16" height="48.4" rx="0" class="d4-foreign" fill="#cc4444" opacity="0.8" style="transition: y 0.6s, height 0.6s;"/>
+          <rect x="340" y="56.4" width="16" height="145.2" rx="0" class="d4-resident" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <!-- Legend -->
+          <rect id="d4-leg-res" x="100" y="276" width="10" height="10" rx="1" fill="#81b64c" opacity="0.7" style="transition: opacity 0.6s;"/>
+          <text id="d4-leg-res-txt" x="115" y="284" class="bar-label" style="transition: opacity 0.6s;">Residents</text>
+          <rect x="185" y="276" width="10" height="10" rx="1" fill="#cc4444" opacity="0.8"/>
+          <text x="200" y="284" class="bar-label">Foreigners</text>
+        </svg>
+        <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="event.stopPropagation();document.getElementById('src-demand').classList.add('open')">Source</button></div>
+      </div>
+      <ul class="bullets">
+        <li id="d4-bullet-1">I'll show demand as the composition by residence of the investor</li>
+        <li id="d4-bullet-2">There is large variation in the stock of foreign holdings</li>
+        <li>Large jumps in 2011-13, 2016-18, 2023-25</li>
+        <li>Little change in other periods</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+  (function(){
+    // Animate slide 4: bullet 1 shows green line, bullet 2 zooms to foreign
+    var newY = [226.2,219.1,202.8,179.4,172.2,164.3,156.4,133.7,105.0,102.4,99.2,93.2,83.5,86.7,74.0,56.3];
+    var newH = [23.8,30.9,47.2,70.6,77.8,85.7,93.6,116.3,145.0,147.6,150.8,156.8,166.5,163.3,176.0,193.7];
+    var origY = [], origH = [];
+    var greenShown = false, shifted = false;
+
+    function storeOriginals() {
+      if (origY.length) return;
+      document.querySelectorAll('.d4-foreign').forEach(function(b) {
+        origY.push(b.getAttribute('y'));
+        origH.push(b.getAttribute('height'));
+      });
+    }
+
+    function showGreen() {
+      greenShown = true;
+      var g = document.getElementById('d4-green-group'); if(g) g.setAttribute('opacity','1');
+    }
+
+    function shiftToForeign() {
+      shifted = true;
+      storeOriginals();
+      // Change left axis color from blue to orange
+      ['d4-y0','d4-y1','d4-y2','d4-y3','d4-ytitle'].forEach(function(id) {
+        var el = document.getElementById(id); if(el) el.style.fill = '#cc4444';
+      });
+      var axLine = document.getElementById('d4-yaxis'); if(axLine) axLine.style.stroke = '#cc4444';
+      document.querySelectorAll('.d4-resident').forEach(function(r) { r.style.opacity = '0'; });
+      var lr = document.getElementById('d4-leg-res'); if(lr) lr.style.opacity = '0';
+      var lt = document.getElementById('d4-leg-res-txt'); if(lt) lt.style.opacity = '0';
+      document.querySelectorAll('.d4-foreign').forEach(function(b, i) {
+        b.setAttribute('y', newY[i]); b.setAttribute('height', newH[i]);
+      });
+      var y1 = document.getElementById('d4-y1'); if(y1) { y1.textContent = '0.5'; y1.setAttribute('y', '186'); }
+      var y2 = document.getElementById('d4-y2'); if(y2) { y2.textContent = '1.0'; y2.setAttribute('y', '118'); }
+      var y3 = document.getElementById('d4-y3'); if(y3) { y3.textContent = '1.5'; y3.setAttribute('y', '50'); }
+      var titles = document.querySelectorAll('#s7 text');
+      titles.forEach(function(t) { if(t.textContent === 'Bond Holdings by Investor Type') t.textContent = 'Foreign Holdings of SA Bonds'; });
+    }
+
+    function resetD4() {
+      shifted = false;
+      greenShown = false;
+      // Hide green group
+      var g = document.getElementById('d4-green-group'); if(g) g.setAttribute('opacity','0');
+      // Restore left axis color to blue
+      ['d4-y0','d4-y1','d4-y2','d4-y3','d4-ytitle'].forEach(function(id) {
+        var el = document.getElementById(id); if(el) el.style.fill = '#81b64c';
+      });
+      var axLine = document.getElementById('d4-yaxis'); if(axLine) axLine.style.stroke = '#b8b0a4';
+      document.querySelectorAll('.d4-resident').forEach(function(r) { r.style.opacity = '0.7'; });
+      var lr = document.getElementById('d4-leg-res'); if(lr) lr.style.opacity = '0.7';
+      var lt = document.getElementById('d4-leg-res-txt'); if(lt) lt.style.opacity = '1';
+      document.querySelectorAll('.d4-foreign').forEach(function(b, i) {
+        if (origY[i]) { b.setAttribute('y', origY[i]); b.setAttribute('height', origH[i]); }
+      });
+      var y1 = document.getElementById('d4-y1'); if(y1) { y1.textContent = '2'; y1.setAttribute('y', '184'); }
+      var y2 = document.getElementById('d4-y2'); if(y2) { y2.textContent = '4'; y2.setAttribute('y', '114'); }
+      var y3 = document.getElementById('d4-y3'); if(y3) { y3.textContent = '6'; y3.setAttribute('y', '46'); }
+      var titles = document.querySelectorAll('#s7 text');
+      titles.forEach(function(t) { if(t.textContent === 'Foreign Holdings of SA Bonds') t.textContent = 'Bond Holdings by Investor Type'; });
+    }
+
+    var obs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 'd4-bullet-1' && m.target.classList.contains('visible') && !greenShown) showGreen();
+        if (m.target.id === 'd4-bullet-2' && m.target.classList.contains('visible') && !shifted) shiftToForeign();
+      });
+    });
+    var slideObs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's7' && !m.target.classList.contains('active') && shifted) resetD4();
+      });
+    });
+    setTimeout(function() {
+      var b1 = document.getElementById('d4-bullet-1');
+      if (b1) obs.observe(b1, { attributes: true, attributeFilter: ['class'] });
+      var b2 = document.getElementById('d4-bullet-2');
+      if (b2) obs.observe(b2, { attributes: true, attributeFilter: ['class'] });
+      var s4 = document.getElementById('s5');
+      if (s4) slideObs.observe(s4, { attributes: true, attributeFilter: ['class'] });
+    }, 200);
+  })();
+  </script>
+    <!-- SLIDE 5: Demand (Flow) -->
+  <div class="slide" id="s8">
+    <div class="slide-inner">
+      <div class="eyebrow">The South African Government Bond Market</div>
+      <h1>Demand (Flow)</h1>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><style>
+            .bar-label { fill: #b8b0a4; font-size: 10px; font-family: -apple-system, system-ui, sans-serif; }
+            .bar-title { fill: #f4f2ec; font-size: 13px; font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+          </style></defs>
+          <text x="210" y="16" text-anchor="middle" class="bar-title">Annual Change in Bond Holdings</text>
+          <text x="210" y="28" text-anchor="middle" class="bar-label">Fiscal years ending March</text>
+          <line x1="60" y1="250" x2="365" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="42" x2="60" y2="250" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="60" y1="199" x2="360" y2="199" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <line x1="60" y1="148" x2="360" y2="148" stroke="#45403a" stroke-width="0.5" stroke-dasharray="3,3"/>
+          <text x="54" y="254" text-anchor="end" style="fill:#81b64c" class="bar-label">0</text>
+          <text x="54" y="203" text-anchor="end" style="fill:#81b64c" class="bar-label">200</text>
+          <text x="54" y="152" text-anchor="end" style="fill:#81b64c" class="bar-label">400</text>
+          <text x="54" y="101" text-anchor="end" style="fill:#81b64c" class="bar-label">600</text>
+          <text x="76" y="264" text-anchor="middle" class="bar-label">11</text><text x="95" y="264" text-anchor="middle" class="bar-label">12</text><text x="114" y="264" text-anchor="middle" class="bar-label">13</text><text x="133" y="264" text-anchor="middle" class="bar-label">14</text><text x="152" y="264" text-anchor="middle" class="bar-label">15</text><text x="171" y="264" text-anchor="middle" class="bar-label">16</text><text x="190" y="264" text-anchor="middle" class="bar-label">17</text><text x="209" y="264" text-anchor="middle" class="bar-label">18</text><text x="228" y="264" text-anchor="middle" class="bar-label">19</text><text x="247" y="264" text-anchor="middle" class="bar-label">20</text><text x="266" y="264" text-anchor="middle" class="bar-label">21</text><text x="285" y="264" text-anchor="middle" class="bar-label">22</text><text x="304" y="264" text-anchor="middle" class="bar-label">23</text><text x="323" y="264" text-anchor="middle" class="bar-label">24</text><text x="342" y="264" text-anchor="middle" class="bar-label">25</text>
+          <text x="54" y="28" text-anchor="end" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">ZAR bn</text>
+          <!-- Stacked flow bars: Foreigners (orange, bottom) + Residents (blue, top) -->
+          <rect x="68" y="236.8" width="16" height="13.2" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="68" y="201.3" width="16" height="35.5" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="87" y="219.4" width="16" height="30.6" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="87" y="201.0" width="16" height="18.4" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="106" y="206.1" width="16" height="43.9" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="106" y="204.6" width="16" height="1.5" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="125" y="236.5" width="16" height="13.5" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="125" y="194.2" width="16" height="42.3" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="144" y="235.3" width="16" height="14.7" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="144" y="195.4" width="16" height="39.9" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="163" y="235.0" width="16" height="15.0" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="163" y="193.9" width="16" height="41.1" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="182" y="207.5" width="16" height="42.5" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="182" y="195.4" width="16" height="12.0" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="201" y="196.3" width="16" height="53.7" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="201" y="184.5" width="16" height="11.9" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="220" y="245.2" width="16" height="4.8" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="220" y="174.0" width="16" height="71.2" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="239" y="243.8" width="16" height="6.2" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="239" y="129.4" width="16" height="114.4" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="258" y="238.7" width="16" height="11.3" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="258" y="77.9" width="16" height="160.8" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="277" y="232.1" width="16" height="17.9" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="277" y="162.8" width="16" height="69.3" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="296" y="250.0" width="16" height="0.0" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="296" y="119.8" width="16" height="130.2" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="315" y="226.4" width="16" height="23.6" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="315" y="124.3" width="16" height="102.1" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <rect x="334" y="216.9" width="16" height="33.1" rx="0" fill="#cc4444" opacity="0.8"/>
+          <rect x="334" y="139.1" width="16" height="77.8" rx="0" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <!-- Legend -->
+          <rect x="100" y="276" width="10" height="10" rx="1" fill="#cc4444" opacity="0.8"/>
+          <text x="115" y="284" class="bar-label">Foreigners</text>
+          <rect x="195" y="276" width="10" height="10" rx="1" class="s6-blue" fill="#81b64c" opacity="0.7" style="transition: opacity 0.8s;"/>
+          <text x="210" y="284" class="bar-label">Residents</text>
+        
+          <!-- Hidden: Right axis + inverted yield line (revealed on animation) -->
+          <g id="s6-yield-group" opacity="0" style="transition: opacity 0.8s;">
+          <line x1="360" y1="42" x2="360" y2="250" stroke="#81b64c" stroke-width="0.5" stroke-dasharray="2,2"/>
+          <text x="366" y="76" class="bar-label" style="fill:#81b64c">7%</text>
+          <text x="366" y="105" class="bar-label" style="fill:#81b64c">8%</text>
+          <text x="366" y="135" class="bar-label" style="fill:#81b64c">9%</text>
+          <text x="366" y="165" class="bar-label" style="fill:#81b64c">10%</text>
+          <text x="366" y="195" class="bar-label" style="fill:#81b64c">11%</text>
+          <text x="366" y="224" class="bar-label" style="fill:#81b64c">12%</text>
+          <text x="366" y="28" style="fill:#81b64c;font-size:10px;font-weight:600;font-family:-apple-system,system-ui,sans-serif;">Yield &#x2193;</text>
+          <polyline points="76,154.9 95,154.9 114,134.1 133,134.1 152,140.1 171,157.9 190,146.0 209,122.2 228,172.7 247,217.3 266,160.9 285,149.0 304,211.4 323,199.5 342,178.7" fill="none" stroke="#81b64c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#81b64c"><circle cx="76" cy="154.9" r="2.5"/><circle cx="95" cy="154.9" r="2.5"/><circle cx="114" cy="134.1" r="2.5"/><circle cx="133" cy="134.1" r="2.5"/><circle cx="152" cy="140.1" r="2.5"/><circle cx="171" cy="157.9" r="2.5"/><circle cx="190" cy="146.0" r="2.5"/><circle cx="209" cy="122.2" r="2.5"/><circle cx="228" cy="172.7" r="2.5"/><circle cx="247" cy="217.3" r="2.5"/><circle cx="266" cy="160.9" r="2.5"/><circle cx="285" cy="149.0" r="2.5"/><circle cx="304" cy="211.4" r="2.5"/><circle cx="323" cy="199.5" r="2.5"/><circle cx="342" cy="178.7" r="2.5"/></g>
+          </g>
+        </svg>
+        <div style="text-align:right;margin-top:2px;"><button class="src-btn" onclick="document.getElementById('src-demand').classList.add('open')">Source</button></div>
+      </div>
+      <ul class="bullets">
+        <li>This shows the annual flow of bond purchases by foreigners and residents</li>
+        <li id="s6-bullet-2">Now overlay the bond yield (inverted): when foreigners buy, yields fall</li>
+        <li>The causal link: foreign demand shifts drive bond prices</li>
+        <li>This is the core insight of flow-of-funds analysis</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var revealed = false;
+    function showYield() {
+      revealed = true;
+      document.getElementById('s6-yield-group').setAttribute('opacity', '1');
+      document.querySelectorAll('.s6-blue').forEach(function(b) { b.style.opacity = '0.15'; });
+    }
+    function resetS6() {
+      revealed = false;
+      var g = document.getElementById('s6-yield-group'); if(g) g.setAttribute('opacity', '0');
+      document.querySelectorAll('.s6-blue').forEach(function(b) { b.style.opacity = '0.7'; });
+    }
+    var obs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's6-bullet-2' && m.target.classList.contains('visible') && !revealed) showYield();
+      });
+    });
+    var slideObs = new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        if (m.target.id === 's8' && !m.target.classList.contains('active') && revealed) resetS6();
+      });
+    });
+    setTimeout(function() {
+      var b = document.getElementById('s6-bullet-2');
+      if (b) obs.observe(b, { attributes: true, attributeFilter: ['class'] });
+      var s = document.getElementById('s6');
+      if (s) slideObs.observe(s, { attributes: true, attributeFilter: ['class'] });
+    }, 200);
+  })();
+  </script>
+
+
+
+  
+
+
+</div><!-- #deck -->
+
+<div class="src-overlay" id="src-deficit" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="src-panel">
+    <button class="src-close" onclick="document.getElementById('src-deficit').classList.remove('open')">Close</button>
+    <h3>Data Sources</h3>
+    <table>
+      <tr><th>Series</th><th>Code</th><th>Unit</th><th>Source</th><th>Transform</th></tr>
+      <tr><td>Main budget deficit</td><td>KBP4602F</td><td>ZAR millions</td><td>SARB QB Mar 2026</td><td>Absolute value, converted to ZAR billions</td></tr>
+      <tr><td>Deficit / GDP</td><td>—</td><td>%</td><td>NT Budget Review 2026</td><td>None</td></tr>
+    </table>
+    <p style="font-size:12px;color:#b8b0a4;">
+      SARB = South African Reserve Bank Quarterly Bulletin. NT = National Treasury.<br>
+      Data file: Kbp4-PFD-March 2026.xlsx from
+      <a href="https://www.resbank.co.za/en/home/publications/quarterly-bulletin1/download-information-from-xlsx-data-files" target="_blank" rel="noopener" style="color:#81b64c;">resbank.co.za</a>
+    </p>
+  </div>
+</div>
+
+<div class="src-overlay" id="src-debt" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="src-panel">
+    <button class="src-close" onclick="document.getElementById('src-debt').classList.remove('open')">Close</button>
+    <h3>Data Sources</h3>
+    <table>
+      <tr><th>Series</th><th>Code</th><th>Unit</th><th>Source</th><th>Transform</th></tr>
+      <tr><td>Gross loan debt</td><td>KBP4114M</td><td>ZAR millions</td><td>SARB QB Mar 2026</td><td>End-March values, converted to ZAR trillions</td></tr>
+      <tr><td>Debt / GDP</td><td>—</td><td>%</td><td>NT Budget Review 2026</td><td>None</td></tr>
+    </table>
+    <p style="font-size:12px;color:#b8b0a4;">
+      SARB = South African Reserve Bank Quarterly Bulletin. NT = National Treasury.<br>
+      Data file: Kbp4-PFD-March 2026.xlsx from
+      <a href="https://www.resbank.co.za/en/home/publications/quarterly-bulletin1/download-information-from-xlsx-data-files" target="_blank" rel="noopener" style="color:#81b64c;">resbank.co.za</a>
+    </p>
+  </div>
+</div>
+
+<div class="src-overlay" id="src-demand" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="src-panel">
+    <button class="src-close" onclick="document.getElementById('src-demand').classList.remove('open')">Close</button>
+    <h3>Data Sources</h3>
+    <table>
+      <tr><th>Series</th><th>Code</th><th>Unit</th><th>Source</th><th>Transform</th></tr>
+      <tr><td>Gross loan debt (total)</td><td>KBP4114M</td><td>ZAR millions</td><td>SARB QB Mar 2026</td><td>End-March, converted to ZAR trillions</td></tr>
+      <tr><td>Foreign holdings %</td><td>—</td><td>%</td><td>NT Investor Relations</td><td>March values from monthly series</td></tr>
+      <tr><td>Resident holdings</td><td>—</td><td>ZAR tn</td><td>Derived</td><td>Total × (1 − foreign %)</td></tr>
+    </table>
+    <p style="font-size:12px;color:#b8b0a4;">
+      NT = National Treasury Investor Relations.<br>
+      Data file: Historical government bond holdings February 2026.xlsx from
+      <a href="https://investor.treasury.gov.za/Debt%20Operations%20and%20Data/Holdings%20of%20Domestic%20Bonds/" target="_blank" rel="noopener" style="color:#81b64c;">investor.treasury.gov.za</a>
+    </p>
+  </div>
+</div>
+
+<div id="nav">
+  <button class="nav-btn" id="prev">← Prev</button>
+  <div class="dot-row" id="dots"></div>
+  <span id="slide-counter">1 / 7</span>
+  <button class="nav-btn" id="next">Next →</button>
+</div>
+
+<div id="hint">← → arrow keys to navigate · click to advance bullets</div>
+
+<div class="autoplay-bar" id="autoplay-bar">
+  <button id="ap-pause" onclick="toggleAutoplay()">Pause</button>
+  <span class="ap-status" id="ap-status"></span>
+  <button onclick="exitAutoplay()">Exit</button>
+</div>
+<button class="resume-pill" id="resume-pill" onclick="resumeAutoplay()">&#9654; Resume</button>
+
+</div><!-- .slides-wrap -->
+
+<script>
+  let slides, total;
+  let current = 0;
+  let bulletIndex = 0;
+
+  function initDeck() {
+    slides = document.querySelectorAll('.slides-wrap .slide');
+    total = slides.length;
+
+    const dotsEl = document.getElementById('dots');
+    dotsEl.innerHTML = '';
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(d);
+    });
+
+    document.getElementById('nav').style.display = '';
+    document.getElementById('hint').style.display = '';
+    document.getElementById('progress').style.display = '';
+
+    slides[0].classList.add('active');
+    revealNext(slides[0]);
+    updateUI();
+  }
+
+  function getBullets(slide) {
+    return [...slide.querySelectorAll('.chart-wrap, .chart-small, .bullets li, .stat, .col-box, .punchline')];
+  }
+
+  function showSlide(idx) {
+    const prev = slides[current];
+    prev.classList.remove('active');
+    prev.classList.add('exit');
+    setTimeout(() => prev.classList.remove('exit'), 450);
+
+    current = idx;
+    bulletIndex = 0;
+    const s = slides[current];
+    s.classList.add('active');
+    getBullets(s).forEach(el => el.classList.remove('visible'));
+    revealNext(s);
+    updateUI();
+  }
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= total) return;
+    showSlide(idx);
+  }
+
+  function revealNext(slide) {
+    const items = getBullets(slide);
+    if (bulletIndex < items.length) {
+      items[bulletIndex].classList.add('visible');
+      bulletIndex++;
+      return true;
+    }
+    return false;
+  }
+
+  function updateUI() {
+    document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prev').disabled = current === 0;
+    document.getElementById('next').disabled = current === total - 1;
+    document.querySelectorAll('.slides-wrap .dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+    document.getElementById('progress-fill').style.width = (((current + 1) / total) * 100) + '%';
+  }
+
+  document.getElementById('deck').addEventListener('click', (e) => {
+    if (e.target.closest('button, a, [onclick]')) return;
+    if (autoplayActive && !autoplayPaused) { pauseAutoplay(); return; }
+    const advanced = revealNext(slides[current]);
+    if (!advanced && current < total - 1) goTo(current + 1);
+  });
+
+  document.getElementById('next').addEventListener('click', e => {
+    e.stopPropagation();
+    if (current < total - 1) goTo(current + 1);
+  });
+  document.getElementById('prev').addEventListener('click', e => {
+    e.stopPropagation();
+    if (current > 0) goTo(current - 1);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (autoplayActive && !autoplayPaused) { pauseAutoplay(); return; }
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      const advanced = revealNext(slides[current]);
+      if (!advanced && current < total - 1) goTo(current + 1);
+    } else if (e.key === 'ArrowLeft') {
+      if (current > 0) goTo(current - 1);
+    }
+  });
+
+  // Hide deck UI until user chooses Play or Interact from splash
+  setTimeout(() => {
+    document.getElementById('nav').style.display = 'none';
+    document.getElementById('hint').style.display = 'none';
+    document.getElementById('progress').style.display = 'none';
+  }, 10);
+
+  /* ── Autoplay engine ── */
+  const NARRATION = [
+    { intro: 'This presentation covers the South African government bond market.',
+      bullets: [
+        'Government behaviour reveals that supply is effectively fixed at four and a half percent of GDP per year.',
+        'Non-fundamental demand is variable, as revealed by foreign investor behaviour and price swings.',
+        'Explosive debt dynamics could impact fundamental demand in nonlinear ways.'
+      ]},
+    { intro: 'Let us begin with supply. This fan chart shows the main budget deficit as a percentage of GDP.',
+      bullets: [
+        'The dashed lines are deficit projections from every National Budget Review from 2011 to 2026.',
+        'It has been politically impossible to borrow less than four percent of GDP.',
+        'Projections of debt supply cannot be relied on.',
+        'I view the flow rate of supply as endogenously fixed at four and a half percent of GDP.'
+      ]},
+    { intro: 'This chart shows the same deficit data, but now in Rand and Dollar terms.',
+      bullets: [
+        'Naturally, for a growing economy, the Rand value of four and a half percent of GDP grows over time.',
+        'In US Dollar terms, South Africa borrows a roughly constant fifteen to twenty billion dollars per year.',
+        'To be confirmed.',
+        'To be confirmed.'
+      ]},
+    { intro: 'Now let us look at the stock of debt. This shows gross loan debt and the debt to GDP ratio.',
+      bullets: [
+        'The stock chart reveals something important: debt is on an explosive path.',
+        'The combination of growth and borrowing costs that South Africa faces cannot tolerate supply of four and a half percent of GDP year after year.',
+        'Debt is on an explosive path.',
+        'Projected improvements rarely materialise.'
+      ]},
+    { intro: 'This is a classic supply and demand framework applied to the bond market.',
+      bullets: [
+        'My supply schedule is steep and fixed.',
+        'Steep means that changes in borrowing costs have little impact on how much the government borrows.',
+        'Fixed means there is neither appetite for austerity nor a go-for-growth strategy.',
+        'This fits with the significant variation observed in bond yields, caused by demand variation.'
+      ]},
+    { intro: 'South Africa borrows in both local and foreign currency.',
+      bullets: [
+        'South Africa borrows in both local currency, the Rand, and foreign currency.',
+        'Local currency debt dominates, consistently around ninety percent of the total.',
+        'Foreign currency debt is small but growing.',
+        'The rest of this presentation focuses on the local currency market.'
+      ]},
+    { intro: 'Now we turn to demand. This shows bond holdings by investor type.',
+      bullets: [
+        'I will show demand as the composition by residence of the investor.',
+        'There is large variation in the stock of foreign holdings.',
+        'Large jumps in 2011 to 2013, 2016 to 2018, and 2023 to 2025.',
+        'Little change in other periods.'
+      ]},
+    { intro: 'Finally, the flow of bond purchases by foreigners and residents.',
+      bullets: [
+        'This shows the annual flow of bond purchases by foreigners and residents.',
+        'Now overlay the bond yield. When foreigners buy, yields fall.',
+        'The causal link is clear: foreign demand shifts drive bond prices.',
+        'This is the core insight of flow-of-funds analysis.'
+      ]}
+  ];
+
+  let autoplayActive = false;
+  let autoplayPaused = false;
+  let autoplayTimer = null;
+  let ttsUtterance = null;
+
+  function hideSplash() {
+    const splash = document.getElementById('splash');
+    if (splash) splash.classList.add('hidden');
+  }
+
+  function startPlay() {
+    hideSplash();
+    if (!slides) initDeck();
+    autoplayActive = true;
+    autoplayPaused = false;
+    document.getElementById('nav').style.display = 'none';
+    document.getElementById('hint').style.display = 'none';
+    document.getElementById('autoplay-bar').classList.add('visible');
+    document.getElementById('resume-pill').classList.remove('visible');
+    // Start from slide 0
+    if (current !== 0) {
+      showSlide(0);
+    } else {
+      bulletIndex = 0;
+      getBullets(slides[0]).forEach(el => el.classList.remove('visible'));
+      revealNext(slides[0]);
+    }
+    updateApStatus();
+    autoplayTimer = setTimeout(() => autoAdvance(), 800);
+  }
+
+  function startInteract() {
+    hideSplash();
+    if (!slides) initDeck();
+  }
+
+  // Legacy alias
+  function startAutoplay() { startPlay(); }
+
+  function pauseAutoplay() {
+    autoplayPaused = true;
+    clearTimeout(autoplayTimer);
+    speechSynthesis.cancel();
+    document.getElementById('ap-pause').textContent = 'Resume';
+    document.getElementById('autoplay-bar').classList.remove('visible');
+    document.getElementById('nav').style.display = '';
+    document.getElementById('hint').style.display = '';
+    document.getElementById('resume-pill').classList.add('visible');
+    updateUI();
+  }
+
+  function resumeAutoplay() {
+    autoplayPaused = false;
+    document.getElementById('ap-pause').textContent = 'Pause';
+    document.getElementById('nav').style.display = 'none';
+    document.getElementById('hint').style.display = 'none';
+    document.getElementById('autoplay-bar').classList.add('visible');
+    document.getElementById('resume-pill').classList.remove('visible');
+    updateApStatus();
+    autoAdvance();
+  }
+
+  function toggleAutoplay() {
+    if (autoplayPaused) resumeAutoplay();
+    else pauseAutoplay();
+  }
+
+  function exitAutoplay() {
+    autoplayActive = false;
+    autoplayPaused = false;
+    clearTimeout(autoplayTimer);
+    speechSynthesis.cancel();
+    document.getElementById('autoplay-bar').classList.remove('visible');
+    document.getElementById('resume-pill').classList.remove('visible');
+    document.getElementById('nav').style.display = '';
+    document.getElementById('hint').style.display = '';
+    updateUI();
+  }
+
+  function updateApStatus() {
+    document.getElementById('ap-status').textContent = 'Slide ' + (current + 1) + ' of ' + total;
+  }
+
+  function speak(text) {
+    return new Promise((resolve) => {
+      if (!('speechSynthesis' in window) || !text) { resolve(); return; }
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.95;
+      u.pitch = 1;
+      u.volume = 0.8;
+      u.onend = () => resolve();
+      u.onerror = () => resolve();
+      ttsUtterance = u;
+      speechSynthesis.speak(u);
+    });
+  }
+
+  async function autoAdvance() {
+    if (!autoplayActive || autoplayPaused) return;
+
+    const narr = NARRATION[current];
+    if (!narr) { exitAutoplay(); return; }
+
+    // Speak intro for this slide
+    updateApStatus();
+    await speak(narr.intro);
+    if (!autoplayActive || autoplayPaused) return;
+
+    // Reveal remaining bullets one by one
+    const items = getBullets(slides[current]);
+    while (bulletIndex < items.length) {
+      if (!autoplayActive || autoplayPaused) return;
+
+      // Figure out which narration bullet this corresponds to
+      // bulletIndex starts at 1 because revealNext was called once in showSlide
+      const narrIdx = bulletIndex; // 1-indexed into items, 0-indexed narr.bullets needs (bulletIndex - 1) but we already revealed first
+      // Actually: after showSlide, bulletIndex=1 (first item revealed). The first item is usually chart-wrap.
+      // Narration bullets map to .bullets li elements specifically.
+      // Let's just reveal and speak in sequence.
+
+      items[bulletIndex].classList.add('visible');
+      bulletIndex++;
+
+      // Speak matching narration if available
+      const bIdx = bulletIndex - 2; // -1 for 0-index, -1 because first reveal happened in showSlide
+      if (bIdx >= 0 && bIdx < narr.bullets.length) {
+        await speak(narr.bullets[bIdx]);
+      } else {
+        // Pause briefly for chart animations etc
+        await new Promise(r => { autoplayTimer = setTimeout(r, 1500); });
+      }
+      if (!autoplayActive || autoplayPaused) return;
+    }
+
+    // Wait before advancing to next slide
+    await new Promise(r => { autoplayTimer = setTimeout(r, 1200); });
+    if (!autoplayActive || autoplayPaused) return;
+
+    // Advance to next slide or finish
+    if (current < total - 1) {
+      goTo(current + 1);
+      updateApStatus();
+      // Wait for slide transition
+      await new Promise(r => { autoplayTimer = setTimeout(r, 800); });
+      if (!autoplayActive || autoplayPaused) return;
+      autoAdvance();
+    } else {
+      // Finished
+      exitAutoplay();
+    }
+  }
+
+  // Auto-start from URL hash (default to interact if no hash)
+  if (location.hash === '#play') { startPlay(); }
+  else { startInteract(); }
+
+</script></div>
+</body>
+</html>
