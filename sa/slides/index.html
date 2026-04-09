@@ -19,7 +19,7 @@
   .back-link:hover { color: var(--text); }
 
   /* ── Slide container ── */
-  .slide-viewport { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; padding: 0 64px; }
+  .slide-viewport { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; height: 100vh; padding: 80px 64px 32px; }
 
   /* ── Slide template — defines the ONLY layout a slide can have ── */
   .slide {
@@ -28,12 +28,13 @@
     display: grid;
     grid-template-columns: 1fr 1.6fr;
     gap: 64px;
-    align-items: center;
+    align-items: start;
   }
   .slide-text {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 0;
   }
   .slide-eyebrow {
     font-size: 13px;
