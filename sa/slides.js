@@ -272,8 +272,8 @@ var SLIDE_DATA = [
     bullets: [
       'Pension funds have halved their share from <strong>45% to 22%</strong> since 2006',
       'Foreigners surged from 9% to 43% then retreated to ~26% after the <strong>WGBI exit</strong>',
-      'Banks have quietly doubled their share to <strong>21%</strong>, driven by Basel III liquidity rules',
-      'The domestic investor base absorbed what foreigners relinquished — but at the cost of deeper sovereign exposure'
+      'Banks doubled their share to <strong>21%</strong> — Basel III liquidity rules made government bonds a regulatory necessity',
+      'Domestic investors absorbed what foreigners sold, concentrating sovereign risk on local balance sheets'
     ],
     buildChart: function(canvas) {
       var seriesNames = [
