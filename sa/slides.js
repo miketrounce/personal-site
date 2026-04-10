@@ -316,6 +316,151 @@ var SLIDE_DATA = [
         }, plugins: [axisPlugin] });
       });
     }
+  },
+  {
+    id: 'debt-service',
+    eyebrow: 'The South African Government Bond Market',
+    title: 'Debt Service Burden',
+    description: 'Interest payments as a share of government revenue',
+    chartName: 'Debt Service Line',
+    bullets: [
+      'Interest payments consumed 10% of government revenue in 2010. Now they consume over 20%.',
+      'Every Rand spent on debt service is a Rand unavailable for service delivery',
+      'This is the fiscal feedback loop: borrowing raises debt, debt raises interest costs, interest costs widen the deficit',
+      'At current trajectory, debt service will overtake the education budget within five years'
+    ],
+    buildChart: function(canvas) {
+      fetch(API + '?name=' + encodeURIComponent('Debt Service Cost % of Revenue'))
+        .then(function(r){return r.json();}).then(function(data) {
+        var axisPlugin = {id:'singleAxisLabel', afterDraw:function(chart){var ctx=chart.ctx;ctx.save();ctx.font='bold 11px -apple-system,system-ui,sans-serif';ctx.textBaseline='bottom';ctx.fillStyle='#81b64c';ctx.textAlign='left';ctx.fillText('% of revenue',chart.scales.y.left,chart.scales.y.top-8);ctx.restore();}};
+        new Chart(canvas, {type:'bar', data:{labels:data.labels, datasets:[
+          {label:'Debt service', data:data.values, backgroundColor:'rgba(129,182,76,0.7)', borderRadius:3}
+        ]}, options:{responsive:true, maintainAspectRatio:true, aspectRatio:1.6, layout:{padding:{top:20}},
+          plugins:{legend:{display:false}, title:{display:true, text:'Debt Service Cost', color:'#f4f2ec', font:{size:14, weight:'bold'}},
+            tooltip:{callbacks:{label:function(c){return c.raw.toFixed(1)+'% of revenue';}}}},
+          scales:{x:{ticks:{color:'#b8b0a4'}, grid:{color:'rgba(69,64,58,0.5)'}},
+            y:{min:0, ticks:{color:'#b8b0a4', callback:function(v){return commas(v);}}, grid:{color:'rgba(69,64,58,0.5)'}}}}
+        , plugins:[axisPlugin]});
+      });
+    }
+  },
+  {
+    id: 'yield-level',
+    eyebrow: 'The South African Government Bond Market',
+    title: '10-Year Yield',
+    description: 'The price that clears supply and demand',
+    chartName: 'Yield Line',
+    bullets: [
+      'The 10-year yield is the single price that clears supply and demand',
+      'It has ranged from 7% to 13% over two decades — wide by developed market standards, normal for SA',
+      'Every shift in this line reflects a change in who is willing to hold SA government debt, and at what price',
+      'The question is: who moves it?'
+    ],
+    buildChart: function(canvas) {
+      fetch(API + '?name=' + encodeURIComponent('SA 10Y Government Bond Yield'))
+        .then(function(r){return r.json();}).then(function(data) {
+        var axisPlugin = {id:'singleAxisLabel', afterDraw:function(chart){var ctx=chart.ctx;ctx.save();ctx.font='bold 11px -apple-system,system-ui,sans-serif';ctx.textBaseline='bottom';ctx.fillStyle='#81b64c';ctx.textAlign='left';ctx.fillText('%',chart.scales.y.left,chart.scales.y.top-8);ctx.restore();}};
+        new Chart(canvas, {type:'line', data:{labels:data.labels, datasets:[
+          {label:'10Y yield', data:data.values, borderColor:'#81b64c', borderWidth:3, pointBackgroundColor:'#81b64c', pointRadius:2, tension:0}
+        ]}, options:{responsive:true, maintainAspectRatio:true, aspectRatio:1.6, layout:{padding:{top:20}},
+          plugins:{legend:{display:false}, title:{display:true, text:'SA 10-Year Government Bond Yield', color:'#f4f2ec', font:{size:14, weight:'bold'}},
+            tooltip:{callbacks:{label:function(c){return c.raw.toFixed(2)+'%';}}}},
+          scales:{x:{ticks:{color:'#b8b0a4', maxTicksLimit:12}, grid:{color:'rgba(69,64,58,0.5)'}},
+            y:{min:6, max:14, ticks:{color:'#b8b0a4', callback:function(v){return v+'%';}}, grid:{color:'rgba(69,64,58,0.5)'}}}}
+        , plugins:[axisPlugin]});
+      });
+    }
+  },
+  {
+    id: 'real-yield',
+    eyebrow: 'The South African Government Bond Market',
+    title: 'Real Yield',
+    description: 'Why foreign capital flows to SA — real yields above 5%',
+    chartName: 'Real Yield Combo',
+    bullets: [
+      'SA real yields have averaged over <strong>5%</strong> for the past decade',
+      'In a world of negative real yields across developed markets, this is exceptional',
+      'Real yield is the fundamental reason foreign capital flows into SA government bonds',
+      'When real yields compress, foreigners leave. When they widen, foreigners return.'
+    ],
+    buildChart: function(canvas) {
+      Promise.all([
+        fetch(API + '?name=' + encodeURIComponent('SA 10Y Government Bond Yield')).then(function(r){return r.json();}),
+        fetch(API + '?name=' + encodeURIComponent('CPI Inflation (monthly)')).then(function(r){return r.json();})
+      ]).then(function(ds) {
+        var yieldData = ds[0]; var cpiData = ds[1];
+        var cpiMap = {}; cpiData.labels.forEach(function(l,i){ cpiMap[l] = cpiData.values[i]; });
+        var labels = []; var yieldVals = []; var cpiVals = []; var realVals = [];
+        yieldData.labels.forEach(function(l,i) {
+          var cpi = cpiMap[l];
+          if (cpi != null) {
+            labels.push(l);
+            yieldVals.push(yieldData.values[i]);
+            cpiVals.push(cpi);
+            realVals.push(+(yieldData.values[i] - cpi).toFixed(2));
+          }
+        });
+        var axisPlugin = {id:'axisTopLabels', afterDraw:function(chart){var ctx=chart.ctx;ctx.save();ctx.font='bold 11px -apple-system,system-ui,sans-serif';ctx.textBaseline='bottom';ctx.fillStyle='#81b64c';ctx.textAlign='left';ctx.fillText('%',chart.scales.y.left,chart.scales.y.top-8);ctx.restore();}};
+        new Chart(canvas, {type:'line', data:{labels:labels, datasets:[
+          {label:'Real yield (10Y − CPI)', data:realVals, borderColor:'#81b64c', borderWidth:3, pointRadius:0, tension:0, fill:{target:'origin', above:'rgba(129,182,76,0.15)', below:'rgba(204,68,68,0.15)'}},
+          {label:'10Y nominal', data:yieldVals, borderColor:'rgba(244,242,236,0.3)', borderWidth:1, borderDash:[4,3], pointRadius:0, tension:0},
+          {label:'CPI', data:cpiVals, borderColor:'rgba(232,197,71,0.3)', borderWidth:1, borderDash:[4,3], pointRadius:0, tension:0}
+        ]}, options:{responsive:true, maintainAspectRatio:true, aspectRatio:1.6, layout:{padding:{top:20}},
+          plugins:{legend:{display:true, position:'bottom', labels:{color:'#b8b0a4', boxWidth:12, padding:12, font:{size:10}}},
+            title:{display:true, text:'Real Yield (10Y Nominal − CPI)', color:'#f4f2ec', font:{size:14, weight:'bold'}},
+            tooltip:{mode:'index', callbacks:{label:function(c){return c.dataset.label+': '+c.raw.toFixed(1)+'%';}}}},
+          scales:{x:{ticks:{color:'#b8b0a4', maxTicksLimit:12}, grid:{color:'rgba(69,64,58,0.5)'}},
+            y:{ticks:{color:'#b8b0a4', callback:function(v){return v+'%';}}, grid:{color:'rgba(69,64,58,0.5)'}}}}
+        , plugins:[axisPlugin]});
+      });
+    }
+  },
+  {
+    id: 'yield-vs-foreign',
+    eyebrow: 'The South African Government Bond Market',
+    title: 'Yield and Foreign Ownership',
+    description: 'The defining relationship — foreigners set the price',
+    chartName: 'Yield vs Foreign Combo',
+    bullets: [
+      'When foreign ownership rises, yields fall. When it falls, yields rise.',
+      'This is the defining relationship in the SA government bond market',
+      'Domestic holders — pension funds, banks, insurers — are structurally required to hold bonds regardless of yield',
+      'Foreigners are the only participants who choose to be here. Their choice determines the price.'
+    ],
+    buildChart: function(canvas) {
+      Promise.all([
+        fetch(API + '?name=' + encodeURIComponent('Bond holdings: Non-residents')).then(function(r){return r.json();}),
+        fetch(API + '?name=' + encodeURIComponent('SA 10Y Government Bond Yield')).then(function(r){return r.json();})
+      ]).then(function(ds) {
+        var foreignData = ds[0]; var yieldData = ds[1];
+        var yieldMap = {}; yieldData.labels.forEach(function(l,i){ yieldMap[l] = yieldData.values[i]; });
+        var labels = []; var foreignVals = []; var yieldVals = [];
+        foreignData.labels.forEach(function(l,i) {
+          var y = yieldMap[l];
+          if (y != null) {
+            labels.push(l);
+            foreignVals.push(foreignData.values[i]);
+            yieldVals.push(y);
+          }
+        });
+        var axisPlugin = {id:'axisTopLabels', afterDraw:function(chart){var ctx=chart.ctx;ctx.save();ctx.font='bold 11px -apple-system,system-ui,sans-serif';ctx.textBaseline='bottom';ctx.fillStyle='#81b64c';ctx.textAlign='left';ctx.fillText('Foreign %',chart.scales.y.left,chart.scales.y.top-8);ctx.fillStyle='#e8c547';ctx.textAlign='right';ctx.fillText('10Y yield %',chart.scales.y1.right,chart.scales.y1.top-8);ctx.restore();}};
+        new Chart(canvas, {type:'bar', data:{labels:labels, datasets:[
+          {label:'Foreign holdings %', data:foreignVals, backgroundColor:'rgba(129,182,76,0.7)', borderRadius:3, yAxisID:'y', order:1},
+          {label:'10Y yield', data:yieldVals, type:'line', borderColor:'#e8c547', borderWidth:2, pointRadius:0, tension:0, yAxisID:'y1', order:0}
+        ]}, options:{responsive:true, maintainAspectRatio:true, aspectRatio:1.6, layout:{padding:{top:20}},
+          interaction:{mode:'index', intersect:false},
+          plugins:{legend:{display:false},
+            title:{display:true, text:'Foreign Ownership vs 10-Year Yield', color:'#f4f2ec', font:{size:14, weight:'bold'}},
+            tooltip:{callbacks:{label:function(c){
+              if(c.dataset.yAxisID==='y1') return '10Y yield: '+c.raw.toFixed(2)+'%';
+              return 'Foreign: '+c.raw.toFixed(1)+'%';
+            }}}},
+          scales:{x:{ticks:{color:'#b8b0a4', maxTicksLimit:12}, grid:{color:'rgba(69,64,58,0.5)'}},
+            y:{position:'left', min:0, max:50, ticks:{color:'#81b64c', callback:function(v){return v+'%';}}, grid:{color:'rgba(69,64,58,0.5)'}},
+            y1:{position:'right', min:6, max:14, reverse:true, ticks:{color:'#e8c547', callback:function(v){return v+'%';}}, grid:{drawOnChartArea:false}}
+          }}, plugins:[axisPlugin]});
+      });
+    }
   }
 ];
 
