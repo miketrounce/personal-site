@@ -53,6 +53,23 @@
     color: var(--accent);
   }
   .td-chart { font-size: 0.7rem; color: var(--muted); }
+  .td-status {
+    display: inline-block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .td-status.curated {
+    background: rgba(129,182,76,0.15);
+    color: var(--accent);
+  }
+  .td-status.draft {
+    background: rgba(232,197,71,0.15);
+    color: #e8c547;
+  }
 
   /* ── Slide detail (expanded row) ── */
   .slide-detail { display: none; }
@@ -110,6 +127,7 @@
       <tr>
         <th>Slide</th>
         <th>Chart</th>
+        <th>Status</th>
         <th>Bullets</th>
       </tr>
     </thead>
@@ -124,14 +142,17 @@
 
   SLIDE_DATA.forEach(function(slide) {
     var tr = document.createElement('tr');
+    var statusClass = slide.curated ? 'curated' : 'draft';
+    var statusLabel = slide.curated ? 'Curated' : 'AI Draft';
     tr.innerHTML =
       '<td><div class="td-name">' + slide.title + '</div><div class="td-desc">' + slide.description + '</div></td>' +
       '<td><span class="td-type">' + slide.chartName + '</span></td>' +
+      '<td><span class="td-status ' + statusClass + '">' + statusLabel + '</span></td>' +
       '<td class="td-chart">' + slide.bullets.length + ' points</td>';
 
     var detail = document.createElement('tr');
     detail.className = 'slide-detail';
-    detail.innerHTML = '<td colspan="3">' +
+    detail.innerHTML = '<td colspan="4">' +
       '<div class="slide-preview">' +
       '<div class="slide-preview-text">' +
       '<p class="slide-preview-eyebrow">' + slide.eyebrow + '</p>' +

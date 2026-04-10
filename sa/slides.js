@@ -9,6 +9,7 @@ function commas(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); 
 var SLIDE_DATA = [
   {
     id: 'supply',
+    curated: true,
     eyebrow: 'The South African Government Bond Market',
     title: 'Supply',
     description: 'Budget deficit fan chart — projections vs reality',
@@ -52,6 +53,7 @@ var SLIDE_DATA = [
   },
   {
     id: 'debt-stock',
+    curated: true,
     eyebrow: 'The South African Government Bond Market',
     title: 'Debt Stock',
     description: 'Gross loan debt & debt-to-GDP ratio — explosive path',
@@ -110,6 +112,7 @@ var SLIDE_DATA = [
   },
   {
     id: 'supply-flow',
+    curated: true,
     eyebrow: 'The South African Government Bond Market',
     title: 'Supply (Flow)',
     description: 'Budget deficit in ZAR bn with % of GDP overlay',
@@ -144,6 +147,7 @@ var SLIDE_DATA = [
   },
   {
     id: 'debt-fan',
+    curated: true,
     eyebrow: 'The South African Government Bond Market',
     title: 'Debt-to-GDP',
     description: 'Debt-to-GDP fan chart — projections vs explosive reality',
@@ -182,6 +186,7 @@ var SLIDE_DATA = [
   },
   {
     id: 'foreign-holdings',
+    curated: true,
     eyebrow: 'The South African Government Bond Market',
     title: 'Foreign Holdings',
     description: 'Non-resident share of government bonds — demand side',
@@ -209,6 +214,7 @@ var SLIDE_DATA = [
   },
   {
     id: 'loan-debt',
+    curated: true,
     eyebrow: 'The South African Government Bond Market',
     title: 'Gross Loan Debt',
     description: 'Total national government debt in ZAR bn',
@@ -237,6 +243,7 @@ var SLIDE_DATA = [
   },
   {
     id: 'sabo',
+    curated: true,
     eyebrow: 'The South African Government Bond Market',
     title: 'Net Foreign Bond Flows',
     description: 'Daily net foreign purchases — the demand signal',
@@ -265,6 +272,7 @@ var SLIDE_DATA = [
   },
   {
     id: 'investor-composition',
+    curated: true,
     eyebrow: 'The South African Government Bond Market',
     title: 'Who Holds the Bonds?',
     description: 'Investor base composition — the demand structure',
@@ -319,6 +327,7 @@ var SLIDE_DATA = [
   },
   {
     id: 'debt-service',
+    curated: false,
     eyebrow: 'The South African Government Bond Market',
     title: 'Debt Service Burden',
     description: 'Interest payments as a share of government revenue',
@@ -346,6 +355,7 @@ var SLIDE_DATA = [
   },
   {
     id: 'yield-level',
+    curated: false,
     eyebrow: 'The South African Government Bond Market',
     title: '10-Year Yield',
     description: 'The price that clears supply and demand',
@@ -373,6 +383,7 @@ var SLIDE_DATA = [
   },
   {
     id: 'real-yield',
+    curated: false,
     eyebrow: 'The South African Government Bond Market',
     title: 'Real Yield',
     description: 'Why foreign capital flows to SA — real yields above 5%',
@@ -417,6 +428,7 @@ var SLIDE_DATA = [
   },
   {
     id: 'yield-vs-foreign',
+    curated: false,
     eyebrow: 'The South African Government Bond Market',
     title: 'Yield and Foreign Ownership',
     description: 'The defining relationship — foreigners set the price',
