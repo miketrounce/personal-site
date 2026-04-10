@@ -197,8 +197,7 @@ var SLIDE_DATA = [
         .then(function(r){return r.json();}).then(function(data) {
         var axisPlugin = {id:'singleAxisLabel', afterDraw:function(chart){var ctx=chart.ctx;ctx.save();ctx.font='bold 11px -apple-system,system-ui,sans-serif';ctx.textBaseline='bottom';ctx.fillStyle='#81b64c';ctx.textAlign='left';ctx.fillText('% of total',chart.scales.y.left,chart.scales.y.top-8);ctx.restore();}};
         new Chart(canvas, {type:'line', data:{labels:data.labels, datasets:[
-          {label:'Foreign holdings', data:data.values, borderColor:'#81b64c', borderWidth:3, pointBackgroundColor:'#81b64c', pointRadius:3, tension:0,
-           fill:{target:'origin', backgroundColor:'rgba(129,182,76,0.1)'}}
+          {label:'Foreign holdings', data:data.values, borderColor:'#81b64c', borderWidth:3, pointBackgroundColor:'#81b64c', pointRadius:3, tension:0}
         ]}, options:{responsive:true, maintainAspectRatio:true, aspectRatio:1.6, layout:{padding:{top:20}},
           plugins:{legend:{display:false}, title:{display:true, text:'Foreign Holdings of Government Bonds', color:'#f4f2ec', font:{size:14, weight:'bold'}},
             tooltip:{callbacks:{label:function(c){return c.raw.toFixed(1)+'%';}}}},
