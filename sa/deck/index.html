@@ -150,7 +150,7 @@
 <div id="hint">&larr; &rarr; arrow keys &middot; click to advance</div>
 </div>
 
-<script src="../slides.js"></script>
+<script src="../chart-renderers.js"></script>
 <script src="../decks.js"></script>
 <script>
 /* ═══════════════════════════════════════════════════════════════════
@@ -161,13 +161,13 @@ var deckParam = new URLSearchParams(window.location.search).get('deck');
 
 if (deckParam) {
   /* ── PRESENTATION MODE ── */
-  var deckDef = getDeckById(deckParam);
-  if (!deckDef) { window.location.href = '/sa/deck/'; }
-  else {
+  loadDeck(deckParam, function(deckDef) {
+    if (!deckDef) { window.location.href = '/sa/deck/'; return; }
+
     document.getElementById('deck-wrap').classList.add('active');
     document.getElementById('deck-back').style.display = 'block';
 
-    var deckSlides = deckDef.slides.map(getSlideById).filter(Boolean);
+    var deckSlides = deckDef.slides;
     var deckEl = document.getElementById('deck');
 
     deckSlides.forEach(function(slide, i) {
@@ -258,20 +258,22 @@ if (deckParam) {
       if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); if (!revealNext(slideEls[current]) && current < total - 1) goTo(current + 1); }
       else if (e.key === 'ArrowLeft') { if (current > 0) goTo(current - 1); }
     });
-  }
+  });
 } else {
   /* ── PICKER MODE ── */
-  document.getElementById('picker-wrap').classList.add('active');
+  loadDecks(function() {
+    document.getElementById('picker-wrap').classList.add('active');
 
-  var tableBody = document.getElementById('deck-table');
-  DECK_DATA.forEach(function(deck) {
-    var tr = document.createElement('tr');
-    tr.innerHTML =
-      '<td><div class="td-name">' + deck.name + '</div><div class="td-desc">' + deck.description + '</div></td>' +
-      '<td><span class="td-count">' + deck.slides.length + ' slides</span></td>' +
-      '<td class="td-arrow">&#x203A;</td>';
-    tr.addEventListener('click', function() { window.location.href = '?deck=' + deck.id; });
-    tableBody.appendChild(tr);
+    var tableBody = document.getElementById('deck-table');
+    DECK_DATA.forEach(function(deck) {
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td><div class="td-name">' + deck.name + '</div><div class="td-desc">' + deck.description + '</div></td>' +
+        '<td><span class="td-count">' + deck.slideCount + ' slides</span></td>' +
+        '<td class="td-arrow">&#x203A;</td>';
+      tr.addEventListener('click', function() { window.location.href = '?deck=' + deck.id; });
+      tableBody.appendChild(tr);
+    });
   });
 }
 </script>

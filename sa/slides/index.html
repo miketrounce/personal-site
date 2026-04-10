@@ -135,9 +135,10 @@
   </table>
 </div>
 
+<script src="../chart-renderers.js"></script>
 <script src="../slides.js"></script>
 <script>
-(function() {
+loadSlides(function() {
   var tbody = document.getElementById('slide-table');
 
   SLIDE_DATA.forEach(function(slide) {
@@ -178,7 +179,7 @@
     tbody.appendChild(tr);
     tbody.appendChild(detail);
   });
-})();
+});
 </script>
 </body>
 </html>

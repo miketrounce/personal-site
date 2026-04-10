@@ -1,49 +1,46 @@
 /* ═══════════════════════════════════════════════════════════════════
-   DECK_DATA — ordered selections of slides
-   Consumed by /sa/deck/ (picker + presentation)
+   DECKS — fetches deck metadata from the content API,
+   attaches chart renderers from chart-renderers.js.
+   Consumed by /sa/deck/ (picker + presentation).
    ═══════════════════════════════════════════════════════════════════ */
 
-var DECK_DATA = [
-  {
-    id: 'supply-demand',
-    name: 'Supply & Demand in the SA Government Bond Market',
-    description: 'The analytical story: who borrows, who buys, and what drives the market',
-    slides: [
-      'supply',
-      'supply-flow',
-      'debt-stock',
-      'debt-fan',
-      'debt-service',
-      'yield-level',
-      'investor-composition',
-      'real-yield',
-      'foreign-holdings',
-      'yield-vs-foreign',
-      'sabo'
-    ]
-  },
-  {
-    id: 'all-slides',
-    name: 'All Slides',
-    description: 'Every slide in the collection, in standard order',
-    slides: [
-      'supply',
-      'supply-flow',
-      'debt-stock',
-      'debt-fan',
-      'loan-debt',
-      'debt-service',
-      'yield-level',
-      'investor-composition',
-      'real-yield',
-      'foreign-holdings',
-      'yield-vs-foreign',
-      'sabo'
-    ]
-  }
-];
+var CONTENT_API = 'https://api.miketrounce.com/api/content';
+var DECK_DATA = [];
 
-/* Helper: look up a deck by ID */
+function loadDecks(callback) {
+  fetch(CONTENT_API + '/decks/')
+    .then(function(r) { return r.json(); })
+    .then(function(decks) {
+      DECK_DATA = decks.map(function(d) {
+        return {
+          id: d.slug,
+          name: d.title,
+          description: d.description,
+          slideCount: d.slide_count
+        };
+      });
+      if (callback) callback();
+    });
+}
+
+function loadDeck(slug, callback) {
+  fetch(CONTENT_API + '/decks/' + slug + '/')
+    .then(function(r) { return r.json(); })
+    .then(function(deck) {
+      if (deck.error) { callback(null); return; }
+      var deckSlides = deck.slides.map(function(s) {
+        return {
+          id: s.slug,
+          title: s.title,
+          eyebrow: deck.eyebrow,
+          bullets: s.bullets,
+          buildChart: CHART_RENDERERS[s.chart.slug] || function() {}
+        };
+      });
+      callback({ id: deck.slug, name: deck.title, eyebrow: deck.eyebrow, slides: deckSlides });
+    });
+}
+
 function getDeckById(id) {
   for (var i = 0; i < DECK_DATA.length; i++) {
     if (DECK_DATA[i].id === id) return DECK_DATA[i];
