@@ -262,6 +262,60 @@ var SLIDE_DATA = [
         , plugins:[axisPlugin]});
       });
     }
+  },
+  {
+    id: 'investor-composition',
+    eyebrow: 'The South African Government Bond Market',
+    title: 'Who Holds the Bonds?',
+    description: 'Investor base composition — the demand structure',
+    chartName: 'Stacked Area',
+    bullets: [
+      'Pension funds have halved their share from <strong>45% to 22%</strong> since 2006',
+      'Foreigners surged from 9% to 43% then retreated to ~26% after the <strong>WGBI exit</strong>',
+      'Banks have quietly doubled their share to <strong>21%</strong>, driven by Basel III liquidity rules',
+      'The domestic investor base absorbed what foreigners relinquished — but at the cost of deeper sovereign exposure'
+    ],
+    buildChart: function(canvas) {
+      var seriesNames = [
+        'Bond holdings: Non-residents',
+        'Bond holdings: Banks',
+        'Bond holdings: Pension funds',
+        'Bond holdings: Insurers',
+        'Bond holdings: Other financial',
+        'Bond holdings: Other'
+      ];
+      var seriesLabels = ['Non-residents', 'Banks', 'Pension funds', 'Insurers', 'Other financial', 'Other'];
+      var seriesColors = ['#81b64c', '#e8c547', '#6fb5ff', '#e0976e', '#b48cff', '#7a7368'];
+      Promise.all(seriesNames.map(function(n) {
+        return fetch(API + '?name=' + encodeURIComponent(n)).then(function(r) { return r.json(); });
+      })).then(function(datasets) {
+        var labels = datasets[0].labels;
+        var ds = datasets.map(function(d, i) {
+          var hex = seriesColors[i].slice(1);
+          var r = parseInt(hex.substr(0,2),16), g = parseInt(hex.substr(2,2),16), b = parseInt(hex.substr(4,2),16);
+          return {
+            label: seriesLabels[i], data: d.values,
+            backgroundColor: 'rgba(' + r + ',' + g + ',' + b + ',0.6)',
+            borderColor: seriesColors[i], borderWidth: 1,
+            fill: true, pointRadius: 0, tension: 0
+          };
+        });
+        var axisPlugin = {id:'singleAxisLabel', afterDraw:function(chart){var ctx=chart.ctx;ctx.save();ctx.font='bold 11px -apple-system,system-ui,sans-serif';ctx.textBaseline='bottom';ctx.fillStyle='#b8b0a4';ctx.textAlign='left';ctx.fillText('% of total',chart.scales.y.left,chart.scales.y.top-8);ctx.restore();}};
+        new Chart(canvas, { type: 'line', data: { labels: labels, datasets: ds }, options: {
+          responsive: true, maintainAspectRatio: true, aspectRatio: 1.6,
+          layout: { padding: { top: 20 } },
+          plugins: {
+            legend: { display: true, position: 'bottom', labels: { color: '#b8b0a4', boxWidth: 12, padding: 12, font: { size: 10 } } },
+            title: { display: true, text: 'Investor Base Composition', color: '#f4f2ec', font: { size: 14, weight: 'bold' } },
+            tooltip: { mode: 'index', callbacks: { label: function(c) { return c.dataset.label + ': ' + c.raw.toFixed(1) + '%'; } } }
+          },
+          scales: {
+            x: { ticks: { color: '#b8b0a4', maxTicksLimit: 20 }, grid: { color: 'rgba(69,64,58,0.5)' } },
+            y: { min: 0, max: 100, stacked: true, ticks: { color: '#b8b0a4', callback: function(v) { return commas(v); } }, grid: { color: 'rgba(69,64,58,0.5)' } }
+          }
+        }, plugins: [axisPlugin] });
+      });
+    }
   }
 ];
 
