@@ -272,6 +272,79 @@ var CHARTS = [
     unit: '%',
     seriesLabels: ['Non-residents', 'Banks', 'Pension funds', 'Insurers', 'Other financial', 'Other'],
     seriesColors: ['#81b64c', '#e8c547', '#6fb5ff', '#e0976e', '#b48cff', '#7a7368']
+  },
+  {
+    id: 'yield10y',
+    name: 'SA 10-Year Government Bond Yield',
+    description: 'Monthly average yield on 10-year SA government bonds (%)',
+    chart: 'line',
+    source: 'OECD MEI',
+    series: 'SA 10Y Government Bond Yield',
+    title: '10-Year Government Bond Yield',
+    yLabel: '%',
+    unit: '%',
+    color: '#81b64c'
+  },
+  {
+    id: 'repo',
+    name: 'SA Repo Rate',
+    description: 'South African Reserve Bank repurchase rate, end of month (%)',
+    chart: 'line',
+    source: 'SARB',
+    series: 'SA Repo Rate',
+    title: 'SARB Repo Rate',
+    yLabel: '%',
+    unit: '%',
+    color: '#81b64c'
+  },
+  {
+    id: 'cpi',
+    name: 'CPI Inflation',
+    description: 'Consumer price inflation, year-on-year % change (monthly)',
+    chart: 'line',
+    source: 'OECD MEI',
+    series: 'CPI Inflation (monthly)',
+    title: 'CPI Inflation',
+    yLabel: '% YoY',
+    unit: '%',
+    color: '#81b64c'
+  },
+  {
+    id: 'zarusd',
+    name: 'ZAR/USD Exchange Rate',
+    description: 'South African rand per US dollar, monthly average',
+    chart: 'line',
+    source: 'OECD MEI',
+    series: 'ZAR/USD Exchange Rate (monthly)',
+    title: 'ZAR / USD Exchange Rate',
+    yLabel: 'ZAR per USD',
+    unit: 'ZAR per USD',
+    color: '#81b64c'
+  },
+  {
+    id: 'gbr',
+    name: 'Gross Borrowing Requirement',
+    description: 'Annual government gross borrowing requirement (R billions, fiscal year)',
+    chart: 'bar',
+    source: 'NT Budget Review',
+    series: 'Gross Borrowing Requirement',
+    title: 'Gross Borrowing Requirement',
+    yLabel: 'R bn',
+    unit: 'ZAR bn',
+    color: '#81b64c'
+  },
+  {
+    id: 'debtservice',
+    name: 'Debt Service Cost % of Revenue',
+    description: 'Government debt service costs as share of main budget revenue',
+    chart: 'line',
+    source: 'NT Budget Review',
+    series: 'Debt Service Cost % of Revenue',
+    title: 'Debt Service Cost',
+    yLabel: '% of revenue',
+    unit: '%',
+    fill: true,
+    color: '#81b64c'
   }
 ];
 
