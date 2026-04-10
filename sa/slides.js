@@ -10,7 +10,7 @@ var SLIDE_DATA = [
   {
     id: 'supply',
     curated: true,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: 'Supply',
     description: 'Budget deficit fan chart — projections vs reality',
     chartName: 'Deficit Fan',
@@ -54,7 +54,7 @@ var SLIDE_DATA = [
   {
     id: 'debt-stock',
     curated: false,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: 'Debt Stock',
     description: 'Gross loan debt & debt-to-GDP ratio — explosive path',
     chartName: 'Debt Combo',
@@ -113,7 +113,7 @@ var SLIDE_DATA = [
   {
     id: 'supply-flow',
     curated: false,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: 'Supply (Flow)',
     description: 'Budget deficit in ZAR bn with % of GDP overlay',
     chartName: 'Deficit Combo',
@@ -148,7 +148,7 @@ var SLIDE_DATA = [
   {
     id: 'debt-fan',
     curated: false,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: 'Debt-to-GDP',
     description: 'Debt-to-GDP fan chart — projections vs explosive reality',
     chartName: 'Debt Fan',
@@ -187,7 +187,7 @@ var SLIDE_DATA = [
   {
     id: 'foreign-holdings',
     curated: false,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: 'Foreign Holdings',
     description: 'Non-resident share of government bonds — demand side',
     chartName: 'Foreign Line',
@@ -215,7 +215,7 @@ var SLIDE_DATA = [
   {
     id: 'loan-debt',
     curated: false,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: 'Gross Loan Debt',
     description: 'Total national government debt in ZAR bn',
     chartName: 'Debt Bar',
@@ -244,7 +244,7 @@ var SLIDE_DATA = [
   {
     id: 'sabo',
     curated: false,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: 'Net Foreign Bond Flows',
     description: 'Daily net foreign purchases — the demand signal',
     chartName: 'SABO Bar',
@@ -273,7 +273,7 @@ var SLIDE_DATA = [
   {
     id: 'investor-composition',
     curated: false,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: 'Who Holds the Bonds?',
     description: 'Investor base composition — the demand structure',
     chartName: 'Stacked Area',
@@ -328,7 +328,7 @@ var SLIDE_DATA = [
   {
     id: 'debt-service',
     curated: false,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: 'Debt Service Burden',
     description: 'Interest payments as a share of government revenue',
     chartName: 'Debt Service Line',
@@ -356,7 +356,7 @@ var SLIDE_DATA = [
   {
     id: 'yield-level',
     curated: false,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: '10-Year Yield',
     description: 'The price that clears supply and demand',
     chartName: 'Yield Line',
@@ -384,7 +384,7 @@ var SLIDE_DATA = [
   {
     id: 'real-yield',
     curated: false,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: 'Real Yield',
     description: 'Why foreign capital flows to SA — real yields above 5%',
     chartName: 'Real Yield Combo',
@@ -429,7 +429,7 @@ var SLIDE_DATA = [
   {
     id: 'yield-vs-foreign',
     curated: false,
-    eyebrow: 'The South African Government Bond Market',
+    eyebrow: 'PLACEHOLDER EYEBROW TEXT',
     title: 'Yield and Foreign Ownership',
     description: 'The defining relationship — foreigners set the price',
     chartName: 'Yield vs Foreign Combo',
