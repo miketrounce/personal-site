@@ -13,8 +13,12 @@ var DECK_DATA = [
       'supply-flow',
       'debt-stock',
       'debt-fan',
+      'debt-service',
+      'yield-level',
       'investor-composition',
+      'real-yield',
       'foreign-holdings',
+      'yield-vs-foreign',
       'sabo'
     ]
   },
@@ -24,13 +28,17 @@ var DECK_DATA = [
     description: 'Every slide in the collection, in standard order',
     slides: [
       'supply',
-      'debt-stock',
       'supply-flow',
+      'debt-stock',
       'debt-fan',
-      'foreign-holdings',
       'loan-debt',
-      'sabo',
-      'investor-composition'
+      'debt-service',
+      'yield-level',
+      'investor-composition',
+      'real-yield',
+      'foreign-holdings',
+      'yield-vs-foreign',
+      'sabo'
     ]
   }
 ];
