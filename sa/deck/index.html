@@ -11,19 +11,56 @@
   :root {
     --bg: #2b2926; --surface: #34312d; --border: #45403a;
     --accent: #81b64c; --text: #f4f2ec; --muted: #b8b0a4;
+    --picker-bg: #1a1714; --picker-surface: #2f2c28; --picker-muted: #7a7368;
   }
   body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; margin: 0; }
 
-  /* ── Deck layout ── */
-  .deck-wrap {
-    height: 100vh; display: flex; flex-direction: column; overflow: hidden; user-select: none;
+  /* ══════════════════════════════════════════════════
+     PICKER MODE
+     ══════════════════════════════════════════════════ */
+  .picker-wrap { display: none; background: var(--picker-bg); min-height: 100vh; }
+  .picker-wrap.active { display: block; }
+  .picker-container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+  .picker-container .back-link { display: inline-block; margin-bottom: 20px; color: var(--accent); text-decoration: none; font-size: 0.8rem; font-weight: 600; }
+  .picker-container .back-link:hover { text-decoration: underline; }
+
+  .picker-container h1 { font-size: 1.6rem; margin-bottom: 4px; }
+  .picker-container .sub { color: var(--picker-muted); font-size: 0.85rem; margin-bottom: 24px; }
+
+  .picker-container table { width: 100%; border-collapse: collapse; }
+  .picker-container thead th {
+    text-align: left; font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--picker-muted); padding: 10px 16px;
+    border-bottom: 2px solid var(--border);
   }
+  .picker-container tbody tr {
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; transition: background 0.15s;
+  }
+  .picker-container tbody tr:hover { background: var(--picker-surface); }
+  .picker-container tbody td { padding: 14px 16px; vertical-align: middle; }
+  .picker-container .td-name { font-weight: 600; font-size: 0.9rem; color: var(--text); }
+  .picker-container .td-desc { font-size: 0.75rem; color: var(--picker-muted); margin-top: 2px; }
+  .picker-container .td-count {
+    display: inline-block; font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.06em; padding: 3px 10px; border-radius: 4px;
+    background: rgba(129,182,76,0.1); color: var(--accent);
+  }
+  .picker-container .td-arrow { color: var(--picker-muted); font-size: 1.1rem; text-align: right; }
+
+  /* ══════════════════════════════════════════════════
+     DECK MODE (presentation)
+     ══════════════════════════════════════════════════ */
+  .deck-wrap { display: none; height: 100vh; flex-direction: column; overflow: hidden; user-select: none; }
+  .deck-wrap.active { display: flex; }
+
   #progress { height: 3px; background: var(--border); position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
   #progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; }
 
   #deck { flex: 1; position: relative; overflow: hidden; }
 
-  /* ── Slide ── */
   .slide {
     position: absolute; inset: 0;
     display: flex; justify-content: center; align-items: center;
@@ -35,7 +72,6 @@
   .slide.active { opacity: 1; transform: translateX(0); pointer-events: all; }
   .slide.exit { opacity: 0; transform: translateX(-60px); }
 
-  /* ── Slide inner: two-col (text | chart) ── */
   .slide-inner {
     display: grid; grid-template-columns: 1fr 1.6fr; gap: 32px;
     align-items: center; width: 100%; max-width: 960px;
@@ -60,7 +96,6 @@
   .bullets li.visible { opacity: 1; transform: translateY(0); }
   .bullets li::before { content: '\25B8'; color: var(--accent); flex-shrink: 0; margin-top: 2px; font-size: 12px; }
 
-  /* ── Nav ── */
   #nav {
     display: flex; align-items: center; justify-content: center; gap: 24px;
     padding: 16px 32px; background: var(--surface); border-top: 1px solid var(--border);
@@ -86,9 +121,24 @@
 </style>
 </head>
 <body>
-<a href="/" style="position:fixed;top:16px;left:20px;z-index:200;color:#f4f2ec;font-size:12px;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">&larr; Menu</a>
 
-<div class="deck-wrap">
+<!-- ═══ PICKER MODE ═══ -->
+<div class="picker-wrap" id="picker-wrap">
+  <div class="picker-container">
+    <a class="back-link" href="/">&larr; Menu</a>
+    <h1>Decks</h1>
+    <p class="sub">Select a presentation</p>
+    <table>
+      <thead><tr><th>Deck</th><th>Slides</th><th></th></tr></thead>
+      <tbody id="deck-table"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ DECK MODE ═══ -->
+<a id="deck-back" href="/sa/deck/" style="display:none;position:fixed;top:16px;left:20px;z-index:200;color:#f4f2ec;font-size:12px;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">&larr; Decks</a>
+
+<div class="deck-wrap" id="deck-wrap">
 <div id="progress"><div id="progress-fill"></div></div>
 <div id="deck"></div>
 <div id="nav">
@@ -101,124 +151,129 @@
 </div>
 
 <script src="../slides.js"></script>
+<script src="../decks.js"></script>
 <script>
 /* ═══════════════════════════════════════════════════════════════════
-   DECK — an ordered selection of slides
+   DECK PAGE — picker or presentation based on ?deck= param
    ═══════════════════════════════════════════════════════════════════ */
-var DECK = [
-  'supply',
-  'supply-flow',
-  'debt-stock',
-  'debt-fan',
-  'foreign-holdings',
-  'loan-debt',
-  'sabo'
-];
 
-/* Resolve slide objects from IDs */
-var deckSlides = DECK.map(getSlideById).filter(Boolean);
+var deckParam = new URLSearchParams(window.location.search).get('deck');
 
-/* ── Render ── */
-var deckEl = document.getElementById('deck');
-deckSlides.forEach(function(slide, i) {
-  var div = document.createElement('div');
-  div.className = 'slide';
-  div.id = 'deck-slide-' + i;
+if (deckParam) {
+  /* ── PRESENTATION MODE ── */
+  var deckDef = getDeckById(deckParam);
+  if (!deckDef) { window.location.href = '/sa/deck/'; }
+  else {
+    document.getElementById('deck-wrap').classList.add('active');
+    document.getElementById('deck-back').style.display = 'block';
 
-  div.innerHTML =
-    '<div class="slide-inner">' +
-      '<div class="col-text">' +
-        '<div class="eyebrow">' + slide.eyebrow + '</div>' +
-        '<h2 class="slide-title">' + slide.title + '</h2>' +
-        '<ul class="bullets">' + slide.bullets.map(function(b) { return '<li>' + b + '</li>'; }).join('') + '</ul>' +
-      '</div>' +
-      '<div class="col-chart"><canvas id="deck-canvas-' + i + '"></canvas></div>' +
-    '</div>';
+    var deckSlides = deckDef.slides.map(getSlideById).filter(Boolean);
+    var deckEl = document.getElementById('deck');
 
-  deckEl.appendChild(div);
-});
+    deckSlides.forEach(function(slide, i) {
+      var div = document.createElement('div');
+      div.className = 'slide';
+      div.id = 'deck-slide-' + i;
+      div.innerHTML =
+        '<div class="slide-inner">' +
+          '<div class="col-text">' +
+            '<div class="eyebrow">' + slide.eyebrow + '</div>' +
+            '<h2 class="slide-title">' + slide.title + '</h2>' +
+            '<ul class="bullets">' + slide.bullets.map(function(b) { return '<li>' + b + '</li>'; }).join('') + '</ul>' +
+          '</div>' +
+          '<div class="col-chart"><canvas id="deck-canvas-' + i + '"></canvas></div>' +
+        '</div>';
+      deckEl.appendChild(div);
+    });
 
-/* ── State ── */
-var slideEls = document.querySelectorAll('.deck-wrap .slide');
-var total = slideEls.length;
-var current = 0;
-var bulletIndex = 0;
-var chartsBuilt = {};
+    var slideEls = document.querySelectorAll('.deck-wrap .slide');
+    var total = slideEls.length;
+    var current = 0;
+    var bulletIndex = 0;
+    var chartsBuilt = {};
 
-function getBullets(el) { return [].slice.call(el.querySelectorAll('.bullets li')); }
+    function getBullets(el) { return [].slice.call(el.querySelectorAll('.bullets li')); }
 
-function buildChartIfNeeded(idx) {
-  if (chartsBuilt[idx]) return;
-  chartsBuilt[idx] = true;
-  var slide = deckSlides[idx];
-  var canvas = document.getElementById('deck-canvas-' + idx);
-  if (slide && slide.buildChart && canvas) slide.buildChart(canvas);
-}
+    function buildChartIfNeeded(idx) {
+      if (chartsBuilt[idx]) return;
+      chartsBuilt[idx] = true;
+      var slide = deckSlides[idx];
+      var canvas = document.getElementById('deck-canvas-' + idx);
+      if (slide && slide.buildChart && canvas) slide.buildChart(canvas);
+    }
 
-function showSlide(idx) {
-  var prev = slideEls[current];
-  prev.classList.remove('active');
-  prev.classList.add('exit');
-  setTimeout(function() { prev.classList.remove('exit'); }, 450);
+    function showSlide(idx) {
+      var prev = slideEls[current];
+      prev.classList.remove('active');
+      prev.classList.add('exit');
+      setTimeout(function() { prev.classList.remove('exit'); }, 450);
+      current = idx;
+      bulletIndex = 0;
+      var s = slideEls[current];
+      s.classList.add('active');
+      getBullets(s).forEach(function(li) { li.classList.remove('visible'); });
+      buildChartIfNeeded(current);
+      revealNext(s);
+      updateUI();
+    }
 
-  current = idx;
-  bulletIndex = 0;
-  var s = slideEls[current];
-  s.classList.add('active');
-  getBullets(s).forEach(function(li) { li.classList.remove('visible'); });
-  buildChartIfNeeded(current);
-  revealNext(s);
-  updateUI();
-}
+    function goTo(idx) { if (idx >= 0 && idx < total) showSlide(idx); }
 
-function goTo(idx) { if (idx >= 0 && idx < total) showSlide(idx); }
+    function revealNext(el) {
+      var items = getBullets(el);
+      if (bulletIndex < items.length) { items[bulletIndex].classList.add('visible'); bulletIndex++; return true; }
+      return false;
+    }
 
-function revealNext(el) {
-  var items = getBullets(el);
-  if (bulletIndex < items.length) {
-    items[bulletIndex].classList.add('visible');
-    bulletIndex++;
-    return true;
+    function updateUI() {
+      document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + total;
+      document.getElementById('prev').disabled = current === 0;
+      document.getElementById('next').disabled = current === total - 1;
+      document.querySelectorAll('.dot').forEach(function(d, i) { d.classList.toggle('active', i === current); });
+      document.getElementById('progress-fill').style.width = (((current + 1) / total) * 100) + '%';
+    }
+
+    var dotsEl = document.getElementById('dots');
+    for (var i = 0; i < total; i++) {
+      (function(idx) {
+        var d = document.createElement('div');
+        d.className = 'dot' + (idx === 0 ? ' active' : '');
+        d.addEventListener('click', function() { goTo(idx); });
+        dotsEl.appendChild(d);
+      })(i);
+    }
+
+    slideEls[0].classList.add('active');
+    buildChartIfNeeded(0);
+    revealNext(slideEls[0]);
+    updateUI();
+
+    deckEl.addEventListener('click', function(e) {
+      if (e.target.closest('button, a')) return;
+      if (!revealNext(slideEls[current]) && current < total - 1) goTo(current + 1);
+    });
+    document.getElementById('next').addEventListener('click', function(e) { e.stopPropagation(); if (current < total - 1) goTo(current + 1); });
+    document.getElementById('prev').addEventListener('click', function(e) { e.stopPropagation(); if (current > 0) goTo(current - 1); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); if (!revealNext(slideEls[current]) && current < total - 1) goTo(current + 1); }
+      else if (e.key === 'ArrowLeft') { if (current > 0) goTo(current - 1); }
+    });
   }
-  return false;
+} else {
+  /* ── PICKER MODE ── */
+  document.getElementById('picker-wrap').classList.add('active');
+
+  var tableBody = document.getElementById('deck-table');
+  DECK_DATA.forEach(function(deck) {
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td><div class="td-name">' + deck.name + '</div><div class="td-desc">' + deck.description + '</div></td>' +
+      '<td><span class="td-count">' + deck.slides.length + ' slides</span></td>' +
+      '<td class="td-arrow">&#x203A;</td>';
+    tr.addEventListener('click', function() { window.location.href = '?deck=' + deck.id; });
+    tableBody.appendChild(tr);
+  });
 }
-
-function updateUI() {
-  document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + total;
-  document.getElementById('prev').disabled = current === 0;
-  document.getElementById('next').disabled = current === total - 1;
-  document.querySelectorAll('.dot').forEach(function(d, i) { d.classList.toggle('active', i === current); });
-  document.getElementById('progress-fill').style.width = (((current + 1) / total) * 100) + '%';
-}
-
-/* ── Dots ── */
-var dotsEl = document.getElementById('dots');
-for (var i = 0; i < total; i++) {
-  (function(idx) {
-    var d = document.createElement('div');
-    d.className = 'dot' + (idx === 0 ? ' active' : '');
-    d.addEventListener('click', function() { goTo(idx); });
-    dotsEl.appendChild(d);
-  })(i);
-}
-
-/* ── Init first slide ── */
-slideEls[0].classList.add('active');
-buildChartIfNeeded(0);
-revealNext(slideEls[0]);
-updateUI();
-
-/* ── Controls ── */
-deckEl.addEventListener('click', function(e) {
-  if (e.target.closest('button, a')) return;
-  if (!revealNext(slideEls[current]) && current < total - 1) goTo(current + 1);
-});
-document.getElementById('next').addEventListener('click', function(e) { e.stopPropagation(); if (current < total - 1) goTo(current + 1); });
-document.getElementById('prev').addEventListener('click', function(e) { e.stopPropagation(); if (current > 0) goTo(current - 1); });
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); if (!revealNext(slideEls[current]) && current < total - 1) goTo(current + 1); }
-  else if (e.key === 'ArrowLeft') { if (current > 0) goTo(current - 1); }
-});
 </script>
 </body>
 </html>
