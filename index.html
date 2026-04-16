@@ -713,15 +713,10 @@
       const pwHint   = document.getElementById('pw-hint');
       const pwStatus = document.getElementById('pw-status');
 
-      // ── More button ──
       function expand() {
         page.classList.add('expanded');
       }
       document.getElementById('more-btn').addEventListener('click', expand);
-
-      // ── HubSpot config ──
-      const HUBSPOT_PORTAL_ID = '5848423';
-      const HUBSPOT_FORM_GUID = '79391f64-6994-4465-82bd-bbb1910dfda9';
 
       function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
@@ -733,10 +728,17 @@
         }
       }
 
-      async function revealInner() {
-        const res = await fetch('/inner.html');
-        const html = await res.text();
+      async function fetchInner() {
+        try {
+          const res = await fetch('/inner', { credentials: 'same-origin', redirect: 'manual' });
+          if (res.type === 'opaqueredirect' || res.status !== 200) return null;
+          return await res.text();
+        } catch (_) {
+          return null;
+        }
+      }
 
+      function renderInner(html) {
         page.classList.add('fading-out');
         setTimeout(() => {
           page.style.display = 'none';
@@ -750,18 +752,6 @@
         }, 600);
       }
 
-      async function submitContact(email) {
-        const url = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fields: [{ name: 'email', value: email }]
-          })
-        });
-        if (!res.ok) throw new Error('Submit failed');
-      }
-
       async function handleUnlock(value) {
         if (!isEmail(value)) {
           pwInput.classList.add('error');
@@ -772,9 +762,16 @@
 
         pwInput.disabled = true;
         try {
-          await submitContact(value);
-          try { localStorage.setItem('mt-access', '1'); } catch(_) {}
-          await revealInner();
+          const res = await fetch('/api/unlock', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: value }),
+          });
+          if (!res.ok) throw new Error('unlock failed');
+          const html = await fetchInner();
+          if (!html) throw new Error('inner fetch failed');
+          renderInner(html);
         } catch (_) {
           pwInput.disabled = false;
           showStatus('Something went wrong. Try again.', 'error');
@@ -792,11 +789,9 @@
         }
       });
 
-      // Auto-access if email previously submitted
-      (function() {
-        try {
-          if (localStorage.getItem('mt-access')) revealInner();
-        } catch(_) {}
+      (async function() {
+        const html = await fetchInner();
+        if (html) renderInner(html);
       })();
     </script>
 
