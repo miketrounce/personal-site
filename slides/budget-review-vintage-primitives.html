@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Budget Review seeds many primitives.</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: #f4f3ef; padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a; }
+  .slide { width: 100%; max-width: 1280px; aspect-ratio: 16 / 9;
+    background: #ffffff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 18px; }
+  .slide-header { display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title { font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a; }
+  .slide-body { display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0; }
+  .visual-cell { min-height: 0; min-width: 0;
+    display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .facts { list-style: none; padding: 0; margin: 0;
+    font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center; }
+  .facts li { padding-left: 18px; position: relative; margin-bottom: 16px; }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before { content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; border-radius: 50%; background: #81b64c; }
+  .slide-footer { font-size: 12px; color: #666; border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between; }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce &middot; Budget Review</span>
+    </header>
+    <h1 class="slide-title">One Budget Review seeds many primitives.</h1>
+    <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <text x="600" y="60" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="0.18em" fill="#a8a098">ONE BR &rarr; MANY VINTAGE-STAMPED PRIMITIVES</text>
+
+  <!-- Center hub -->
+  <rect x="500" y="310" width="200" height="100" rx="10" fill="#e8f0d9" stroke="#81b64c" stroke-width="2"/>
+  <text x="600" y="346" text-anchor="middle" font-size="16" font-weight="700" fill="#3a382f">BR 2026</text>
+  <text x="600" y="370" text-anchor="middle" font-size="13" fill="#666">Feb 2026</text>
+  <text x="600" y="392" text-anchor="middle" font-size="12" font-style="italic" fill="#888">vintage = 2025-04-01</text>
+
+  <!-- 4 measurand chips around -->
+
+  <!-- TOP-LEFT: MBB -->
+  <rect x="120" y="130" width="280" height="100" rx="10" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
+  <text x="260" y="158" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="0.12em" fill="#a8a098">MEASURAND</text>
+  <text x="260" y="184" text-anchor="middle" font-size="15" font-weight="700" fill="#3a382f">Main budget balance</text>
+  <text x="260" y="206" text-anchor="middle" font-size="13" fill="#666">Series: <tspan font-family="'SF Mono', Menlo, monospace">mbb-br2026</tspan></text>
+  <line x1="400" y1="220" x2="500" y2="320" stroke="#a8a098" stroke-width="1.6"/>
+  <polygon points="496,313 504,322 489,322" fill="#a8a098"/>
+
+  <!-- TOP-RIGHT: Gross debt -->
+  <rect x="800" y="130" width="280" height="100" rx="10" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
+  <text x="940" y="158" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="0.12em" fill="#a8a098">MEASURAND</text>
+  <text x="940" y="184" text-anchor="middle" font-size="15" font-weight="700" fill="#3a382f">Gross debt-to-GDP</text>
+  <text x="940" y="206" text-anchor="middle" font-size="13" fill="#666">Series: <tspan font-family="'SF Mono', Menlo, monospace">debt-gdp-br2026</tspan></text>
+  <line x1="800" y1="220" x2="700" y2="320" stroke="#a8a098" stroke-width="1.6"/>
+  <polygon points="704,313 711,322 696,322" fill="#a8a098"/>
+
+  <!-- BOTTOM-LEFT: Net debt -->
+  <rect x="120" y="490" width="280" height="100" rx="10" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
+  <text x="260" y="518" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="0.12em" fill="#a8a098">MEASURAND</text>
+  <text x="260" y="544" text-anchor="middle" font-size="15" font-weight="700" fill="#3a382f">Net debt-to-GDP</text>
+  <text x="260" y="566" text-anchor="middle" font-size="13" fill="#666">Series: <tspan font-family="'SF Mono', Menlo, monospace">net-debt-br2026</tspan></text>
+  <line x1="400" y1="490" x2="500" y2="400" stroke="#a8a098" stroke-width="1.6"/>
+  <polygon points="496,407 504,398 489,398" fill="#a8a098"/>
+
+  <!-- BOTTOM-RIGHT: Fiscal balance perimeters -->
+  <rect x="800" y="490" width="280" height="100" rx="10" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
+  <text x="940" y="518" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="0.12em" fill="#a8a098">MEASURAND</text>
+  <text x="940" y="544" text-anchor="middle" font-size="15" font-weight="700" fill="#3a382f">Fiscal balance by perimeter</text>
+  <text x="940" y="566" text-anchor="middle" font-size="13" fill="#666">Main / Consolidated / PSBR</text>
+  <line x1="800" y1="490" x2="700" y2="400" stroke="#a8a098" stroke-width="1.6"/>
+  <polygon points="704,407 711,398 696,398" fill="#a8a098"/>
+
+  <!-- Bottom note -->
+  <text x="600" y="660" text-anchor="middle" font-size="14" fill="#666">13 BR vintages on file &times; n measurands &rarr; <tspan font-weight="700" fill="#3a382f">24 BR primitives</tspan> loaded today</text>
+</svg></div>
+      <ul class="facts">
+        <li>One BR carries <strong>multiple measurands &times; one vintage</strong> &mdash; each becomes its own Series.</li>
+        <li><strong>13 MBB</strong> BR-snapshot Series (BR 2014&ndash;2026) is the largest family today.</li>
+        <li>Plus <strong>5 gross debt-to-GDP</strong> snapshots (BR 2021&ndash;2026 minus 2025), <strong>6 net-debt</strong> AI-estimates (BR 2013&ndash;2019 minus 2018).</li>
+        <li>Each Series carries <code>vintage = BR YYYY-MM</code> so an observation is unambiguous about which BR printed it.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>Per-vintage primitives &middot; one Series per measurand &times; BR</span>
+      <span>24 BR primitives loaded today</span>
+    </footer>
+  </div>
+<script src="/slides/deck.js" defer></script>
+</body>
+</html>

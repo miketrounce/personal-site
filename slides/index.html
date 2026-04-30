@@ -397,8 +397,61 @@
       </div>
     </details>
 
+
+    <details class="deck">
+      <summary>
+        <span class="deck-chevron"></span>
+        <span class="deck-name">Budget Review</span>
+        <span class="deck-count">7 slides</span>
+      </summary>
+      <div class="deck-body">
+        <a class="slide-row" href="/slides/budget-review-fy-naming">
+          <div class="slide-num">01</div>
+          <h2 class="slide-title">Each Budget Review is named for its fiscal year.</h2>
+          <p class="slide-blurb">Naming convention &mdash; Feb release derives its release_name from the SA fiscal year (Apr&ndash;Mar) it sits inside. 13 BR vintages on file (BR 2014&ndash;2026).</p>
+          <div class="slide-path">/slides/budget-review-fy-naming</div>
+        </a>
+        <a class="slide-row" href="/slides/budget-review-chapter-3">
+          <div class="slide-num">02</div>
+          <h2 class="slide-title">BR is a 9-chapter publication. We archive Chapter 3.</h2>
+          <p class="slide-blurb">Source structure &mdash; BR is a 9-chapter PDF set. We archive Chapter 3 (Fiscal Policy) as one ReleaseFile per Release; other chapters not loaded yet.</p>
+          <div class="slide-path">/slides/budget-review-chapter-3</div>
+        </a>
+        <a class="slide-row" href="/slides/budget-review-figures-vs-tables">
+          <div class="slide-num">03</div>
+          <h2 class="slide-title">Figures and tables &mdash; different extraction shapes.</h2>
+          <p class="slide-blurb">Two extractors &mdash; chart-walker on figures (Fig 3.3 fan), pdfplumber on tables (Table 3.x cells). Both land as vintage-stamped Series + Observations.</p>
+          <div class="slide-path">/slides/budget-review-figures-vs-tables</div>
+        </a>
+        <a class="slide-row" href="/slides/budget-review-vintage-primitives">
+          <div class="slide-num">04</div>
+          <h2 class="slide-title">One Budget Review seeds many primitives.</h2>
+          <p class="slide-blurb">Per-vintage primitives &mdash; one BR seeds one Series per measurand. 24 BR primitives loaded today: 13 MBB + 5 gross debt + 6 net debt AI-estimates.</p>
+          <div class="slide-path">/slides/budget-review-vintage-primitives</div>
+        </a>
+        <a class="slide-row" href="/slides/budget-review-ai-estimate-fill">
+          <div class="slide-num">05</div>
+          <h2 class="slide-title">Where NT didn&rsquo;t print net debt, we estimate transparently.</h2>
+          <p class="slide-blurb">Transparent fill &mdash; for net debt 2013&ndash;2019 (where NT didn&rsquo;t print), we estimate using NT&rsquo;s own arithmetic and label every chart (AI-estimated). No silent substitution.</p>
+          <div class="slide-path">/slides/budget-review-ai-estimate-fill</div>
+        </a>
+        <a class="slide-row" href="/slides/budget-review-audit-rows">
+          <div class="slide-num">06</div>
+          <h2 class="slide-title">Every BR primitive surfaces as an audit row.</h2>
+          <p class="slide-blurb">Audit rows &mdash; every BR primitive surfaces on /datasets/ via dedicated builders (MULTI_SERIES_ROWS, NET_DEBT_ROWS, _build_mbb_rows, _build_missing_rows). Gaps stay visible.</p>
+          <div class="slide-path">/slides/budget-review-audit-rows</div>
+        </a>
+        <a class="slide-row" href="/slides/budget-review-loader-pipeline">
+          <div class="slide-num">07</div>
+          <h2 class="slide-title">The full Budget Review pipeline, end to end.</h2>
+          <p class="slide-blurb">End-to-end flow &mdash; download Ch 3 PDF &rarr; archive &rarr; parse figures (chart-walk) and tables (pdfplumber) in parallel &rarr; AI-fill missing measurands &rarr; upsert vintage-stamped Series + Observations.</p>
+          <div class="slide-path">/slides/budget-review-loader-pipeline</div>
+        </a>
+      </div>
+    </details>
+
     <footer class="footer">
-      <span>31 slides &middot; 4 decks</span>
+      <span>38 slides &middot; 5 decks</span>
       <span>AI-generated</span>
     </footer>
   </div>

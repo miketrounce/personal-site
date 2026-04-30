@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where NT didn&rsquo;t print net debt, we estimate transparently.</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: #f4f3ef; padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a; }
+  .slide { width: 100%; max-width: 1280px; aspect-ratio: 16 / 9;
+    background: #ffffff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 18px; }
+  .slide-header { display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title { font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a; }
+  .slide-body { display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0; }
+  .visual-cell { min-height: 0; min-width: 0;
+    display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .facts { list-style: none; padding: 0; margin: 0;
+    font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center; }
+  .facts li { padding-left: 18px; position: relative; margin-bottom: 16px; }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before { content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; border-radius: 50%; background: #81b64c; }
+  .slide-footer { font-size: 12px; color: #666; border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between; }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce &middot; Budget Review</span>
+    </header>
+    <h1 class="slide-title">Where NT didn&rsquo;t print net debt, we estimate transparently.</h1>
+    <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <text x="600" y="60" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="0.18em" fill="#a8a098">NET DEBT-TO-GDP &middot; PER BUDGET REVIEW</text>
+
+  <!-- Legend -->
+  <rect x="220" y="100" width="20" height="20" rx="3" fill="#9b9180" stroke="#6a6258" stroke-width="1"/>
+  <text x="250" y="115" font-size="13" fill="#3a382f">AI-estimated</text>
+
+  <rect x="420" y="100" width="20" height="20" rx="3" fill="#81b64c" stroke="#5a8a31" stroke-width="1"/>
+  <text x="450" y="115" font-size="13" fill="#3a382f">NT-printed</text>
+
+  <rect x="610" y="100" width="20" height="20" rx="3" fill="#fbf5e6" stroke="#d4c896" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <text x="640" y="115" font-size="13" fill="#3a382f">Gap (no estimate)</text>
+
+  <!-- Timeline axis -->
+  <line x1="120" y1="500" x2="1080" y2="500" stroke="#a8a098" stroke-width="2"/>
+
+  <!-- 14 yearly bars: 2013..2026 -->
+  <rect x="146" y="400" width="50" height="100" rx="3" fill="#9b9180" stroke="#6a6258" stroke-width="1.2"/>
+  <text x="171" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2013</text>
+  <rect x="212" y="400" width="50" height="100" rx="3" fill="#9b9180" stroke="#6a6258" stroke-width="1.2"/>
+  <text x="237" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2014</text>
+  <rect x="278" y="400" width="50" height="100" rx="3" fill="#9b9180" stroke="#6a6258" stroke-width="1.2"/>
+  <text x="303" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2015</text>
+  <rect x="344" y="400" width="50" height="100" rx="3" fill="#9b9180" stroke="#6a6258" stroke-width="1.2"/>
+  <text x="369" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2016</text>
+  <rect x="410" y="400" width="50" height="100" rx="3" fill="#9b9180" stroke="#6a6258" stroke-width="1.2"/>
+  <text x="435" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2017</text>
+  <rect x="476" y="400" width="50" height="100" rx="3" fill="#fbf5e6" stroke="#d4c896" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <text x="501" y="454" text-anchor="middle" font-size="12" font-style="italic" fill="#a8a098">gap</text>
+  <text x="501" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2018</text>
+  <rect x="542" y="400" width="50" height="100" rx="3" fill="#9b9180" stroke="#6a6258" stroke-width="1.2"/>
+  <text x="567" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2019</text>
+  <rect x="608" y="400" width="50" height="100" rx="3" fill="#81b64c" stroke="#5a8a31" stroke-width="1.4"/>
+  <text x="633" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2020</text>
+  <rect x="674" y="400" width="50" height="100" rx="3" fill="#81b64c" stroke="#5a8a31" stroke-width="1.4"/>
+  <text x="699" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2021</text>
+  <rect x="740" y="400" width="50" height="100" rx="3" fill="#81b64c" stroke="#5a8a31" stroke-width="1.4"/>
+  <text x="765" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2022</text>
+  <rect x="806" y="400" width="50" height="100" rx="3" fill="#81b64c" stroke="#5a8a31" stroke-width="1.4"/>
+  <text x="831" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2023</text>
+  <rect x="872" y="400" width="50" height="100" rx="3" fill="#81b64c" stroke="#5a8a31" stroke-width="1.4"/>
+  <text x="897" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2024</text>
+  <rect x="938" y="400" width="50" height="100" rx="3" fill="#fbf5e6" stroke="#d4c896" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <text x="963" y="454" text-anchor="middle" font-size="12" font-style="italic" fill="#a8a098">gap</text>
+  <text x="963" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2025</text>
+  <rect x="1004" y="400" width="50" height="100" rx="3" fill="#81b64c" stroke="#5a8a31" stroke-width="1.4"/>
+  <text x="1029" y="515" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">2026</text>
+
+  <!-- BR labels above -->
+  <text x="600" y="375" text-anchor="middle" font-size="13" letter-spacing="0.12em" fill="#888">BUDGET REVIEW VINTAGE</text>
+
+  <!-- Bottom note -->
+  <text x="600" y="600" text-anchor="middle" font-size="14" fill="#3a382f"><tspan font-weight="700">6 AI-estimated</tspan> &middot; <tspan font-weight="700">6 NT-printed</tspan> &middot; <tspan font-weight="700">2 gaps</tspan></text>
+  <text x="600" y="624" text-anchor="middle" font-size="13" font-style="italic" fill="#888">Every chart labels the vintage AND the method &mdash; no silent substitution</text>
+</svg></div>
+      <ul class="facts">
+        <li>NT didn&rsquo;t routinely publish a <strong>net loan debt</strong> projection in BRs 2013&ndash;2019.</li>
+        <li>We back-fill from gross loan debt minus the components NT subtracts in current BRs &mdash; same arithmetic.</li>
+        <li>Every AI-estimated Series carries <strong><code>(AI-estimated)</code></strong> in its name &mdash; never substituted for a real series.</li>
+        <li>Charts label vintage AND method on every slide &mdash; the user sees <strong>BR 2017 (AI-estimated)</strong>, never just &ldquo;BR 2017&rdquo;.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>AI-estimate fill &middot; transparent labelling</span>
+      <span>6 AI-estimated &middot; 6 NT-printed &middot; 2 gaps</span>
+    </footer>
+  </div>
+<script src="/slides/deck.js" defer></script>
+</body>
+</html>
