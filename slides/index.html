@@ -216,7 +216,7 @@
       <summary>
         <span class="deck-chevron"></span>
         <span class="deck-name">Government Bond Holdings</span>
-        <span class="deck-count">2 slides</span>
+        <span class="deck-count">8 slides</span>
       </summary>
       <div class="deck-body">
         <a class="slide-row" href="/slides/entity-publication-release">
@@ -230,6 +230,42 @@
           <h2 class="slide-title">Sheet 1 is the time series. Sheets 2+ are the cross-section.</h2>
           <p class="slide-blurb">Two data shapes in one workbook &mdash; Sheet 1 carries the full % share time series, Sheets 2+ carry a bond &times; holder ZAR cross-section at the new month-end.</p>
           <div class="slide-path">/slides/holdings-sheet-structure</div>
+        </a>
+        <a class="slide-row" href="/slides/holdings-xls-vs-xlsx">
+          <div class="slide-num">03</div>
+          <h2 class="slide-title">Pre-2023 files are .xls. The loader converts before parsing.</h2>
+          <p class="slide-blurb">Format gotcha &mdash; legacy BIFF .xls breaks xlrd; the loader normalises through soffice --headless --convert-to xlsx so every archived ReleaseFile is .xlsx.</p>
+          <div class="slide-path">/slides/holdings-xls-vs-xlsx</div>
+        </a>
+        <a class="slide-row" href="/slides/holdings-nine-to-six-cohorts">
+          <div class="slide-num">04</div>
+          <h2 class="slide-title">Nine source-holders collapse to six canonical cohorts.</h2>
+          <p class="slide-blurb">Holder normalisation &mdash; 9 publisher labels (incl. CSDP reporting error) map deterministically to 6 cohorts: Non-residents, Banks, Pension funds, Insurers, Other financial, Other.</p>
+          <div class="slide-path">/slides/holdings-nine-to-six-cohorts</div>
+        </a>
+        <a class="slide-row" href="/slides/holdings-bond-grain-unpacking">
+          <div class="slide-num">05</div>
+          <h2 class="slide-title">One cell of Sheets 2+ becomes one BondHolding row.</h2>
+          <p class="slide-blurb">Bond-grain unpacking &mdash; each (bond &times; holder) cell from Sheets 2+ unpacks into a BondHolding row keyed on (release, bond_code, holder). ~30K rows total.</p>
+          <div class="slide-path">/slides/holdings-bond-grain-unpacking</div>
+        </a>
+        <a class="slide-row" href="/slides/holdings-sukuk-and-infrastructure">
+          <div class="slide-num">06</div>
+          <h2 class="slide-title">The xlsx grew new sheets in 2024 &mdash; Sukuk and Infrastructure.</h2>
+          <p class="slide-blurb">Workbook history &mdash; sheet count went from 4 to 6 in 2024 as new instrument classes started issuing. Loader walks whatever sheets exist, no hard-coding.</p>
+          <div class="slide-path">/slides/holdings-sukuk-and-infrastructure</div>
+        </a>
+        <a class="slide-row" href="/slides/holdings-recon-vs-schedule">
+          <div class="slide-num">07</div>
+          <h2 class="slide-title">Holdings sums must match the Schedule&rsquo;s outstanding stock.</h2>
+          <p class="slide-blurb">Validation invariant &mdash; per-bond sum across holders reconciles to the Schedule&rsquo;s outstanding stock to the rand, release-by-release. Catches parser regressions.</p>
+          <div class="slide-path">/slides/holdings-recon-vs-schedule</div>
+        </a>
+        <a class="slide-row" href="/slides/holdings-loader-pipeline">
+          <div class="slide-num">08</div>
+          <h2 class="slide-title">The full loader pipeline, end to end.</h2>
+          <p class="slide-blurb">End-to-end flow &mdash; download &rarr; convert &rarr; archive &rarr; parse Sheet 1 (cohort %) and Sheets 2+ (BondHolding rows) in parallel &rarr; reconcile vs Schedule.</p>
+          <div class="slide-path">/slides/holdings-loader-pipeline</div>
         </a>
       </div>
     </details>

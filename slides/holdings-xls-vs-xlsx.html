@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-2023 files are .xls. The loader converts before parsing.</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: #f4f3ef; padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a; }
+  .slide { width: 100%; max-width: 1280px; aspect-ratio: 16 / 9;
+    background: #ffffff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 18px; }
+  .slide-header { display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title { font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a; }
+  .slide-body { display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0; }
+  .visual-cell { min-height: 0; min-width: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .facts { list-style: none; padding: 0; margin: 0; font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center; }
+  .facts li { padding-left: 18px; position: relative; margin-bottom: 16px; }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 6px; height: 6px; border-radius: 50%; background: #81b64c; }
+  .slide-footer { font-size: 12px; color: #666; border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between; }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce &middot; Government Bond Holdings</span>
+    </header>
+    <h1 class="slide-title">Pre-2023 files are .xls. The loader converts before parsing.</h1>
+    <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <!-- Timeline axis -->
+  <line x1="120" y1="170" x2="1080" y2="170" stroke="#a8a098" stroke-width="2"/>
+  <line x1="120" y1="160" x2="120" y2="180" stroke="#a8a098" stroke-width="2"/>
+  <line x1="600" y1="158" x2="600" y2="182" stroke="#6a9b3a" stroke-width="2.5"/>
+  <line x1="1080" y1="160" x2="1080" y2="180" stroke="#a8a098" stroke-width="2"/>
+  <text x="120" y="200" text-anchor="middle" font-size="13" fill="#5a564a" font-weight="600">2006</text>
+  <text x="600" y="200" text-anchor="middle" font-size="13" fill="#6a9b3a" font-weight="700">~2023</text>
+  <text x="1080" y="200" text-anchor="middle" font-size="13" fill="#5a564a" font-weight="600">today</text>
+
+  <!-- LEFT ERA: .xls (BIFF) -->
+  <text x="360" y="135" text-anchor="middle" font-size="11" font-weight="700"
+        letter-spacing="0.18em" fill="#a8a098">PRE-~2023 ERA</text>
+
+  <rect x="180" y="240" width="360" height="180" rx="10"
+        fill="#ffffff" stroke="#a8a098" stroke-width="1.6"/>
+  <!-- file icon -->
+  <rect x="220" y="270" width="80" height="100" rx="4" fill="#fdfcf8" stroke="#a8a098" stroke-width="1.4"/>
+  <polyline points="280,270 280,290 300,290" fill="none" stroke="#a8a098" stroke-width="1.4"/>
+  <rect x="232" y="320" width="56" height="22" rx="3" fill="#f0eee8" stroke="#a8a098" stroke-width="1"/>
+  <text x="260" y="336" text-anchor="middle" font-size="11" font-weight="700"
+        font-family="'SF Mono', Menlo, Monaco, monospace" fill="#5a564a" letter-spacing="0.04em">.xls</text>
+
+  <text x="430" y="290" font-size="13" font-weight="700" fill="#3a382f">BIFF format</text>
+  <text x="430" y="312" font-size="11" fill="#666">binary, legacy Excel</text>
+  <text x="430" y="345" font-size="12" fill="#a83a3a" font-style="italic">xlrd&lt;2.0 chokes on</text>
+  <text x="430" y="362" font-size="12" fill="#a83a3a" font-style="italic">SST-table assertion</text>
+
+  <!-- Convert step -->
+  <line x1="540" y1="320" x2="660" y2="320" stroke="#6a9b3a" stroke-width="2"/>
+  <polygon points="655,313 668,320 655,327" fill="#6a9b3a"/>
+  <rect x="555" y="280" width="90" height="32" rx="6"
+        fill="#e8f0d9" stroke="#6a9b3a" stroke-width="1.4"/>
+  <text x="600" y="300" text-anchor="middle" font-size="11" font-weight="700"
+        font-family="'SF Mono', Menlo, Monaco, monospace" fill="#6a9b3a">soffice</text>
+
+  <!-- RIGHT ERA: .xlsx -->
+  <text x="840" y="135" text-anchor="middle" font-size="11" font-weight="700"
+        letter-spacing="0.18em" fill="#6a9b3a">~2023 → TODAY</text>
+
+  <rect x="660" y="240" width="360" height="180" rx="10"
+        fill="#ffffff" stroke="#81b64c" stroke-width="1.8"/>
+  <rect x="700" y="270" width="80" height="100" rx="4" fill="#fdfcf8" stroke="#81b64c" stroke-width="1.4"/>
+  <polyline points="760,270 760,290 780,290" fill="none" stroke="#81b64c" stroke-width="1.4"/>
+  <rect x="708" y="320" width="64" height="22" rx="3" fill="#e8f0d9" stroke="#6a9b3a" stroke-width="1"/>
+  <text x="740" y="336" text-anchor="middle" font-size="11" font-weight="700"
+        font-family="'SF Mono', Menlo, Monaco, monospace" fill="#6a9b3a" letter-spacing="0.04em">.xlsx</text>
+
+  <text x="910" y="290" font-size="13" font-weight="700" fill="#3a382f">Office Open XML</text>
+  <text x="910" y="312" font-size="11" fill="#666">zipped XML, modern</text>
+  <text x="910" y="345" font-size="12" fill="#3a382f" font-style="italic">openpyxl reads natively</text>
+
+  <!-- Storage row -->
+  <text x="600" y="490" text-anchor="middle" font-size="11" font-weight="700"
+        letter-spacing="0.18em" fill="#a8a098">STORAGE — RELEASEFILE</text>
+
+  <line x1="360" y1="420" x2="600" y2="535" stroke="#a8a098" stroke-width="1.4" stroke-dasharray="4,4"/>
+  <line x1="840" y1="420" x2="600" y2="535" stroke="#a8a098" stroke-width="1.4" stroke-dasharray="0"/>
+
+  <rect x="430" y="535" width="340" height="80" rx="8"
+        fill="#e8f0d9" stroke="#81b64c" stroke-width="1.6"/>
+  <rect x="466" y="555" width="64" height="22" rx="3" fill="#ffffff" stroke="#6a9b3a" stroke-width="1"/>
+  <text x="498" y="571" text-anchor="middle" font-size="11" font-weight="700"
+        font-family="'SF Mono', Menlo, Monaco, monospace" fill="#6a9b3a" letter-spacing="0.04em">.xlsx</text>
+  <text x="700" y="572" text-anchor="middle" font-size="13" fill="#3a382f">archived as ReleaseFile</text>
+  <text x="600" y="600" text-anchor="middle" font-size="11" fill="#888"
+        font-style="italic">every artefact in storage is .xlsx — the .xls is only a transient input</text>
+
+  <!-- Bottom caption -->
+  <text x="600" y="670" text-anchor="middle" font-size="13" fill="#5a564a" font-style="italic">
+    soffice --headless --convert-to xlsx — runs once at ingest, never re-runs.
+  </text>
+</svg>
+</div>
+      <ul class="facts">
+        <li>RSA Investor Relations files predating ~2023 ship as <strong>.xls</strong> &mdash; the legacy BIFF binary format.</li>
+        <li><strong>xlrd&lt;2.0</strong> chokes on these with an SST-table assertion; pandas&rsquo; default Excel reader fails.</li>
+        <li>The loader normalises every input through <strong>soffice --headless --convert-to xlsx</strong> (libreoffice-calc on the droplet) before parsing.</li>
+        <li>Every artefact archived as a <strong>ReleaseFile</strong> is .xlsx &mdash; the original .xls is only a transient input, never stored.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>Loader normalisation &middot; .xls &rarr; .xlsx</span>
+      <span>Format split at ~2023</span>
+    </footer>
+  </div>
+</body>
+</html>

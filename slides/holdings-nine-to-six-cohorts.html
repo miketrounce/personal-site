@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nine source-holders collapse to six canonical cohorts.</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: #f4f3ef; padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a; }
+  .slide { width: 100%; max-width: 1280px; aspect-ratio: 16 / 9;
+    background: #ffffff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 18px; }
+  .slide-header { display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title { font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a; }
+  .slide-body { display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0; }
+  .visual-cell { min-height: 0; min-width: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .facts { list-style: none; padding: 0; margin: 0; font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center; }
+  .facts li { padding-left: 18px; position: relative; margin-bottom: 16px; }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 6px; height: 6px; border-radius: 50%; background: #81b64c; }
+  .slide-footer { font-size: 12px; color: #666; border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between; }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce &middot; Government Bond Holdings</span>
+    </header>
+    <h1 class="slide-title">Nine source-holders collapse to six canonical cohorts.</h1>
+    <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <!-- Column headers -->
+  <text x="240" y="80" text-anchor="middle" font-size="11" font-weight="700"
+        letter-spacing="0.18em" fill="#a8a098">SOURCE — XLSX LABELS (9)</text>
+  <text x="960" y="80" text-anchor="middle" font-size="11" font-weight="700"
+        letter-spacing="0.18em" fill="#6a9b3a">CANONICAL — COHORTS (6)</text>
+
+  <!-- LEFT COLUMN: 9 source holders -->
+  <g font-size="13" fill="#3a382f">
+    <rect x="80" y="105" width="320" height="46" rx="6" fill="#ffffff" stroke="#a8a098" stroke-width="1.2"/>
+    <text x="100" y="133" font-family="'SF Mono', Menlo, Monaco, monospace" font-size="12">Foreign sector</text>
+
+    <rect x="80" y="161" width="320" height="46" rx="6" fill="#ffffff" stroke="#a8a098" stroke-width="1.2"/>
+    <text x="100" y="189" font-family="'SF Mono', Menlo, Monaco, monospace" font-size="12">Monetary institutions</text>
+
+    <rect x="80" y="217" width="320" height="46" rx="6" fill="#ffffff" stroke="#a8a098" stroke-width="1.2"/>
+    <text x="100" y="245" font-family="'SF Mono', Menlo, Monaco, monospace" font-size="12">Pension funds</text>
+
+    <rect x="80" y="273" width="320" height="46" rx="6" fill="#ffffff" stroke="#a8a098" stroke-width="1.2"/>
+    <text x="100" y="301" font-family="'SF Mono', Menlo, Monaco, monospace" font-size="12">Insurers</text>
+
+    <rect x="80" y="329" width="320" height="46" rx="6" fill="#ffffff" stroke="#a8a098" stroke-width="1.2"/>
+    <text x="100" y="357" font-family="'SF Mono', Menlo, Monaco, monospace" font-size="12">Other financial</text>
+
+    <rect x="80" y="385" width="320" height="46" rx="6" fill="#ffffff" stroke="#a8a098" stroke-width="1.2"/>
+    <text x="100" y="413" font-family="'SF Mono', Menlo, Monaco, monospace" font-size="12">Public Investment Corp.</text>
+
+    <rect x="80" y="441" width="320" height="46" rx="6" fill="#ffffff" stroke="#a8a098" stroke-width="1.2"/>
+    <text x="100" y="469" font-family="'SF Mono', Menlo, Monaco, monospace" font-size="12">Households</text>
+
+    <rect x="80" y="497" width="320" height="46" rx="6" fill="#ffffff" stroke="#a8a098" stroke-width="1.2"/>
+    <text x="100" y="525" font-family="'SF Mono', Menlo, Monaco, monospace" font-size="12">Other</text>
+
+    <rect x="80" y="553" width="320" height="46" rx="6" fill="#fbeeee" stroke="#c08080" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <text x="100" y="581" font-family="'SF Mono', Menlo, Monaco, monospace" font-size="12" fill="#a83a3a">CSDP reporting error</text>
+  </g>
+
+  <!-- RIGHT COLUMN: 6 cohorts -->
+  <g font-size="13" fill="#ffffff" font-weight="700">
+    <rect x="800" y="120" width="320" height="58" rx="6" fill="#81b64c" stroke="#6a9b3a" stroke-width="1.6"/>
+    <text x="960" y="155" text-anchor="middle">Non-residents</text>
+
+    <rect x="800" y="190" width="320" height="58" rx="6" fill="#81b64c" stroke="#6a9b3a" stroke-width="1.6"/>
+    <text x="960" y="225" text-anchor="middle">Banks</text>
+
+    <rect x="800" y="260" width="320" height="58" rx="6" fill="#81b64c" stroke="#6a9b3a" stroke-width="1.6"/>
+    <text x="960" y="295" text-anchor="middle">Pension funds</text>
+
+    <rect x="800" y="330" width="320" height="58" rx="6" fill="#81b64c" stroke="#6a9b3a" stroke-width="1.6"/>
+    <text x="960" y="365" text-anchor="middle">Insurers</text>
+
+    <rect x="800" y="400" width="320" height="58" rx="6" fill="#81b64c" stroke="#6a9b3a" stroke-width="1.6"/>
+    <text x="960" y="435" text-anchor="middle">Other financial</text>
+
+    <rect x="800" y="470" width="320" height="58" rx="6" fill="#81b64c" stroke="#6a9b3a" stroke-width="1.6"/>
+    <text x="960" y="505" text-anchor="middle">Other</text>
+  </g>
+
+  <!-- Mapping lines (source → cohort) -->
+  <g stroke="#a8a098" stroke-width="1.4" fill="none">
+    <!-- Foreign sector → Non-residents -->
+    <line x1="400" y1="128" x2="800" y2="149"/>
+    <!-- Monetary institutions → Banks -->
+    <line x1="400" y1="184" x2="800" y2="219"/>
+    <!-- Pension funds → Pension funds -->
+    <line x1="400" y1="240" x2="800" y2="289"/>
+    <!-- Insurers → Insurers -->
+    <line x1="400" y1="296" x2="800" y2="359"/>
+    <!-- Other financial → Other financial -->
+    <line x1="400" y1="352" x2="800" y2="429"/>
+    <!-- Public Investment Corp → Other financial -->
+    <line x1="400" y1="408" x2="800" y2="429"/>
+    <!-- Households → Other -->
+    <line x1="400" y1="464" x2="800" y2="499"/>
+    <!-- Other → Other -->
+    <line x1="400" y1="520" x2="800" y2="499"/>
+    <!-- CSDP reporting error → Other (dashed/red) -->
+    <line x1="400" y1="576" x2="800" y2="499" stroke="#c08080" stroke-dasharray="4,3"/>
+  </g>
+
+  <!-- Note about CSDP -->
+  <text x="600" y="650" text-anchor="middle" font-size="12" fill="#a83a3a" font-style="italic">
+    CSDP reporting error is a publisher-side residual — folded into Other, not its own cohort.
+  </text>
+  <text x="600" y="675" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">
+    Mapping is deterministic, single source of truth in holdings_taxonomy.py.
+  </text>
+</svg>
+</div>
+      <ul class="facts">
+        <li>The xlsx labels its holders with <strong>9 distinct names</strong> from the publisher&rsquo;s accounting taxonomy.</li>
+        <li>Downstream views need a smaller, named palette &mdash; the canonical <strong>6 cohorts</strong>: Non-residents, Banks, Pension funds, Insurers, Other financial, Other.</li>
+        <li><strong>Public Investment Corp.</strong> rolls up into Other financial; <strong>Households</strong> and the catch-all <strong>Other</strong> both fold into Other.</li>
+        <li><strong>CSDP reporting error</strong> is a publisher-side residual (not a real cohort) &mdash; folded into Other so totals tie out.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>Holder normalisation &middot; 9 source labels &rarr; 6 cohorts</span>
+      <span>holdings_taxonomy.py is the single source of truth</span>
+    </footer>
+  </div>
+</body>
+</html>
