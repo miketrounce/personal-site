@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SA government bonds outstanding by investor cohort</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f3ef;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+  }
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+  .slide-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #888;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .ai-label {
+    background: #f0eee8;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .slide-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2;
+    color: #1a1a1a;
+  }
+  .slide-body {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 36px;
+    min-height: 0;
+  }
+  .chart-cell {
+    position: relative;
+    min-height: 0;
+    min-width: 0;
+  }
+  .y-axis-label {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    font-size: 12px;
+    color: #555;
+    font-weight: 500;
+  }
+  .chart-canvas-wrap {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .facts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #1a1a1a;
+    align-self: center;
+  }
+  .facts li {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #81b64c;
+  }
+  .slide-footer {
+    font-size: 12px;
+    color: #666;
+    border-top: 1px solid #ececec;
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+  @media (max-width: 720px) {
+    .slide {
+      aspect-ratio: auto;
+      padding: 24px;
+    }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .chart-cell { height: 320px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce</span>
+    </header>
+    <h1 class="slide-title">SA government bonds outstanding by investor cohort</h1>
+    <div class="slide-body">
+      <div class="chart-cell">
+        <span class="y-axis-label">ZAR bn</span>
+        <div class="chart-canvas-wrap"><canvas id="chart"></canvas></div>
+      </div>
+      <ul class="facts">
+        <li>Total SA government bonds outstanding stand at ZAR 4,305 bn as of Feb 2026, held across six investor cohorts.</li>
+        <li>Non-residents are the largest cohort at ZAR 1,120 bn; pension funds second at ZAR 961 bn; other financial and banks each ~ZAR 900 bn; insurers ZAR 328 bn.</li>
+        <li>The stock grew by ZAR 337 bn (+8.5%) over the 13 months to Feb 2026 &mdash; non-residents accounted for the largest cohort increment (+ZAR 140 bn).</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>RSA Investor Relations &middot; Government Bond Holdings &middot; Feb 2026</span>
+      <span>14 monthly observations &middot; Jan 2025 &ndash; Feb 2026</span>
+    </footer>
+  </div>
+<script>
+const DATA = {"labels": ["2025-01-31", "2025-02-28", "2025-03-31", "2025-04-30", "2025-05-31", "2025-06-30", "2025-07-31", "2025-08-31", "2025-09-30", "2025-10-31", "2025-11-30", "2025-12-31", "2026-01-31", "2026-02-28"], "values": {"Non-residents": [980.4, 994.5, 1005.2, 1008.1, 1004.6, 1038.4, 1031.0, 1064.5, 1141.4, 1105.2, 1077.6, 1065.1, 1099.2, 1120.2], "Banks": [821.6, 853.3, 841.7, 845.3, 882.9, 891.2, 902.0, 873.0, 833.8, 868.5, 887.7, 862.9, 866.3, 890.4], "Pension funds": [897.6, 911.0, 912.4, 919.8, 925.0, 917.3, 923.2, 923.3, 925.4, 936.9, 940.3, 957.7, 961.6, 960.7], "Insurers": [306.6, 309.0, 300.0, 299.0, 308.7, 311.0, 317.8, 319.8, 321.0, 322.6, 316.9, 318.1, 324.9, 328.0], "Other financial": [914.0, 879.1, 915.7, 937.6, 930.0, 929.9, 952.6, 988.5, 975.5, 1005.7, 1068.1, 1012.0, 988.4, 966.4], "Other": [47.6, 48.7, 49.7, 51.6, 52.2, 52.0, 53.2, 54.0, 53.0, 53.5, 47.3, 45.9, 41.6, 39.1]}, "cohorts": [{"name": "Non-residents", "color": "#81b64c"}, {"name": "Banks", "color": "#e8c547"}, {"name": "Pension funds", "color": "#6fb5ff"}, {"name": "Insurers", "color": "#cc4444"}, {"name": "Other financial", "color": "#5f9ea0"}, {"name": "Other", "color": "#8899a6"}]};
+
+function fmtDate(iso) {
+  if (!iso || typeof iso !== "string") return iso;
+  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return iso;
+  const y = +m[1], mo = +m[2], d = +m[3];
+  let day = d;
+  if (d === 1) day = new Date(y, mo, 0).getDate();
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return String(day).padStart(2, "0") + "-" + monthNames[mo-1] + "-" + y;
+}
+
+function commas(n) {
+  return n.toLocaleString("en-US", { maximumFractionDigits: 0 });
+}
+
+const labels = DATA.labels;
+const N = labels.length;
+
+const datasets = DATA.cohorts.map(c => ({
+  label: c.name,
+  data: DATA.values[c.name],
+  backgroundColor: c.color,
+  borderWidth: 0,
+  stack: "composition",
+}));
+
+// 14 bars: pick 6 well-spaced ticks including first and last.
+const tickPicks = new Set([0, 3, 6, 9, 12, N-1]);
+
+new Chart(document.getElementById("chart"), {
+  type: "bar",
+  data: { labels, datasets },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 600 },
+    interaction: { intersect: false, mode: "index" },
+    scales: {
+      x: {
+        stacked: true,
+        ticks: {
+          autoSkip: false,
+          maxRotation: 0,
+          color: "#888",
+          font: { size: 11 },
+          callback: function(value, index) {
+            return tickPicks.has(index) ? fmtDate(labels[index]) : "";
+          },
+        },
+        grid: { display: false },
+      },
+      y: {
+        stacked: true,
+        beginAtZero: true,
+        ticks: {
+          color: "#888",
+          font: { size: 11 },
+          callback: v => commas(v),
+        },
+        grid: { color: "rgba(0,0,0,0.06)", drawBorder: false },
+      },
+    },
+    plugins: {
+      legend: {
+        position: "bottom",
+        align: "start",
+        labels: { boxWidth: 10, boxHeight: 10, font: { size: 11 }, padding: 12, usePointStyle: false },
+      },
+      tooltip: {
+        callbacks: {
+          title: items => items.length ? fmtDate(items[0].label) : "",
+          label: ctx => ctx.dataset.label + ": ZAR " + commas(ctx.parsed.y) + " bn",
+        },
+      },
+    },
+  },
+});
+</script>
+</body>
+</html>
