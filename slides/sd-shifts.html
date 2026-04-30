@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shifts in supply and demand: where shocks move the equilibrium.</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f3ef;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+  }
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title {
+    font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a;
+  }
+  .slide-body {
+    display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0;
+  }
+  .visual-cell {
+    min-height: 0; min-width: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .facts {
+    list-style: none; padding: 0; margin: 0;
+    font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center;
+  }
+  .facts li {
+    padding-left: 18px; position: relative; margin-bottom: 16px;
+  }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; border-radius: 50%; background: #81b64c;
+  }
+  .slide-footer {
+    font-size: 12px; color: #666;
+    border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between;
+  }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce &middot; Flows &amp; positions &mdash; concepts</span>
+    </header>
+    <h1 class="slide-title">Shifts in supply and demand: where shocks move the equilibrium.</h1>
+    <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3a382f"/>
+    </marker>
+    <marker id="ah-gold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#a87f1f"/>
+    </marker>
+  </defs>
+
+  <!-- ============ LEFT PANEL: SUPPLY SHOCK ============ -->
+  <text x="320" y="58" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="0.10em" fill="#a87f1f">SUPPLY SHOCK</text>
+
+  <!-- Frame: origin (90, 580), axes -->
+  <line x1="90" y1="580" x2="580" y2="580" stroke="#3a382f" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="90" y1="580" x2="90" y2="100" stroke="#3a382f" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="592" y="586" font-size="14" font-weight="600" fill="#3a382f">Q</text>
+  <text x="84" y="92" font-size="14" font-weight="600" fill="#3a382f" text-anchor="end">P</text>
+
+  <!-- Baseline supply (muted): from (140, 540) to (540, 140) -->
+  <line x1="140" y1="540" x2="540" y2="140" stroke="#a8a098" stroke-width="1.4" stroke-dasharray="5,3"/>
+  <text x="548" y="138" font-size="13" fill="#a8a098">S</text>
+
+  <!-- Demand: from (140, 160) to (540, 560) -->
+  <line x1="140" y1="160" x2="540" y2="560" stroke="#6a9b3a" stroke-width="2"/>
+  <text x="548" y="565" font-size="14" font-weight="700" fill="#6a9b3a">D</text>
+
+  <!-- Original equilibrium:
+       S: y = 540 - (400/400)(x-140) = 540 - (x-140) = 680 - x
+       D: y = 160 + (x-140) = 20 + x
+       680 - x = 20 + x → x = 330, y = 350 -->
+  <line x1="330" y1="350" x2="330" y2="580" stroke="#a8a098" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="330" y1="350" x2="90" y2="350" stroke="#a8a098" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="330" cy="350" r="5" fill="#a8a098" stroke="#fdfcf8" stroke-width="1.5"/>
+
+  <!-- Shifted supply (right): translate by +120 in x. New endpoints (260, 540) to (660, 140). Clip at x=580. -->
+  <line x1="260" y1="540" x2="580" y2="220" stroke="#81b64c" stroke-width="2"/>
+  <text x="588" y="222" font-size="14" font-weight="700" fill="#6a9b3a">S&prime;</text>
+
+  <!-- New equilibrium with shifted S: S': y = 540 - (x-260) = 800 - x; D: y = 20 + x
+       800-x = 20+x → x=390, y=410 -->
+  <line x1="390" y1="410" x2="390" y2="580" stroke="#3a382f" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="390" y1="410" x2="90" y2="410" stroke="#3a382f" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="390" cy="410" r="6" fill="#3a382f" stroke="#fdfcf8" stroke-width="1.5"/>
+
+  <!-- Shock arrow from old to new equilibrium -->
+  <path d="M 338 354 Q 380 330 388 402" fill="none" stroke="#a87f1f" stroke-width="2" marker-end="url(#ah-gold)"/>
+
+  <!-- Tick labels -->
+  <text x="330" y="600" text-anchor="middle" font-size="12" fill="#5a564a">Q*</text>
+  <text x="390" y="616" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Q*&prime;</text>
+  <text x="84" y="354" text-anchor="end" font-size="12" fill="#5a564a">P*</text>
+  <text x="84" y="416" text-anchor="end" font-size="12" font-weight="700" fill="#3a382f">P*&prime;</text>
+
+  <!-- Result note -->
+  <text x="320" y="660" text-anchor="middle" font-size="13" fill="#3a382f">P &darr;, Q &uarr;</text>
+
+  <!-- ============ RIGHT PANEL: DEMAND SHOCK ============ -->
+  <text x="900" y="58" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="0.10em" fill="#a87f1f">DEMAND SHOCK</text>
+
+  <!-- Frame: origin (670, 580) -->
+  <line x1="670" y1="580" x2="1160" y2="580" stroke="#3a382f" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="670" y1="580" x2="670" y2="100" stroke="#3a382f" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="1172" y="586" font-size="14" font-weight="600" fill="#3a382f">Q</text>
+  <text x="664" y="92" font-size="14" font-weight="600" fill="#3a382f" text-anchor="end">P</text>
+
+  <!-- Supply: (720, 540) to (1120, 140) -->
+  <line x1="720" y1="540" x2="1120" y2="140" stroke="#6a9b3a" stroke-width="2"/>
+  <text x="1128" y="138" font-size="14" font-weight="700" fill="#6a9b3a">S</text>
+
+  <!-- Baseline demand (muted): (720, 160) to (1120, 560) -->
+  <line x1="720" y1="160" x2="1120" y2="560" stroke="#a8a098" stroke-width="1.4" stroke-dasharray="5,3"/>
+  <text x="1128" y="565" font-size="13" fill="#a8a098">D</text>
+
+  <!-- Original equilibrium: same geometry as left → x=910, y=350 -->
+  <line x1="910" y1="350" x2="910" y2="580" stroke="#a8a098" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="910" y1="350" x2="670" y2="350" stroke="#a8a098" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="910" cy="350" r="5" fill="#a8a098" stroke="#fdfcf8" stroke-width="1.5"/>
+
+  <!-- Shifted demand (right): translate +120 in x. New endpoints (840, 160) to (1160, 480) — clip at right. -->
+  <line x1="840" y1="160" x2="1160" y2="480" stroke="#81b64c" stroke-width="2"/>
+  <text x="1168" y="482" font-size="14" font-weight="700" fill="#6a9b3a">D&prime;</text>
+
+  <!-- New equilibrium: S: y = 540 - (x-720) = 1260 - x; D': y = 160 + (x-840) = x - 680
+       1260 - x = x - 680 → x = 970, y = 290 -->
+  <line x1="970" y1="290" x2="970" y2="580" stroke="#3a382f" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="970" y1="290" x2="670" y2="290" stroke="#3a382f" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="970" cy="290" r="6" fill="#3a382f" stroke="#fdfcf8" stroke-width="1.5"/>
+
+  <!-- Shock arrow from old to new equilibrium -->
+  <path d="M 916 348 Q 960 312 968 296" fill="none" stroke="#a87f1f" stroke-width="2" marker-end="url(#ah-gold)"/>
+
+  <!-- Tick labels -->
+  <text x="910" y="600" text-anchor="middle" font-size="12" fill="#5a564a">Q*</text>
+  <text x="970" y="616" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Q*&prime;</text>
+  <text x="664" y="354" text-anchor="end" font-size="12" fill="#5a564a">P*</text>
+  <text x="664" y="294" text-anchor="end" font-size="12" font-weight="700" fill="#3a382f">P*&prime;</text>
+
+  <!-- Result note -->
+  <text x="900" y="660" text-anchor="middle" font-size="13" fill="#3a382f">P &uarr;, Q &uarr;</text>
+
+</svg>
+</div>
+      <ul class="facts">
+        <li>A <strong>supply shock</strong> shifts the supply curve sideways &mdash; e.g. a new entrant, productivity gain, regulatory change.</li>
+        <li>A <strong>demand shock</strong> shifts the demand curve sideways &mdash; e.g. a tax rebate, change in tastes, income shift.</li>
+        <li>Either shift produces a new equilibrium at a different <code>(P*, Q*)</code>.</li>
+        <li>How far each variable moves depends on the <strong>slopes</strong> &mdash; the elasticities &mdash; of both curves.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>Comparative statics &middot; shifts and shocks</span>
+      <span>Slide 02 of 7</span>
+    </footer>
+  </div>
+<script src="/slides/deck.js" defer></script>
+</body>
+</html>
