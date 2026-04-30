@@ -2,6 +2,7 @@
    Mounted on every slide page; reads window.location.pathname,
    finds the current slide in the manifest below, renders a fixed
    bottom nav bar, and binds ArrowLeft / ArrowRight to prev / next.
+   Manifest contains only currently-live slide URLs.
 */
 (function() {
   const DECKS = [
@@ -23,16 +24,16 @@
       {
         "slug": "picking-fiscal-perimeter",
         "title": "Each perimeter answers a different question"
+      },
+      {
+        "slug": "sna-sector-classification",
+        "title": "Formal SNA / GFSM institutional sector classification"
       }
     ]
   },
   {
-    "name": "Database Deck",
+    "name": "Government Bond Holdings",
     "slides": [
-      {
-        "slug": "sna-sector-classification",
-        "title": "Formal SNA / GFSM institutional sector classification"
-      },
       {
         "slug": "entity-publication-release",
         "title": "Each release is named for the period its data describes"
