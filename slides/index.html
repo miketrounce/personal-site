@@ -90,6 +90,19 @@
     background: #fbfaf7;
   }
 
+  .country-heading {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    color: #3a382f;
+    margin: 40px 0 14px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #c5c0b3;
+  }
+  .country-heading:first-of-type {
+    margin-top: 8px;
+  }
   .section-heading {
     font-size: 12px;
     font-weight: 700;
@@ -185,11 +198,65 @@
       <span class="page-subtitle">Mike Trounce &middot; flows &amp; positions</span>
     </header>
 
+    <h2 class="country-heading">Concepts</h2>
+
     <details class="deck">
       <summary>
         <span class="deck-chevron"></span>
-        <span class="deck-name">Flows &amp; Positions</span>
-        <span class="deck-count">7 slides</span>
+        <span class="deck-name">Flows &amp; positions &mdash; concepts</span>
+        <span class="deck-count">1 slide</span>
+      </summary>
+      <div class="deck-body">
+        <a class="slide-row" href="/slides/bond-market-supply-demand">
+          <div class="slide-num">01</div>
+          <h2 class="slide-title">Bond market: supply and demand in yield space</h2>
+          <p class="slide-blurb">Conceptual diagram &mdash; near-vertical supply, upward-sloping demand, animated.</p>
+          <div class="slide-path">/slides/bond-market-supply-demand</div>
+        </a>
+      </div>
+    </details>
+
+    <details class="deck">
+      <summary>
+        <span class="deck-chevron"></span>
+        <span class="deck-name">Fiscal-sector accounting</span>
+        <span class="deck-count">4 slides</span>
+      </summary>
+      <div class="deck-body">
+        <a class="slide-row" href="/slides/sna-sector-classification">
+          <div class="slide-num">01</div>
+          <h2 class="slide-title">Formal SNA / GFSM institutional sector classification</h2>
+          <p class="slide-blurb">Reference taxonomy &mdash; the S-codes used by Statistics SA, SARB, IMF.</p>
+          <div class="slide-path">/slides/sna-sector-classification</div>
+        </a>
+        <a class="slide-row" href="/slides/fiscal-perimeters-nested">
+          <div class="slide-num">02</div>
+          <h2 class="slide-title">Government fiscal accounts sit at nested institutional perimeters</h2>
+          <p class="slide-blurb">Concept + diagram &mdash; concentric rings of "what counts as the government."</p>
+          <div class="slide-path">/slides/fiscal-perimeters-nested</div>
+        </a>
+        <a class="slide-row" href="/slides/fiscal-perimeters-three-scopes">
+          <div class="slide-num">03</div>
+          <h2 class="slide-title">The three SNA fiscal perimeters</h2>
+          <p class="slide-blurb">Central / general / public sector compared &mdash; what each covers and where it's used.</p>
+          <div class="slide-path">/slides/fiscal-perimeters-three-scopes</div>
+        </a>
+        <a class="slide-row" href="/slides/picking-fiscal-perimeter">
+          <div class="slide-num">04</div>
+          <h2 class="slide-title">Each perimeter answers a different question</h2>
+          <p class="slide-blurb">Question &rarr; perimeter mapping for bond-stock, IMF framing, and SOE-footprint questions.</p>
+          <div class="slide-path">/slides/picking-fiscal-perimeter</div>
+        </a>
+      </div>
+    </details>
+
+    <h2 class="country-heading">South Africa</h2>
+
+    <details class="deck">
+      <summary>
+        <span class="deck-chevron"></span>
+        <span class="deck-name">South African bond market &mdash; data</span>
+        <span class="deck-count">2 slides</span>
       </summary>
       <div class="deck-body">
         <a class="slide-row" data-nav-exclude href="/slides/sa-bond-investor-base">
@@ -203,36 +270,6 @@
           <h2 class="slide-title">SA government bonds outstanding by investor cohort</h2>
           <p class="slide-blurb">Same composition in nominal ZAR bn, monthly Jan 2017 &ndash; Feb 2026.</p>
           <div class="slide-path">/slides/sa-bond-investor-base-zar</div>
-        </a>
-        <a class="slide-row" href="/slides/bond-market-supply-demand">
-          <div class="slide-num">03</div>
-          <h2 class="slide-title">Bond market: supply and demand in yield space</h2>
-          <p class="slide-blurb">Conceptual diagram &mdash; near-vertical supply, upward-sloping demand, animated.</p>
-          <div class="slide-path">/slides/bond-market-supply-demand</div>
-        </a>
-        <a class="slide-row" href="/slides/fiscal-perimeters-nested">
-          <div class="slide-num">04</div>
-          <h2 class="slide-title">Government fiscal accounts sit at nested institutional perimeters</h2>
-          <p class="slide-blurb">Concept + diagram &mdash; concentric rings of "what counts as the government."</p>
-          <div class="slide-path">/slides/fiscal-perimeters-nested</div>
-        </a>
-        <a class="slide-row" href="/slides/fiscal-perimeters-three-scopes">
-          <div class="slide-num">05</div>
-          <h2 class="slide-title">The three SNA fiscal perimeters</h2>
-          <p class="slide-blurb">Central / general / public sector compared &mdash; what each covers and where it's used.</p>
-          <div class="slide-path">/slides/fiscal-perimeters-three-scopes</div>
-        </a>
-        <a class="slide-row" href="/slides/picking-fiscal-perimeter">
-          <div class="slide-num">06</div>
-          <h2 class="slide-title">Each perimeter answers a different question</h2>
-          <p class="slide-blurb">Question &rarr; perimeter mapping for bond-stock, IMF framing, and SOE-footprint questions.</p>
-          <div class="slide-path">/slides/picking-fiscal-perimeter</div>
-        </a>
-        <a class="slide-row" href="/slides/sna-sector-classification">
-          <div class="slide-num">07</div>
-          <h2 class="slide-title">Formal SNA / GFSM institutional sector classification</h2>
-          <p class="slide-blurb">Reference taxonomy &mdash; the S-codes used by Statistics SA, SARB, IMF.</p>
-          <div class="slide-path">/slides/sna-sector-classification</div>
         </a>
       </div>
     </details>
@@ -472,7 +509,7 @@
     </details>
 
     <footer class="footer">
-      <span>38 slides &middot; 5 decks</span>
+      <span>38 slides &middot; 7 decks</span>
       <span>AI-generated</span>
     </footer>
   </div>
