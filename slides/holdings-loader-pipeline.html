@@ -15,7 +15,7 @@
     background: #ffffff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);
     padding: 36px 44px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 18px; }
   .slide-header { display: flex; align-items: center; justify-content: space-between;
-    color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+    color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
   .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
   .slide-title { font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a; }
   .slide-body { display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0; }
@@ -48,14 +48,14 @@
   <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
 
   <!-- ROW 1: Ingest stages -->
-  <text x="600" y="80" text-anchor="middle" font-size="11" font-weight="700"
+  <text x="600" y="80" text-anchor="middle" font-size="12" font-weight="700"
         letter-spacing="0.18em" fill="#a8a098">INGEST</text>
 
   <!-- Stage 1: Download -->
   <rect x="60" y="110" width="160" height="80" rx="8" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
   <text x="140" y="138" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">Download</text>
-  <text x="140" y="160" text-anchor="middle" font-size="10" fill="#888">RSA Investor</text>
-  <text x="140" y="174" text-anchor="middle" font-size="10" fill="#888">Relations portal</text>
+  <text x="140" y="160" text-anchor="middle" font-size="12" fill="#888">RSA Investor</text>
+  <text x="140" y="174" text-anchor="middle" font-size="12" fill="#888">Relations portal</text>
 
   <line x1="225" y1="150" x2="265" y2="150" stroke="#a8a098" stroke-width="1.6"/>
   <polygon points="260,144 270,150 260,156" fill="#a8a098"/>
@@ -63,8 +63,8 @@
   <!-- Stage 2: Convert -->
   <rect x="270" y="110" width="160" height="80" rx="8" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
   <text x="350" y="138" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">Convert</text>
-  <text x="350" y="160" text-anchor="middle" font-size="10" fill="#888">.xls → .xlsx</text>
-  <text x="350" y="174" text-anchor="middle" font-size="10" fill="#888" font-family="'SF Mono', Menlo, Monaco, monospace">soffice</text>
+  <text x="350" y="160" text-anchor="middle" font-size="12" fill="#888">.xls → .xlsx</text>
+  <text x="350" y="174" text-anchor="middle" font-size="12" fill="#888" font-family="'SF Mono', Menlo, Monaco, monospace">soffice</text>
 
   <line x1="435" y1="150" x2="475" y2="150" stroke="#a8a098" stroke-width="1.6"/>
   <polygon points="470,144 480,150 470,156" fill="#a8a098"/>
@@ -72,8 +72,8 @@
   <!-- Stage 3: Archive -->
   <rect x="480" y="110" width="160" height="80" rx="8" fill="#e8f0d9" stroke="#81b64c" stroke-width="1.6"/>
   <text x="560" y="138" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">Archive</text>
-  <text x="560" y="160" text-anchor="middle" font-size="10" fill="#666">create Release</text>
-  <text x="560" y="174" text-anchor="middle" font-size="10" fill="#666">+ ReleaseFile</text>
+  <text x="560" y="160" text-anchor="middle" font-size="12" fill="#666">create Release</text>
+  <text x="560" y="174" text-anchor="middle" font-size="12" fill="#666">+ ReleaseFile</text>
 
   <line x1="645" y1="150" x2="685" y2="150" stroke="#a8a098" stroke-width="1.6"/>
   <polygon points="680,144 690,150 680,156" fill="#a8a098"/>
@@ -81,8 +81,8 @@
   <!-- Stage 4 (split into two parallel parses) -->
   <rect x="690" y="110" width="160" height="80" rx="8" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
   <text x="770" y="138" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">Open workbook</text>
-  <text x="770" y="160" text-anchor="middle" font-size="10" fill="#888">openpyxl</text>
-  <text x="770" y="174" text-anchor="middle" font-size="10" fill="#888">discover sheets</text>
+  <text x="770" y="160" text-anchor="middle" font-size="12" fill="#888">openpyxl</text>
+  <text x="770" y="174" text-anchor="middle" font-size="12" fill="#888">discover sheets</text>
 
   <!-- Branch into two paths -->
   <line x1="855" y1="150" x2="900" y2="150" stroke="#a8a098" stroke-width="1.6"/>
@@ -94,73 +94,73 @@
   <polygon points="935,394 945,400 935,406" fill="#a8a098"/>
 
   <!-- ROW 2: Parse Sheet 1 path -->
-  <text x="120" y="260" text-anchor="middle" font-size="11" font-weight="700"
+  <text x="120" y="260" text-anchor="middle" font-size="12" font-weight="700"
         letter-spacing="0.18em" fill="#a8a098">PARSE — SHEET 1</text>
 
   <rect x="60" y="280" width="160" height="80" rx="8" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
   <text x="140" y="305" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Read % series</text>
-  <text x="140" y="328" text-anchor="middle" font-size="10" fill="#888">Dec 2006 → today</text>
-  <text x="140" y="343" text-anchor="middle" font-size="10" fill="#888">9 holder columns</text>
+  <text x="140" y="328" text-anchor="middle" font-size="12" fill="#888">Dec 2006 → today</text>
+  <text x="140" y="343" text-anchor="middle" font-size="12" fill="#888">9 holder columns</text>
 
   <line x1="225" y1="320" x2="265" y2="320" stroke="#a8a098" stroke-width="1.6"/>
   <polygon points="260,314 270,320 260,326" fill="#a8a098"/>
 
   <rect x="270" y="280" width="160" height="80" rx="8" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
   <text x="350" y="305" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Map 9→6 cohorts</text>
-  <text x="350" y="328" text-anchor="middle" font-size="10" fill="#888">holdings_taxonomy.py</text>
-  <text x="350" y="343" text-anchor="middle" font-size="10" fill="#888">deterministic</text>
+  <text x="350" y="328" text-anchor="middle" font-size="12" fill="#888">holdings_taxonomy.py</text>
+  <text x="350" y="343" text-anchor="middle" font-size="12" fill="#888">deterministic</text>
 
   <line x1="435" y1="320" x2="475" y2="320" stroke="#a8a098" stroke-width="1.6"/>
   <polygon points="470,314 480,320 470,326" fill="#a8a098"/>
 
   <rect x="480" y="280" width="160" height="80" rx="8" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
   <text x="560" y="305" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Upsert</text>
-  <text x="560" y="328" text-anchor="middle" font-size="10" fill="#888">Series + Observations</text>
-  <text x="560" y="343" text-anchor="middle" font-size="10" fill="#888">cohort %</text>
+  <text x="560" y="328" text-anchor="middle" font-size="12" fill="#888">Series + Observations</text>
+  <text x="560" y="343" text-anchor="middle" font-size="12" fill="#888">cohort %</text>
 
   <line x1="645" y1="320" x2="685" y2="320" stroke="#a8a098" stroke-width="1.6"/>
   <polygon points="680,314 690,320 680,326" fill="#a8a098"/>
 
   <rect x="690" y="280" width="240" height="80" rx="8" fill="#e8f0d9" stroke="#81b64c" stroke-width="1.6"/>
   <text x="810" y="305" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Cohort % time series</text>
-  <text x="810" y="328" text-anchor="middle" font-size="10" fill="#666">Series + Observations</text>
-  <text x="810" y="343" text-anchor="middle" font-size="10" fill="#666">~1.7K observations</text>
+  <text x="810" y="328" text-anchor="middle" font-size="12" fill="#666">Series + Observations</text>
+  <text x="810" y="343" text-anchor="middle" font-size="12" fill="#666">~1.7K observations</text>
 
   <!-- ROW 3: Parse Sheets 2+ path -->
-  <text x="120" y="380" text-anchor="middle" font-size="11" font-weight="700"
+  <text x="120" y="380" text-anchor="middle" font-size="12" font-weight="700"
         letter-spacing="0.18em" fill="#a8a098">PARSE — SHEETS 2+</text>
 
   <rect x="60" y="400" width="160" height="80" rx="8" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
   <text x="140" y="425" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Walk all sheets</text>
-  <text x="140" y="448" text-anchor="middle" font-size="10" fill="#888">Fixed / ILB / FRN /</text>
-  <text x="140" y="463" text-anchor="middle" font-size="10" fill="#888">Sukuk / Infrastructure</text>
+  <text x="140" y="448" text-anchor="middle" font-size="12" fill="#888">Fixed / ILB / FRN /</text>
+  <text x="140" y="463" text-anchor="middle" font-size="12" fill="#888">Sukuk / Infrastructure</text>
 
   <line x1="225" y1="440" x2="265" y2="440" stroke="#a8a098" stroke-width="1.6"/>
   <polygon points="260,434 270,440 260,446" fill="#a8a098"/>
 
   <rect x="270" y="400" width="160" height="80" rx="8" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
   <text x="350" y="425" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Unpack cells</text>
-  <text x="350" y="448" text-anchor="middle" font-size="10" fill="#888">bond × holder grid</text>
-  <text x="350" y="463" text-anchor="middle" font-size="10" fill="#888">→ flat rows</text>
+  <text x="350" y="448" text-anchor="middle" font-size="12" fill="#888">bond × holder grid</text>
+  <text x="350" y="463" text-anchor="middle" font-size="12" fill="#888">→ flat rows</text>
 
   <line x1="435" y1="440" x2="475" y2="440" stroke="#a8a098" stroke-width="1.6"/>
   <polygon points="470,434 480,440 470,446" fill="#a8a098"/>
 
   <rect x="480" y="400" width="160" height="80" rx="8" fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
   <text x="560" y="425" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Upsert</text>
-  <text x="560" y="448" text-anchor="middle" font-size="10" fill="#888">BondHolding</text>
-  <text x="560" y="463" text-anchor="middle" font-size="10" fill="#888">unique on (rel,bond,holder)</text>
+  <text x="560" y="448" text-anchor="middle" font-size="12" fill="#888">BondHolding</text>
+  <text x="560" y="463" text-anchor="middle" font-size="12" fill="#888">unique on (rel,bond,holder)</text>
 
   <line x1="645" y1="440" x2="685" y2="440" stroke="#a8a098" stroke-width="1.6"/>
   <polygon points="680,434 690,440 680,446" fill="#a8a098"/>
 
   <rect x="690" y="400" width="240" height="80" rx="8" fill="#e8f0d9" stroke="#81b64c" stroke-width="1.6"/>
   <text x="810" y="425" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">BondHolding rows</text>
-  <text x="810" y="448" text-anchor="middle" font-size="10" fill="#666">~30K rows total</text>
-  <text x="810" y="463" text-anchor="middle" font-size="10" fill="#666">~280 / release</text>
+  <text x="810" y="448" text-anchor="middle" font-size="12" fill="#666">~30K rows total</text>
+  <text x="810" y="463" text-anchor="middle" font-size="12" fill="#666">~280 / release</text>
 
   <!-- ROW 4: Validation -->
-  <text x="600" y="540" text-anchor="middle" font-size="11" font-weight="700"
+  <text x="600" y="540" text-anchor="middle" font-size="12" font-weight="700"
         letter-spacing="0.18em" fill="#6a9b3a">VALIDATE</text>
 
   <line x1="810" y1="490" x2="810" y2="560" stroke="#a8a098" stroke-width="1.6"/>
@@ -171,7 +171,7 @@
   <rect x="380" y="585" width="440" height="74" rx="8" fill="#e8f0d9" stroke="#81b64c" stroke-width="1.8"/>
   <text x="600" y="613" text-anchor="middle" font-size="13" font-weight="700"
         fill="#3a382f">Recon vs Schedule of Domestic Government Bonds</text>
-  <text x="600" y="635" text-anchor="middle" font-size="11" fill="#666"
+  <text x="600" y="635" text-anchor="middle" font-size="12" fill="#666"
         font-style="italic">holdings sum across holders == schedule outstanding, to the rand</text>
 </svg>
 </div>
