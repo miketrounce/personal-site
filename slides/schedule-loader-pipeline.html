@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schedule loader: PDF in, BondSchedule rows out.</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f3ef;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+  }
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title {
+    font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a;
+  }
+  .slide-body {
+    display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0;
+  }
+  .visual-cell {
+    min-height: 0; min-width: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .facts {
+    list-style: none; padding: 0; margin: 0;
+    font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center;
+  }
+  .facts li {
+    padding-left: 18px; position: relative; margin-bottom: 16px;
+  }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; border-radius: 50%; background: #81b64c;
+  }
+  .slide-footer {
+    font-size: 12px; color: #666;
+    border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between;
+  }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce &middot; Schedule of Domestic Government Bonds</span>
+    </header>
+    <h1 class="slide-title">Schedule loader: PDF in, BondSchedule rows out.</h1>
+    <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <!-- Section title -->
+  <text x="600" y="60" text-anchor="middle" font-size="14" font-weight="700"
+        fill="#3a382f" letter-spacing="0.12em">END-TO-END PIPELINE</text>
+
+  <!-- Source PDF icon (left, tied to stage 1) -->
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif">
+    <rect x="60" y="290" width="80" height="100" rx="4"
+          fill="#ffffff" stroke="#a8a098" stroke-width="1.5"/>
+    <polygon points="120,290 140,290 140,310" fill="#f0eee8" stroke="#a8a098" stroke-width="1"/>
+    <text x="100" y="324" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#3a382f">.pdf</text>
+    <text x="100" y="345" text-anchor="middle" font-size="12" fill="#5a564a">Schedule</text>
+    <text x="100" y="360" text-anchor="middle" font-size="12" fill="#5a564a">PDF</text>
+
+    <!-- input arrow -->
+    <line x1="148" y1="340" x2="178" y2="340" stroke="#a8a098" stroke-width="1.6"/>
+    <polygon points="176,335 188,340 176,345" fill="#a8a098"/>
+  </g>
+
+  <!-- 5 stage rectangles -->
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif">
+
+    <!-- Stage 1: Download -->
+    <rect x="190" y="270" width="170" height="140" rx="8"
+          fill="#ffffff" stroke="#6a9b3a" stroke-width="1.6"/>
+    <rect x="190" y="270" width="170" height="32" rx="8"
+          fill="#81b64c" stroke="#6a9b3a" stroke-width="1.6"/>
+    <text x="275" y="290" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#ffffff" letter-spacing="0.10em">1 &middot; DOWNLOAD</text>
+    <text x="275" y="334" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">fetch the PDF</text>
+    <text x="275" y="358" text-anchor="middle" font-size="12" fill="#5a564a"
+          font-family="'SF Mono', Menlo, Monaco, monospace">urllib + source_url</text>
+    <text x="275" y="384" text-anchor="middle" font-size="12" fill="#888" font-style="italic">NT investor relations</text>
+
+    <!-- arrow -->
+    <line x1="362" y1="340" x2="392" y2="340" stroke="#a8a098" stroke-width="1.6"/>
+    <polygon points="390,335 402,340 390,345" fill="#a8a098"/>
+
+    <!-- Stage 2: Archive -->
+    <rect x="404" y="270" width="170" height="140" rx="8"
+          fill="#ffffff" stroke="#6a9b3a" stroke-width="1.6"/>
+    <rect x="404" y="270" width="170" height="32" rx="8"
+          fill="#81b64c" stroke="#6a9b3a" stroke-width="1.6"/>
+    <text x="489" y="290" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#ffffff" letter-spacing="0.10em">2 &middot; ARCHIVE</text>
+    <text x="489" y="334" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">store the file</text>
+    <text x="489" y="358" text-anchor="middle" font-size="12" fill="#5a564a"
+          font-family="'SF Mono', Menlo, Monaco, monospace">Release</text>
+    <text x="489" y="378" text-anchor="middle" font-size="12" fill="#5a564a"
+          font-family="'SF Mono', Menlo, Monaco, monospace">+ ReleaseFile</text>
+
+    <!-- arrow -->
+    <line x1="576" y1="340" x2="606" y2="340" stroke="#a8a098" stroke-width="1.6"/>
+    <polygon points="604,335 616,340 604,345" fill="#a8a098"/>
+
+    <!-- Stage 3: Parse -->
+    <rect x="618" y="270" width="170" height="140" rx="8"
+          fill="#ffffff" stroke="#6a9b3a" stroke-width="1.6"/>
+    <rect x="618" y="270" width="170" height="32" rx="8"
+          fill="#81b64c" stroke="#6a9b3a" stroke-width="1.6"/>
+    <text x="703" y="290" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#ffffff" letter-spacing="0.10em">3 &middot; PARSE</text>
+    <text x="703" y="334" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">read the rows</text>
+    <text x="703" y="358" text-anchor="middle" font-size="12" fill="#5a564a"
+          font-family="'SF Mono', Menlo, Monaco, monospace">pypdf &rarr; lines</text>
+    <text x="703" y="378" text-anchor="middle" font-size="12" fill="#5a564a"
+          font-family="'SF Mono', Menlo, Monaco, monospace">&rarr; regex</text>
+
+    <!-- arrow -->
+    <line x1="790" y1="340" x2="820" y2="340" stroke="#a8a098" stroke-width="1.6"/>
+    <polygon points="818,335 830,340 818,345" fill="#a8a098"/>
+
+    <!-- Stage 4: Normalize -->
+    <rect x="832" y="270" width="170" height="140" rx="8"
+          fill="#ffffff" stroke="#6a9b3a" stroke-width="1.6"/>
+    <rect x="832" y="270" width="170" height="32" rx="8"
+          fill="#81b64c" stroke="#6a9b3a" stroke-width="1.6"/>
+    <text x="917" y="290" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#ffffff" letter-spacing="0.10em">4 &middot; NORMALIZE</text>
+    <text x="917" y="334" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">canonicalise</text>
+    <text x="917" y="358" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">collapse 3-maturity</text>
+    <text x="917" y="378" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">classify by *</text>
+
+    <!-- arrow -->
+    <line x1="1004" y1="340" x2="1034" y2="340" stroke="#a8a098" stroke-width="1.6"/>
+    <polygon points="1032,335 1044,340 1032,345" fill="#a8a098"/>
+
+    <!-- Stage 5: Upsert -->
+    <rect x="1046" y="270" width="124" height="140" rx="8"
+          fill="#e8f0d9" stroke="#6a9b3a" stroke-width="1.6"/>
+    <rect x="1046" y="270" width="124" height="32" rx="8"
+          fill="#6a9b3a" stroke="#6a9b3a" stroke-width="1.6"/>
+    <text x="1108" y="290" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#ffffff" letter-spacing="0.10em">5 &middot; UPSERT</text>
+    <text x="1108" y="334" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">delete-and-</text>
+    <text x="1108" y="350" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">replace</text>
+    <text x="1108" y="378" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">idempotent</text>
+  </g>
+
+  <!-- Down arrow from upsert -->
+  <line x1="1108" y1="416" x2="1108" y2="476" stroke="#81b64c" stroke-width="2"/>
+  <polygon points="1099,472 1108,488 1117,472" fill="#81b64c"/>
+
+  <!-- Result box (green, full width) -->
+  <rect x="240" y="500" width="868" height="120" rx="8"
+        fill="#e8f0d9" stroke="#81b64c" stroke-width="1.8"/>
+  <text x="674" y="528" text-anchor="middle" font-size="12" font-weight="700"
+        fill="#6a9b3a" letter-spacing="0.12em">RESULT</text>
+  <text x="674" y="566" text-anchor="middle" font-size="20" font-weight="700"
+        fill="#3a382f">BondSchedule rows in the database</text>
+  <text x="674" y="600" text-anchor="middle" font-size="14"
+        fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">~50 rows per release &middot; ~13K rows total</text>
+
+  <!-- Bottom caption -->
+  <text x="600" y="668" text-anchor="middle" font-size="13" fill="#5a564a" font-style="italic">
+    Same five stages every load &mdash; idempotent, re-runnable, drives the recon invariant.
+  </text>
+</svg>
+</div>
+      <ul class="facts">
+        <li><strong>Ingest</strong>: download from NT investor relations URL &rarr; archive as Release + ReleaseFile.</li>
+        <li><strong>Parse</strong>: <strong>pypdf</strong> reads each page &rarr; walk lines &rarr; regex-match bond rows &rarr; tokenize to fields.</li>
+        <li><strong>Normalize</strong>: collapse three-maturity codes (R2044 / R2048 / I2050) to canonical; classify <strong>bond_type</strong> from asterisk marks.</li>
+        <li><strong>Upsert</strong>: delete-and-replace <strong>BondSchedule</strong> rows for the target Release &mdash; idempotent re-runs.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>End-to-end pipeline &middot; PDF &rarr; rows</span>
+      <span>~50 rows per release &middot; ~13K total</span>
+    </footer>
+  </div>
+<script src="/slides/deck.js" defer></script>
+</body>
+</html>

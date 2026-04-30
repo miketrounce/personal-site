@@ -79,7 +79,7 @@
   }
   .deck-count {
     margin-left: auto;
-    font-size: 11px;
+    font-size: 12px;
     color: #888;
     font-family: "SF Mono", Monaco, Menlo, monospace;
     letter-spacing: 0.04em;
@@ -111,7 +111,7 @@
     background: #81b64c;
   }
   .slide-num {
-    font-size: 11px;
+    font-size: 12px;
     color: #888;
     letter-spacing: 0.08em;
     margin-bottom: 4px;
@@ -130,7 +130,7 @@
     margin: 0 0 6px 0;
   }
   .slide-path {
-    font-size: 11px;
+    font-size: 12px;
     color: #999;
     font-family: "SF Mono", Monaco, Menlo, monospace;
   }
@@ -270,8 +270,66 @@
       </div>
     </details>
 
+    <details class="deck">
+      <summary>
+        <span class="deck-chevron"></span>
+        <span class="deck-name">Schedule of Domestic Government Bonds</span>
+        <span class="deck-count">8 slides</span>
+      </summary>
+      <div class="deck-body">
+        <a class="slide-row" href="/slides/schedule-overview">
+          <div class="slide-num">01</div>
+          <h2 class="slide-title">Schedule of Domestic Government Bonds &mdash; monthly PDFs since May 2003.</h2>
+          <p class="slide-blurb">Overview &mdash; NT publication, monthly cadence, 263 releases. Each release lists every domestic government bond outstanding at month-end with nominal amount, coupon, redemption.</p>
+          <div class="slide-path">/slides/schedule-overview</div>
+        </a>
+        <a class="slide-row" href="/slides/schedule-pdf-anatomy">
+          <div class="slide-num">02</div>
+          <h2 class="slide-title">Each PDF is a bond table. One row per bond.</h2>
+          <p class="slide-blurb">PDF anatomy &mdash; 8 columns (code, coupon, issue date, price, amount issued, interest dates, redemption, nominal); ~50 bond rows per release; stable shape across all 263 releases.</p>
+          <div class="slide-path">/slides/schedule-pdf-anatomy</div>
+        </a>
+        <a class="slide-row" href="/slides/schedule-pypdf-parsing">
+          <div class="slide-num">03</div>
+          <h2 class="slide-title">pypdf line-by-line. Regex matches each bond row.</h2>
+          <p class="slide-blurb">Parser &mdash; pypdf reads each page as text, walk lines top-to-bottom, regex identifies bond rows by their leading code, tokenize coupon &rarr; dates &rarr; amounts.</p>
+          <div class="slide-path">/slides/schedule-pypdf-parsing</div>
+        </a>
+        <a class="slide-row" href="/slides/schedule-asterisks-and-instrument-types">
+          <div class="slide-num">04</div>
+          <h2 class="slide-title">Asterisks on the bond code carry the instrument type.</h2>
+          <p class="slide-blurb">Bond classification &mdash; ** = inflation-linked, *** = floating-rate, * = three-maturity, **** = repo at all-in price. Loader sets BondSchedule.bond_type from the marks.</p>
+          <div class="slide-path">/slides/schedule-asterisks-and-instrument-types</div>
+        </a>
+        <a class="slide-row" href="/slides/schedule-three-maturity-collapse">
+          <div class="slide-num">05</div>
+          <h2 class="slide-title">R2044, R2048, I2050 print as three rows each &mdash; collapsed to one bond.</h2>
+          <p class="slide-blurb">Bond identity normalisation &mdash; three SA bonds redeem in equal thirds across three dates; the PDF prints them as three separate rows, the loader collapses to canonical bond code.</p>
+          <div class="slide-path">/slides/schedule-three-maturity-collapse</div>
+        </a>
+        <a class="slide-row" href="/slides/schedule-per-month-split">
+          <div class="slide-num">06</div>
+          <h2 class="slide-title">From one rollup release to 263 monthly releases.</h2>
+          <p class="slide-blurb">Release-grain split &mdash; the original rollup buried the May 2024 RN2027 parser bug; the per-month split gives every PDF its own Release with reference_period set to the month-end.</p>
+          <div class="slide-path">/slides/schedule-per-month-split</div>
+        </a>
+        <a class="slide-row" href="/slides/schedule-recon-vs-holdings">
+          <div class="slide-num">07</div>
+          <h2 class="slide-title">Per-bond outstanding = &Sigma; holdings. The same invariant from the other side.</h2>
+          <p class="slide-blurb">Validation invariant &mdash; Schedule&rsquo;s outstanding stock per bond per month-end equals the Holdings xlsx sum across nine holders, to the rand. Surfaced the May 2024 RN2027 bug.</p>
+          <div class="slide-path">/slides/schedule-recon-vs-holdings</div>
+        </a>
+        <a class="slide-row" href="/slides/schedule-loader-pipeline">
+          <div class="slide-num">08</div>
+          <h2 class="slide-title">Schedule loader: PDF in, BondSchedule rows out.</h2>
+          <p class="slide-blurb">End-to-end pipeline &mdash; download from NT investor relations &rarr; archive &rarr; pypdf parse &rarr; normalise (three-maturity collapse, asterisk classification) &rarr; upsert BondSchedule rows.</p>
+          <div class="slide-path">/slides/schedule-loader-pipeline</div>
+        </a>
+      </div>
+    </details>
+
     <footer class="footer">
-      <span>8 slides &middot; 2 decks</span>
+      <span>23 slides &middot; 3 decks</span>
       <span>AI-generated</span>
     </footer>
   </div>

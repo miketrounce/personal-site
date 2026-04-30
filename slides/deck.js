@@ -68,7 +68,7 @@
       ".deck-nav a:hover { background: #f0eee8; }",
       ".deck-nav span.disabled { color: #c5c0b3; cursor: default; }",
       ".deck-nav .deck-nav-label {",
-      "  padding: 0 10px; color: #888; font-size: 11px;",
+      "  padding: 0 10px; color: #888; font-size: 12px;",
       "  letter-spacing: 0.04em; white-space: nowrap;",
       "}",
       ".deck-nav .deck-nav-label .deck-nav-deck {",
@@ -79,7 +79,7 @@
       "  color: #888; padding-left: 6px;",
       "}",
       "@media (max-width: 600px) {",
-      "  .deck-nav { font-size: 11px; padding: 4px 6px; }",
+      "  .deck-nav { font-size: 12px; padding: 4px 6px; }",
       "  .deck-nav a, .deck-nav span.disabled { min-width: 26px; height: 26px; padding: 0 8px; }",
       "  .deck-nav .deck-nav-label { display: none; }",
       "}"

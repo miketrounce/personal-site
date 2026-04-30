@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asterisks on the bond code carry the instrument type.</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f3ef;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+  }
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title {
+    font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a;
+  }
+  .slide-body {
+    display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0;
+  }
+  .visual-cell {
+    min-height: 0; min-width: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .facts {
+    list-style: none; padding: 0; margin: 0;
+    font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center;
+  }
+  .facts li {
+    padding-left: 18px; position: relative; margin-bottom: 16px;
+  }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; border-radius: 50%; background: #81b64c;
+  }
+  .slide-footer {
+    font-size: 12px; color: #666;
+    border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between;
+  }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce &middot; Schedule of Domestic Government Bonds</span>
+    </header>
+    <h1 class="slide-title">Asterisks on the bond code carry the instrument type.</h1>
+    <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <!-- Section title -->
+  <text x="600" y="56" text-anchor="middle" font-size="14" font-weight="700"
+        fill="#3a382f" letter-spacing="0.12em">FOOTNOTE-MARK KEY</text>
+
+  <!-- Two-column header -->
+  <rect x="60" y="80" width="320" height="34" fill="#81b64c" stroke="#6a9b3a" stroke-width="1.2"/>
+  <text x="220" y="102" text-anchor="middle" font-size="12" font-weight="700"
+        fill="#ffffff" letter-spacing="0.08em">MARK</text>
+
+  <rect x="380" y="80" width="760" height="34" fill="#81b64c" stroke="#6a9b3a" stroke-width="1.2"/>
+  <text x="760" y="102" text-anchor="middle" font-size="12" font-weight="700"
+        fill="#ffffff" letter-spacing="0.08em">MEANING &middot; EXAMPLE</text>
+
+  <!-- Row 1: ** inflation-linked -->
+  <g>
+    <rect x="60" y="114" width="320" height="60" fill="#ffffff" stroke="#dcd8d0" stroke-width="0.8"/>
+    <text x="220" y="152" text-anchor="middle" font-size="22" font-weight="700"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">**</text>
+
+    <rect x="380" y="114" width="760" height="60" fill="#ffffff" stroke="#dcd8d0" stroke-width="0.8"/>
+    <text x="400" y="142" font-size="14" font-weight="700" fill="#3a382f">Inflation-linked</text>
+    <text x="400" y="162" font-size="12" fill="#5a564a" font-style="italic">CPI principal accretion</text>
+    <text x="1120" y="142" text-anchor="end" font-size="13"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">I2025**</text>
+    <text x="1120" y="162" text-anchor="end" font-size="13"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">R197**</text>
+  </g>
+
+  <!-- Row 2: *** floating-rate -->
+  <g>
+    <rect x="60" y="174" width="320" height="60" fill="#fbfaf6" stroke="#dcd8d0" stroke-width="0.8"/>
+    <text x="220" y="212" text-anchor="middle" font-size="22" font-weight="700"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">***</text>
+
+    <rect x="380" y="174" width="760" height="60" fill="#fbfaf6" stroke="#dcd8d0" stroke-width="0.8"/>
+    <text x="400" y="202" font-size="14" font-weight="700" fill="#3a382f">Floating-rate</text>
+    <text x="400" y="222" font-size="12" fill="#5a564a" font-style="italic">coupon resets to a benchmark</text>
+    <text x="1120" y="202" text-anchor="end" font-size="13"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">RN2032***</text>
+    <text x="1120" y="222" text-anchor="end" font-size="13"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">RN2030***</text>
+  </g>
+
+  <!-- Row 3: * three-maturity -->
+  <g>
+    <rect x="60" y="234" width="320" height="60" fill="#ffffff" stroke="#dcd8d0" stroke-width="0.8"/>
+    <text x="220" y="272" text-anchor="middle" font-size="22" font-weight="700"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">*</text>
+
+    <rect x="380" y="234" width="760" height="60" fill="#ffffff" stroke="#dcd8d0" stroke-width="0.8"/>
+    <text x="400" y="262" font-size="14" font-weight="700" fill="#3a382f">Three-maturity (split tranche)</text>
+    <text x="400" y="282" font-size="12" fill="#5a564a" font-style="italic">redeems in three equal thirds</text>
+    <text x="1120" y="262" text-anchor="end" font-size="13"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">R2044*</text>
+    <text x="1120" y="282" text-anchor="end" font-size="13"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">R2048*</text>
+  </g>
+
+  <!-- Row 4: **** repo all-in -->
+  <g>
+    <rect x="60" y="294" width="320" height="60" fill="#fbfaf6" stroke="#dcd8d0" stroke-width="0.8"/>
+    <text x="220" y="332" text-anchor="middle" font-size="22" font-weight="700"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">****</text>
+
+    <rect x="380" y="294" width="760" height="60" fill="#fbfaf6" stroke="#dcd8d0" stroke-width="0.8"/>
+    <text x="400" y="322" font-size="14" font-weight="700" fill="#3a382f">Repo at all-in price</text>
+    <text x="400" y="342" font-size="12" fill="#5a564a" font-style="italic">issued via repo, all-in basis</text>
+    <text x="1120" y="322" text-anchor="end" font-size="13"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">R186****</text>
+    <text x="1120" y="342" text-anchor="end" font-size="13"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">R2030****</text>
+  </g>
+
+  <!-- Row 5: no marks -->
+  <g>
+    <rect x="60" y="354" width="320" height="60" fill="#ffffff" stroke="#dcd8d0" stroke-width="0.8"/>
+    <text x="220" y="392" text-anchor="middle" font-size="14"
+          fill="#a8a098" font-style="italic">(no marks)</text>
+
+    <rect x="380" y="354" width="760" height="60" fill="#ffffff" stroke="#dcd8d0" stroke-width="0.8"/>
+    <text x="400" y="382" font-size="14" font-weight="700" fill="#3a382f">Fixed-rate</text>
+    <text x="400" y="402" font-size="12" fill="#5a564a" font-style="italic">vanilla nominal coupon</text>
+    <text x="1120" y="382" text-anchor="end" font-size="13"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">R2030</text>
+    <text x="1120" y="402" text-anchor="end" font-size="13"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">R186</text>
+  </g>
+
+  <!-- Arrow down -->
+  <line x1="600" y1="430" x2="600" y2="478" stroke="#a8a098" stroke-width="1.6"/>
+  <polygon points="595,476 600,488 605,476" fill="#a8a098"/>
+
+  <!-- bond_type translation box -->
+  <rect x="160" y="498" width="880" height="100" rx="6"
+        fill="#e8f0d9" stroke="#81b64c" stroke-width="1.6"/>
+  <text x="600" y="524" text-anchor="middle" font-size="12" font-weight="700"
+        fill="#6a9b3a" letter-spacing="0.12em">LOADER ASSIGNS</text>
+  <text x="600" y="552" text-anchor="middle" font-size="14" font-weight="700"
+        fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">BondSchedule.bond_type</text>
+
+  <!-- 8 bond_type pills -->
+  <g font-family="'SF Mono', Menlo, Monaco, monospace" font-size="12" font-weight="700">
+    <rect x="190" y="566" width="80" height="22" rx="11" fill="#ffffff" stroke="#6a9b3a" stroke-width="1"/>
+    <text x="230" y="582" text-anchor="middle" fill="#3a382f">fixed</text>
+
+    <rect x="280" y="566" width="80" height="22" rx="11" fill="#ffffff" stroke="#6a9b3a" stroke-width="1"/>
+    <text x="320" y="582" text-anchor="middle" fill="#3a382f">ilb</text>
+
+    <rect x="370" y="566" width="80" height="22" rx="11" fill="#ffffff" stroke="#6a9b3a" stroke-width="1"/>
+    <text x="410" y="582" text-anchor="middle" fill="#3a382f">frn</text>
+
+    <rect x="460" y="566" width="80" height="22" rx="11" fill="#ffffff" stroke="#6a9b3a" stroke-width="1"/>
+    <text x="500" y="582" text-anchor="middle" fill="#3a382f">sukuk</text>
+
+    <rect x="550" y="566" width="80" height="22" rx="11" fill="#ffffff" stroke="#6a9b3a" stroke-width="1"/>
+    <text x="590" y="582" text-anchor="middle" fill="#3a382f">retail</text>
+
+    <rect x="640" y="566" width="100" height="22" rx="11" fill="#ffffff" stroke="#6a9b3a" stroke-width="1"/>
+    <text x="690" y="582" text-anchor="middle" fill="#3a382f">perpetual</text>
+
+    <rect x="750" y="566" width="130" height="22" rx="11" fill="#ffffff" stroke="#6a9b3a" stroke-width="1"/>
+    <text x="815" y="582" text-anchor="middle" fill="#3a382f">infrastructure</text>
+
+    <rect x="890" y="566" width="80" height="22" rx="11" fill="#ffffff" stroke="#6a9b3a" stroke-width="1"/>
+    <text x="930" y="582" text-anchor="middle" fill="#3a382f">zero</text>
+  </g>
+
+  <!-- Bottom caption -->
+  <text x="600" y="668" text-anchor="middle" font-size="13" fill="#5a564a" font-style="italic">
+    Without the marks, a code like R2044 would look fixed-rate.
+  </text>
+</svg>
+</div>
+      <ul class="facts">
+        <li>The PDF appends footnote asterisks to bond codes &mdash; those marks classify the instrument.</li>
+        <li><strong>**</strong> = inflation-linked, <strong>***</strong> = floating-rate, <strong>*</strong> = three-maturity (split tranche), <strong>****</strong> = repo at all-in price.</li>
+        <li>The loader translates marks into <strong>BondSchedule.bond_type</strong>: <strong>fixed</strong> / <strong>ilb</strong> / <strong>frn</strong> / <strong>sukuk</strong> / <strong>retail</strong> / <strong>perpetual</strong> / <strong>infrastructure</strong> / <strong>zero</strong>.</li>
+        <li>Without the marks, a code like <strong>R2044</strong> would look fixed-rate &mdash; with <strong>*</strong>, the loader knows it&rsquo;s three-maturity.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>Bond classification &middot; via PDF footnote asterisks</span>
+      <span>8 instrument types</span>
+    </footer>
+  </div>
+<script src="/slides/deck.js" defer></script>
+</body>
+</html>

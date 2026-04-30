@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pypdf line-by-line. Regex matches each bond row.</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f3ef;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+  }
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title {
+    font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a;
+  }
+  .slide-body {
+    display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0;
+  }
+  .visual-cell {
+    min-height: 0; min-width: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .facts {
+    list-style: none; padding: 0; margin: 0;
+    font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center;
+  }
+  .facts li {
+    padding-left: 18px; position: relative; margin-bottom: 16px;
+  }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; border-radius: 50%; background: #81b64c;
+  }
+  .slide-footer {
+    font-size: 12px; color: #666;
+    border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between;
+  }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce &middot; Schedule of Domestic Government Bonds</span>
+    </header>
+    <h1 class="slide-title">pypdf line-by-line. Regex matches each bond row.</h1>
+    <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <!-- Section title -->
+  <text x="600" y="60" text-anchor="middle" font-size="14" font-weight="700"
+        fill="#3a382f" letter-spacing="0.12em">PARSE PIPELINE</text>
+
+  <!-- Stage boxes (5 in a row) -->
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif">
+
+    <!-- Stage 1: PDF page -->
+    <rect x="40" y="110" width="180" height="100" rx="6"
+          fill="#ffffff" stroke="#a8a098" stroke-width="1.5"/>
+    <text x="130" y="140" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#6a9b3a" letter-spacing="0.10em">STAGE 1</text>
+    <text x="130" y="166" text-anchor="middle" font-size="14" font-weight="700" fill="#3a382f">PDF page</text>
+    <text x="130" y="188" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">.pdf binary</text>
+
+    <!-- Arrow 1 -->
+    <line x1="220" y1="160" x2="252" y2="160" stroke="#a8a098" stroke-width="1.6"/>
+    <polygon points="250,155 262,160 250,165" fill="#a8a098"/>
+
+    <!-- Stage 2: pypdf extract_text -->
+    <rect x="262" y="110" width="200" height="100" rx="6"
+          fill="#e8f0d9" stroke="#81b64c" stroke-width="1.5"/>
+    <text x="362" y="140" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#6a9b3a" letter-spacing="0.10em">STAGE 2</text>
+    <text x="362" y="166" text-anchor="middle" font-size="14" font-weight="700" fill="#3a382f"
+          font-family="'SF Mono', Menlo, Monaco, monospace">pypdf.extract_text()</text>
+    <text x="362" y="188" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">page &rarr; raw text</text>
+
+    <!-- Arrow 2 -->
+    <line x1="462" y1="160" x2="494" y2="160" stroke="#a8a098" stroke-width="1.6"/>
+    <polygon points="492,155 504,160 492,165" fill="#a8a098"/>
+
+    <!-- Stage 3: split into lines -->
+    <rect x="504" y="110" width="180" height="100" rx="6"
+          fill="#ffffff" stroke="#a8a098" stroke-width="1.5"/>
+    <text x="594" y="140" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#6a9b3a" letter-spacing="0.10em">STAGE 3</text>
+    <text x="594" y="166" text-anchor="middle" font-size="14" font-weight="700" fill="#3a382f">split into lines</text>
+    <text x="594" y="188" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">walk top-to-bottom</text>
+
+    <!-- Arrow 3 -->
+    <line x1="684" y1="160" x2="716" y2="160" stroke="#a8a098" stroke-width="1.6"/>
+    <polygon points="714,155 726,160 714,165" fill="#a8a098"/>
+
+    <!-- Stage 4: BOND_CODE_LINE regex -->
+    <rect x="726" y="110" width="220" height="100" rx="6"
+          fill="#e8f0d9" stroke="#81b64c" stroke-width="1.5"/>
+    <text x="836" y="140" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#6a9b3a" letter-spacing="0.10em">STAGE 4</text>
+    <text x="836" y="166" text-anchor="middle" font-size="14" font-weight="700" fill="#3a382f"
+          font-family="'SF Mono', Menlo, Monaco, monospace">BOND_CODE_LINE</text>
+    <text x="836" y="188" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">regex match per line</text>
+
+    <!-- Arrow 4 -->
+    <line x1="946" y1="160" x2="978" y2="160" stroke="#a8a098" stroke-width="1.6"/>
+    <polygon points="976,155 988,160 976,165" fill="#a8a098"/>
+
+    <!-- Stage 5: parsed row dict -->
+    <rect x="988" y="110" width="172" height="100" rx="6"
+          fill="#81b64c" stroke="#6a9b3a" stroke-width="1.5"/>
+    <text x="1074" y="140" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#ffffff" letter-spacing="0.10em">STAGE 5</text>
+    <text x="1074" y="166" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">parsed row</text>
+    <text x="1074" y="188" text-anchor="middle" font-size="12" fill="#ffffff" font-style="italic" opacity="0.9">dict of fields</text>
+
+  </g>
+
+  <!-- Worked example header -->
+  <text x="600" y="280" text-anchor="middle" font-size="13" font-weight="700"
+        fill="#3a382f" letter-spacing="0.10em">WORKED EXAMPLE &mdash; ONE LINE</text>
+
+  <!-- Raw line as it comes out of pypdf -->
+  <rect x="60" y="300" width="1080" height="50" rx="4"
+        fill="#ffffff" stroke="#a8a098" stroke-width="1.2"/>
+  <text x="600" y="332" text-anchor="middle" font-size="14"
+        fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">R186** 8.75% 4-Aug-09 - 18 813 21/02 &amp; 21/08 21-Dec-26 217 410</text>
+
+  <!-- 7 splay arrows down -->
+  <g stroke="#81b64c" stroke-width="1.4" fill="none">
+    <line x1="142" y1="350" x2="142" y2="430"/>
+    <line x1="240" y1="350" x2="240" y2="430"/>
+    <line x1="345" y1="350" x2="345" y2="430"/>
+    <line x1="488" y1="350" x2="488" y2="430"/>
+    <line x1="668" y1="350" x2="668" y2="430"/>
+    <line x1="848" y1="350" x2="848" y2="430"/>
+    <line x1="1038" y1="350" x2="1038" y2="430"/>
+  </g>
+  <g fill="#81b64c">
+    <polygon points="137,425 142,438 147,425"/>
+    <polygon points="235,425 240,438 245,425"/>
+    <polygon points="340,425 345,438 350,425"/>
+    <polygon points="483,425 488,438 493,425"/>
+    <polygon points="663,425 668,438 673,425"/>
+    <polygon points="843,425 848,438 853,425"/>
+    <polygon points="1033,425 1038,438 1043,425"/>
+  </g>
+
+  <!-- 7 parsed-field tiles -->
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif">
+
+    <rect x="70" y="440" width="160" height="80" rx="6"
+          fill="#e8f0d9" stroke="#6a9b3a" stroke-width="1.2"/>
+    <text x="150" y="462" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#6a9b3a" letter-spacing="0.08em">CODE</text>
+    <text x="150" y="488" text-anchor="middle" font-size="14" font-weight="700"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">R186</text>
+    <text x="150" y="508" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">+ ** mark</text>
+
+    <rect x="240" y="440" width="100" height="80" rx="6"
+          fill="#e8f0d9" stroke="#6a9b3a" stroke-width="1.2"/>
+    <text x="290" y="462" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#6a9b3a" letter-spacing="0.08em">COUPON</text>
+    <text x="290" y="488" text-anchor="middle" font-size="14" font-weight="700"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">8.75</text>
+    <text x="290" y="508" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">%</text>
+
+    <rect x="350" y="440" width="135" height="80" rx="6"
+          fill="#e8f0d9" stroke="#6a9b3a" stroke-width="1.2"/>
+    <text x="417" y="462" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#6a9b3a" letter-spacing="0.08em">ISSUE DATE</text>
+    <text x="417" y="488" text-anchor="middle" font-size="13" font-weight="700"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">2009-08-04</text>
+
+    <rect x="495" y="440" width="160" height="80" rx="6"
+          fill="#e8f0d9" stroke="#6a9b3a" stroke-width="1.2"/>
+    <text x="575" y="462" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#6a9b3a" letter-spacing="0.08em">AMOUNT ISSUED</text>
+    <text x="575" y="488" text-anchor="middle" font-size="14" font-weight="700"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">18 813</text>
+    <text x="575" y="508" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">ZAR mn</text>
+
+    <rect x="665" y="440" width="170" height="80" rx="6"
+          fill="#e8f0d9" stroke="#6a9b3a" stroke-width="1.2"/>
+    <text x="750" y="462" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#6a9b3a" letter-spacing="0.08em">INTEREST DATES</text>
+    <text x="750" y="488" text-anchor="middle" font-size="13" font-weight="700"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">21/02 &amp; 21/08</text>
+
+    <rect x="845" y="440" width="135" height="80" rx="6"
+          fill="#e8f0d9" stroke="#6a9b3a" stroke-width="1.2"/>
+    <text x="912" y="462" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#6a9b3a" letter-spacing="0.08em">REDEMPTION</text>
+    <text x="912" y="488" text-anchor="middle" font-size="13" font-weight="700"
+          fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">2026-12-21</text>
+
+    <rect x="990" y="440" width="160" height="80" rx="6"
+          fill="#81b64c" stroke="#6a9b3a" stroke-width="1.5"/>
+    <text x="1070" y="462" text-anchor="middle" font-size="12" font-weight="700"
+          fill="#ffffff" letter-spacing="0.08em">NOMINAL</text>
+    <text x="1070" y="488" text-anchor="middle" font-size="14" font-weight="700"
+          fill="#ffffff" font-family="'SF Mono', Menlo, Monaco, monospace">217 410</text>
+    <text x="1070" y="508" text-anchor="middle" font-size="12" fill="#ffffff" font-style="italic" opacity="0.9">outstanding</text>
+
+  </g>
+
+  <!-- Skip-line note -->
+  <rect x="240" y="570" width="720" height="60" rx="6"
+        fill="#fbfaf6" stroke="#dcd8d0" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="600" y="595" text-anchor="middle" font-size="12" font-weight="700"
+        fill="#5a564a" letter-spacing="0.08em">NON-MATCHING LINES</text>
+  <text x="600" y="616" text-anchor="middle" font-size="12" fill="#5a564a"
+        font-style="italic">page numbers, headers, totals, footnotes &rarr; skip silently, no exception</text>
+
+  <!-- Bottom caption -->
+  <text x="600" y="690" text-anchor="middle" font-size="13" fill="#5a564a" font-style="italic">
+    Permissive parser &mdash; matches what looks like a bond row, ignores everything else.
+  </text>
+</svg>
+</div>
+      <ul class="facts">
+        <li><strong>pypdf</strong> reads each page as text; we walk lines top-to-bottom.</li>
+        <li>A regex (<strong>BOND_CODE_LINE</strong>) identifies bond rows by their leading bond code (e.g. <strong>R186</strong>, <strong>RN2032</strong>, <strong>I2025</strong>).</li>
+        <li>Each matched line tokenizes into coupon &rarr; issue date &rarr; price &rarr; amount &rarr; interest dates &rarr; redemption &rarr; nominal.</li>
+        <li>Non-matching lines (headers, page numbers, totals, footnotes) skip cleanly &mdash; no exception, no warning.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>Parser &middot; pypdf + regex</span>
+      <span>Permissive &mdash; non-bond lines skip silently</span>
+    </footer>
+  </div>
+<script src="/slides/deck.js" defer></script>
+</body>
+</html>
