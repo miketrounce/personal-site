@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bond-grain queries on Flow Superintelligence.</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f3ef;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+  }
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title {
+    font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a;
+  }
+  .slide-body {
+    display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0;
+  }
+  .visual-cell {
+    min-height: 0; min-width: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .facts {
+    list-style: none; padding: 0; margin: 0;
+    font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center;
+  }
+  .facts li {
+    padding-left: 18px; position: relative; margin-bottom: 16px;
+  }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; border-radius: 50%; background: #81b64c;
+  }
+  .slide-footer {
+    font-size: 12px; color: #666;
+    border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between;
+  }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce &middot; Bond-grain layer</span>
+    </header>
+    <h1 class="slide-title">Bond-grain queries on Flow Superintelligence.</h1>
+    <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <!-- ============= QUERY 1 ============= -->
+  <rect x="60" y="80" width="1080" height="170" rx="8"
+        fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
+  <!-- Query in mono -->
+  <rect x="80" y="100" width="600" height="50" rx="6"
+        fill="#fdfcf8" stroke="#dcd8d0" stroke-width="1"/>
+  <text x="100" y="132" font-size="14" font-weight="700"
+        fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">&ldquo;foreign holdings of R186 over time&rdquo;</text>
+
+  <!-- arrow -->
+  <line x1="700" y1="125" x2="780" y2="125" stroke="#81b64c" stroke-width="2"/>
+  <polygon points="775,118 790,125 775,132" fill="#81b64c"/>
+
+  <!-- chart icon: line chart -->
+  <rect x="800" y="100" width="320" height="50" rx="6"
+        fill="#e8f0d9" stroke="#81b64c" stroke-width="1.2"/>
+  <polyline points="820,140 850,128 880,132 910,118 940,124 970,112 1000,116 1030,108 1060,114 1090,106"
+            fill="none" stroke="#6a9b3a" stroke-width="2"/>
+  <circle cx="1090" cy="106" r="3" fill="#6a9b3a"/>
+
+  <!-- description -->
+  <text x="100" y="180" font-size="13" fill="#5a564a" font-style="italic">resolves to: <tspan fill="#3a382f" font-style="normal" font-weight="700">Series &ldquo;Bond holdings (ZAR mn): non-residents&rdquo; &middot; instrument=R186</tspan></text>
+  <text x="100" y="204" font-size="12" fill="#5a564a">&rarr; 12-year line chart, ZAR mn &middot; provenance: Holdings xlsx + Schedule PDF</text>
+
+  <!-- ============= QUERY 2 ============= -->
+  <rect x="60" y="270" width="1080" height="170" rx="8"
+        fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
+  <rect x="80" y="290" width="600" height="50" rx="6"
+        fill="#fdfcf8" stroke="#dcd8d0" stroke-width="1"/>
+  <text x="100" y="322" font-size="14" font-weight="700"
+        fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">&ldquo;non-resident share of R2030&rdquo;</text>
+
+  <line x1="700" y1="315" x2="780" y2="315" stroke="#81b64c" stroke-width="2"/>
+  <polygon points="775,308 790,315 775,322" fill="#81b64c"/>
+
+  <!-- chart icon: ratio time series (smoother line, with % gridline) -->
+  <rect x="800" y="290" width="320" height="50" rx="6"
+        fill="#e8f0d9" stroke="#81b64c" stroke-width="1.2"/>
+  <line x1="815" y1="320" x2="1110" y2="320" stroke="#a8a098" stroke-width="0.6" stroke-dasharray="2,2"/>
+  <polyline points="820,330 850,322 880,318 910,310 940,312 970,308 1000,302 1030,304 1060,298 1090,302"
+            fill="none" stroke="#6a9b3a" stroke-width="2"/>
+  <text x="1110" y="306" text-anchor="end" font-size="12" font-weight="700" fill="#6a9b3a">%</text>
+
+  <text x="100" y="370" font-size="13" fill="#5a564a" font-style="italic">resolves to: <tspan fill="#3a382f" font-style="normal" font-weight="700">peer % presentation Series &middot; instrument=R2030 &middot; cohort=non-residents</tspan></text>
+  <text x="100" y="394" font-size="12" fill="#5a564a">&rarr; ratio time series &middot; same measurand as ZAR mn version, different units</text>
+
+  <!-- ============= QUERY 3 ============= -->
+  <rect x="60" y="460" width="1080" height="170" rx="8"
+        fill="#ffffff" stroke="#a8a098" stroke-width="1.4"/>
+  <rect x="80" y="480" width="600" height="50" rx="6"
+        fill="#fdfcf8" stroke="#dcd8d0" stroke-width="1"/>
+  <text x="100" y="512" font-size="14" font-weight="700"
+        fill="#3a382f" font-family="'SF Mono', Menlo, Monaco, monospace">&ldquo;who holds the most fixed-rate paper?&rdquo;</text>
+
+  <line x1="700" y1="505" x2="780" y2="505" stroke="#81b64c" stroke-width="2"/>
+  <polygon points="775,498 790,505 775,512" fill="#81b64c"/>
+
+  <!-- chart icon: ranked horizontal bar chart -->
+  <rect x="800" y="480" width="320" height="50" rx="6"
+        fill="#e8f0d9" stroke="#81b64c" stroke-width="1.2"/>
+  <rect x="820" y="488" width="220" height="6" fill="#6a9b3a"/>
+  <rect x="820" y="498" width="170" height="6" fill="#81b64c"/>
+  <rect x="820" y="508" width="120" height="6" fill="#a8a098"/>
+  <rect x="820" y="518" width="80" height="6" fill="#5a564a"/>
+
+  <text x="100" y="560" font-size="13" fill="#5a564a" font-style="italic">resolves to: <tspan fill="#3a382f" font-style="normal" font-weight="700">aggregation across bond-grain Series &middot; bond_type=fixed</tspan></text>
+  <text x="100" y="584" font-size="12" fill="#5a564a">&rarr; ranked bar chart by cohort &middot; sums all fixed-rate bond &times; cohort Series</text>
+
+  <!-- Caption -->
+  <text x="600" y="680" text-anchor="middle" font-size="13" fill="#5a564a" font-style="italic">
+    Each query resolves to a real Series in the bond-grain catalog &mdash; not a synthetic aggregation.
+  </text>
+</svg>
+</div>
+      <ul class="facts">
+        <li>With 456 bond-grain Series live, FSI&rsquo;s <code>/ask</code> and <code>/library</code> surfaces resolve specific bond queries directly &mdash; no synthetic aggregation, no on-the-fly compute.</li>
+        <li>&ldquo;Foreign holdings of R186 over time&rdquo; &rarr; one Series, one chart, one provenance trail back to the source xlsx and the source PDF.</li>
+        <li>&ldquo;Non-resident share of R2030&rdquo; &rarr; the % presentation Series, peer to the ZAR mn version.</li>
+        <li>The catalog gates on <code>min-releases 12</code> so short-coverage bonds (~11 of them) don&rsquo;t mislead chart users with sparse-data lines.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>What this enables &middot; FSI bond-grain queries</span>
+      <span>Per-bond, per-cohort, per-time</span>
+    </footer>
+  </div>
+<script src="/slides/deck.js" defer></script>
+</body>
+</html>
