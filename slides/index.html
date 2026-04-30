@@ -16,7 +16,7 @@
     line-height: 1.5;
   }
   .page {
-    max-width: 1100px;
+    max-width: 900px;
     margin: 0 auto;
   }
   .page-header {
@@ -40,75 +40,101 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-  }
-  .card {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 22px 24px;
-    min-height: 150px;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-    border: 1px solid #ececea;
-    transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
-  }
-  .card-live:hover {
-    transform: translateY(-2px);
-    border-color: #c5d8aa;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-  }
-  .card-num {
-    font-size: 11px;
-    color: #888;
-    letter-spacing: 0.08em;
+
+  details.deck {
     margin-bottom: 12px;
+    border: 1px solid #ececea;
+    border-radius: 8px;
+    background: #ffffff;
+    overflow: hidden;
+  }
+  details.deck > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 20px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    user-select: none;
+    transition: background-color 0.12s ease;
   }
-  .card-num .dot {
+  details.deck > summary::-webkit-details-marker { display: none; }
+  details.deck > summary:hover { background: #faf8f3; }
+  .deck-chevron {
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid #555;
+    border-bottom: 2px solid #555;
+    transform: rotate(-45deg);
+    transition: transform 0.15s ease;
+    flex-shrink: 0;
+  }
+  details.deck[open] > summary .deck-chevron {
+    transform: rotate(45deg);
+  }
+  .deck-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .deck-count {
+    margin-left: auto;
+    font-size: 11px;
+    color: #888;
+    font-family: "SF Mono", Monaco, Menlo, monospace;
+    letter-spacing: 0.04em;
+  }
+
+  .deck-body {
+    border-top: 1px solid #ececea;
+    background: #fbfaf7;
+  }
+  .slide-row {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 14px 20px 14px 50px;
+    border-bottom: 1px solid #ececea;
+    transition: background-color 0.12s ease;
+    position: relative;
+  }
+  .slide-row:last-child { border-bottom: none; }
+  .slide-row:hover { background: #f4f1e8; }
+  .slide-row::before {
+    content: "";
+    position: absolute;
+    left: 28px;
+    top: 22px;
     width: 7px;
     height: 7px;
     border-radius: 50%;
     background: #81b64c;
   }
-  .card-live .card-num { color: #1a1a1a; }
-  .card-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin: 0 0 8px 0;
-    line-height: 1.3;
-  }
-  .card-blurb {
-    font-size: 13px;
-    color: #666;
-    margin: 0 0 auto 0;
-  }
-  .card-meta {
+  .slide-num {
     font-size: 11px;
-    color: #999;
-    margin-top: 16px;
+    color: #888;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
     font-family: "SF Mono", Monaco, Menlo, monospace;
   }
-  .card-placeholder {
-    background: #fbfaf7;
-    border: 1px dashed #d8d4c8;
-    cursor: default;
+  .slide-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 4px 0;
+    line-height: 1.35;
   }
-  .card-placeholder .card-num { color: #b8b0a4; }
-  .card-placeholder .card-num .dot {
-    background: #d8d4c8;
+  .slide-blurb {
+    font-size: 13px;
+    color: #666;
+    margin: 0 0 6px 0;
   }
-  .card-placeholder .card-title {
-    color: #b8b0a4;
-    font-weight: 400;
+  .slide-path {
+    font-size: 11px;
+    color: #999;
+    font-family: "SF Mono", Monaco, Menlo, monospace;
   }
+
   .footer {
     margin-top: 32px;
     padding-top: 16px;
@@ -122,6 +148,8 @@
     body { padding: 24px 16px; }
     .page-title { font-size: 26px; }
     .page-header { flex-direction: column; gap: 4px; align-items: flex-start; }
+    .slide-row { padding-left: 42px; }
+    .slide-row::before { left: 22px; }
   }
 </style>
 </head>
@@ -132,69 +160,76 @@
       <span class="page-subtitle">Mike Trounce &middot; flows &amp; positions</span>
     </header>
 
-    <div class="grid">
-      <a class="card card-live" href="/slides/sa-bond-investor-base">
-        <div class="card-num"><span class="dot"></span>01</div>
-        <h2 class="card-title">Investor base of South African government bonds</h2>
-        <p class="card-blurb">Six-cohort composition, % shares, monthly Dec 2006 &ndash; Feb 2026.</p>
-        <div class="card-meta">/slides/sa-bond-investor-base</div>
-      </a>
-
-      <a class="card card-live" href="/slides/sa-bond-investor-base-zar">
-        <div class="card-num"><span class="dot"></span>02</div>
-        <h2 class="card-title">SA government bonds outstanding by investor cohort</h2>
-        <p class="card-blurb">Same composition in nominal ZAR bn, monthly Jan 2017 &ndash; Feb 2026.</p>
-        <div class="card-meta">/slides/sa-bond-investor-base-zar</div>
-      </a>
-
-      <a class="card card-live" href="/slides/bond-market-supply-demand">
-        <div class="card-num"><span class="dot"></span>03</div>
-        <h2 class="card-title">Bond market: supply and demand in yield space</h2>
-        <p class="card-blurb">Conceptual diagram &mdash; near-vertical supply, upward-sloping demand, animated.</p>
-        <div class="card-meta">/slides/bond-market-supply-demand</div>
-      </a>
-      <a class="card card-live" href="/slides/fiscal-perimeters-nested">
-        <div class="card-num"><span class="dot"></span>04</div>
-        <h2 class="card-title">Government fiscal accounts sit at nested institutional perimeters</h2>
-        <p class="card-blurb">Concept + diagram &mdash; concentric rings of "what counts as the government."</p>
-        <div class="card-meta">/slides/fiscal-perimeters-nested</div>
-      </a>
-      <a class="card card-live" href="/slides/fiscal-perimeters-three-scopes">
-        <div class="card-num"><span class="dot"></span>05</div>
-        <h2 class="card-title">The three SNA fiscal perimeters</h2>
-        <p class="card-blurb">Central / general / public sector compared &mdash; what each covers and where it's used.</p>
-        <div class="card-meta">/slides/fiscal-perimeters-three-scopes</div>
-      </a>
-      <a class="card card-live" href="/slides/picking-fiscal-perimeter">
-        <div class="card-num"><span class="dot"></span>06</div>
-        <h2 class="card-title">Each perimeter answers a different question</h2>
-        <p class="card-blurb">Question &rarr; perimeter mapping for bond-stock, IMF framing, and SOE-footprint questions.</p>
-        <div class="card-meta">/slides/picking-fiscal-perimeter</div>
-      </a>
-      <a class="card card-live" href="/slides/sna-sector-classification">
-        <div class="card-num"><span class="dot"></span>07</div>
-        <h2 class="card-title">Formal SNA / GFSM institutional sector classification</h2>
-        <p class="card-blurb">Reference taxonomy &mdash; the S-codes used by Statistics SA, SARB, IMF.</p>
-        <div class="card-meta">/slides/sna-sector-classification</div>
-      </a>
-      <a class="card card-live" href="/slides/entity-publication-release">
-        <div class="card-num"><span class="dot"></span>08</div>
-        <h2 class="card-title">Each release is named for the period its data describes</h2>
-        <p class="card-blurb">Architecture diagram &mdash; entity (National Treasury) &rarr; publication (Government Bond Holdings, .xlsx) &rarr; many releases, each named for its month-end reference period.</p>
-        <div class="card-meta">/slides/entity-publication-release</div>
-      </a>
-      <div class="card card-placeholder">
-        <div class="card-num"><span class="dot"></span>09</div>
-        <h2 class="card-title">Coming</h2>
+    <details class="deck" open>
+      <summary>
+        <span class="deck-chevron"></span>
+        <span class="deck-name">Flows &amp; Positions</span>
+        <span class="deck-count">6 slides</span>
+      </summary>
+      <div class="deck-body">
+        <a class="slide-row" href="/slides/sa-bond-investor-base">
+          <div class="slide-num">01</div>
+          <h2 class="slide-title">Investor base of South African government bonds</h2>
+          <p class="slide-blurb">Six-cohort composition, % shares, monthly Dec 2006 &ndash; Feb 2026.</p>
+          <div class="slide-path">/slides/sa-bond-investor-base</div>
+        </a>
+        <a class="slide-row" href="/slides/sa-bond-investor-base-zar">
+          <div class="slide-num">02</div>
+          <h2 class="slide-title">SA government bonds outstanding by investor cohort</h2>
+          <p class="slide-blurb">Same composition in nominal ZAR bn, monthly Jan 2017 &ndash; Feb 2026.</p>
+          <div class="slide-path">/slides/sa-bond-investor-base-zar</div>
+        </a>
+        <a class="slide-row" href="/slides/bond-market-supply-demand">
+          <div class="slide-num">03</div>
+          <h2 class="slide-title">Bond market: supply and demand in yield space</h2>
+          <p class="slide-blurb">Conceptual diagram &mdash; near-vertical supply, upward-sloping demand, animated.</p>
+          <div class="slide-path">/slides/bond-market-supply-demand</div>
+        </a>
+        <a class="slide-row" href="/slides/fiscal-perimeters-nested">
+          <div class="slide-num">04</div>
+          <h2 class="slide-title">Government fiscal accounts sit at nested institutional perimeters</h2>
+          <p class="slide-blurb">Concept + diagram &mdash; concentric rings of "what counts as the government."</p>
+          <div class="slide-path">/slides/fiscal-perimeters-nested</div>
+        </a>
+        <a class="slide-row" href="/slides/fiscal-perimeters-three-scopes">
+          <div class="slide-num">05</div>
+          <h2 class="slide-title">The three SNA fiscal perimeters</h2>
+          <p class="slide-blurb">Central / general / public sector compared &mdash; what each covers and where it's used.</p>
+          <div class="slide-path">/slides/fiscal-perimeters-three-scopes</div>
+        </a>
+        <a class="slide-row" href="/slides/picking-fiscal-perimeter">
+          <div class="slide-num">06</div>
+          <h2 class="slide-title">Each perimeter answers a different question</h2>
+          <p class="slide-blurb">Question &rarr; perimeter mapping for bond-stock, IMF framing, and SOE-footprint questions.</p>
+          <div class="slide-path">/slides/picking-fiscal-perimeter</div>
+        </a>
       </div>
-      <div class="card card-placeholder">
-        <div class="card-num"><span class="dot"></span>10</div>
-        <h2 class="card-title">Coming</h2>
+    </details>
+
+    <details class="deck" open>
+      <summary>
+        <span class="deck-chevron"></span>
+        <span class="deck-name">Database Deck</span>
+        <span class="deck-count">2 slides</span>
+      </summary>
+      <div class="deck-body">
+        <a class="slide-row" href="/slides/sna-sector-classification">
+          <div class="slide-num">01</div>
+          <h2 class="slide-title">Formal SNA / GFSM institutional sector classification</h2>
+          <p class="slide-blurb">Reference taxonomy &mdash; the S-codes used by Statistics SA, SARB, IMF.</p>
+          <div class="slide-path">/slides/sna-sector-classification</div>
+        </a>
+        <a class="slide-row" href="/slides/entity-publication-release">
+          <div class="slide-num">02</div>
+          <h2 class="slide-title">Each release is named for the period its data describes</h2>
+          <p class="slide-blurb">Architecture diagram &mdash; entity (National Treasury) &rarr; publication (Government Bond Holdings, .xlsx) &rarr; many releases, each named for its month-end reference period.</p>
+          <div class="slide-path">/slides/entity-publication-release</div>
+        </a>
       </div>
-    </div>
+    </details>
 
     <footer class="footer">
-      <span>8 of 10 published</span>
+      <span>8 slides &middot; 2 decks</span>
       <span>AI-generated</span>
     </footer>
   </div>
