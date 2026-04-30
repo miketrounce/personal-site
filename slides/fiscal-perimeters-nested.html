@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Government fiscal accounts sit at nested institutional perimeters</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f3ef;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+  }
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title {
+    font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a;
+  }
+  .slide-body {
+    display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0;
+  }
+  .slide-body.full { grid-template-columns: 1fr; }
+  .visual-cell {
+    min-height: 0; min-width: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .visual-cell .data-table { width: 100%; }
+  .data-table {
+    width: 100%; border-collapse: collapse; font-size: 14px;
+  }
+  .data-table th, .data-table td {
+    text-align: left; padding: 10px 12px; vertical-align: top;
+    border-bottom: 1px solid #ececea;
+  }
+  .data-table thead th {
+    background: #faf8f3; font-weight: 600; color: #555;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    border-bottom: 1px solid #d8d4c8;
+  }
+  .data-table tbody tr:last-child td { border-bottom: none; }
+  .data-table .code { font-family: "SF Mono", Menlo, Monaco, monospace; font-weight: 600; color: #1a1a1a; white-space: nowrap; }
+  .data-table .indent { padding-left: 28px; color: #555; }
+  .data-table .group-header td {
+    font-weight: 600; background: #fbfaf7; padding-top: 12px; padding-bottom: 8px;
+  }
+  .facts {
+    list-style: none; padding: 0; margin: 0;
+    font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center;
+  }
+  .facts li {
+    padding-left: 18px; position: relative; margin-bottom: 16px;
+  }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; border-radius: 50%; background: #81b64c;
+  }
+  .slide-footer {
+    font-size: 12px; color: #666;
+    border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between;
+  }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+    .data-table { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce</span>
+    </header>
+    <h1 class="slide-title">Government fiscal accounts sit at nested institutional perimeters</h1>
+        <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <!-- Page background tinted to match /library warm-cream surface -->
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <!-- Public sector (outermost, widest perimeter) -->
+  <rect x="60" y="60" width="1080" height="600" rx="14"
+        fill="#ebe8df" stroke="#a8a098" stroke-width="1.5"/>
+
+  <!-- General government -->
+  <rect x="130" y="130" width="940" height="460" rx="12"
+        fill="#ddd6c2" stroke="#98908a" stroke-width="1.5"/>
+
+  <!-- Central government (innermost, bond-issuing core) -->
+  <rect x="200" y="200" width="800" height="320" rx="10"
+        fill="#81b64c" stroke="#6a9b3a" stroke-width="2"/>
+
+  <!-- Public sector label band -->
+  <text x="84" y="94" font-size="14" font-weight="700" letter-spacing="0.18em" fill="#3a382f">PUBLIC SECTOR</text>
+  <text x="84" y="115" font-size="13" fill="#5a564a">+ non-financial public corporations (state-owned enterprises)</text>
+
+  <!-- General government label band -->
+  <text x="154" y="164" font-size="14" font-weight="700" letter-spacing="0.18em" fill="#3a382f">GENERAL GOVERNMENT</text>
+  <text x="154" y="185" font-size="13" fill="#5a564a">+ sub-national governments · social-security funds · extra-budgetary entities  (SNA / GFSM scope)</text>
+
+  <!-- Central government core: name + entity + bond-issuance callout -->
+  <text x="600" y="278" text-anchor="middle" font-size="22" font-weight="700" letter-spacing="0.20em" fill="#ffffff">CENTRAL GOVERNMENT</text>
+  <text x="600" y="312" text-anchor="middle" font-size="14" fill="#ffffff" opacity="0.92">national treasury / state budget — taxes in, voted expenditure out</text>
+  <text x="600" y="395" text-anchor="middle" font-size="14" font-weight="600" fill="#ffffff" letter-spacing="0.04em">↓  this is the only scope that issues sovereign bonds  ↓</text>
+  <text x="600" y="424" text-anchor="middle" font-size="13" fill="#ffffff" opacity="0.85">gross borrowing requirement = central-government deficit + maturing debt</text>
+
+  <!-- Bottom caption -->
+  <text x="600" y="630" text-anchor="middle" font-size="13" fill="#5a564a">
+    Each scope prints its own balance and debt stock. Country taxonomies may insert intermediate scopes; the strict nesting always holds.
+  </text>
+</svg>
+</div>
+      <ul class="facts">
+        <li>Fiscal accounts are reported at <strong>nested institutional perimeters</strong> &mdash; concentric rings of "what counts as the government." Each perimeter prints its own deficit, debt stock, and fiscal balance because each draws the boundary in a different place.</li>
+        <li>The narrowest ring is the central treasury; outer rings progressively absorb sub-national governments, social-security funds, then state-owned enterprises.</li>
+        <li>Strict nesting always holds &mdash; every unit inside an inner ring is also inside every outer ring.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>Conceptual diagram &middot; SNA 2008 / GFSM 2014</span>
+      <span>Country-agnostic</span>
+    </footer>
+  </div>
+</body>
+</html>
