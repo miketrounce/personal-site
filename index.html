@@ -167,166 +167,6 @@
         }
       }
 
-      /* ── Unlock input ── */
-      .pw-wrap {
-        display: none;
-        margin-top: 20px;
-        opacity: 0;
-        animation: fadeInUp 0.4s ease forwards;
-      }
-
-      .pw-wrap.visible { display: block; }
-
-      .page.expanded .pw-wrap {
-        margin-top: 16px;
-      }
-
-      .pw-input {
-        background: transparent;
-        border: none;
-        border-bottom: 2px solid var(--border);
-        color: var(--text);
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 1rem;
-        padding: 6px 0;
-        outline: none;
-        width: 260px;
-        letter-spacing: 0.08em;
-        caret-color: var(--accent);
-        transition: border-color 0.2s;
-      }
-
-      .pw-input::placeholder {
-        color: var(--muted);
-        opacity: 0.5;
-        font-size: 0.85rem;
-        letter-spacing: 0.02em;
-        transition: color 0.15s, opacity 0.15s;
-      }
-
-      .pw-input:hover::placeholder {
-        color: var(--text);
-        opacity: 1;
-      }
-
-      .pw-input:focus {
-        border-color: var(--muted);
-      }
-
-      .pw-input.error {
-        animation: shake 0.4s ease;
-        border-color: #c44;
-      }
-
-      .pw-hint {
-        font-size: 0.7rem;
-        color: var(--muted);
-        opacity: 0.4;
-        margin: 8px 0 0;
-        line-height: 1.4;
-        transition: opacity 0.3s;
-      }
-
-      .pw-hint.glow {
-        opacity: 1;
-      }
-
-      .pw-status {
-        font-size: 0.8rem;
-        font-weight: 600;
-        margin: 10px 0 0;
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-
-      .pw-status.visible {
-        opacity: 1;
-      }
-
-      .pw-status.success {
-        color: var(--accent);
-      }
-
-      .pw-status.error {
-        color: #c44;
-      }
-
-      @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        20%, 60% { transform: translateX(-6px); }
-        40%, 80% { transform: translateX(6px); }
-      }
-
-      /* ── Crossfade transition ── */
-      .page.fading-out {
-        animation: fadeOut 0.6s ease forwards;
-      }
-
-      @keyframes fadeOut {
-        to { opacity: 0; }
-      }
-
-      /* ── Inner page (post-password) ── */
-      .inner-landing {
-        display: none;
-        min-height: 100vh;
-        opacity: 0;
-        animation: fadeInUp 0.8s ease 0.3s forwards;
-      }
-
-      .inner-landing.visible {
-        display: block;
-      }
-
-      .inner-page {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-      }
-
-      .inner-greeting {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 2.8rem;
-        font-weight: 900;
-        color: var(--text);
-        opacity: 0;
-        animation: fadeInUp 0.6s ease 0.5s forwards;
-      }
-
-      .inner-name {
-        font-size: 1rem;
-        color: var(--muted);
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        opacity: 0;
-        animation: fadeInUp 0.5s ease 0.9s forwards;
-      }
-
-      .inner-pulse {
-        width: 40px;
-        height: 2px;
-        background: var(--accent);
-        border-radius: 1px;
-        margin: 8px 0;
-        opacity: 0;
-        animation: fadeInUp 0.5s ease 1.2s forwards, breathe 3s ease-in-out 1.7s infinite;
-      }
-
-      @keyframes breathe {
-        0%, 100% { opacity: 0.4; transform: scaleX(1); }
-        50% { opacity: 1; transform: scaleX(1.5); }
-      }
-
-      .inner-msg {
-        font-size: 1rem;
-        color: var(--muted);
-        font-weight: 400;
-        opacity: 0;
-        animation: fadeInUp 0.5s ease 1.5s forwards;
-      }
-
       /* ── Detail panel (right) ── */
       .detail {
         display: none;
@@ -492,8 +332,6 @@
           font-size: 1.1rem;
         }
 
-        .pw-wrap { margin-top: 16px; }
-
         .page.expanded {
           flex-direction: column;
           align-items: flex-start;
@@ -544,10 +382,6 @@
         .detail-grid {
           grid-template-columns: 1fr 1fr;
         }
-
-        .inner-greeting {
-          font-size: 2rem;
-        }
       }
     </style>
   </head>
@@ -575,12 +409,6 @@
         </div>
 
         <a class="more-link" id="more-btn">Expand →</a>
-
-        <div class="pw-wrap visible" id="pw-wrap" style="animation-delay: 2s;">
-          <input type="email" class="pw-input" id="pw-input" placeholder="email" autocomplete="email" spellcheck="false">
-          <p class="pw-hint" id="pw-hint">enter your email to view</p>
-          <p class="pw-status" id="pw-status"></p>
-        </div>
       </div>
 
       <!-- About (shown on Expand click) -->
@@ -703,101 +531,10 @@
 
     </main>
 
-    <!-- Inner landing (shown after email gate) -->
-    <div class="inner-landing" id="inner-landing"></div>
-
     <script>
-      const page     = document.getElementById('page');
-      const pwInput  = document.getElementById('pw-input');
-      const inner    = document.getElementById('inner-landing');
-      const pwHint   = document.getElementById('pw-hint');
-      const pwStatus = document.getElementById('pw-status');
-
-      // ── More button ──
-      function expand() {
-        page.classList.add('expanded');
-      }
-      document.getElementById('more-btn').addEventListener('click', expand);
-
-      // ── HubSpot config ──
-      const HUBSPOT_PORTAL_ID = '5848423';
-      const HUBSPOT_FORM_GUID = '79391f64-6994-4465-82bd-bbb1910dfda9';
-
-      function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-
-      function showStatus(msg, type) {
-        pwStatus.textContent = msg;
-        pwStatus.className = 'pw-status visible ' + type;
-        if (type === 'success') {
-          pwHint.style.display = 'none';
-        }
-      }
-
-      async function revealInner() {
-        const res = await fetch('/inner.html');
-        const html = await res.text();
-
-        page.classList.add('fading-out');
-        setTimeout(() => {
-          page.style.display = 'none';
-          inner.innerHTML = html;
-          inner.classList.add('visible');
-          inner.querySelectorAll('script').forEach(old => {
-            const s = document.createElement('script');
-            s.textContent = old.textContent;
-            old.replaceWith(s);
-          });
-        }, 600);
-      }
-
-      async function submitContact(email) {
-        const url = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fields: [{ name: 'email', value: email }]
-          })
-        });
-        if (!res.ok) throw new Error('Submit failed');
-      }
-
-      async function handleUnlock(value) {
-        if (!isEmail(value)) {
-          pwInput.classList.add('error');
-          pwInput.value = '';
-          setTimeout(() => pwInput.classList.remove('error'), 500);
-          return;
-        }
-
-        pwInput.disabled = true;
-        try {
-          await submitContact(value);
-          try { localStorage.setItem('mt-access', '1'); } catch(_) {}
-          await revealInner();
-        } catch (_) {
-          pwInput.disabled = false;
-          showStatus('Something went wrong. Try again.', 'error');
-        }
-      }
-
-      pwInput.addEventListener('focus', function() {
-        pwHint.classList.add('glow');
-        setTimeout(() => pwHint.classList.remove('glow'), 1200);
+      document.getElementById('more-btn').addEventListener('click', function() {
+        document.getElementById('page').classList.add('expanded');
       });
-
-      pwInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && pwInput.value.trim()) {
-          handleUnlock(pwInput.value.trim());
-        }
-      });
-
-      // Auto-access if email previously submitted
-      (function() {
-        try {
-          if (localStorage.getItem('mt-access')) revealInner();
-        } catch(_) {}
-      })();
     </script>
 
   </body>
