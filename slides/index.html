@@ -98,6 +98,22 @@
     color: #a8a098;
     margin: 28px 0 10px 4px;
   }
+  .subsection-heading {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #c5c0b3;
+    margin: 16px 0 8px 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .subsection-heading::before,
+  .subsection-heading::after {
+    content: "·";
+    color: #c5c0b3;
+  }
   .slide-row {
     display: block;
     text-decoration: none;
@@ -221,7 +237,69 @@
       </div>
     </details>
 
+    <h2 class="section-heading">Synthesis layer</h2>
+
+    <details class="deck">
+      <summary>
+        <span class="deck-chevron"></span>
+        <span class="deck-name">Bond-grain layer</span>
+        <span class="deck-count">8 slides</span>
+      </summary>
+      <div class="deck-body">
+        <a class="slide-row" href="/slides/bondgrain-overview">
+          <div class="slide-num">01</div>
+          <h2 class="slide-title">Two publications, joined: a per-bond view of South Africa&rsquo;s bond market.</h2>
+          <p class="slide-blurb">Overview &mdash; the third deck is about what emerges from joining Schedule + Holdings: 38 bonds &times; 6 cohorts &times; 2 presentations = 456 Series · 30,572 observations.</p>
+          <div class="slide-path">/slides/bondgrain-overview</div>
+        </a>
+        <a class="slide-row" href="/slides/bondgrain-canonical-code">
+          <div class="slide-num">02</div>
+          <h2 class="slide-title">Same bond, two publications, two code conventions. Canonical wins.</h2>
+          <p class="slide-blurb">Join key &mdash; Schedule prints three-maturity bonds (R2044, R2048, I2050) as three rows; Holdings aggregates at the canonical code. canonical_bond_code resolves them so the join works.</p>
+          <div class="slide-path">/slides/bondgrain-canonical-code</div>
+        </a>
+        <a class="slide-row" href="/slides/bondgrain-join">
+          <div class="slide-num">03</div>
+          <h2 class="slide-title">BondSchedule + BondHolding = per-bond &times; per-cohort &times; per-time.</h2>
+          <p class="slide-blurb">The join &mdash; reference fields (coupon, redemption, issue date) from BondSchedule join per-cohort ZAR holdings from BondHolding on canonical_bond_code = bond_code.</p>
+          <div class="slide-path">/slides/bondgrain-join</div>
+        </a>
+        <a class="slide-row" href="/slides/bondgrain-r186-lifecycle">
+          <div class="slide-num">04</div>
+          <h2 class="slide-title">R186: 27 years from issue to redemption, 89 monthly snapshots in between.</h2>
+          <p class="slide-blurb">Worked example &mdash; R186 issued 22 May 1998 at 10.5% coupon, redeemed 21 Dec 2025. 345 BondSchedule rows, 895 BondHolding rows, 12 Series telling the full lifecycle.</p>
+          <div class="slide-path">/slides/bondgrain-r186-lifecycle</div>
+        </a>
+        <a class="slide-row" href="/slides/bondgrain-derive-pipeline">
+          <div class="slide-num">05</div>
+          <h2 class="slide-title">derive_bond_grain_holdings: BondHolding rows &rarr; 456 Series.</h2>
+          <p class="slide-blurb">Derivation pipeline &mdash; walks BondHolding, aggregates 9 source-holders to 6 cohorts, emits two presentations (ZAR mn, %) per (bond, cohort). Idempotent. min-releases 12 gate.</p>
+          <div class="slide-path">/slides/bondgrain-derive-pipeline</div>
+        </a>
+        <a class="slide-row" href="/slides/bondgrain-series-catalog">
+          <div class="slide-num">06</div>
+          <h2 class="slide-title">456 Series, organised by (bond, cohort, presentation).</h2>
+          <p class="slide-blurb">Series catalog &mdash; 38 instruments &times; 6 cohorts &times; 2 presentations. 228 ZAR mn + 228 %. Peer presentations of the same measurand in different units.</p>
+          <div class="slide-path">/slides/bondgrain-series-catalog</div>
+        </a>
+        <a class="slide-row" href="/slides/bondgrain-audit-row">
+          <div class="slide-num">07</div>
+          <h2 class="slide-title">One admin row, every cohort and every bond, reconciled.</h2>
+          <p class="slide-blurb">Live admin surface &mdash; the bond &times; cohort matrix per Holdings release, with recon-to-Schedule check inline. Single API call returns cohorts, bonds, totals, palette, recon delta.</p>
+          <div class="slide-path">/slides/bondgrain-audit-row</div>
+        </a>
+        <a class="slide-row" href="/slides/bondgrain-fsi-queries">
+          <div class="slide-num">08</div>
+          <h2 class="slide-title">Bond-grain queries on Flow Superintelligence.</h2>
+          <p class="slide-blurb">What this enables &mdash; queries like &ldquo;foreign holdings of R186 over time&rdquo; or &ldquo;non-resident share of R2030&rdquo; resolve to real bond-grain Series, not synthetic aggregations.</p>
+          <div class="slide-path">/slides/bondgrain-fsi-queries</div>
+        </a>
+      </div>
+    </details>
+
     <h2 class="section-heading">Data Wrangling</h2>
+
+    <h3 class="subsection-heading"><span>Bonds</span></h3>
 
     <details class="deck">
       <summary>
@@ -339,64 +417,7 @@
       </div>
     </details>
 
-    <details class="deck">
-      <summary>
-        <span class="deck-chevron"></span>
-        <span class="deck-name">Bond-grain layer</span>
-        <span class="deck-count">8 slides</span>
-      </summary>
-      <div class="deck-body">
-        <a class="slide-row" href="/slides/bondgrain-overview">
-          <div class="slide-num">01</div>
-          <h2 class="slide-title">Two publications, joined: a per-bond view of South Africa&rsquo;s bond market.</h2>
-          <p class="slide-blurb">Overview &mdash; the third deck is about what emerges from joining Schedule + Holdings: 38 bonds &times; 6 cohorts &times; 2 presentations = 456 Series · 30,572 observations.</p>
-          <div class="slide-path">/slides/bondgrain-overview</div>
-        </a>
-        <a class="slide-row" href="/slides/bondgrain-canonical-code">
-          <div class="slide-num">02</div>
-          <h2 class="slide-title">Same bond, two publications, two code conventions. Canonical wins.</h2>
-          <p class="slide-blurb">Join key &mdash; Schedule prints three-maturity bonds (R2044, R2048, I2050) as three rows; Holdings aggregates at the canonical code. canonical_bond_code resolves them so the join works.</p>
-          <div class="slide-path">/slides/bondgrain-canonical-code</div>
-        </a>
-        <a class="slide-row" href="/slides/bondgrain-join">
-          <div class="slide-num">03</div>
-          <h2 class="slide-title">BondSchedule + BondHolding = per-bond &times; per-cohort &times; per-time.</h2>
-          <p class="slide-blurb">The join &mdash; reference fields (coupon, redemption, issue date) from BondSchedule join per-cohort ZAR holdings from BondHolding on canonical_bond_code = bond_code.</p>
-          <div class="slide-path">/slides/bondgrain-join</div>
-        </a>
-        <a class="slide-row" href="/slides/bondgrain-r186-lifecycle">
-          <div class="slide-num">04</div>
-          <h2 class="slide-title">R186: 27 years from issue to redemption, 89 monthly snapshots in between.</h2>
-          <p class="slide-blurb">Worked example &mdash; R186 issued 22 May 1998 at 10.5% coupon, redeemed 21 Dec 2025. 345 BondSchedule rows, 895 BondHolding rows, 12 Series telling the full lifecycle.</p>
-          <div class="slide-path">/slides/bondgrain-r186-lifecycle</div>
-        </a>
-        <a class="slide-row" href="/slides/bondgrain-derive-pipeline">
-          <div class="slide-num">05</div>
-          <h2 class="slide-title">derive_bond_grain_holdings: BondHolding rows &rarr; 456 Series.</h2>
-          <p class="slide-blurb">Derivation pipeline &mdash; walks BondHolding, aggregates 9 source-holders to 6 cohorts, emits two presentations (ZAR mn, %) per (bond, cohort). Idempotent. min-releases 12 gate.</p>
-          <div class="slide-path">/slides/bondgrain-derive-pipeline</div>
-        </a>
-        <a class="slide-row" href="/slides/bondgrain-series-catalog">
-          <div class="slide-num">06</div>
-          <h2 class="slide-title">456 Series, organised by (bond, cohort, presentation).</h2>
-          <p class="slide-blurb">Series catalog &mdash; 38 instruments &times; 6 cohorts &times; 2 presentations. 228 ZAR mn + 228 %. Peer presentations of the same measurand in different units.</p>
-          <div class="slide-path">/slides/bondgrain-series-catalog</div>
-        </a>
-        <a class="slide-row" href="/slides/bondgrain-audit-row">
-          <div class="slide-num">07</div>
-          <h2 class="slide-title">One admin row, every cohort and every bond, reconciled.</h2>
-          <p class="slide-blurb">Live admin surface &mdash; the bond &times; cohort matrix per Holdings release, with recon-to-Schedule check inline. Single API call returns cohorts, bonds, totals, palette, recon delta.</p>
-          <div class="slide-path">/slides/bondgrain-audit-row</div>
-        </a>
-        <a class="slide-row" href="/slides/bondgrain-fsi-queries">
-          <div class="slide-num">08</div>
-          <h2 class="slide-title">Bond-grain queries on Flow Superintelligence.</h2>
-          <p class="slide-blurb">What this enables &mdash; queries like &ldquo;foreign holdings of R186 over time&rdquo; or &ldquo;non-resident share of R2030&rdquo; resolve to real bond-grain Series, not synthetic aggregations.</p>
-          <div class="slide-path">/slides/bondgrain-fsi-queries</div>
-        </a>
-      </div>
-    </details>
-
+    <h3 class="subsection-heading"><span>Fiscal</span></h3>
 
     <details class="deck">
       <summary>
