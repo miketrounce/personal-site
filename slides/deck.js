@@ -37,6 +37,34 @@
       {
         "slug": "entity-publication-release",
         "title": "Each release is named for the period its data describes"
+      },
+      {
+        "slug": "holdings-sheet-structure",
+        "title": "Sheet 1 is the time series. Sheets 2+ are the cross-section."
+      },
+      {
+        "slug": "holdings-xls-vs-xlsx",
+        "title": "Pre-2023 files are .xls. The loader converts before parsing."
+      },
+      {
+        "slug": "holdings-nine-to-six-cohorts",
+        "title": "Nine source-holders collapse to six canonical cohorts."
+      },
+      {
+        "slug": "holdings-bond-grain-unpacking",
+        "title": "One cell of Sheets 2+ becomes one BondHolding row."
+      },
+      {
+        "slug": "holdings-sukuk-and-infrastructure",
+        "title": "The xlsx grew new sheets in 2024 — Sukuk and Infrastructure."
+      },
+      {
+        "slug": "holdings-recon-vs-schedule",
+        "title": "Holdings sums must match the Schedule's outstanding stock."
+      },
+      {
+        "slug": "holdings-loader-pipeline",
+        "title": "The full loader pipeline, end to end."
       }
     ]
   }
