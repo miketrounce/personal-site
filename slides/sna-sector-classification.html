@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formal SNA / GFSM institutional sector classification</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f3ef;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+  }
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title {
+    font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a;
+  }
+  .slide-body {
+    display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0;
+  }
+  .slide-body.full { grid-template-columns: 1fr; }
+  .visual-cell {
+    min-height: 0; min-width: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .visual-cell .data-table { width: 100%; }
+  .data-table {
+    width: 100%; border-collapse: collapse; font-size: 14px;
+  }
+  .data-table th, .data-table td {
+    text-align: left; padding: 10px 12px; vertical-align: top;
+    border-bottom: 1px solid #ececea;
+  }
+  .data-table thead th {
+    background: #faf8f3; font-weight: 600; color: #555;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    border-bottom: 1px solid #d8d4c8;
+  }
+  .data-table tbody tr:last-child td { border-bottom: none; }
+  .data-table .code { font-family: "SF Mono", Menlo, Monaco, monospace; font-weight: 600; color: #1a1a1a; white-space: nowrap; }
+  .data-table .indent { padding-left: 28px; color: #555; }
+  .data-table .group-header td {
+    font-weight: 600; background: #fbfaf7; padding-top: 12px; padding-bottom: 8px;
+  }
+  .facts {
+    list-style: none; padding: 0; margin: 0;
+    font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center;
+  }
+  .facts li {
+    padding-left: 18px; position: relative; margin-bottom: 16px;
+  }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; border-radius: 50%; background: #81b64c;
+  }
+  .slide-footer {
+    font-size: 12px; color: #666;
+    border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between;
+  }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+    .data-table { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce</span>
+    </header>
+    <h1 class="slide-title">Formal SNA / GFSM institutional sector classification</h1>
+        <div class="slide-body full">
+      <div class="visual-cell">
+        <table class="data-table" style="font-size:13px;">
+          <thead>
+            <tr><th style="width:120px;">Code</th><th>Institutional sector</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="code">S.11</td><td>Non-financial corporations</td><td>&mdash;</td></tr>
+            <tr><td class="code">S.12</td><td>Financial corporations</td><td>S.121-S.126: central bank, deposit-takers, MMFs, non-MMF funds, insurers, pension funds</td></tr>
+            <tr class="group-header">
+              <td class="code">S.13</td><td>General government</td><td>The aggregate framework headline (SNA / GFSM)</td>
+            </tr>
+            <tr><td class="code indent">S.1311</td><td>Central government</td><td>The bond-issuing perimeter</td></tr>
+            <tr><td class="code indent">S.1312</td><td>State government</td><td>Sub-national level above local</td></tr>
+            <tr><td class="code indent">S.1313</td><td>Local government</td><td>Smallest administrative areas</td></tr>
+            <tr><td class="code indent">S.1314</td><td>Social security funds</td><td>Compulsory social-insurance contributions</td></tr>
+            <tr><td class="code">S.14</td><td>Households</td><td>&mdash;</td></tr>
+            <tr><td class="code">S.15</td><td>Non-profit institutions serving households (NPISH)</td><td>&mdash;</td></tr>
+            <tr><td class="code">S.1N</td><td>Non-residents (rest of world)</td><td>&mdash;</td></tr>
+            <tr class="group-header">
+              <td class="code"><strong>PS</strong></td>
+              <td><strong>Public sector</strong></td>
+              <td>GFSM 2014 control-based <em>cross-cut</em>: S.13 + public corporations within S.11 and S.12. Not a strict SNA code.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <footer class="slide-footer">
+      <span>Source: SNA 2008 / GFSM 2014; used by Statistics SA, SARB, IMF</span>
+      <span>Reference taxonomy</span>
+    </footer>
+  </div>
+</body>
+</html>
