@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Where bond-market shocks land: yields move, quantities don't.</title>
+<title>Where bond-market shocks land: yields adjust on demand, quantities on supply.</title>
 <style>
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -78,7 +78,7 @@
       <span class="ai-label">AI-generated</span>
       <span>Mike Trounce &middot; Flows &amp; positions &mdash; concepts</span>
     </header>
-    <h1 class="slide-title">Where bond-market shocks land: yields move, quantities don't.</h1>
+    <h1 class="slide-title">Where bond-market shocks land: yields adjust on demand, quantities on supply.</h1>
     <div class="slide-body">
       <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
   <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
@@ -98,63 +98,51 @@
   <text x="134" y="73" font-size="12" fill="#5a564a" text-anchor="end">yield</text>
   <text x="134" y="635" font-size="12" fill="#5a564a" text-anchor="end">0</text>
 
-  <!-- Baseline supply: NEAR-VERTICAL, slightly tilted. From (470, 600) to (510, 100) -->
-  <line x1="470" y1="600" x2="510" y2="100" stroke="#81b64c" stroke-width="2"/>
-  <text x="520" y="98" font-size="14" font-weight="700" fill="#6a9b3a">S</text>
+  <!-- Baseline supply: NEAR-VERTICAL, slight downward tilt in Y-space (issuers issue more at lower yields).
+       From (470, 100) to (510, 600). -->
+  <line x1="470" y1="100" x2="510" y2="600" stroke="#81b64c" stroke-width="2"/>
+  <text x="462" y="98" font-size="14" font-weight="700" fill="#6a9b3a" text-anchor="end">S</text>
 
   <!-- Baseline demand: upward-sloping (in Y-space). From (200, 580) to (880, 140) -->
   <line x1="200" y1="580" x2="880" y2="140" stroke="#6a9b3a" stroke-width="2"/>
   <text x="888" y="138" font-size="14" font-weight="700" fill="#6a9b3a">D</text>
 
   <!-- Original equilibrium intersection.
-       S: x = 470 + (510-470)/(100-600)*(y-600) = 470 + (-0.08)(y-600) = 470 - 0.08(y-600)
-          So x = 518 - 0.08*y. Equivalently y = (518 - x) / 0.08
-       D: y = 580 + (140-580)/(880-200)*(x-200) = 580 - 0.647*(x-200)
-       Solve: from S, x = 518 - 0.08*y → y = (518 - x)/0.08 = 6475 - 12.5x... that's off; let me re-do.
-       Better: param S as y on x. Slope (100-600)/(510-470) = -500/40 = -12.5.  y = 600 - 12.5*(x-470).
-       Set equal to D: 600 - 12.5(x-470) = 580 - 0.647(x-200)
-       600 - 12.5x + 5875 = 580 - 0.647x + 129.4
-       6475 - 12.5x = 709.4 - 0.647x
-       6475 - 709.4 = 12.5x - 0.647x = 11.853x
-       5765.6 / 11.853 = 486.4
-       y = 600 - 12.5*(486.4-470) = 600 - 12.5*16.4 = 600 - 205 = 395
-       Equilibrium ~ (486, 395) -->
-  <circle cx="486" cy="395" r="6" fill="#3a382f" stroke="#fdfcf8" stroke-width="1.5"/>
-  <line x1="486" y1="395" x2="486" y2="620" stroke="#a8a098" stroke-width="1" stroke-dasharray="3,3"/>
-  <line x1="486" y1="395" x2="140" y2="395" stroke="#a8a098" stroke-width="1" stroke-dasharray="3,3"/>
-  <text x="486" y="640" text-anchor="middle" font-size="12" fill="#5a564a">Q*</text>
-  <text x="134" y="400" text-anchor="end" font-size="12" fill="#5a564a">Y*</text>
+       S: pixel slope (600-100)/(510-470) = +12.5. y = 100 + 12.5*(x-470) = 12.5x - 5775.
+       D: pixel slope (140-580)/(880-200) = -0.6471. y = 580 - 0.6471*(x-200) = -0.6471x + 709.4.
+       Set equal: 12.5x - 5775 = -0.6471x + 709.4 → 13.1471x = 6484.4 → x = 493.2, y = 390.3.
+       Equilibrium ~ (493, 390). -->
+  <circle cx="493" cy="390" r="6" fill="#3a382f" stroke="#fdfcf8" stroke-width="1.5"/>
+  <line x1="493" y1="390" x2="493" y2="620" stroke="#a8a098" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="493" y1="390" x2="140" y2="390" stroke="#a8a098" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="493" y="640" text-anchor="middle" font-size="12" fill="#5a564a">Q*</text>
+  <text x="134" y="395" text-anchor="end" font-size="12" fill="#5a564a">Y*</text>
 
-  <!-- =========== SUPPLY SHOCK (gold): vertical supply shifts right by ~80px ============ -->
-  <line x1="550" y1="600" x2="590" y2="100" stroke="#a87f1f" stroke-width="1.6" stroke-dasharray="6,4"/>
-  <text x="600" y="98" font-size="13" font-weight="700" fill="#a87f1f">S&prime;</text>
-  <!-- New equilibrium with shifted supply: S' has same slope -12.5 through (550,600).
-       y = 600 - 12.5(x-550). D: y = 580 - 0.647(x-200)
-       600 - 12.5x + 6875 = 580 - 0.647x + 129.4
-       7475 - 12.5x = 709.4 - 0.647x → 6765.6 = 11.853x → x=570.8
-       y = 600 - 12.5*20.8 = 600 - 260 = 340 (yield went UP since y-axis grows up means lower y-pixel → higher yield. Yes.)
-       Wait: y=340 vs original y=395. In SVG smaller y is higher up. Yield axis grows upward means higher yield = smaller y-pixel. So y=340 IS higher yield than y=395. Good. -->
-  <circle cx="571" cy="340" r="5" fill="#a87f1f" stroke="#fdfcf8" stroke-width="1.5"/>
+  <!-- =========== SUPPLY SHOCK (gold): supply shifts right by ~80px ============ -->
+  <line x1="550" y1="100" x2="590" y2="600" stroke="#a87f1f" stroke-width="1.6" stroke-dasharray="6,4"/>
+  <text x="542" y="98" font-size="13" font-weight="700" fill="#a87f1f" text-anchor="end">S&prime;</text>
+  <!-- New eq with shifted S: y = 100 + 12.5*(x-550) = 12.5x - 6775.
+       Intersect D: 12.5x - 6775 = -0.6471x + 709.4 → 13.1471x = 7484.4 → x = 569.3, y = 341.3.
+       So eq ~(569, 341). ΔQ = +76 px (large), ΔY = -49 px (yield rose modestly along D). -->
+  <circle cx="569" cy="341" r="5" fill="#a87f1f" stroke="#fdfcf8" stroke-width="1.5"/>
 
   <!-- =========== DEMAND SHOCK (red): demand shifts left ============ -->
-  <!-- Original D from (200, 580) to (880, 140). Shift LEFT by 120 in x: (80, 580) to (760, 140). -->
+  <!-- Original D (200, 580) to (880, 140). Shifted LEFT by 120 in x: (80, 580) to (760, 140). -->
   <line x1="80" y1="580" x2="760" y2="140" stroke="#a83a3a" stroke-width="1.6" stroke-dasharray="6,4"/>
   <text x="768" y="138" font-size="13" font-weight="700" fill="#a83a3a">D&prime;</text>
-  <!-- New equilibrium with shifted D: D': y = 580 - 0.647*(x-80) = 580 + 51.8 - 0.647x = 631.8 - 0.647x
-       intersect baseline S: y = 600 - 12.5(x-470) = 600 + 5875 - 12.5x = 6475 - 12.5x
-       6475 - 12.5x = 631.8 - 0.647x → 5843.2 = 11.853x → x = 493.0
-       y = 600 - 12.5*23 = 600 - 287.5 = 312.5
-       So new eq ~(493, 312). Q barely moved (486→493), Y dropped pixel (=yield up). -->
-  <circle cx="493" cy="312" r="5" fill="#a83a3a" stroke="#fdfcf8" stroke-width="1.5"/>
+  <!-- New eq with shifted D: D' y = -0.6471x + 631.8.
+       Intersect baseline S (y = 12.5x - 5775): 12.5x - 5775 = -0.6471x + 631.8 → 13.1471x = 6406.8 → x = 487.3, y = 316.4.
+       So eq ~(487, 316). Q barely moved (493→487), Y rose by 74 px — sharply. -->
+  <circle cx="487" cy="316" r="5" fill="#a83a3a" stroke="#fdfcf8" stroke-width="1.5"/>
 
   <!-- Annotations for the two scenarios -->
   <g font-size="12" fill="#a87f1f">
     <text x="640" y="345" font-weight="700">supply shock</text>
-    <text x="640" y="362">&Delta;Y &uarr;&uarr;, &Delta;Q &uarr;</text>
+    <text x="640" y="362">&Delta;Q &uarr;&uarr;, &Delta;Y &uarr;</text>
   </g>
   <g font-size="12" fill="#a83a3a">
     <text x="365" y="305" font-weight="700">demand shock</text>
-    <text x="365" y="322">&Delta;Y &uarr;, &Delta;Q &asymp; 0</text>
+    <text x="365" y="322">&Delta;Y &uarr;&uarr;, &Delta;Q &asymp; 0</text>
   </g>
 
   <!-- ========== LEGEND ========== -->
@@ -166,23 +154,23 @@
 
   <line x1="985" y1="195" x2="1015" y2="195" stroke="#a87f1f" stroke-width="1.6" stroke-dasharray="6,4"/>
   <text x="1023" y="199" font-size="12" fill="#3a382f">supply shock</text>
-  <text x="985" y="216" font-size="12" fill="#5a564a">&nbsp;&nbsp;&nbsp;Y rises sharply</text>
+  <text x="985" y="216" font-size="12" fill="#5a564a">&nbsp;&nbsp;&nbsp;quantity adjusts</text>
 
   <line x1="985" y1="240" x2="1015" y2="240" stroke="#a83a3a" stroke-width="1.6" stroke-dasharray="6,4"/>
   <text x="1023" y="244" font-size="12" fill="#3a382f">demand shock</text>
-  <text x="985" y="261" font-size="12" fill="#5a564a">&nbsp;&nbsp;&nbsp;Q barely moves</text>
+  <text x="985" y="261" font-size="12" fill="#5a564a">&nbsp;&nbsp;&nbsp;yield adjusts</text>
 
 </svg>
 </div>
       <ul class="facts">
         <li>Sovereign bond supply is <strong>near-vertical</strong> &mdash; issuance is determined by fiscal needs (deficits, refinancing, debt management), not by yield in the short run.</li>
-        <li>A <strong>supply shock</strong> (e.g., unexpected deficit financing) shifts the vertical supply curve right. Yield rises sharply; quantity rises slightly.</li>
-        <li>A <strong>demand shock</strong> (e.g., foreign investors selling) shifts the upward demand curve left. Yield rises; quantity is essentially <strong>unchanged</strong> because supply is vertical.</li>
-        <li>In both cases, yields take most of the adjustment. <strong>Quantities mostly tell you what supply did, not what demand did.</strong></li>
+        <li>A <strong>supply shock</strong> (e.g., unexpected deficit financing) shifts the supply curve right. Quantity rises by the size of the shift; yield rises modestly along the demand curve.</li>
+        <li>A <strong>demand shock</strong> (e.g., foreign investors selling) shifts the demand curve left. Yield rises sharply; quantity is essentially <strong>unchanged</strong> because supply is vertical.</li>
+        <li>Yields adjust on every shock; quantities only move when supply does. <strong>Quantities tell you what supply did, not what demand did.</strong></li>
       </ul>
     </div>
     <footer class="slide-footer">
-      <span>Shock incidence &middot; vertical supply, elastic demand</span>
+      <span>Shock incidence &middot; near-vertical supply, upward-sloping demand</span>
       <span>Slide 06 of 7</span>
     </footer>
   </div>
