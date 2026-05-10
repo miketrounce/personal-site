@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The signal's blind spots</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f3ef;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+  }
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title {
+    font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a;
+  }
+  .slide-body {
+    display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0;
+  }
+  .visual-cell {
+    min-height: 0; min-width: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .facts {
+    list-style: none; padding: 0; margin: 0;
+    font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center;
+  }
+  .facts li {
+    padding-left: 18px; position: relative; margin-bottom: 16px;
+  }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; border-radius: 50%; background: #81b64c;
+  }
+  .slide-footer {
+    font-size: 12px; color: #666;
+    border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between;
+  }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce &middot; Fund allocation as a positioning signal</span>
+    </header>
+    <h1 class="slide-title">The signal is precise, narrow, and lagged. Know its blind spots.</h1>
+    <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <!-- TOP PANEL: scale of dedicated funds vs other foreign holders -->
+  <text x="600" y="50" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="0.10em" fill="#5a564a">FOREIGN HOLDERS OF EM LOCAL-CURRENCY BONDS &mdash; APPROXIMATE AUM</text>
+  <text x="600" y="72" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">Dedicated EM local funds are a small, disciplined slice of total foreign exposure.</text>
+
+  <!-- Single horizontal bar split. x=80 to x=1120 (1040 wide). Bar y=110, height=58 -->
+  <!-- Approximate weights (illustrative): -->
+  <!-- CB reserves: 60% → 624px  -->
+  <!-- Crossover/Global agg: 14% → 145px -->
+  <!-- Sov wealth: 10% → 104px -->
+  <!-- Hedge funds: 6% → 62px -->
+  <!-- Dedicated EM local: 5% → 52px (highlighted green) -->
+  <!-- Other (banks, retail): 5% → 52px -->
+
+  <!-- CB reserves x=80..704 -->
+  <rect x="80" y="110" width="624" height="58" fill="#a8a098"/>
+  <text x="392" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="#fdfcf8">Central bank reserves</text>
+  <text x="392" y="160" text-anchor="middle" font-size="12" fill="#fdfcf8">~60%</text>
+
+  <!-- Crossover x=704..849 -->
+  <rect x="704" y="110" width="145" height="58" fill="#bcb4a8"/>
+  <text x="776" y="142" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Crossover</text>
+  <text x="776" y="158" text-anchor="middle" font-size="11" fill="#3a382f">~14%</text>
+
+  <!-- Sov wealth x=849..953 -->
+  <rect x="849" y="110" width="104" height="58" fill="#cdc6ba"/>
+  <text x="901" y="142" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Sov wealth</text>
+  <text x="901" y="158" text-anchor="middle" font-size="11" fill="#3a382f">~10%</text>
+
+  <!-- Hedge funds x=953..1015 -->
+  <rect x="953" y="110" width="62" height="58" fill="#dad3c5"/>
+  <text x="984" y="142" text-anchor="middle" font-size="11" font-weight="700" fill="#3a382f">HFs</text>
+  <text x="984" y="158" text-anchor="middle" font-size="11" fill="#3a382f">~6%</text>
+
+  <!-- Dedicated EM local x=1015..1067 (HIGHLIGHTED green) -->
+  <rect x="1015" y="105" width="52" height="68" fill="#81b64c" stroke="#6a9b3a" stroke-width="1.5"/>
+
+  <!-- Other x=1067..1120 -->
+  <rect x="1067" y="110" width="53" height="58" fill="#e2dccd"/>
+
+  <!-- Callout for dedicated EM local -->
+  <line x1="1041" y1="105" x2="1041" y2="80" stroke="#6a9b3a" stroke-width="1.2"/>
+  <line x1="1041" y1="80" x2="900" y2="80" stroke="#6a9b3a" stroke-width="1.2"/>
+  <rect x="700" y="190" width="380" height="48" rx="6" fill="#fbfaf3" stroke="#81b64c" stroke-width="1.6"/>
+  <text x="890" y="210" text-anchor="middle" font-size="13" font-weight="700" fill="#6a9b3a">Dedicated EM local funds &mdash; what we measure</text>
+  <text x="890" y="228" text-anchor="middle" font-size="12" fill="#3a382f">~5% of foreign holders, ~$200bn AUM</text>
+  <line x1="700" y1="214" x2="660" y2="195" stroke="#81b64c" stroke-width="1.2"/>
+  <line x1="660" y1="195" x2="1015" y2="138" stroke="#81b64c" stroke-width="1.2"/>
+
+  <!-- Note under bar -->
+  <text x="600" y="280" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">Illustrative shares. Exact figures vary by source and definition; the structural point is that dedicated funds are a precise slice, not the whole.</text>
+
+  <!-- BOTTOM PANEL: lag timeline -->
+  <line x1="80" y1="320" x2="1120" y2="320" stroke="#ececea" stroke-width="1"/>
+  <text x="600" y="360" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="0.10em" fill="#5a564a">TIME RESOLUTION &mdash; MONTHLY, ~3 WEEK LAG</text>
+
+  <!-- Timeline: x=160 to x=1040 -->
+  <line x1="160" y1="450" x2="1040" y2="450" stroke="#3a382f" stroke-width="1.4"/>
+
+  <!-- Month-end tick -->
+  <circle cx="180" cy="450" r="6" fill="#81b64c" stroke="#fdfcf8" stroke-width="2"/>
+  <line x1="180" y1="430" x2="180" y2="412" stroke="#3a382f" stroke-width="1"/>
+  <text x="180" y="404" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">Month-end (t)</text>
+  <text x="180" y="488" text-anchor="middle" font-size="12" fill="#5a564a">Funds book holdings</text>
+
+  <!-- Reporting window -->
+  <rect x="180" y="442" width="600" height="16" fill="#e8c547" opacity="0.4"/>
+  <text x="480" y="540" text-anchor="middle" font-size="13" font-weight="700" fill="#a87f1f">~3-week reporting lag</text>
+  <text x="480" y="558" text-anchor="middle" font-size="12" fill="#5a564a">funds publish &middot; aggregator collates &middot; data lands</text>
+
+  <!-- Publication tick -->
+  <circle cx="780" cy="450" r="6" fill="#81b64c" stroke="#fdfcf8" stroke-width="2"/>
+  <line x1="780" y1="430" x2="780" y2="412" stroke="#3a382f" stroke-width="1"/>
+  <text x="780" y="404" text-anchor="middle" font-size="13" font-weight="700" fill="#3a382f">t + 3 weeks</text>
+  <text x="780" y="488" text-anchor="middle" font-size="12" fill="#5a564a">data published</text>
+
+  <!-- Next month-end tick -->
+  <circle cx="1020" cy="450" r="6" fill="#a8a098" stroke="#fdfcf8" stroke-width="2"/>
+  <line x1="1020" y1="430" x2="1020" y2="412" stroke="#3a382f" stroke-width="1"/>
+  <text x="1020" y="404" text-anchor="middle" font-size="13" font-weight="700" fill="#5a564a">Next month-end</text>
+  <text x="1020" y="488" text-anchor="middle" font-size="12" fill="#5a564a">cycle repeats</text>
+
+  <!-- Bottom note -->
+  <text x="600" y="640" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">Slow-moving by design. Monthly cadence catches positioning trends, not intraday flow.</text>
+  <text x="600" y="664" text-anchor="middle" font-size="12" fill="#5a564a" font-style="italic">For higher-frequency reads on foreign positioning, pair with daily flow data (e.g. SABO for SA).</text>
+
+</svg>
+</div>
+      <ul class="facts">
+        <li><strong>Buyer-universe gaps.</strong> Central bank reserves, crossovers, sovereign wealth, hedge funds &mdash; none in the universe. The signal speaks for one slice, not for &ldquo;foreigners&rdquo; as a whole.</li>
+        <li><strong>Monthly grain, ~3-week lag.</strong> Position you read today reflects month-end three weeks ago. A fund pivot mid-month is invisible until the following month-end.</li>
+        <li><strong>Universe drift.</strong> Funds launch, close, change mandate. The 2016 universe is not exactly the 2026 universe; long-run comparisons need a grain of salt.</li>
+        <li><strong>Pair with flows.</strong> For total foreign positioning, sit this signal alongside higher-frequency flow series (SABO, EPFR) &mdash; each catches what the other misses.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>Fund allocation &middot; positioning signal</span>
+      <span>Slide 06 of 6</span>
+    </footer>
+  </div>
+<script src="/slides/deck.js" defer></script>
+</body>
+</html>

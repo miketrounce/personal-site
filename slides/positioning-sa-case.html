@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to read it: South Africa's position over a decade</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f3ef;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+  }
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 36px 44px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 18px;
+  }
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .ai-label { background: #f0eee8; padding: 4px 10px; border-radius: 4px; }
+  .slide-title {
+    font-size: 28px; font-weight: 600; margin: 0; line-height: 1.2; color: #1a1a1a;
+  }
+  .slide-body {
+    display: grid; grid-template-columns: 3fr 2fr; gap: 36px; min-height: 0;
+  }
+  .visual-cell {
+    min-height: 0; min-width: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .visual-cell svg { max-width: 100%; max-height: 100%; }
+  .facts {
+    list-style: none; padding: 0; margin: 0;
+    font-size: 16px; line-height: 1.5; color: #1a1a1a; align-self: center;
+  }
+  .facts li {
+    padding-left: 18px; position: relative; margin-bottom: 16px;
+  }
+  .facts li:last-child { margin-bottom: 0; }
+  .facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.55em;
+    width: 6px; height: 6px; border-radius: 50%; background: #81b64c;
+  }
+  .slide-footer {
+    font-size: 12px; color: #666;
+    border-top: 1px solid #ececec; padding-top: 12px;
+    display: flex; justify-content: space-between;
+  }
+  @media (max-width: 720px) {
+    .slide { aspect-ratio: auto; padding: 24px; }
+    .slide-body { grid-template-columns: 1fr; gap: 20px; }
+    .visual-cell { min-height: 220px; }
+    .slide-title { font-size: 22px; }
+    .facts { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <header class="slide-header">
+      <span class="ai-label">AI-generated</span>
+      <span>Mike Trounce &middot; Fund allocation as a positioning signal</span>
+    </header>
+    <h1 class="slide-title">How to read it: South Africa's position over a decade.</h1>
+    <div class="slide-body">
+      <div class="visual-cell"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" style="width:100%;height:100%;display:block;">
+  <rect x="0" y="0" width="1200" height="720" fill="#fdfcf8"/>
+
+  <!-- Chart title (the thing being measured, no units) -->
+  <text x="120" y="50" font-size="15" font-weight="700" fill="#3a382f">South Africa &mdash; position in dedicated EM local funds</text>
+
+  <!-- Axis label, horizontal, top-left, green (color-matched to single green series) -->
+  <text x="120" y="100" font-size="13" font-weight="600" fill="#6a9b3a">pp OW/UW</text>
+
+  <!-- Chart area frame -->
+  <!-- y range: -2 to +12, mapped to y=520 (bottom) to y=120 (top). 1 unit = ~28.57px -->
+  <!-- x range: 2016.0 to 2026.25, mapped to x=120 (left) to x=1100 (right). 1 year = ~95.6px -->
+
+  <!-- Horizontal grid lines (light) at every 2pp -->
+  <g stroke="#ececea" stroke-width="1">
+    <line x1="120" y1="120" x2="1100" y2="120"/>  <!-- +12 -->
+    <line x1="120" y1="177" x2="1100" y2="177"/>  <!-- +10 -->
+    <line x1="120" y1="234" x2="1100" y2="234"/>  <!-- +8 -->
+    <line x1="120" y1="291" x2="1100" y2="291"/>  <!-- +6 -->
+    <line x1="120" y1="348" x2="1100" y2="348"/>  <!-- +4 -->
+    <line x1="120" y1="405" x2="1100" y2="405"/>  <!-- +2 -->
+    <line x1="120" y1="462" x2="1100" y2="462"/>  <!-- 0 -->
+    <line x1="120" y1="520" x2="1100" y2="520"/>  <!-- -2 -->
+  </g>
+
+  <!-- Zero line, slightly darker -->
+  <line x1="120" y1="462" x2="1100" y2="462" stroke="#a8a098" stroke-width="1.4"/>
+
+  <!-- Y-axis tick labels (just numbers) -->
+  <g font-size="12" fill="#5a564a" text-anchor="end">
+    <text x="112" y="124">12</text>
+    <text x="112" y="181">10</text>
+    <text x="112" y="238">8</text>
+    <text x="112" y="295">6</text>
+    <text x="112" y="352">4</text>
+    <text x="112" y="409">2</text>
+    <text x="112" y="466">0</text>
+    <text x="112" y="524">&minus;2</text>
+  </g>
+
+  <!-- Y-axis vertical line -->
+  <line x1="120" y1="120" x2="120" y2="540" stroke="#3a382f" stroke-width="1"/>
+
+  <!-- X-axis baseline -->
+  <line x1="120" y1="540" x2="1100" y2="540" stroke="#3a382f" stroke-width="1"/>
+
+  <!-- X-axis ticks: 2016, 2018, 2020, 2022, 2024, Mar 2026 endpoint -->
+  <g font-size="12" fill="#5a564a" text-anchor="middle">
+    <line x1="120" y1="540" x2="120" y2="546" stroke="#3a382f" stroke-width="1"/>
+    <text x="120" y="562">2016</text>
+    <line x1="311" y1="540" x2="311" y2="546" stroke="#3a382f" stroke-width="1"/>
+    <text x="311" y="562">2018</text>
+    <line x1="503" y1="540" x2="503" y2="546" stroke="#3a382f" stroke-width="1"/>
+    <text x="503" y="562">2020</text>
+    <line x1="694" y1="540" x2="694" y2="546" stroke="#3a382f" stroke-width="1"/>
+    <text x="694" y="562">2022</text>
+    <line x1="886" y1="540" x2="886" y2="546" stroke="#3a382f" stroke-width="1"/>
+    <text x="886" y="562">2024</text>
+    <!-- end-of-series anchor: Mar 2026 -->
+    <line x1="1094" y1="540" x2="1094" y2="546" stroke="#3a382f" stroke-width="1"/>
+    <text x="1094" y="562">Mar 2026</text>
+  </g>
+
+  <!-- The position trace: green polyline -->
+  <polyline fill="none" stroke="#81b64c" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"
+    points="
+      120,462
+      168,491
+      215,462
+      263,320
+      311,291
+      358,320
+      405,263
+      453,348
+      500,263
+      524,433
+      548,405
+      595,348
+      643,320
+      691,320
+      738,291
+      785,348
+      833,320
+      880,291
+      928,263
+      975,206
+      1023,177
+      1046,234
+      1070,177
+      1094,263
+    "/>
+
+  <!-- Annotation: Covid drop -->
+  <circle cx="524" cy="433" r="4" fill="#a83a3a"/>
+  <line x1="524" y1="433" x2="540" y2="495" stroke="#a83a3a" stroke-width="1" stroke-dasharray="3 2"/>
+  <rect x="445" y="498" width="190" height="44" rx="4" fill="#fdf6f3" stroke="#a83a3a" stroke-width="1.2"/>
+  <text x="540" y="516" text-anchor="middle" font-size="12" font-weight="700" fill="#a83a3a">Mar 2020 &mdash; covid de-risk</text>
+  <text x="540" y="532" text-anchor="middle" font-size="12" fill="#a83a3a">position cleared to ~+1pp</text>
+
+  <!-- Annotation: 2025 series high -->
+  <circle cx="1023" cy="177" r="4" fill="#3a382f"/>
+  <line x1="1023" y1="177" x2="1010" y2="135" stroke="#3a382f" stroke-width="1" stroke-dasharray="3 2"/>
+  <rect x="900" y="100" width="190" height="36" rx="4" fill="#fbfaf3" stroke="#5a564a" stroke-width="1"/>
+  <text x="995" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#3a382f">Series high &asymp; +10pp</text>
+
+  <!-- Annotation: endpoint -->
+  <circle cx="1094" cy="263" r="5" fill="#6a9b3a" stroke="#fdfcf8" stroke-width="2"/>
+  <text x="1094" y="246" text-anchor="middle" font-size="12" font-weight="700" fill="#6a9b3a">+7pp</text>
+
+  <!-- Source line -->
+  <text x="120" y="660" font-size="11" fill="#888">Source: stylised reproduction of Exante Data Flow Pro &mdash; allocation &amp; position chart, dedicated GBI-EM local-currency fund universe.</text>
+  <text x="120" y="678" font-size="11" fill="#888" font-style="italic">Live: exantedata.com/flow-pro</text>
+
+</svg>
+</div>
+      <ul class="facts">
+        <li><strong>Level &mdash; where in the historical range?</strong> +7pp sits in the upper part of the post-2016 range. The decade has spent most of its time at +3 to +6.</li>
+        <li><strong>Direction &mdash; adding or trimming?</strong> Latest print is a step down from the early-2026 peak. Real money has just trimmed.</li>
+        <li><strong>Regime &mdash; what cleared it last, what rebuilt it?</strong> Mar 2020 took the position to near-zero. The 2024&ndash;26 climb is a steady rebuild from a cleared base.</li>
+        <li><strong>Cross-section.</strong> Same chart exists for every country in the index. SA's level + direction + regime combine into a single read; comparing across countries shows where the universe is leaning hardest.</li>
+      </ul>
+    </div>
+    <footer class="slide-footer">
+      <span>Fund allocation &middot; positioning signal</span>
+      <span>Slide 05 of 6</span>
+    </footer>
+  </div>
+<script src="/slides/deck.js" defer></script>
+</body>
+</html>
