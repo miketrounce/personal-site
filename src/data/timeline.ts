@@ -7,5 +7,5 @@ export interface TimelineEntry {
 export const timeline: TimelineEntry[] = [
   { dates: '1998 — 2007', role: 'Macro Strategist (Developed Markets)' },
   { dates: '2007 — 2016', role: 'Flows Strategist (Emerging Markets)' },
-  { dates: '2016 — 2026', role: 'Entrepreneur (Trounceflow, Delphos IQ, Exante Data FlowPro', current: true },
+  { dates: '2016 — 2026', role: 'Data Startups (Trounceflow, Delphos, Exante Data', current: true },
 ];
