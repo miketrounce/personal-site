@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects';
+---
+
+<Layout title="Projects — Mike Trounce">
+  <div class="projects">
+    <h1>Projects</h1>
+    {projects.map((project) => (
+      <ProjectCard name={project.name} description={project.description} />
+    ))}
+  </div>
+</Layout>
+
+<style>
+  .projects h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--text);
+    margin: 0 0 40px;
+  }
+
+  @media (max-width: 768px) {
+    .projects h1 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+    }
+  }
+</style>

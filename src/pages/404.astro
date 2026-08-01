@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Not Found">
+  <div class="nf">
+    <h1>Not Found</h1>
+    <p>That page doesn't exist.</p>
+    <a href="/">← miketrounce.com</a>
+  </div>
+</Layout>
+
+<style>
+  .nf {
+    text-align: center;
+  }
+
+  .nf h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--text);
+    margin: 0 0 12px;
+  }
+
+  .nf p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin: 0 0 24px;
+  }
+
+  .nf a {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .nf a:hover {
+    color: var(--text);
+  }
+</style>

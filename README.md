@@ -1,25 +1,37 @@
 # personal-site
 
-Personal site for [miketrounce.com](https://miketrounce.com). A single page — plain HTML and CSS, no framework, no build step.
+Personal site for [miketrounce.com](https://miketrounce.com). Built with
+[Astro](https://astro.build) — static output, no server runtime.
 
-## Files
+## Structure
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `index.html` | The site. Career timeline, self-contained styles. |
-| `styles.css` | Shared tokens — palette, type, base elements. |
-| `404.html` | Fallback for any unmatched path. |
+| `src/pages/` | File-based routes: `/`, `/projects/`, `/contact/`, and the 404 fallback. |
+| `src/layouts/Layout.astro` | Shared HTML shell — head, nav, page wrapper. |
+| `src/components/` | `Nav`, `Timeline`, `ProjectCard` — reusable, scoped-style components. |
+| `src/data/` | Timeline and project content as typed data, mapped into components. |
+| `src/styles/global.css` | Shared tokens — palette, type, base elements. |
+| `public/favicon.svg` | Static asset copied as-is to the build output. |
 
 ## Run locally
 
 ```bash
-python3 -m http.server 4173
+npm install
+npm run dev
 ```
 
-Then open [http://localhost:4173](http://localhost:4173).
+Then open [http://localhost:4321](http://localhost:4321).
+
+## Build
+
+```bash
+npm run build
+```
+
+Outputs static files to `dist/`.
 
 ## Deploy
 
 Cloudflare Pages, git-connected to this repo (project: `miketrounce-site`).
-Merging to `main` triggers a build; there is no build command, so the deploy
-is a straight upload of the static files.
+Merging to `main` triggers a build using `npm run build`, output directory `dist`.
