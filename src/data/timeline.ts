@@ -1,6 +1,7 @@
 export interface TimelineEntry {
   dates: string;
   role: string;
+  description?: string;
   current?: boolean;
 }
 

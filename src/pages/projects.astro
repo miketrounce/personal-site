@@ -1,15 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import Timeline from '../components/Timeline.astro';
 import { projects } from '../data/projects';
 ---
 
 <Layout title="Projects — Mike Trounce">
   <div class="projects">
     <h1>Projects</h1>
-    {projects.map((project) => (
-      <ProjectCard name={project.name} description={project.description} />
-    ))}
+    <Timeline items={projects} />
   </div>
 </Layout>
 

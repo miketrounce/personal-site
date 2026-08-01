@@ -13,6 +13,7 @@ const { items } = Astro.props;
     <div class:list={['timeline-item', { now: item.current }]}>
       <p class="timeline-dates">{item.dates}</p>
       <p class="timeline-role">{item.role}</p>
+      {item.description && <p class="timeline-description">{item.description}</p>}
     </div>
   ))}
 </div>
@@ -79,6 +80,14 @@ const { items } = Astro.props;
 
   .timeline-item.now .timeline-role {
     color: var(--accent);
+  }
+
+  .timeline-description {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 8px 0 0;
+    max-width: 44ch;
   }
 
   .timeline-item:nth-child(1) { animation-delay: 0.3s; }
