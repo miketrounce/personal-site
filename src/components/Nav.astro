@@ -1,0 +1,43 @@
+---
+const path = Astro.url.pathname;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/projects/', label: 'Projects' },
+  { href: '/contact/', label: 'Contact' },
+];
+
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<nav class="nav">
+  {links.map((link) => (
+    <a href={link.href} class:list={{ active: isActive(link.href) }}>
+      {link.label}
+    </a>
+  ))}
+</nav>
+
+<style>
+  .nav {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .nav a {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .nav a:hover,
+  .nav a.active {
+    color: var(--accent);
+  }
+</style>

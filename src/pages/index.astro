@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Timeline from '../components/Timeline.astro';
+import { timeline } from '../data/timeline';
+---
+
+<Layout title="Michael Trounce">
+  <div class="career">
+    <h1>Mike Trounce</h1>
+    <Timeline items={timeline} />
+  </div>
+</Layout>
+
+<style>
+  .career h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--text);
+    margin: 0 0 48px;
+  }
+
+  @media (max-width: 768px) {
+    .career h1 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+  }
+</style>
