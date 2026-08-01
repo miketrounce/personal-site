@@ -20,4 +20,6 @@ Then open [http://localhost:4173](http://localhost:4173).
 
 ## Deploy
 
-GitHub Pages serves `main`. Push to `main` and the site rebuilds.
+Cloudflare Pages, git-connected to this repo (project: `miketrounce-site`).
+Merging to `main` triggers a build; there is no build command, so the deploy
+is a straight upload of the static files.
