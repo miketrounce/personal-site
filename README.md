@@ -7,7 +7,7 @@ Personal site for [miketrounce.com](https://miketrounce.com). Built with
 
 | Path | Purpose |
 |------|---------|
-| `src/pages/` | File-based routes: `/`, `/projects/`, `/contact/`, and the 404 fallback. |
+| `src/pages/` | File-based routes: `/`, `/projects/`, `/technologies/`, and the 404 fallback. |
 | `src/layouts/Layout.astro` | Shared HTML shell — head, nav, page wrapper. |
 | `src/components/` | `Nav`, `Timeline`, `ProjectCard` — reusable, scoped-style components. |
 | `src/data/` | Timeline and project content as typed data, mapped into components. |
