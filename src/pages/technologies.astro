@@ -1,58 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import LabeledList from '../components/LabeledList.astro';
 import { technologies } from '../data/technologies';
 ---
-
 <Layout title="Technologies — Mike Trounce">
-  <div class="tech">
-    <h1>Technologies</h1>
-    {technologies.map((item) => (
-      <div class="tech-item">
-        <p class="tech-label">{item.label}</p>
-        <p class="tech-description">{item.description}</p>
-      </div>
-    ))}
-  </div>
+  <h1 class="page-title">Technologies</h1>
+  <LabeledList items={technologies} />
 </Layout>
-
-<style>
-  .tech h1 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--text);
-    margin: 0 0 40px;
-  }
-
-  .tech-item {
-    padding: 0 0 28px;
-  }
-
-  .tech-item:last-child {
-    padding-bottom: 0;
-  }
-
-  .tech-label {
-    font-size: 0.8rem;
-    color: var(--accent);
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin: 0 0 6px;
-  }
-
-  .tech-description {
-    font-size: 0.95rem;
-    color: var(--muted);
-    line-height: 1.7;
-    margin: 0;
-    max-width: 52ch;
-  }
-
-  @media (max-width: 768px) {
-    .tech h1 {
-      font-size: 1.5rem;
-      margin-bottom: 24px;
-    }
-  }
-</style>

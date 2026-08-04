@@ -46,3 +46,18 @@ h1, h2, h3, p, ul {
     align-items: flex-start;
   }
 }
+
+.page-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--text);
+  margin: 0 0 40px;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+}

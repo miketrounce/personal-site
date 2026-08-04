@@ -1,0 +1,9 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LabeledList from '../components/LabeledList.astro';
+import { process } from '../data/modus-operandi';
+---
+<Layout title="Modus Operandi — Mike Trounce">
+  <h1 class="page-title">Modus Operandi</h1>
+  <LabeledList items={process} />
+</Layout>
