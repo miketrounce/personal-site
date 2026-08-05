@@ -5,15 +5,15 @@ export interface ProcessStep {
 
 export const process: ProcessStep[] = [
   {
-    label: 'Interviews',
-    description: 'Founder interviews, typically five one-hour sessions, transcribed and dropped into a raw folder in Obsidian.',
+    label: 'Ingestion',
+    description: 'Meeting transcripts, Slide decks and other assets, point-in-time.',
   },
   {
     label: 'Synthesis',
-    description: 'An LLM turns the raw transcripts into wikis — structured, cross-linked context on the project.',
+    description: 'An LLM processes the ever-increasing number of assets into a constant set of ever-up-to-date wikis.',
   },
   {
-    label: 'Delivery',
-    description: 'The polished output goes to the founder in a private GitHub repo they have read access to.',
+    label: 'Dossier',
+    description: 'The wikis are processed into a single dossier which goes to the founder in a private GitHub repo they have read access to.',
   },
 ];
