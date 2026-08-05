@@ -5,5 +5,106 @@ import { process } from '../data/modus-operandi';
 ---
 <Layout title="Modus Operandi — Mike Trounce">
   <h1 class="page-title">Modus Operandi</h1>
+
+  <div class="sync-diagram">
+    <svg viewBox="0 0 480 200" role="img" aria-label="Mac mini and iPhone, both running Obsidian, syncing to a single remote vault named Vault K">
+      <line x1="240" y1="64" x2="130" y2="118" class="sync-line" />
+      <line x1="240" y1="64" x2="350" y2="118" class="sync-line" />
+
+      <g>
+        <circle cx="240" cy="40" r="26" class="vault-node" />
+        <rect x="230" y="36" width="20" height="15" rx="3" class="vault-body" />
+        <path d="M232 36 v-6 a8 8 0 0 1 16 0 v6" class="vault-shackle" />
+        <text x="240" y="86" text-anchor="middle" class="node-label vault-label">VAULT K</text>
+      </g>
+
+      <g>
+        <rect x="80" y="118" width="100" height="14" rx="3" class="device-body" />
+        <rect x="90" y="132" width="80" height="4" rx="2" class="device-detail" />
+        <circle cx="170" cy="125" r="2" class="device-led" />
+        <text x="130" y="158" text-anchor="middle" class="node-label">Mac mini</text>
+      </g>
+
+      <g>
+        <rect x="335" y="112" width="30" height="56" rx="7" class="device-body" />
+        <rect x="345" y="118" width="10" height="2" rx="1" class="device-detail" />
+        <text x="350" y="188" text-anchor="middle" class="node-label">iPhone</text>
+      </g>
+    </svg>
+    <p class="diagram-caption">Both run Obsidian, synced to one remote vault.</p>
+  </div>
+
   <LabeledList items={process} />
 </Layout>
+
+<style>
+  .sync-diagram {
+    margin: 0 0 40px;
+  }
+
+  .sync-diagram svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .sync-line {
+    stroke: var(--border);
+    stroke-width: 2;
+    stroke-dasharray: 4 5;
+  }
+
+  .vault-node {
+    fill: var(--panel);
+    stroke: var(--accent);
+    stroke-width: 2;
+  }
+
+  .vault-body,
+  .vault-shackle {
+    stroke: var(--accent);
+  }
+
+  .vault-body {
+    fill: var(--accent);
+  }
+
+  .vault-shackle {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  .device-body {
+    fill: var(--panel);
+    stroke: var(--muted);
+    stroke-width: 1.5;
+  }
+
+  .device-detail {
+    fill: var(--border);
+  }
+
+  .device-led {
+    fill: var(--accent);
+  }
+
+  .node-label {
+    font-size: 12px;
+    fill: var(--muted);
+  }
+
+  .vault-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    fill: var(--accent);
+  }
+
+  .diagram-caption {
+    margin: 8px 0 0;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: center;
+  }
+</style>
