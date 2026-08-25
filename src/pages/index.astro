@@ -1,29 +1,101 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Timeline from '../components/Timeline.astro';
-import { timeline } from '../data/timeline';
+
+const videoId = '4AEO1smpvzs';
 ---
 
-<Layout title="Michael Trounce">
-  <div class="career">
-    <h1>Mike Trounce</h1>
-    <Timeline items={timeline} />
+<Layout title="Mike Trounce — Startup Consultant">
+  <div id="top" class="hero">
+    <div class="video-frame" id="video-frame" data-video-id={videoId}>
+      <img
+        class="video-thumb"
+        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+        alt=""
+        loading="lazy"
+        onerror={`this.onerror=null; this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg';`}
+      />
+      <button class="play-btn" id="play-btn" aria-label="Play video">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+      </button>
+    </div>
+    <p class="video-caption">Click to play</p>
   </div>
+
+  <div class="bio">
+    <p>
+      I&rsquo;m Mike &mdash; a startup consultant who helps early founders get from a rough idea to
+      something people will pay for. I trust a clear plan more than a clever pitch deck, I still
+      carry a paper notebook even though I never find anything in it again, and I&rsquo;ve read the
+      same three startup books more times than I&rsquo;d like to admit.
+    </p>
+    <div class="signature">Mike</div>
+  </div>
+
+  <main class="wrap">
+    <section id="approach">
+      <span class="eyebrow">How I think about it</span>
+      <h2>Fewer decks. More shipping.</h2>
+      <p>Most early-stage founders don&rsquo;t need another framework &mdash; they need someone who&rsquo;s made the mistakes already, sitting next to them while they build. That&rsquo;s the job.</p>
+    </section>
+
+    <section id="work">
+      <span class="eyebrow">Where I help</span>
+      <h2>Three ways this usually goes</h2>
+      <div class="work-grid">
+        <div class="work-card">
+          <div class="work-thumb" style="background:var(--illus-b)"></div>
+          <h3>Clarify the plan</h3>
+          <p>Pressure-testing the idea and the model before you build the wrong thing.</p>
+        </div>
+        <div class="work-card">
+          <div class="work-thumb" style="background:var(--illus-d)"></div>
+          <h3>Build &amp; ship</h3>
+          <p>Turning the plan into a real product &mdash; scoped tight enough to finish.</p>
+        </div>
+        <div class="work-card">
+          <div class="work-thumb" style="background:var(--illus-c)"></div>
+          <h3>Raise &amp; grow</h3>
+          <p>Pitch, positioning, and the groundwork that gets people to say yes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="favorites">
+      <span class="eyebrow">A few things I like</span>
+      <h2>Off the desk, for what it&rsquo;s worth</h2>
+      <ul class="fav-list">
+        <li><span><strong>The book I keep recommending:</strong> [add yours &mdash; e.g. The Mom Test]</span></li>
+        <li><span><strong>Podcast for the commute:</strong> [add yours]</span></li>
+        <li><span><strong>Tool I couldn&rsquo;t consult without:</strong> [add yours]</span></li>
+        <li><span><strong>One indulgence:</strong> too much coffee</span></li>
+      </ul>
+    </section>
+
+    <footer id="contact">
+      <span class="eyebrow">Get in touch</span>
+      <h2 style="margin-bottom:14px;">Got something worth building?</h2>
+      <p class="contact-line">Send me a note &mdash; I read everything myself.</p>
+      <p style="margin-top:16px;"><a class="contact-email" href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a></p>
+      <p class="foot-note">Mike &middot; Startup Consultant &middot; Based in [add your city]</p>
+    </footer>
+  </main>
 </Layout>
 
-<style>
-  .career h1 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: var(--text);
-    margin: 0 0 48px;
+<script>
+  const frame = document.getElementById('video-frame');
+  const playBtn = document.getElementById('play-btn');
+  const caption = document.querySelector('.video-caption');
+  if (frame && playBtn) {
+    playBtn.addEventListener('click', () => {
+      const id = frame.getAttribute('data-video-id');
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      iframe.title = 'Video';
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      iframe.allowFullscreen = true;
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      caption?.remove();
+    });
   }
-
-  @media (max-width: 768px) {
-    .career h1 {
-      font-size: 1.6rem;
-      margin-bottom: 20px;
-    }
-  }
-</style>
+</script>
