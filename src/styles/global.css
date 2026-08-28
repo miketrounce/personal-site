@@ -202,9 +202,6 @@ section h2 { font-size: 1.5rem; margin-bottom: 22px; }
 .example-quote { margin: 0; font-size: 1rem; color: var(--ink); font-style: italic; }
 .example-memo .example-quote { font-style: normal; }
 .example-note { margin-top: 16px; font-size: 0.9rem; color: var(--ink-faint); max-width: 56ch; }
-.example-links { margin-top: 18px; font-size: 0.94rem; font-weight: 600; }
-.example-links a { text-decoration: none; }
-.example-links a:hover { text-decoration: underline; }
 
 .fav-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 .fav-list li { display: flex; gap: 12px; font-size: 1rem; color: var(--ink-soft); }
