@@ -6,6 +6,7 @@
   --ink-faint: #948C79;
   --line: #DED2AF;
   --accent: #3B6FA5;
+  --illus-a: #9CB88F;
   --illus-b: #E8C468;
   --illus-c: #E39AA0;
   --illus-d: #7FB2D9;
@@ -21,6 +22,7 @@
     --ink-faint: #857C68;
     --line: #3A3327;
     --accent: #86B6E0;
+    --illus-a: #9CB88F;
     --illus-b: #E8C468;
     --illus-c: #E39AA0;
     --illus-d: #7FB2D9;
@@ -35,6 +37,7 @@
   --ink-faint: #857C68;
   --line: #3A3327;
   --accent: #86B6E0;
+  --illus-a: #9CB88F;
   --illus-b: #E8C468;
   --illus-c: #E39AA0;
   --illus-d: #7FB2D9;
@@ -172,7 +175,10 @@ section h2 { font-size: 1.5rem; margin-bottom: 22px; }
 
 #approach p { color: var(--ink-soft); font-size: 1.06rem; max-width: 58ch; }
 
-.work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+#work > p { color: var(--ink-soft); font-size: 1.02rem; max-width: 52ch; margin: -10px 0 26px; }
+
+.work-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 900px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .work-grid { grid-template-columns: 1fr; } }
 .work-card { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-raised); }
 .work-thumb { height: 78px; }
