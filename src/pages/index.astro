@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 const videoId = '4AEO1smpvzs';
 ---
 
-<Layout title="Mike Trounce — Startup Consultant">
+<Layout title="Mike Trounce — Fundraise Readiness for Early-Stage Founders">
   <div id="top" class="hero">
     <div class="video-frame" id="video-frame" data-video-id={videoId}>
       <img
@@ -23,39 +23,40 @@ const videoId = '4AEO1smpvzs';
 
   <div class="bio">
     <p>
-      I&rsquo;m Mike &mdash; a startup consultant who helps early founders get from a rough idea to
-      something people will pay for. I trust a clear plan more than a clever pitch deck, I still
-      carry a paper notebook even though I never find anything in it again, and I&rsquo;ve read the
-      same three startup books more times than I&rsquo;d like to admit.
+      I&rsquo;m Mike &mdash; I work with founders who&rsquo;ve already got real traction (some revenue,
+      a first raise through their own network) and need to get ready for a serious institutional
+      round. Over about ten working sessions I get the whole company out of your head and onto
+      paper &mdash; the story, the people, the product, the numbers &mdash; and I don&rsquo;t publish a
+      word of it until I&rsquo;m sure it&rsquo;s actually true.
     </p>
     <div class="signature">Mike</div>
   </div>
 
   <main class="wrap">
     <section id="approach">
-      <span class="eyebrow">How I think about it</span>
-      <h2>Fewer decks. More shipping.</h2>
-      <p>Most early-stage founders don&rsquo;t need another framework &mdash; they need someone who&rsquo;s made the mistakes already, sitting next to them while they build. That&rsquo;s the job.</p>
+      <span class="eyebrow">How this works</span>
+      <h2>One version of the truth, ready for diligence.</h2>
+      <p>Most founders at this stage don&rsquo;t need a better pitch deck &mdash; they need the real story of the company written down properly, once, and checked against what&rsquo;s actually true. That&rsquo;s what the working sessions are for.</p>
     </section>
 
     <section id="work">
-      <span class="eyebrow">Where I help</span>
-      <h2>Three ways this usually goes</h2>
+      <span class="eyebrow">The process</span>
+      <h2>Ten sessions. Three things come out of them.</h2>
       <div class="work-grid">
         <div class="work-card">
           <div class="work-thumb" style="background:var(--illus-b)"></div>
-          <h3>Clarify the plan</h3>
-          <p>Pressure-testing the idea and the model before you build the wrong thing.</p>
+          <h3>Get it out of your head</h3>
+          <p>Around ten one-hour sessions covering the story, the people, the product, and the numbers &mdash; in your words first.</p>
         </div>
         <div class="work-card">
           <div class="work-thumb" style="background:var(--illus-d)"></div>
-          <h3>Build &amp; ship</h3>
-          <p>Turning the plan into a real product &mdash; scoped tight enough to finish.</p>
+          <h3>Check it, don&rsquo;t just record it</h3>
+          <p>Nothing gets published as settled until it&rsquo;s been checked back against you &mdash; no guessing, no filled-in gaps.</p>
         </div>
         <div class="work-card">
           <div class="work-thumb" style="background:var(--illus-c)"></div>
-          <h3>Raise &amp; grow</h3>
-          <p>Pitch, positioning, and the groundwork that gets people to say yes.</p>
+          <h3>One source of truth</h3>
+          <p>A verified, investor-ready record you can point to instead of rebuilding the story every time someone asks.</p>
         </div>
       </div>
     </section>
@@ -89,7 +90,7 @@ const videoId = '4AEO1smpvzs';
     playBtn.addEventListener('click', () => {
       const id = frame.getAttribute('data-video-id');
       const iframe = document.createElement('iframe');
-      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3`;
       iframe.title = 'Video';
       iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
       iframe.allowFullscreen = true;
