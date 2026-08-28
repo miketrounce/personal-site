@@ -23,45 +23,71 @@ import MemoLayout from '../layouts/MemoLayout.astro';
       <section>
         <span class="kicker">Overview</span>
         <h2>Route-optimisation software for regional fleets</h2>
-        <p>Fleetscope builds route-optimisation and fleet-scheduling software for regional trucking and delivery operators. Founded early 2024 by Sam Okafor, based in Bristol, UK. Team of four: Sam (CEO), one engineer, one part-time ops hire, and a contractor handling customer onboarding.</p>
+        <p>Fleetscope builds route-optimisation and fleet-scheduling software for regional trucking and delivery operators.</p>
+        <table class="stat-table">
+          <tr><th>Founded</th><td>Early 2024</td></tr>
+          <tr><th>HQ</th><td>Bristol, UK</td></tr>
+          <tr><th>Team</th><td>4 <span class="sub">Sam (CEO), 1 engineer, 1 part-time ops, 1 contractor (onboarding)</span></td></tr>
+        </table>
       </section>
 
       <section>
         <span class="kicker">Product</span>
         <h2>Live, onboarding still hands-on</h2>
-        <p>Live in production since Q3 2025. Onboarding is currently hands-on &mdash; Sam or the ops hire walks every new customer through setup individually. Self-serve onboarding is planned but not yet built.</p>
+        <table class="stat-table">
+          <tr><th>Status</th><td>Live <span class="sub">in production since Q3 2025</span></td></tr>
+          <tr><th>Onboarding</th><td>Hands-on <span class="sub">self-serve planned, not yet built</span></td></tr>
+        </table>
       </section>
 
       <section>
         <span class="kicker">Customers &amp; traction</span>
         <h2>Two paying customers, one pilot, one LOI</h2>
-        <ul class="doc-list">
-          <li><strong>Two paying customers</strong>, signed and live: a regional parcel courier (9 months) and a produce distributor (4 months).</li>
-          <li><strong>Northwind Logistics</strong> &mdash; signed a paid pilot covering 12 vehicles, starting March 2026. A full fleet rollout across Northwind&rsquo;s ~80 vehicles has been discussed as a shared goal, but is not signed or scheduled. <em>(Earlier drafts of this memo described Northwind more loosely as &ldquo;a customer&hellip; rolling out across their whole fleet&rdquo; &mdash; corrected after the pilot&rsquo;s actual scope was confirmed directly with Sam. See change log.)</em></li>
-          <li>One additional signed LOI (letter of intent, not yet a paying contract) with a fourth prospect.</li>
-        </ul>
+        <table class="data-table">
+          <thead>
+            <tr><th>Customer</th><th>Status</th><th>Detail</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Regional parcel courier</td><td>Paying</td><td>9 months</td></tr>
+            <tr><td>Produce distributor</td><td>Paying</td><td>4 months</td></tr>
+            <tr><td>Northwind Logistics</td><td>Paid pilot</td><td>12 vehicles, started Mar 2026<sup>*</sup></td></tr>
+            <tr><td>Prospect (unnamed)</td><td>LOI signed</td><td>Not yet paying</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note"><sup>*</sup> Full fleet rollout (~80 vehicles) has been discussed as a shared goal, but is not signed or scheduled. <em>(Earlier drafts of this memo described Northwind more loosely as &ldquo;a customer&hellip; rolling out across their whole fleet&rdquo; &mdash; corrected after the pilot&rsquo;s actual scope was confirmed directly with Sam. See change log.)</em></p>
       </section>
 
       <section>
         <span class="kicker">Financials</span>
         <h2>&pound;62k ARR, no institutional money yet</h2>
-        <ul class="doc-list">
-          <li>Revenue: approximately &pound;62,000 ARR across the two paying customers, as of June 2026.</li>
-          <li>Funding to date: approximately &pound;280,000, raised entirely through Sam&rsquo;s own network &mdash; no institutional investment yet.</li>
-          <li>Runway: roughly 7 months at current burn.</li>
-        </ul>
+        <table class="stat-table">
+          <tr><th>ARR</th><td>&pound;62,000 <span class="sub">as of June 2026</span></td></tr>
+          <tr><th>Funding raised</th><td>&pound;280,000 <span class="sub">all from Sam&rsquo;s own network &mdash; no institutional investment yet</span></td></tr>
+          <tr><th>Runway</th><td>~7 months <span class="sub">at current burn</span></td></tr>
+        </table>
       </section>
 
       <section>
         <span class="kicker">What&rsquo;s being raised</span>
         <h2>&pound;1.2M seed</h2>
-        <p>Sam is now raising a &pound;1.2M seed round, primarily to fund a first dedicated sales hire and extend runway to 18 months while self-serve onboarding is built out.</p>
+        <table class="stat-table">
+          <tr><th>Raising</th><td>&pound;1.2M seed</td></tr>
+          <tr><th>Use of funds</th><td>First dedicated sales hire; extend runway to 18 months; build out self-serve onboarding</td></tr>
+        </table>
       </section>
 
       <section>
         <span class="kicker">Strategy &mdash; noted change</span>
         <h2>Enterprise-first, then quietly SMB-first</h2>
-        <p>In an earlier session (May 2026), the go-to-market plan was described as enterprise-first: targeting large regional fleet operators directly, with Sam doing every sales conversation personally. By the most recent session (July 2026), the stated plan had shifted toward a self-serve, SMB-first motion, with enterprise sales treated as a later-stage effort. This shift wasn&rsquo;t flagged by Sam as a change in direction &mdash; it came up naturally across two separate conversations. It&rsquo;s noted here rather than silently overwritten, since it&rsquo;s the kind of thing worth asking about directly.</p>
+        <table class="data-table">
+          <thead>
+            <tr><th></th><th>Earlier &mdash; May 2026 session</th><th>Current &mdash; July 2026 session</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Go-to-market</td><td>Enterprise-first &mdash; Sam personally runs every sales conversation</td><td>SMB-first, self-serve &mdash; enterprise treated as a later-stage effort</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">This shift wasn&rsquo;t flagged by Sam as a change in direction &mdash; it came up naturally across two separate conversations. It&rsquo;s noted here rather than silently overwritten, since it&rsquo;s the kind of thing worth asking about directly.</p>
       </section>
 
       <section>
@@ -170,6 +196,45 @@ import MemoLayout from '../layouts/MemoLayout.astro';
     color: #14161A;
     margin-right: 8px;
   }
+
+  /* ---- key/value stat table ---- */
+  .stat-table { width: 100%; border-collapse: collapse; margin: 14px 0 0; max-width: 62ch; }
+  .stat-table tr { border-top: 1px solid #E9EAED; }
+  .stat-table tr:first-child { border-top: none; }
+  .stat-table th, .stat-table td { padding: 10px 0; text-align: left; vertical-align: top; font-weight: 400; }
+  .stat-table th {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+    font-size: 0.76rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #9199A6;
+    font-weight: 600;
+    width: 34%;
+    padding-right: 16px;
+  }
+  .stat-table td { font-size: 1.02rem; color: #14161A; font-weight: 600; }
+  .stat-table td .sub { display: block; font-weight: 400; color: #6B7280; font-size: 0.88rem; margin-top: 2px; }
+
+  /* ---- multi-column data table ---- */
+  .data-table { width: 100%; border-collapse: collapse; margin: 14px 0 0; }
+  .data-table th, .data-table td { padding: 10px 14px 10px 0; text-align: left; vertical-align: top; }
+  .data-table thead th {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #9199A6;
+    font-weight: 600;
+    border-bottom: 1px solid #DDE0E5;
+    padding-bottom: 8px;
+  }
+  .data-table tbody td { font-size: 0.96rem; color: #33363D; border-top: 1px solid #EEF0F3; }
+  .data-table tbody tr:first-child td { border-top: none; }
+  .data-table tbody td:first-child { font-weight: 600; color: #14161A; }
+  .data-table sup { color: #4F46E5; font-weight: 700; }
+
+  .table-note { color: #6B7280; font-size: 0.88rem; max-width: 62ch; margin: 14px 0 0; }
+  .table-note em { font-style: italic; }
 
   .footlink { margin-top: 34px; font-size: 0.9rem; font-weight: 600; }
   .footlink a { text-decoration: none; }

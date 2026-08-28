@@ -4,31 +4,54 @@
 
 ## Overview
 
-Fleetscope builds route-optimisation and fleet-scheduling software for regional trucking and delivery operators. Founded early 2024 by Sam Okafor, based in Bristol, UK. Team of four: Sam (CEO), one engineer, one part-time ops hire, and a contractor handling customer onboarding.
+Fleetscope builds route-optimisation and fleet-scheduling software for regional trucking and delivery operators.
+
+| | |
+|---|---|
+| Founded | Early 2024 |
+| HQ | Bristol, UK |
+| Team | 4 — Sam (CEO), 1 engineer, 1 part-time ops, 1 contractor (onboarding) |
 
 ## Product
 
-Live in production since Q3 2025. Onboarding is currently hands-on — Sam or the ops hire walks every new customer through setup individually. Self-serve onboarding is planned but not yet built.
+| | |
+|---|---|
+| Status | Live in production since Q3 2025 |
+| Onboarding | Hands-on — self-serve planned, not yet built |
 
 ## Customers & traction
 
-- **Two paying customers**, signed and live: a regional parcel courier (9 months) and a produce distributor (4 months).
-- **Northwind Logistics** — signed a paid pilot covering 12 vehicles, starting March 2026. A full fleet rollout across Northwind's ~80 vehicles has been discussed as a shared goal, but is not signed or scheduled. (Earlier drafts of this memo described Northwind more loosely as "a customer... rolling out across their whole fleet" — corrected after the pilot's actual scope was confirmed directly with Sam. See change log.)
-- One additional signed LOI (letter of intent, not yet a paying contract) with a fourth prospect.
+| Customer | Status | Detail |
+|---|---|---|
+| Regional parcel courier | Paying | 9 months |
+| Produce distributor | Paying | 4 months |
+| Northwind Logistics | Paid pilot | 12 vehicles, started March 2026 * |
+| Prospect (unnamed) | LOI signed | Not yet paying |
+
+\* Full fleet rollout (~80 vehicles) has been discussed as a shared goal, but is not signed or scheduled. Earlier drafts of this memo described Northwind more loosely as "a customer... rolling out across their whole fleet" — corrected after the pilot's actual scope was confirmed directly with Sam. See change log.
 
 ## Financials
 
-- Revenue: approximately £62,000 ARR across the two paying customers, as of June 2026.
-- Funding to date: approximately £280,000, raised entirely through Sam's own network — no institutional investment yet.
-- Runway: roughly 7 months at current burn.
+| Metric | Value |
+|---|---|
+| ARR | £62,000 (as of June 2026) |
+| Funding raised | £280,000 — all from Sam's own network, no institutional investment yet |
+| Runway | ~7 months at current burn |
 
 ## What's being raised
 
-Sam is now raising a £1.2M seed round, primarily to fund a first dedicated sales hire and extend runway to 18 months while self-serve onboarding is built out.
+| | |
+|---|---|
+| Raising | £1.2M seed |
+| Use of funds | First dedicated sales hire; extend runway to 18 months; build out self-serve onboarding |
 
 ## Strategy — noted change
 
-In an earlier session (May 2026), the go-to-market plan was described as enterprise-first: targeting large regional fleet operators directly, with Sam doing every sales conversation personally. By the most recent session (July 2026), the stated plan had shifted toward a self-serve, SMB-first motion, with enterprise sales treated as a later-stage effort. This shift wasn't flagged by Sam as a change in direction — it came up naturally across two separate conversations. It's noted here rather than silently overwritten, since it's the kind of thing worth asking about directly.
+| | Earlier (May 2026 session) | Current (July 2026 session) |
+|---|---|---|
+| Go-to-market | Enterprise-first — Sam personally runs every sales conversation | SMB-first, self-serve — enterprise treated as a later-stage effort |
+
+This shift wasn't flagged by Sam as a change in direction — it came up naturally across two separate conversations. It's noted here rather than silently overwritten, since it's the kind of thing worth asking about directly.
 
 ## Open, not yet verified
 
