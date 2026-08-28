@@ -215,30 +215,3 @@ section h2 { font-size: 1.5rem; margin-bottom: 22px; }
 .contact-email { font-weight: 700; color: var(--ink); font-size: 1.3rem; text-decoration: none; border-bottom: 2px solid var(--illus-d); }
 .contact-email:hover { color: var(--accent); }
 footer .foot-note { margin-top: 30px; font-size: 0.85rem; color: var(--ink-faint); }
-
-/* ---------- sample memo page ---------- */
-.memo-page { padding: 36px 0 80px; }
-.memo-back { font-size: 0.92rem; }
-.memo-back a { text-decoration: none; }
-.memo-back a:hover { text-decoration: underline; }
-.memo-banner {
-  margin: 18px 0 34px;
-  padding: 14px 18px;
-  border-radius: 8px;
-  border-left: 3px solid var(--accent);
-  background: var(--bg-raised);
-  font-size: 0.9rem;
-  color: var(--ink-soft);
-}
-.memo-title { font-size: 2rem; margin: 0 0 8px; letter-spacing: -0.01em; }
-.memo-page section { padding: 32px 0; }
-.memo-page section:first-of-type { padding-top: 8px; }
-.memo-page p { color: var(--ink-soft); font-size: 1.02rem; max-width: 62ch; }
-.memo-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; max-width: 62ch; }
-.memo-list li { font-size: 1.02rem; color: var(--ink-soft); padding-left: 18px; position: relative; }
-.memo-list li::before { content: "3"; position: absolute; left: 0; color: var(--ink-faint); }
-.memo-list strong { color: var(--ink); font-weight: 600; }
-.memo-changelog li { padding-left: 0; }
-.memo-changelog li::before { content: none; }
-.memo-date { display: inline-block; font-weight: 600; color: var(--ink); margin-right: 8px; }
-
