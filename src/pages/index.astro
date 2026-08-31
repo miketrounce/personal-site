@@ -1,27 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const videoId = '4AEO1smpvzs';
 ---
 
 <Layout
   title="Mike Trounce — Startup Consultant for Early-Stage Founders"
   description="I work with early-stage founders on fundraising and on making the story of your company something you can hand to anyone and trust it's current."
 >
-  <div id="top" class="hero">
-    <div class="video-frame" id="video-frame" data-video-id={videoId}>
-      <img
-        class="video-thumb"
-        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-        alt=""
-        loading="lazy"
-        onerror={`this.onerror=null; this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg';`}
-      />
-      <button class="play-btn" id="play-btn" aria-label="Play video">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
-      </button>
-    </div>
-    <p class="video-caption">Click to play</p>
+  <div class="hero">
+    <img
+      class="hero-photo"
+      src="https://img.youtube.com/vi/4AEO1smpvzs/maxresdefault.jpg"
+      alt="Mike Trounce"
+      loading="eager"
+      onerror="this.onerror=null; this.src='https://img.youtube.com/vi/4AEO1smpvzs/hqdefault.jpg';"
+    />
   </div>
 
   <div class="bio">
@@ -68,22 +60,3 @@ const videoId = '4AEO1smpvzs';
     </footer>
   </main>
 </Layout>
-
-<script>
-  const frame = document.getElementById('video-frame');
-  const playBtn = document.getElementById('play-btn');
-  const caption = document.querySelector('.video-caption');
-  if (frame && playBtn) {
-    playBtn.addEventListener('click', () => {
-      const id = frame.getAttribute('data-video-id');
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3`;
-      iframe.title = 'Video';
-      iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-      iframe.allowFullscreen = true;
-      frame.innerHTML = '';
-      frame.appendChild(iframe);
-      caption?.remove();
-    });
-  }
-</script>
