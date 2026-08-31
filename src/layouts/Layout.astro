@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import Nav from '../components/Nav.astro';
 
 interface Props {
   title: string;
@@ -26,7 +25,6 @@ const { title, description = 'Mike Trounce — startup consultant.' } = Astro.pr
     />
   </head>
   <body>
-    <Nav />
     <slot />
   </body>
 </html>

@@ -4,7 +4,10 @@ import Layout from '../layouts/Layout.astro';
 const videoId = '4AEO1smpvzs';
 ---
 
-<Layout title="Mike Trounce — Fundraise Readiness for Early-Stage Founders">
+<Layout
+  title="Mike Trounce — Startup Consultant for Early-Stage Founders"
+  description="I work with early-stage founders on fundraising and on making the story of your company something you can hand to anyone and trust it's current."
+>
   <div id="top" class="hero">
     <div class="video-frame" id="video-frame" data-video-id={videoId}>
       <img
@@ -23,22 +26,45 @@ const videoId = '4AEO1smpvzs';
 
   <div class="bio">
     <p>
-      I&rsquo;m Mike. Work with me, and first we&rsquo;ll build your <strong>Company Memo</strong>.
-      It&rsquo;s your private document that you can share in a controlled way to help me,
-      investors, new hires, or consultants understand your company and your story. Even
-      better: it&rsquo;s always up-to-date. You move fast; so does it. You&rsquo;re always
-      pitching: this extends your reach.
+      I&rsquo;m Mike. I work with early-stage founders on the stuff that&rsquo;s hard to do
+      alone &mdash; fundraising, telling your story clearly, and getting your company organized
+      enough that other people can actually understand it. Here&rsquo;s one recent example.
     </p>
     <div class="signature">Mike</div>
   </div>
 
   <main class="wrap">
+    <section id="project">
+      <span class="eyebrow">A recent project</span>
+      <h2>A document that doesn&rsquo;t go stale</h2>
+      <p>
+        A founder I&rsquo;ve been working with is raising money right now. Like most founders at
+        that stage, the real story of the company &mdash; the traction, the team, the numbers,
+        the plan &mdash; lived in scattered docs and their own head, and the pitch hadn&rsquo;t
+        caught up with where the company actually was.
+      </p>
+      <p>
+        Over a handful of working sessions, we went through everything: the product, the
+        customers, the financials, the people. What came out of it is a document I call the <strong>Company Memo</strong> &mdash; a
+        single, always-current document they can hand to a new investor or a candidate instead of
+        re-explaining everything from scratch.
+      </p>
+      <p>
+        The part that makes it worth doing: nothing goes in until it&rsquo;s actually checked. An
+        optimistic claim in conversation &mdash; &ldquo;we&rsquo;ve basically got that customer
+        signed&rdquo; &mdash; gets verified and, more often than not, softened into something more
+        precise before it&rsquo;s written down. And when plans change between sessions, which they
+        do, the Memo tracks the change instead of quietly pretending the old version never
+        existed.
+      </p>
+    </section>
+
     <footer id="contact">
       <span class="eyebrow">Get in touch</span>
       <h2 style="margin-bottom:14px;">Got something worth building?</h2>
       <p class="contact-line">Send me a note &mdash; I read everything myself.</p>
       <p style="margin-top:16px;"><a class="contact-email" href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a></p>
-      <p class="foot-note">Mike &middot; Company Memos for early-stage founders</p>
+      <p class="foot-note">Mike &middot; Startup consultant for early-stage founders</p>
     </footer>
   </main>
 </Layout>
