@@ -73,3 +73,42 @@ h1 { font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; margin: 0; }
 .contact-line { font-size: 1.02rem; color: var(--ink-soft); margin: 0; }
 .contact-email { font-weight: 700; color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--illus-d); }
 .contact-email:hover { color: var(--accent); }
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.skills {
+  display: none;
+  flex-direction: column;
+  gap: 28px;
+  width: 150px;
+  flex-shrink: 0;
+}
+.skills-right { align-items: flex-start; text-align: left; }
+.skills-left { align-items: flex-end; text-align: right; }
+
+.skill {
+  position: relative;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 6px;
+}
+.skill::after {
+  content: '';
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--illus-d);
+  margin-top: 8px;
+}
+.skills-left .skill::after { margin-left: auto; }
+
+@media (min-width: 1100px) {
+  .skills { display: flex; }
+}
