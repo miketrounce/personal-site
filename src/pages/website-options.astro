@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+title="Making a website — Mike Trounce"
+description="A few different ways I've built websites for clients."
+>
+<div class="options-page">
+<a href="/" class="back-link">&larr; Mike Trounce</a>
+
+<h1>Making a website</h1>
+<p class="intro">
+A few different routes I've taken for clients, depending on budget, how much the site needs to do, and how often it'll change.
+</p>
+
+<section class="project">
+<h2>Wix Light — The Greensman</h2>
+<p class="project-meta">£9/month &middot; Elstead, Surrey</p>
+<p>
+<a href="https://www.thegreensmanelstead.com" target="_blank" rel="noopener">thegreensmanelstead.com</a> is the site for Freddie Trounce's garden maintenance business. I took over an existing Wix build, already on the paid Light plan (£108/year) plus the domain (£17/year) — set up and paid for by the original developer, likely as much in exchange for gardening work as for cash. We're now moving the site to a self-hosted setup, which should save Freddie somewhere around £100 a year going forward.
+</p>
+</section>
+
+<!-- Add further <section class="project"> blocks here as more examples come in -->
+</div>
+</Layout>
+
+<style>
+.options-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+  color: var(--ink);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 3rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+}
+
+.intro {
+  color: var(--ink-soft);
+  margin: 0 0 3rem;
+}
+
+.project {
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--illus-b);
+}
+
+.project h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.15rem;
+}
+
+.project-meta {
+  margin: 0 0 0.75rem;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.project a {
+  color: var(--accent);
+}
+</style>
