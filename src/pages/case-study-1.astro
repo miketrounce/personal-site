@@ -63,6 +63,21 @@ Freddy's business didn't need one big project. It needed someone to notice what 
       </ul>
     </div>
   </div>
+<details class="tech-detail" id="technical">
+<summary>Technical detail: moving the domain off Wix</summary>
+<p>
+Wix locks nameserver editing for domains registered there, so pointing DNS at Cloudflare wasn't a case of changing a setting — the domain had to move to a registrar that allows nameserver changes first.
+</p>
+<p>
+We transferred it to Namecheap, not Cloudflare's own registrar — Cloudflare Registrar only accepts domains that are already active on Cloudflare, and a domain can't go active on Cloudflare while its nameservers are still locked at Wix. Namecheap became the domain's new home; Cloudflare handles everything else.
+</p>
+<p>
+Once the transfer to Namecheap completed, the domain's nameservers were pointed at Cloudflare's (<code>hal.ns.cloudflare.com</code> and <code>jill.ns.cloudflare.com</code>), which activated a free Cloudflare zone. The site itself runs on Cloudflare Pages, which issues a free SSL certificate and serves both the apex domain and <code>www</code> — the sort of setup that would normally sit behind a paid plan.
+</p>
+<p>
+With the new setup live and verified, the Wix Light plan was cancelled — that's where the &pound;100+/year saving actually lands.
+</p>
+</details>
 </section>
 
 <section>
@@ -112,6 +127,38 @@ None of this was one big project. It's what happens when someone keeps a proper 
 </Layout>
 
 <style>
+.tech-detail {
+margin: 1.5rem 0 0;
+background: var(--bg-raised);
+border: 1px solid var(--illus-a);
+border-radius: 12px;
+padding: 0.9rem 1.2rem;
+}
+.tech-detail summary {
+cursor: pointer;
+font-size: 0.82rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.02em;
+color: var(--ink-soft);
+}
+.tech-detail[open] summary {
+margin-bottom: 0.75rem;
+}
+.tech-detail p {
+margin: 0 0 0.9rem;
+color: var(--ink-soft);
+font-size: 0.95rem;
+}
+.tech-detail p:last-child {
+margin-bottom: 0;
+}
+.tech-detail code {
+background: var(--illus-b);
+padding: 0.1rem 0.35rem;
+border-radius: 4px;
+font-size: 0.85em;
+}
 .cs-page {
   max-width: 680px;
   margin: 0 auto;
