@@ -1,0 +1,167 @@
+---
+  import Layout from '../layouts/Layout.astro';
+---
+
+  <Layout
+  title="This website — case study — Mike Trounce"
+  description="How miketrounce.com got built: one clear job, done in Astro, without adding anything it doesn't need yet."
+  >
+  <div class="cs-page">
+  <a href="/" class="back-link">&larr; Mike Trounce</a>
+
+  <header class="cs-hero">
+  <img src="/mike.jpg" alt="Mike Trounce" width="184" height="282" />
+  <p class="cs-caption">Mike Trounce — miketrounce.com</p>
+  </header>
+
+  <span class="cs-label">Case study 2</span>
+  <h1>This website</h1>
+  <p class="cs-meta">Personal site &middot; Live</p>
+
+  <p class="cs-standfirst">
+  Not a client fix this time — this is the site you're reading now, and the general approach behind it: give it one clear job, build only what that job needs, and pick tools that don't box you in later.
+  </p>
+
+  <section>
+  <h2>One job, done plainly</h2>
+  <p>
+  The site has a single job: say who I am, what I take off a founder's plate, and make it easy to get in touch. Everything on it serves that — no blog to maintain, no CMS to configure, nothing that exists because a website "should" have it.
+  </p>
+  <p>
+  That's the same principle behind the client work described elsewhere on this site: notice what's actually needed, build that, and stop.
+  </p>
+
+  <details class="tech-detail" id="technical">
+  <summary>Technical detail: why Astro</summary>
+  <p>
+  The site is built in <a href="https://astro.build" target="_blank" rel="noopener">Astro</a>, a framework built for content-first sites. Pages ship as plain HTML with very little JavaScript, so it's fast by default and simple to reason about — a good fit for a handful of pages like this one.
+  </p>
+  <p>
+  Astro isn't limited to static output, though. It can render pages on request and connect to a database — Postgres, for instance — if the site ever needed one: a contact form that stores submissions, a small admin area, anything with real data behind it. Nothing here needs that yet, but the option's there without a rebuild.
+</p>
+<p>
+It's hosted on Cloudflare Pages, deployed straight from the <code>main</code> branch of the site's GitHub repo — push a commit, the site updates.
+</p>
+</details>
+</section>
+
+<p class="cs-foot">
+<a href="/">&larr; Mike Trounce</a>
+</p>
+</div>
+</Layout>
+
+<style>
+.cs-page {
+max-width: 680px;
+margin: 0 auto;
+padding: 4rem 1.5rem 6rem;
+color: var(--ink);
+}
+
+.back-link {
+display: inline-block;
+margin-bottom: 2.5rem;
+color: var(--ink-soft);
+text-decoration: none;
+font-size: 0.9rem;
+}
+.back-link:hover { color: var(--accent); }
+
+.cs-hero img {
+display: block;
+width: 100%;
+max-width: 184px;
+height: auto;
+border-radius: 20px;
+background: var(--bg-raised);
+box-shadow: 0 1px 2px rgba(var(--shadow) / 0.05), 0 18px 34px -18px rgba(var(--shadow) / 0.4);
+}
+.cs-caption {
+margin: 0.7rem 0 0;
+font-size: 0.85rem;
+color: var(--ink-faint);
+}
+
+.cs-label {
+display: inline-block;
+margin-top: 2.5rem;
+font-size: 0.82rem;
+font-weight: 600;
+letter-spacing: 0.02em;
+text-transform: uppercase;
+color: var(--ink-soft);
+padding-bottom: 6px;
+border-bottom: 2px solid var(--illus-a);
+}
+
+h1 { margin: 0.75rem 0 0.25rem; }
+
+.cs-meta {
+margin: 0 0 1.5rem;
+color: var(--ink-soft);
+font-size: 0.85rem;
+text-transform: uppercase;
+letter-spacing: 0.02em;
+}
+
+.cs-standfirst {
+font-size: 1.15rem;
+color: var(--ink-soft);
+margin: 0 0 2rem;
+}
+
+section h2 {
+font-size: 1.3rem;
+margin: 3rem 0 0.75rem;
+}
+section p {
+margin: 0 0 0.9rem;
+color: var(--ink-soft);
+}
+section p a { color: var(--accent); }
+
+.tech-detail {
+margin: 1.5rem 0 0;
+background: var(--bg-raised);
+border: 1px solid var(--illus-a);
+border-radius: 12px;
+padding: 0.9rem 1.2rem;
+}
+.tech-detail summary {
+cursor: pointer;
+font-size: 0.82rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.02em;
+color: var(--ink-soft);
+}
+.tech-detail[open] summary {
+margin-bottom: 0.75rem;
+}
+.tech-detail p {
+margin: 0 0 0.9rem;
+color: var(--ink-soft);
+font-size: 0.95rem;
+}
+.tech-detail p:last-child {
+margin-bottom: 0;
+}
+.tech-detail code {
+background: var(--illus-b);
+padding: 0.1rem 0.35rem;
+border-radius: 4px;
+font-size: 0.85em;
+}
+.tech-detail a { color: var(--accent); }
+
+.cs-foot {
+margin-top: 3rem;
+font-size: 0.9rem;
+color: var(--ink-faint);
+}
+.cs-foot a {
+color: var(--ink-soft);
+text-decoration: none;
+}
+</style>
