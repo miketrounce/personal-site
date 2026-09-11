@@ -1,0 +1,303 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+title="The Greensman — case study — Mike Trounce"
+description="How two small fixes — cheaper hosting and a corrected flyer — became an ongoing tidy-up of everything The Greensman's customers see."
+>
+<div class="cs-page">
+<a href="/case-studies" class="back-link">&larr; Case studies</a>
+
+<header class="cs-hero">
+  <img src="/freddy-greensman.jpg" alt="Freddy Trounce of The Greensman working in a client's garden" width="1170" height="768" />
+  <p class="cs-caption">Freddy Trounce, The Greensman — Elstead, Surrey</p>
+</header>
+
+<span class="cs-label">Case study 1</span>
+<h1>The Greensman</h1>
+<p class="cs-meta">Garden &amp; grounds maintenance &middot; Ongoing</p>
+
+<p class="cs-standfirst">
+Freddy's business didn't need one big project. It needed someone to notice what was wrong — a website costing him over £100 a year to keep online, a flyer sending customers to the wrong address — and fix each thing quickly, before it cost him.
+</p>
+
+<div class="stats">
+  <div class="stat">
+    <span class="stat-num">&pound;100+</span>
+    <span class="stat-label">saved every year, from next year, just by moving the site's hosting</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">Minutes</span>
+    <span class="stat-label">to fix the flyer — not hours, and not a redesign</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">0</span>
+    <span class="stat-label">edits needed for new Google reviews to appear on the site</span>
+  </div>
+</div>
+
+<section>
+  <h2>The website that cost &pound;125 a year to keep online</h2>
+  <p>
+  <a href="https://www.thegreensmanelstead.com" target="_blank" rel="noopener">thegreensmanelstead.com</a> didn't need a redesign — it needed cheaper hosting. It sat on Wix's Light plan (&pound;108 a year) plus a domain (&pound;17 a year), set up by the original developer, likely as much in exchange for gardening work as for cash. Moving it to a self-hosted setup took very little time and carries no subscription — so from next year, that's &pound;100+ back in Freddy's pocket for no loss of website.
+  </p>
+  <p>
+  While I was in there, I swapped the site's handful of hand-picked testimonials for an embedded feed of Freddy's Google Business reviews. New five-star reviews now appear on the site by themselves, as clients leave them on Google — without Freddy, or me, touching the code again.
+  </p>
+  <div class="compare">
+    <div class="card before">
+      <h3>Before</h3>
+      <ul>
+        <li>Wix Light plan, &pound;108 a year</li>
+        <li>Domain, &pound;17 a year</li>
+        <li>Testimonials frozen at the last edit</li>
+      </ul>
+    </div>
+    <div class="card after">
+      <h3>After</h3>
+      <ul>
+        <li>Self-hosted, no subscription</li>
+        <li>Live Google review feed</li>
+        <li>New reviews appear on their own</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>The flyer, fixed in minutes</h2>
+  <p>
+  Freddy already had a nice A5 flyer, designed on Canva by someone else and handed to him as a PDF to send straight to print. It did its job well, but had two problems: the website address on it was wrong, and it made no mention of the autumn leaf-clearing offer we wanted to push.
+  </p>
+  <p>
+  I'd spotted the wrong URL simply by staying in regular contact with Freddy about how the business and the website were doing — that's the kind of thing that surfaces in conversation, not in a briefing document. The same conversations picked up that his review count had grown since the flyer was first designed, so the update brought more of those reviews onto the page too.
+  </p>
+  <ul class="fix-list">
+    <li>Correct website address</li>
+    <li>Autumn leaf-clearing offer, now on the page</li>
+    <li>Up-to-date count of five-star reviews</li>
+    <li>Nothing else touched — a design that worked, kept working</li>
+  </ul>
+  <p>
+  The whole fix took minutes in Claude Design, reusing the design that already worked rather than starting again.
+  </p>
+</section>
+
+<section>
+  <h2>The drift underneath — ongoing</h2>
+  <p>
+  Fixing the flyer surfaced something bigger: the flyer and the website had been built by two different people who'd never spoken to each other. Different logo files, different type, small inconsistencies that add up to a business looking less joined-up than it actually is.
+  </p>
+  <p>
+  That's now its own piece of work: bringing the two into line — the same logo, the same fonts (Caprasimo for headings, Figtree for body) — across the flyer and the rebuilt website, so everything Freddy hands a customer looks like it comes from the same place.
+  </p>
+  <div class="drift">
+    <span class="chip">Flyer — Canva, builder one</span>
+    <span class="arrow">+</span>
+    <span class="chip">Website — Wix, builder two</span>
+    <span class="arrow">&rarr;</span>
+    <span class="chip to">One brand, same logo and type</span>
+  </div>
+</section>
+
+<p class="pullquote">
+None of this was one big project. It's what happens when someone keeps a proper eye on a small business's moving parts — a website, a flyer, a growing pile of reviews — and fixes what's actually wrong, quickly, rather than waiting for a bigger brief.
+</p>
+
+<p class="cs-foot">
+<a href="/">&larr; Mike Trounce</a> &middot; <a href="/case-studies">All case studies</a>
+</p>
+</div>
+</Layout>
+
+<style>
+.cs-page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+  color: var(--ink);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.back-link:hover { color: var(--accent); }
+
+.cs-hero img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  background: var(--bg-raised);
+  box-shadow: 0 1px 2px rgba(var(--shadow) / 0.05), 0 18px 34px -18px rgba(var(--shadow) / 0.4);
+}
+.cs-caption {
+  margin: 0.7rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+
+.cs-label {
+  display: inline-block;
+  margin-top: 2.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--illus-a);
+}
+
+h1 { margin: 0.75rem 0 0.25rem; }
+
+.cs-meta {
+  margin: 0 0 1.5rem;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.cs-standfirst {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  margin: 0 0 2rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+.stat {
+  background: var(--bg-raised);
+  border-radius: 16px;
+  padding: 1.1rem 1rem;
+  box-shadow: 0 1px 2px rgba(var(--shadow) / 0.05), 0 12px 24px -16px rgba(var(--shadow) / 0.35);
+}
+.stat-num {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--illus-a);
+  margin-bottom: 0.35rem;
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+@media (max-width: 640px) {
+  .stats { grid-template-columns: 1fr; }
+}
+
+section h2 {
+  font-size: 1.3rem;
+  margin: 3rem 0 0.75rem;
+}
+section p {
+  margin: 0 0 0.9rem;
+  color: var(--ink-soft);
+}
+section p a { color: var(--accent); }
+
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 1.25rem;
+}
+@media (max-width: 640px) {
+  .compare { grid-template-columns: 1fr; }
+}
+.card {
+  border-radius: 16px;
+  padding: 1.1rem 1.2rem;
+  background: var(--bg-raised);
+}
+.card.before { border: 1px solid var(--line); }
+.card.after { border: 1px solid var(--illus-a); }
+.card h3 {
+  margin: 0 0 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+.card.after h3 { color: var(--illus-a); }
+.card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.card li + li { margin-top: 0.3rem; }
+
+.fix-list {
+  list-style: none;
+  margin: 0 0 0.9rem;
+  padding: 0;
+}
+.fix-list li {
+  color: var(--ink-soft);
+  padding-left: 1.6rem;
+  position: relative;
+}
+.fix-list li + li { margin-top: 0.35rem; }
+.fix-list li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  color: var(--illus-a);
+  font-weight: 700;
+}
+
+.drift {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+.chip {
+  background: var(--illus-b);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.chip.to {
+  background: var(--illus-a);
+  color: #fff;
+}
+.arrow { color: var(--ink-faint); font-weight: 600; }
+
+.pullquote {
+  margin: 3rem 0 0;
+  padding: 1.4rem 1.6rem;
+  background: var(--illus-b);
+  border-radius: 20px;
+  font-size: 1.1rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.cs-foot {
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  color: var(--ink-faint);
+}
+.cs-foot a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.cs-foot a:hover { color: var(--accent); }
+</style>
