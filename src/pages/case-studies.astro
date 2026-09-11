@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+title="Case studies — Mike Trounce"
+description="The full story behind a client's work — how separate quick wins add up."
+>
+<div class="options-page">
+<a href="/" class="back-link">&larr; Mike Trounce</a>
+
+<h1>Case studies</h1>
+<p class="intro">
+Some work doesn't split cleanly into one deliverable — it's a handful of quick, separate fixes that add up to a bigger story. This is where those stories live in full, rather than split across separate pages.
+</p>
+
+<section class="case-study">
+<h2>The Greensman</h2>
+<p class="project-meta">Freddy Trounce &middot; Elstead, Surrey &middot; Ongoing</p>
+<p>
+Freddy runs The Greensman, a garden and grounds maintenance business in Elstead. The work with him started as two small, separate quick wins, and has since grown into an ongoing tidy-up of the whole business's public face.
+</p>
+<p>
+The first was financial: his existing website was on Wix's Light plan, costing him over £100 a year between hosting and the domain. Moving it to a self-hosted setup takes a bit of technical work but no ongoing subscription — so from next year, that's £100+ back in his pocket for no loss of website. <a href="/website-options">More on that here.</a>
+</p>
+<p>
+The second was his print flyer, designed on Canva by someone else and handed over as a PDF. It had the wrong website address on it and made no mention of his autumn leaf-clearing offer — both spotted just by staying in regular contact with Freddy, not from a formal review. Both fixed in minutes in Claude Design, along with adding more of his growing collection of five-star reviews. <a href="/promoting-your-business">More on that here.</a>
+</p>
+<p>
+Neither fix took long on its own, but doing both back to back surfaced something bigger: the flyer and the website had been built by two people who'd never spoken to each other, so small details — logos, fonts — had drifted apart. That's now its own piece of ongoing work: bringing the flyer and the rebuilt website into one consistent look, so everything Freddy hands a customer looks like it comes from the same place.
+</p>
+<p>
+None of this was one big project. It's what happens when someone keeps a proper eye on a small business's moving parts — a website, a flyer, a growing pile of reviews — and fixes what's actually wrong, quickly, rather than waiting for a bigger brief.
+</p>
+</section>
+
+<!-- Add further <section class="case-study"> blocks here as more come in -->
+</div>
+</Layout>
+
+<style>
+.options-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+  color: var(--ink);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 3rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+}
+
+.intro {
+  color: var(--ink-soft);
+  margin: 0 0 3rem;
+}
+
+.case-study {
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--illus-b);
+}
+
+.case-study h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.15rem;
+}
+
+.project-meta {
+  margin: 0 0 0.75rem;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.case-study p + p {
+  margin-top: 0.9rem;
+}
+
+.case-study a {
+  color: var(--accent);
+}
+</style>
