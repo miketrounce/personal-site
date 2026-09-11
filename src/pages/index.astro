@@ -1,61 +1,188 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const jobs = [
+  { job: 'Making a website', href: '/website-options' },
+  { job: 'Keeping in touch with clients', href: null },
+  { job: 'Filing your accounts', href: null },
+  { job: 'Promoting your business', href: '/promoting-your-business' },
+];
 ---
 
 <Layout
-title="Mike Trounce — General Manager for Early/Growth Businesses"
-description="I help founders get it all done."
+  title="Mike Trounce — General Manager for Early/Growth Businesses"
+  description="I help founders get it all done."
 >
-<style>
-  .how-i-work-line {
-    margin-top: 20px;
-  }
-</style>
-<div class="page">
-  <aside class="skills skills-left">
-    <span class="skill"><a href="/website-options" class="skill-link">Making a website</a></span>
-    <span class="skill">Keeping in touch with clients</span>
-    <span class="skill">Filing your accounts</span>
-    <span class="skill"><a href="/promoting-your-business" class="skill-link">Promoting your business</a></span>
-  </aside>
+  <main class="home">
+    <p class="eyebrow">Mike Trounce <span class="role">— General Manager, for hire</span></p>
 
-  <main class="wrap one-view">
-    <img class="hero-photo" src="/mike.jpg" alt="Mike Trounce" loading="eager" width="184" height="282" />
+    <h1 class="lede">You're good at one thing. You have to do everything.</h1>
 
-    <div class="content">
-      <h1 class="name">Mike Trounce</h1>
-      <p class="tagline">General Manager for Early/Growth Businesses</p>
+    <p class="standfirst">I take on the parts that aren't a good use of your time, and keep them running.</p>
 
-      <p class="pitch">
-        You're a founder, so you're probably good at something but have to do everything. I'll help you get the parts done that are not a good use of your time.
-      </p>
+    <ul class="jobs">
+      {jobs.map((j) => (
+        <li class="job">
+          {j.href ? <a href={j.href}>{j.job}</a> : <span>{j.job}</span>}
+        </li>
+      ))}
+    </ul>
 
-      <ul class="skills-mobile">
-        <li><a href="/website-options" class="skill-link">Making a website</a></li>
-        <li>Keeping in touch with clients</li>
-        <li>Filing your accounts</li>
-        <li><a href="/promoting-your-business" class="skill-link">Promoting your business</a></li>
-      </ul>
+    <section class="example">
+      <h2>What that looks like</h2>
+      <p>Freddy's garden and grounds business in Elstead was paying £125 a year to keep a website online, and handing out a flyer with the wrong web address on it. Neither needed a big project. They needed someone to notice.</p>
+      <p class="example-link"><a href="/case-study-1">The Greensman, in full</a></p>
+    </section>
 
-      <p class="contact-line">
-        Got something worth building? <a class="contact-email" href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a>
-      </p>
+    <section class="before">
+      <h2>Before this</h2>
+      <p>I spent ten years in specialist financial data. Trounceflow (2016–2023) was scrapers, a Postgres database and a chart-driven site tracking who holds emerging-market government bonds. Delphos IQ (2022–2023) was separate work on development finance — how capital moves around the world for development. Exante Data acquired Trounceflow in 2023, rebuilt the site, and I ran the product as FlowPro from 2023 until this year.</p>
+    </section>
 
-      <p class="case-studies-line">
-        Prefer the full story? <a href="/case-study-1">Read a case study</a>
-      </p>
-
-      <p class="how-i-work-line">
-        <a href="/how-i-work" class="how-i-work-link">How I Work</a>
+    <div class="sign-off">
+      <img class="face" src="/mike.jpg" alt="Mike Trounce" width="184" height="282" loading="eager" />
+      <p>
+        Got something worth building? <a class="contact-email" href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a><br />
+        <a class="quiet" href="/how-i-work">How I work</a>
       </p>
     </div>
   </main>
-
-  <aside class="skills skills-right">
-    <span class="skill"><a href="/case-study-1" class="case-study-link">Case study 1</a></span>
-    <span class="skill"><a href="/case-study-2" class="case-study-link">Case study 2</a></span>
-    <span class="skill"><a href="/case-study-3" class="case-study-link">Case study 3</a></span>
-    <span class="skill"><a href="/case-study-4" class="case-study-link">Case study 4</a></span>
-  </aside>
-</div>
 </Layout>
+
+<style>
+  .home {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: clamp(3rem, 9vh, 5.5rem) 1.5rem 5rem;
+    text-align: left;
+  }
+
+  .eyebrow {
+    margin: 0 0 clamp(2rem, 5vh, 3rem);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .role {
+    font-weight: 400;
+    color: var(--ink-soft);
+  }
+
+  .lede {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 5.2vw, 2.9rem);
+    line-height: 1.14;
+    letter-spacing: -0.015em;
+    max-width: 20ch;
+    margin: 0 0 0.9rem;
+  }
+
+  .standfirst {
+    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
+    max-width: 46ch;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- the list ---------- */
+  .jobs {
+    list-style: none;
+    margin: 0 0 clamp(2.8rem, 6vh, 4rem);
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .job {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--line);
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+  .job a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--illus-a);
+  }
+  .job a:hover {
+    color: var(--green);
+  }
+
+  /* ---------- worked example + background ---------- */
+  .example,
+  .before {
+    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
+    max-width: 58ch;
+  }
+  .example h2,
+  .before h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .example p,
+  .before p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 1rem;
+  }
+  .example-link {
+    margin-top: 0.6rem;
+  }
+  .example-link a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--illus-a);
+  }
+  .example-link a:hover {
+    color: var(--green);
+  }
+
+  /* ---------- sign-off ---------- */
+  .sign-off {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: clamp(1.6rem, 4vh, 2.4rem);
+    border-top: 1px solid var(--line);
+  }
+  .face {
+    width: 56px;
+    height: 56px;
+    flex: none;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 16%;
+  }
+  .sign-off p {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .contact-email {
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 2px solid var(--illus-a);
+  }
+  .contact-email:hover {
+    color: var(--green);
+  }
+  .quiet {
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .quiet:hover {
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 560px) {
+    .job {
+      font-size: 1.35rem;
+    }
+  }
+</style>
