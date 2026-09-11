@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+title="Promoting your business — Mike Trounce"
+description="A few quick, low-cost wins that make what you already have work harder."
+>
+<div class="options-page">
+<a href="/" class="back-link">&larr; Mike Trounce</a>
+
+<h1>Promoting your business</h1>
+<p class="intro">
+Small, fast fixes that make existing marketing work harder — not full campaigns, just spotting what's off and putting it right.
+</p>
+
+<section class="project">
+<h2>Freddy's flyer — fixed in minutes, not hours</h2>
+<p class="project-meta">Quick turnaround &middot; Elstead, Surrey</p>
+<p>
+Freddy already had a nice A5 flyer for The Greensman, designed on Canva by someone else and handed to him as a PDF to send straight to print. It did its job well, but had a couple of small problems: the website address on it was wrong, and it made no mention of the autumn leaf-clearing offer we wanted to push.
+</p>
+<p>
+I'd spotted the wrong URL simply by staying in regular contact with Freddy about how the business and the website were doing — that's the kind of thing that surfaces in conversation, not in a briefing document. The same conversations had picked up that his review count had grown since the flyer was first designed, so we used the update to bring more of those reviews onto the page too.
+</p>
+<p>
+The whole fix took minutes in Claude Design, not hours — reusing a design that already worked rather than starting again. It's also the first step toward tidying up The Greensman's brand assets more generally: the flyer and the website had been built by different people who'd never spoken to each other, so a few details had drifted out of sync between them.
+</p>
+</section>
+
+<!-- Add further <section class="project"> blocks here as more examples come in -->
+</div>
+</Layout>
+
+<style>
+.options-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+  color: var(--ink);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 3rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+}
+
+.intro {
+  color: var(--ink-soft);
+  margin: 0 0 3rem;
+}
+
+.project {
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--illus-b);
+}
+
+.project h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.15rem;
+}
+
+.project-meta {
+  margin: 0 0 0.75rem;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.project p + p {
+  margin-top: 0.9rem;
+}
+
+.project a {
+  color: var(--accent);
+}
+</style>
