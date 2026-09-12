@@ -34,18 +34,21 @@ const jobs = [
       <p class="example-link"><a href="/case-study-1">The Greensman, in full</a></p>
     </section>
 
-    <section class="before">
-      <h2>Before this</h2>
-      <p>I spent ten years in specialist financial data. Trounceflow (2016–2023) was scrapers, a Postgres database and a chart-driven site tracking who holds emerging-market government bonds. Delphos IQ (2022–2023) was separate work on development finance — how capital moves around the world for development. Exante Data acquired Trounceflow in 2023, rebuilt the site, and I ran the product as FlowPro from 2023 until this year.</p>
-    </section>
-
     <div class="sign-off">
       <img class="face" src="/mike.jpg" alt="Mike Trounce" width="184" height="282" loading="eager" />
       <p>
-        Got something worth building? <a class="contact-email" href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a><br />
-        <a class="quiet" href="/how-i-work">How I work</a>
+        Got something worth building? <a class="contact-email" href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a><
       </p>
     </div>
+
+<footer class="site-footer">
+<nav>
+<a class="quiet" href="/about">About</a>
+<a class="quiet" href="/how-i-work">How I work</a>
+<a class="quiet" href="/case-studies">Case studies</a>
+<a class="quiet" href="mailto:trounceflow@gmail.com">Contact</a>
+</nav>
+</footer>
   </main>
 </Layout>
 
@@ -109,20 +112,17 @@ const jobs = [
   }
 
   /* ---------- worked example + background ---------- */
-  .example,
-  .before {
+  .example {
     margin: 0 0 clamp(2.2rem, 5vh, 3rem);
     max-width: 58ch;
   }
-  .example h2,
-  .before h2 {
+  .example h2 {
     margin: 0 0 0.5rem;
     font-size: 1rem;
     font-weight: 600;
     color: var(--ink);
   }
-  .example p,
-  .before p {
+  .example p {
     margin: 0;
     color: var(--ink-soft);
     font-size: 1rem;
@@ -179,6 +179,15 @@ const jobs = [
   .quiet:hover {
     color: var(--ink-soft);
   }
+
+.site-footer {
+margin-top: clamp(1.6rem, 4vh, 2.2rem);
+}
+.site-footer nav {
+display: flex;
+gap: 1.25rem;
+flex-wrap: wrap;
+}
 
   @media (max-width: 560px) {
     .job {
