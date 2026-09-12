@@ -2,28 +2,29 @@
 import Layout from '../layouts/Layout.astro';
 
 const jobs = [
-  { job: 'Making a website', href: '/website-options' },
-  { job: 'Keeping in touch with clients', href: null },
-  { job: 'Filing your accounts', href: null },
-  { job: 'Promoting your business', href: '/promoting-your-business' },
+  { job: "Your website", line: "Build one, or find out why the one you've got costs what it does.", href: "/website-options" },
+  { job: "Your clients", line: "Set up a CRM, fix the one you've got, or cut what it costs you.", href: null },
+  { job: "Your accounts", line: "Get them set up, or get what you've set up to cost less.", href: null },
+  { job: "Your adverts", line: "Get them running, or stop them costing more than they bring in.", href: "/promoting-your-business" },
 ];
 ---
 
 <Layout
-  title="Mike Trounce — General Manager for Early/Growth Businesses"
-  description="I help founders get it all done."
+  title="Mike Trounce — The jobs that never make it to the top of your list"
+  description="Give me an hour. If I find nothing, you don't pay."
 >
   <main class="home">
-    <p class="eyebrow">Mike Trounce <span class="role">— General Manager, for hire</span></p>
+    <p class="eyebrow">Mike Trounce</p>
 
-    <h1 class="lede">You're good at one thing. You have to do everything.</h1>
+    <h1 class="lede">The jobs that never make it to the top of your list.</h1>
 
-    <p class="standfirst">I take on the parts that aren't a good use of your time, and keep them running.</p>
+    <p class="standfirst">Give me an hour. If I find nothing, you don't pay.</p>
 
     <ul class="jobs">
       {jobs.map((j) => (
         <li class="job">
           {j.href ? <a href={j.href}>{j.job}</a> : <span>{j.job}</span>}
+            <span class="job-line">{j.line}</span>
         </li>
       ))}
     </ul>
@@ -110,6 +111,7 @@ const jobs = [
   .job a:hover {
     color: var(--green);
   }
+.job-line { display: block; margin-top: 0.3rem; font-family: 'Figtree', system-ui, sans-serif; font-size: 1rem; line-height: 1.5; color: var(--ink-soft); }
 
   /* ---------- worked example + background ---------- */
   .example {
