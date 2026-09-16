@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/page-layouts.css';
 ---
 
 <Layout
@@ -11,7 +12,7 @@ description="The short version, and the more technical version, of how I actuall
 
   <h1>How I work</h1>
 
-  <section class="hiw-section">
+  <section class="content-section">
     <h2>The short version</h2>
     <p>
       We sit down and have a chat — over a coffee, on the phone, or on a video call. That's genuinely most of it. Some conversations take a few minutes; if there's real complexity to a project, it can run closer to an hour. Either way, that conversation is where the actual information comes from.
@@ -25,7 +26,7 @@ description="The short version, and the more technical version, of how I actuall
     Everything below this gets a bit more technical — how those conversations actually turn into finished work. Worth a read if you're curious, easy to skip if you're not.
   </p>
 
-  <section class="hiw-section">
+  <section class="content-section">
     <h2>The technical version</h2>
     <p>
       I record our conversations — usually just on my phone, using an app called Wispr Flow — and each transcript, along with the evolving project work itself, goes into a Github repository dedicated to your company.
@@ -51,39 +52,6 @@ description="The short version, and the more technical version, of how I actuall
 </Layout>
 
 <style>
-.options-page {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 4rem 1.5rem 6rem;
-  color: var(--ink);
-}
-.back-link {
-  display: inline-block;
-  margin-bottom: 3rem;
-  color: var(--ink-soft);
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-.back-link:hover {
-  color: var(--accent);
-}
-h1 {
-  margin: 0 0 2.5rem;
-}
-.hiw-section {
-  padding: 1.75rem 0;
-}
-.hiw-section h2 {
-  margin: 0 0 1rem;
-  font-size: 1.15rem;
-}
-.hiw-section p {
-  color: var(--ink-soft);
-  margin: 0 0 0.9rem;
-}
-.hiw-section p:last-child {
-  margin-bottom: 0;
-}
 .tech-note {
   margin: 0.5rem 0 0.5rem;
   padding: 0.9rem 1.1rem;

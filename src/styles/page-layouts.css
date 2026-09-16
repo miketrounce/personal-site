@@ -1,0 +1,43 @@
+/* Shared page shell — used by every content page */
+.options-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+  color: var(--ink);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 3rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.options-page h1 {
+  margin: 0 0 2.5rem;
+}
+
+/* Shared content-section pattern — was duplicated as
+   .about-section and .hiw-section with identical rules */
+.content-section {
+  padding: 0 0 1.75rem;
+}
+
+.content-section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+}
+
+.content-section p {
+  color: var(--ink-soft);
+  margin: 0 0 0.9rem;
+}
+
+.content-section p:last-child {
+  margin-bottom: 0;
+}

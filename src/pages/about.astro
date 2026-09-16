@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/page-layouts.css';
 ---
 
 <Layout
@@ -11,7 +12,7 @@ description="A bit of background on Mike Trounce — ten years in specialist fin
 
 <h1>About</h1>
 
-<section class="about-section">
+<section class="content-section">
 <h2>Before this</h2>
 <p>
 I spent ten years in specialist financial data. Trounceflow (2016–2023) was scrapers, a Postgres database and a chart-driven site tracking who holds emerging-market government bonds. Delphos IQ (2022–2023) was separate work on development finance — how capital moves around the world for development. Exante Data acquired Trounceflow in 2023, rebuilt the site, and I ran the product as FlowPro from 2023 until this year.
@@ -19,46 +20,3 @@ I spent ten years in specialist financial data. Trounceflow (2016–2023) was sc
 </section>
 </div>
 </Layout>
-
-<style>
-.options-page {
-max-width: 640px;
-margin: 0 auto;
-padding: 4rem 1.5rem 6rem;
-color: var(--ink);
-}
-
-.back-link {
-display: inline-block;
-margin-bottom: 3rem;
-color: var(--ink-soft);
-text-decoration: none;
-font-size: 0.9rem;
-}
-
-.back-link:hover {
-color: var(--accent);
-}
-
-h1 {
-margin: 0 0 2.5rem;
-}
-
-.about-section {
-padding: 0 0 1.75rem;
-}
-
-.about-section h2 {
-margin: 0 0 1rem;
-font-size: 1.15rem;
-}
-
-.about-section p {
-color: var(--ink-soft);
-margin: 0 0 0.9rem;
-}
-
-.about-section p:last-child {
-margin-bottom: 0;
-}
-</style>
