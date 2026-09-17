@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import '../styles/page-layouts.css';
+import { Image } from 'astro:assets';
+import mikePhoto from '../assets/mike.jpg';
 
 const jobs = [
   { job: "Your website", line: "Build one, or find out why the one you've got costs what it does.", href: "/website-options" },
@@ -37,21 +38,21 @@ const jobs = [
     </section>
 
     <div class="sign-off">
-      <img class="face" src="/mike.jpg" alt="Mike Trounce" width="184" height="282" loading="eager" />
+      <Image class="face" src={mikePhoto} alt="Mike Trounce" width={184} height={282} loading="eager" />
       <p>
         Got something worth building? <a class="contact-email" href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a>
       </p>
     </div>
-
-<footer class="site-footer">
-<nav>
-<a class="quiet" href="/about">About</a>
-<a class="quiet" href="/how-i-work">How I work</a>
-<a class="quiet" href="/case-studies">Case studies</a>
-<a class="quiet" href="mailto:trounceflow@gmail.com">Contact</a>
-</nav>
-</footer>
   </main>
+
+  <footer class="site-footer">
+    <nav>
+      <a class="quiet" href="/about">About</a>
+      <a class="quiet" href="/how-i-work">How I work</a>
+      <a class="quiet" href="/case-studies">Case studies</a>
+      <a class="quiet" href="mailto:trounceflow@gmail.com">Contact</a>
+    </nav>
+  </footer>
 </Layout>
 
 <style>

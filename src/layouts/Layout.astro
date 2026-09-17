@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import mikePhoto from '../assets/mike.jpg';
 
 interface Props {
 title: string;
@@ -7,6 +9,10 @@ description?: string;
 }
 
 const { title, description = 'Mike Trounce — startup consultant.' } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = await getImage({ src: mikePhoto, width: 600, format: 'jpg' });
+const ogImageURL = new URL(ogImage.src, Astro.site);
 ---
 
 <!doctype html>
@@ -16,11 +22,24 @@ const { title, description = 'Mike Trounce — startup consultant.' } = Astro.pr
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content={description} />
 <title>{title}</title>
+<link rel="canonical" href={canonicalURL} />
 <link rel="icon" href="/favicon.svg" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={ogImageURL} />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL} />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Caveat:wght@600;700&display=swap"
+href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap"
 rel="stylesheet"
 />
 </head>
