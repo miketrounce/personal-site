@@ -22,6 +22,16 @@ const jobs = [
 
     <p class="standfirst">Give me an hour. If I find nothing, you don't pay.</p>
 
+    <div class="intro-video">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/3rsmBOKV5QQ"
+        title="Mike Trounce — a quick introduction"
+        loading="lazy"
+        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+
     <ul class="jobs">
       {jobs.map((j) => (
         <li class="job">
@@ -89,6 +99,24 @@ const jobs = [
     max-width: 46ch;
     font-size: 1.08rem;
     color: var(--ink-soft);
+  }
+
+  /* ---------- intro video ---------- */
+  .intro-video {
+    width: 100%;
+    max-width: 480px;
+    aspect-ratio: 16 / 9;
+    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--bg-raised);
+    box-shadow: 0 1px 2px rgba(var(--shadow) / 0.05), 0 18px 34px -18px rgba(var(--shadow) / 0.4);
+  }
+  .intro-video iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
   }
 
   /* ---------- the list ---------- */
