@@ -1,13 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import '../styles/page-layouts.css';
-import '../styles/case-study.css';
+import '../styles/story.css';
 import { Image } from 'astro:assets';
 import freddyPhoto from '../assets/freddy-greensman.jpg';
 ---
 
 <Layout
-title="The Greensman — case study — Mike Trounce"
+title="The Greensman — a story — Mike Trounce"
 description="How two small fixes — cheaper hosting and a corrected flyer — became an ongoing tidy-up of everything The Greensman's customers see."
 >
 <div class="cs-page">
@@ -18,7 +18,7 @@ description="How two small fixes — cheaper hosting and a corrected flyer — b
   <p class="cs-caption">Freddy Trounce, The Greensman — Elstead, Surrey</p>
 </header>
 
-<span class="cs-label">Case study 1</span>
+<span class="cs-label">Story 1</span>
 <h1>The Greensman</h1>
 <p class="cs-meta">Garden &amp; grounds maintenance &middot; Ongoing</p>
 
@@ -118,6 +118,19 @@ With the new setup live and verified, the Wix Light plan was cancelled — that'
     <span class="arrow">&rarr;</span>
     <span class="chip to">One brand, same logo and type</span>
   </div>
+</section>
+
+<section>
+  <h2>Freddy's own following</h2>
+  <p>
+  Freddy posts the day-to-day of building the business himself, as <a href="https://www.instagram.com/trouncetalks/" target="_blank" rel="noopener">@trouncetalks</a> on Instagram — unpolished, first-person, and hard for a competitor to fake.
+  </p>
+  <div class="social-grid">
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DcO5xTcJfZ0/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DbWHgmeo4eL/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DavZ2WJIQX1/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+  </div>
+  <script is:inline async src="//www.instagram.com/embed.js"></script>
 </section>
 
 <p class="pullquote">
@@ -231,6 +244,17 @@ None of this was one big project. It's what happens when someone keeps a proper 
   color: #fff;
 }
 .arrow { color: var(--ink-faint); font-weight: 600; }
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 1.25rem;
+  justify-items: center;
+}
+@media (max-width: 640px) {
+  .social-grid { grid-template-columns: 1fr; }
+}
 
 .pullquote {
   margin: 3rem 0 0;

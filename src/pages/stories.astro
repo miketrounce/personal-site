@@ -3,19 +3,19 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/page-layouts.css';
 
 const studies = [
-  { title: 'The Greensman', desc: 'A garden business paying £125 a year for a website with the wrong address on its own flyer.', href: '/case-study-1' },
-  { title: 'This website', desc: 'The general approach behind miketrounce.com itself — one clear job, built plainly.', href: '/case-study-2' },
+  { title: 'The Greensman', desc: 'A garden business paying £125 a year for a website with the wrong address on its own flyer.', href: '/story-1' },
+  { title: 'This website', desc: 'The general approach behind miketrounce.com itself — one clear job, built plainly.', href: '/story-2' },
 ];
 ---
 
 <Layout
-title="Case studies — Mike Trounce"
+title="Stories — Mike Trounce"
 description="Real examples of the work — what was wrong, what changed, and why."
 >
 <div class="options-page">
 <a href="/" class="back-link">&larr; Mike Trounce</a>
 
-<h1>Case studies</h1>
+<h1>Stories</h1>
 
 <ul class="cs-list">
 {studies.map((s) => (

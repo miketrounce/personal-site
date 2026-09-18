@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import mikePhoto from '../assets/mike.jpg';
+import freddyPhoto from '../assets/freddy-greensman.jpg';
 
 const jobs = [
   { job: "Your website", line: "Build one, or find out why the one you've got costs what it does.", href: "/website-options" },
@@ -42,9 +43,12 @@ const jobs = [
     </ul>
 
     <section class="example">
-      <h2>What that looks like</h2>
-      <p>Freddy's garden and grounds business in Elstead was paying £125 a year to keep a website online, and handing out a flyer with the wrong web address on it. Neither needed a big project. They needed someone to notice.</p>
-      <p class="example-link"><a href="/case-study-1">The Greensman, in full</a></p>
+      <Image class="example-photo" src={freddyPhoto} alt="Freddy Trounce, The Greensman, working in a client's garden" width={96} height={96} />
+      <div>
+        <h2>Stories</h2>
+        <p>Freddy's garden and grounds business in Elstead was paying £125 a year to keep a website online, and handing out a flyer with the wrong web address on it. Neither needed a big project. They needed someone to notice.</p>
+        <p class="example-link"><a href="/story-1">The Greensman, in full</a></p>
+      </div>
     </section>
 
     <div class="sign-off">
@@ -59,7 +63,7 @@ const jobs = [
     <nav>
       <a class="quiet" href="/about">About</a>
       <a class="quiet" href="/how-i-work">How I work</a>
-      <a class="quiet" href="/case-studies">Case studies</a>
+      <a class="quiet" href="/stories">Stories</a>
       <a class="quiet" href="mailto:trounceflow@gmail.com">Contact</a>
     </nav>
   </footer>
@@ -145,8 +149,19 @@ const jobs = [
 
   /* ---------- worked example + background ---------- */
   .example {
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
     margin: 0 0 clamp(2.2rem, 5vh, 3rem);
     max-width: 58ch;
+  }
+  .example-photo {
+    width: 72px;
+    height: 72px;
+    flex: none;
+    border-radius: 14px;
+    object-fit: cover;
+    object-position: 45% 20%;
   }
   .example h2 {
     margin: 0 0 0.5rem;
