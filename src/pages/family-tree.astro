@@ -70,9 +70,9 @@ const writtenSurname = (name: string) => (words(name).length > 1 ? words(name).p
     if (guess) p.guess = true;
   }
 }
-// A photo is picked up automatically if public/family/<id>.jpg exists.
+// A photo is picked up automatically if public/people/<id>.jpg exists.
 for (const p of people) {
-  if (existsSync(join(process.cwd(), 'public', 'family', `${p.id}.jpg`))) p.photo = true;
+  if (existsSync(join(process.cwd(), 'public', 'people', `${p.id}.jpg`))) p.photo = true;
 }
 const initials = (name: string) => {
   const words = name.replace(/\(.*?\)/g, '').trim().split(/\s+/);
@@ -187,7 +187,7 @@ description="A searchable family tree."
 {p.photo ? (
 <>
 <clipPath id={`clip-${p.id}`}><circle cx="27" cy="27" r="19" /></clipPath>
-<image href={`/family/${p.id}.jpg`} x="8" y="8" width="38" height="38" clip-path={`url(#clip-${p.id})`} preserveAspectRatio="xMidYMid slice" />
+<image href={`/people/${p.id}.jpg`} x="8" y="8" width="38" height="38" clip-path={`url(#clip-${p.id})`} preserveAspectRatio="xMidYMid slice" />
 </>
 ) : (
 <>
@@ -332,7 +332,7 @@ function select(id: string, recentre = true) {
   const partners = (p.partners ?? []) as string[];
   const children = people.filter((c: any) => c.parents?.includes(id)).map((c: any) => c.id);
   details.innerHTML =
-    (p.photo ? `<img class="portrait" src="/family/${p.id}.jpg" alt="${p.name}" />` : '') +
+    (p.photo ? `<img class="portrait" src="/people/${p.id}.jpg" alt="${p.name}" />` : '') +
     `<h2>${p.name}</h2>` +
     (dates(p) ? `<p class="dates">${dates(p)}</p>` : '') +
     (p.notes ? `<p>${p.notes}</p>` : '') +
