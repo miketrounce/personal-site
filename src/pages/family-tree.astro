@@ -22,9 +22,15 @@ interface Person {
 interface Unit {
   members: Person[];
   children: Unit[];
-  width: number;
-  cx: number;
-  depth: number;
+  primary: number;
+}
+interface Lay {
+  u: Unit;
+  w: number;
+  h: number;
+  ux: number;
+  hang: boolean;
+  kids: { l: Lay; x: number; y: number }[];
 }
 
 const people: Person[] = (data.people as Person[]).map((p) =>
@@ -80,14 +86,21 @@ const initials = (name: string) => {
 };
 const byId = new Map<string, Person>(people.map((p) => [p.id, p]));
 
-const NODE_W = 230;
-const NODE_H = 54;
-const PAIR_GAP = 12;
-const SIB_GAP = 28;
-const ROW_GAP = 80;
+const NODE_W = 176;
+const NODE_H = 62;
+const PAIR_GAP = 10;
+const SIB_GAP = 20;
+const V_GAP = 56;
+const INDENT = 40;
+const HANG_TOP = 22;
+const HANG_GAP = 12;
+const BOX_GAP = 48;
+const LABEL_H = 34;
+const PAD = 40;
 
 // A unit is one person, or a couple drawn side by side. The member with
 // recorded parents is the "primary", which decides where the unit hangs.
+const rawBorn = new Map<string, number>((data.people as Person[]).filter((p) => p.born).map((p) => [p.id, Number(p.born)]));
 const unitOf = new Map<string, Unit>();
 const units: Unit[] = [];
 for (const p of people) {
@@ -95,68 +108,126 @@ for (const p of people) {
   const partner = byId.get(p.partners?.[0] ?? '');
   const spouse = partner && !unitOf.has(partner.id) ? partner : undefined;
   const members = spouse && !p.parents && spouse.parents ? [spouse, p] : spouse ? [p, spouse] : [p];
-  const unit: Unit = { members, children: [], width: 0, cx: 0, depth: 0 };
+  const unit: Unit = { members, children: [], primary: members.findIndex((m) => m.parents?.length) };
+  if (unit.primary < 0) unit.primary = 0;
   units.push(unit);
   members.forEach((m) => unitOf.set(m.id, unit));
 }
 const roots: Unit[] = [];
 for (const u of units) {
-  const parent = unitOf.get(u.members[0].parents?.[0] ?? '');
+  const parent = unitOf.get(u.members[u.primary].parents?.[0] ?? '');
   if (parent) parent.children.push(u);
   else roots.push(u);
 }
-
-const ownWidth = (u: Unit) => u.members.length * NODE_W + (u.members.length - 1) * PAIR_GAP;
-function measure(u: Unit) {
-  u.children.forEach(measure);
-  const kids = u.children.reduce((sum, c) => sum + c.width, 0) + Math.max(0, u.children.length - 1) * SIB_GAP;
-  u.width = Math.max(ownWidth(u), kids);
-}
-function place(u: Unit, left: number, depth: number) {
-  u.depth = depth;
-  u.cx = left + u.width / 2;
-  let x = left + (u.width - (u.children.reduce((s, c) => s + c.width, 0) + Math.max(0, u.children.length - 1) * SIB_GAP)) / 2;
-  for (const c of u.children) {
-    place(c, x, depth + 1);
-    x += c.width + SIB_GAP;
-  }
-}
+// Oldest child first.
+const bornOfUnit = (u: Unit) => rawBorn.get(u.members[u.primary].id) ?? 9999;
+for (const u of units) u.children.sort((a, b) => bornOfUnit(a) - bornOfUnit(b));
 const size = (u: Unit): number => 1 + u.children.reduce((n, c) => n + size(c), 0);
 roots.sort((a, b) => size(b) - size(a));
-let cursor = 0;
-for (const r of roots) {
-  measure(r);
-  place(r, cursor, 0);
-  cursor += r.width + SIB_GAP * 2;
+
+// Layout: the top generations spread sideways (a row of children under each parent); below
+// that, children hang in a column under their parent, which keeps the whole tree compact.
+const ownW = (u: Unit) => u.members.length * NODE_W + (u.members.length - 1) * PAIR_GAP;
+function lay(u: Unit, depth: number, hDepth: number): Lay {
+  const kids = u.children.map((c) => lay(c, depth + 1, hDepth));
+  const ow = ownW(u);
+  if (!kids.length) return { u, w: ow, h: NODE_H, ux: 0, hang: false, kids: [] };
+  if (depth < hDepth) {
+    const rowW = kids.reduce((n, k) => n + k.w, 0) + (kids.length - 1) * SIB_GAP;
+    const w = Math.max(ow, rowW);
+    let x = (w - rowW) / 2;
+    const placed = kids.map((l) => {
+      const k = { l, x, y: NODE_H + V_GAP };
+      x += l.w + SIB_GAP;
+      return k;
+    });
+    return { u, w, h: NODE_H + V_GAP + Math.max(...kids.map((k) => k.h)), ux: (w - ow) / 2, hang: false, kids: placed };
+  }
+  let y = NODE_H + HANG_TOP;
+  const placed = kids.map((l) => {
+    const k = { l, x: INDENT, y };
+    y += l.h + HANG_GAP;
+    return k;
+  });
+  return { u, w: Math.max(ow, INDENT + Math.max(...kids.map((k) => k.w))), h: y - HANG_GAP, ux: 0, hang: true, kids: placed };
 }
 
-const PAD = 40;
-const nodes: { p: Person; x: number; y: number }[] = [];
-const links: string[] = [];
-for (const u of units) {
-  const y = PAD + u.depth * (NODE_H + ROW_GAP);
-  const left = PAD + u.cx - ownWidth(u) / 2;
-  u.members.forEach((m, i) => {
-    nodes.push({ p: m, x: left + i * (NODE_W + PAIR_GAP), y });
-  });
-  if (u.members.length === 2) {
-    links.push(`M${left + NODE_W} ${y + NODE_H / 2}H${left + NODE_W + PAIR_GAP}`);
-  }
-  if (u.children.length) {
-    const fromY = y + NODE_H / 2;
-    const busY = y + NODE_H + ROW_GAP / 2;
-    const cxs = u.children.map((c) => PAD + c.cx);
-    const jointX = PAD + u.cx;
-    links.push(`M${jointX} ${u.members.length === 2 ? fromY : y + NODE_H}V${busY}`);
-    links.push(`M${Math.min(jointX, ...cxs)} ${busY}H${Math.max(jointX, ...cxs)}`);
-    for (const c of u.children) {
-      links.push(`M${PAD + c.cx} ${busY}V${PAD + c.depth * (NODE_H + ROW_GAP)}`);
+// Try a few ways of arranging things and keep the one closest to a 4:3 rectangle.
+const TARGET = 4 / 3;
+let best: { score: number; hDepth: number; main: Lay; rows: { lay: Lay; x: number }[][]; rowH: number[]; W: number; H: number } | undefined;
+const [mainRoot, ...otherRoots] = roots;
+for (let hDepth = 1; hDepth <= 8; hDepth++) {
+  const main = lay(mainRoot, 0, hDepth);
+  const others = otherRoots.map((r) => lay(r, hDepth, hDepth)).sort((a, b) => b.h - a.h);
+  for (let f = 0.5; f <= 2.5; f += 0.1) {
+    const limit = Math.max(NODE_W * 2, main.w * f);
+    const rows: { lay: Lay; x: number }[][] = [];
+    let row: { lay: Lay; x: number }[] = [];
+    let rowW = 0;
+    for (const o of others) {
+      if (row.length && rowW + o.w > limit) {
+        rows.push(row);
+        row = [];
+        rowW = 0;
+      }
+      row.push({ lay: o, x: rowW });
+      rowW += o.w + BOX_GAP;
     }
+    if (row.length) rows.push(row);
+    const rowH = rows.map((r) => Math.max(...r.map((c) => c.lay.h)));
+    const W = Math.max(main.w, ...rows.map((r) => r[r.length - 1].x + r[r.length - 1].lay.w));
+    const H = main.h + (rows.length ? BOX_GAP + LABEL_H + rowH.reduce((n, h) => n + h, 0) + (rows.length - 1) * BOX_GAP : 0);
+    const score = Math.abs(Math.log(W / H / TARGET));
+    if (!best || score < best.score) best = { score, hDepth, main, rows, rowH, W, H };
   }
 }
-const focusX = PAD + roots[0].cx;
-const width = PAD * 2 + Math.max(...units.map((u) => u.cx + u.width / 2));
-const height = PAD * 2 + (Math.max(...units.map((u) => u.depth)) + 1) * NODE_H + Math.max(...units.map((u) => u.depth)) * ROW_GAP;
+const layout = best!;
+
+const nodes: { p: Person; x: number; y: number }[] = [];
+const links: string[] = [];
+function emit(l: Lay, ox: number, oy: number) {
+  const ux = ox + l.ux;
+  l.u.members.forEach((m, i) => nodes.push({ p: m, x: ux + i * (NODE_W + PAIR_GAP), y: oy }));
+  if (l.u.members.length === 2) links.push(`M${ux + NODE_W} ${oy + NODE_H / 2}H${ux + NODE_W + PAIR_GAP}`);
+  if (!l.kids.length) return;
+  if (l.hang) {
+    const spine = ux + 20;
+    links.push(`M${spine} ${oy + NODE_H}V${oy + l.kids[l.kids.length - 1].y + NODE_H / 2}`);
+    for (const k of l.kids) {
+      links.push(`M${spine} ${oy + k.y + NODE_H / 2}H${ox + k.x}`);
+      emit(k.l, ox + k.x, oy + k.y);
+    }
+    return;
+  }
+  const couple = l.u.members.length === 2;
+  const joint = ux + (couple ? NODE_W + PAIR_GAP / 2 : NODE_W / 2);
+  const busY = oy + NODE_H + V_GAP / 2;
+  const targets = l.kids.map((k) => ox + k.x + k.l.ux + k.l.u.primary * (NODE_W + PAIR_GAP) + NODE_W / 2);
+  links.push(`M${joint} ${couple ? oy + NODE_H / 2 : oy + NODE_H}V${busY}`);
+  links.push(`M${Math.min(joint, ...targets)} ${busY}H${Math.max(joint, ...targets)}`);
+  l.kids.forEach((k, i) => {
+    links.push(`M${targets[i]} ${busY}V${oy + k.y}`);
+    emit(k.l, ox + k.x, oy + k.y);
+  });
+}
+const mainX = PAD + (layout.W - layout.main.w) / 2;
+emit(layout.main, mainX, PAD);
+const focusX = mainX + layout.main.ux + NODE_W + PAIR_GAP / 2;
+let rowY = PAD + layout.main.h + BOX_GAP;
+const labelY = rowY + 4;
+if (layout.rows.length) rowY += LABEL_H;
+layout.rows.forEach((row, i) => {
+  for (const c of row) emit(c.lay, PAD + c.x, rowY);
+  rowY += layout.rowH[i] + BOX_GAP;
+});
+const width = PAD * 2 + layout.W;
+const height = PAD * 2 + layout.H;
+// Long names go on two lines: everything but the surname, then the surname.
+const nameLines = (name: string): string[] => {
+  const parts = name.trim().split(/\s+/);
+  const bare = name.replace(/\(.*?\)/g, '').trim().split(/\s+/);
+  return bare.length > 1 ? [parts.slice(0, -1).join(' '), parts[parts.length - 1]] : [name];
+};
 const lifespan = (p: Person) => (p.living ? '' : [p.born, p.died].filter(Boolean).join('–'));
 ---
 
@@ -181,22 +252,28 @@ description="A searchable family tree."
 <g class="links">
 {links.map((d) => <path d={d} />)}
 </g>
+{layout.rows.length > 0 && <text class="block-label" x={PAD} y={labelY + 18}>Branches not yet connected to the main tree</text>}
 {nodes.map(({ p, x, y }) => (
 <g class="node" data-id={p.id} transform={`translate(${x} ${y})`} tabindex="0" role="button" aria-label={p.name}>
 <rect width={NODE_W} height={NODE_H} rx="8" />
 {p.photo ? (
 <>
-<clipPath id={`clip-${p.id}`}><circle cx="27" cy="27" r="19" /></clipPath>
-<image href={`/people/${p.id}.jpg`} x="8" y="8" width="38" height="38" clip-path={`url(#clip-${p.id})`} preserveAspectRatio="xMidYMid slice" />
+<clipPath id={`clip-${p.id}`}><circle cx="27" cy="31" r="19" /></clipPath>
+<image href={`/people/${p.id}.jpg`} x="8" y="12" width="38" height="38" clip-path={`url(#clip-${p.id})`} preserveAspectRatio="xMidYMid slice" />
 </>
 ) : (
 <>
-<circle class="avatar" cx="27" cy="27" r="19" />
-<text class="initials" x="27" y="32" text-anchor="middle">{initials(p.name)}</text>
+<circle class="avatar" cx="27" cy="31" r="19" />
+<text class="initials" x="27" y="36" text-anchor="middle">{initials(p.name)}</text>
 </>
 )}
-<text x="54" y={lifespan(p) ? 24 : 32} class="name">{p.name}</text>
-{lifespan(p) && <text x="54" y="41" class="dates">{lifespan(p)}</text>}
+{(() => {
+  const lines = nameLines(p.name);
+  const dates = lifespan(p);
+  const rows = [...lines, ...(dates ? [dates] : [])];
+  const top = 31 - ((rows.length - 1) * 15) / 2 + 4;
+  return rows.map((t, i) => <text x="54" y={top + i * 15} class={dates && i === rows.length - 1 ? 'dates' : 'name'}>{t}</text>);
+})()}
 </g>
 ))}
 </svg>
@@ -395,7 +472,7 @@ window.addEventListener('resize', start);
 .results span, .results .none { color: var(--ink-faint); font-size: 0.85rem; }
 .results .none { padding: 0.55rem 0.9rem; }
 .tree-wrap { position: relative; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-raised); overflow: hidden; }
-#tree { width: 100%; height: 60vh; min-height: 340px; touch-action: none; cursor: grab; user-select: none; }
+#tree { width: 100%; height: 72vh; min-height: 420px; touch-action: none; cursor: grab; user-select: none; }
 #tree .links path { fill: none; stroke: var(--ink-faint); stroke-width: 1.5; }
 #tree .node { cursor: pointer; }
 #tree .node rect { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
@@ -403,10 +480,11 @@ window.addEventListener('resize', start);
 #tree .node.selected rect { fill: var(--illus-b); stroke: var(--green); stroke-width: 2.5; }
 #tree .node:focus-visible { outline: none; }
 #tree .node:focus-visible rect { stroke: var(--accent); stroke-width: 3; }
-#tree .name { font-size: 14px; font-weight: 600; fill: var(--ink); }
+#tree .block-label { font-size: 16px; font-weight: 600; fill: var(--ink-faint); }
+#tree .name { font-size: 13px; font-weight: 600; fill: var(--ink); }
 #tree .avatar { fill: var(--illus-b); stroke: var(--line); stroke-width: 1; }
 #tree .initials { font-size: 13px; font-weight: 600; fill: var(--ink-soft); }
-#tree .dates { font-size: 12px; fill: var(--ink-soft); }
+#tree .dates { font-size: 11px; fill: var(--ink-soft); }
 .zoom-controls { position: absolute; right: 10px; bottom: 10px; display: flex; gap: 6px; }
 .zoom-controls button { min-width: 38px; height: 38px; font: inherit; font-weight: 600; background: var(--bg-raised); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; color: var(--ink); }
 .zoom-controls button:hover { border-color: var(--illus-a); }
