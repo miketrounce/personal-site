@@ -166,7 +166,7 @@
   },
   {
    "id": "richard-64",
-   "name": "Richard",
+   "name": "Richard Wynyard",
    "born": "1964",
    "check": true,
    "living": true
@@ -1035,12 +1035,8 @@
   },
   {
    "id": "richard-39",
-   "name": "Richard",
+   "name": "Richard Wynyard",
    "born": "1939",
-   "parents": [
-    "prudence",
-    "jack-hutchinson"
-   ],
    "partners": [
     "lesley-jennings"
    ],
@@ -1058,10 +1054,6 @@
    "id": "simon-wynyard",
    "name": "Simon Wynyard",
    "born": "1941",
-   "parents": [
-    "prudence",
-    "jack-hutchinson"
-   ],
    "partners": [
     "vicky-monkton",
     "marlene-wiggins"

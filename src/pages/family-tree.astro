@@ -15,6 +15,7 @@ interface Person {
   living?: boolean;
   check?: boolean;
   photo?: boolean;
+  guess?: boolean;
   parents?: string[];
   partners?: string[];
 }
@@ -29,25 +30,45 @@ interface Unit {
 const people: Person[] = (data.people as Person[]).map((p) =>
   p.living ? { id: p.id, name: p.name, living: true, check: p.check, parents: p.parents, partners: p.partners } : p
 );
-// The chart writes a married-in surname in capitals (e.g. Chris WILSON), which is also the
-// surname the bloodline woman goes by, and her children carry. Show it on everyone it applies to.
-const capsSurname = (name: string) => name.match(/\b(?:Mc)?[A-Z]{2,}\b/)?.[0];
-const hasSurname = (name: string) => name.replace(/\(.*?\)/g, '').trim().split(/\s+/).length > 1;
+// Surnames. The chart writes a married-in surname in capitals (e.g. Chris WILSON), which is also
+// the name the bloodline woman goes by. Where no surname is written, an adult takes the surname
+// of their first-listed (bloodline) parent. Children born 2008 or later stay first-name only.
+const isCaps = (w: string) => /^(?:Mc)?[A-Z]{2,}$/.test(w);
+const words = (name: string) => name.replace(/\(.*?\)/g, '').trim().split(/\s+/);
+const writtenSurname = (name: string) => (words(name).length > 1 ? words(name).pop() : undefined);
 {
   const raw = new Map<string, Person>(people.map((p) => [p.id, p]));
   const bornOf = new Map<string, string | undefined>((data.people as Person[]).map((p) => [p.id, p.born]));
-  const surnames = new Map<string, string>();
+  const memo = new Map<string, { surname?: string; guess: boolean }>();
+  const resolve = (id: string): { surname?: string; guess: boolean } => {
+    const cached = memo.get(id);
+    if (cached) return cached;
+    const p = raw.get(id)!;
+    memo.set(id, { guess: false });
+    let result: { surname?: string; guess: boolean } = { guess: false };
+    const written = writtenSurname(p.name);
+    if (written) {
+      result = { surname: written, guess: false };
+    } else {
+      const viaPartner = [...(p.partners ?? [])].reverse().map((pid) => {
+        const w = writtenSurname(raw.get(pid)?.name ?? '');
+        return w && isCaps(w) ? w : undefined;
+      }).find(Boolean);
+      const born = bornOf.get(id);
+      if (viaPartner) result = { surname: viaPartner, guess: false };
+      else if (born && Number(born) < 2008) {
+        const inherited = (p.parents ?? []).map((pid) => resolve(pid).surname).find(Boolean);
+        if (inherited) result = { surname: inherited, guess: !!p.partners?.length };
+      }
+    }
+    memo.set(id, result);
+    return result;
+  };
   for (const p of people) {
-    if (hasSurname(p.name)) continue;
-    const viaPartner = [...(p.partners ?? [])].reverse().map((id) => capsSurname(raw.get(id)?.name ?? '')).find(Boolean);
-    // Children born 2008 or later (or with no year) stay first-name only.
-    const born = bornOf.get(p.id);
-    const adult = born && Number(born) < 2008;
-    const viaParent = adult && !p.partners?.length ? (p.parents ?? []).map((id) => capsSurname(raw.get(id)?.name ?? '')).find(Boolean) : undefined;
-    const surname = viaPartner ?? viaParent;
-    if (surname) surnames.set(p.id, surname);
+    const { surname, guess } = resolve(p.id);
+    if (surname && !writtenSurname(p.name)) p.name = `${p.name} ${surname}`;
+    if (guess) p.guess = true;
   }
-  for (const p of people) if (surnames.has(p.id)) p.name = `${p.name} ${surnames.get(p.id)}`;
 }
 // A photo is picked up automatically if public/family/<id>.jpg exists.
 for (const p of people) {
@@ -315,6 +336,7 @@ function select(id: string, recentre = true) {
     `<h2>${p.name}</h2>` +
     (dates(p) ? `<p class="dates">${dates(p)}</p>` : '') +
     (p.notes ? `<p>${p.notes}</p>` : '') +
+    (p.guess ? '<p class="check">Surname assumed from the family line, so it may be different.</p>' : '') +
     (p.check ? '<p class="check">Read from a hard-to-read photo, so this may be wrong.</p>' : '') +
     relatedButtons('Parents', parents) +
     relatedButtons('Partners', partners) +
