@@ -289,6 +289,23 @@ description="A searchable family tree."
 </aside>
 </div>
 
+<section class="relate" aria-labelledby="relate-title">
+<h2 id="relate-title">How are two people related?</h2>
+<div class="relate-row">
+<div class="picker">
+<label class="visually-hidden" for="rel-a">First person</label>
+<input id="rel-a" type="search" placeholder="First person" autocomplete="off" />
+<ul id="rel-a-results" class="results" hidden></ul>
+</div>
+<div class="picker">
+<label class="visually-hidden" for="rel-b">Second person</label>
+<input id="rel-b" type="search" placeholder="Second person" autocomplete="off" />
+<ul id="rel-b-results" class="results" hidden></ul>
+</div>
+</div>
+<p id="relate-answer" class="relate-answer" aria-live="polite">Pick two people and it will tell you how they're related.</p>
+</section>
+
 <script type="application/json" id="family-data" set:html={JSON.stringify(people)} />
 </div>
 </Layout>
@@ -455,6 +472,131 @@ results.addEventListener('click', (e) => {
   results.hidden = true;
 });
 
+// --- how are two people related? ---
+const relInputs = { a: document.getElementById('rel-a') as HTMLInputElement, b: document.getElementById('rel-b') as HTMLInputElement };
+const relLists = { a: document.getElementById('rel-a-results')!, b: document.getElementById('rel-b-results')! };
+const relAnswer = document.getElementById('relate-answer')!;
+const picked: { a?: string; b?: string } = {};
+const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+const nm = (id: string) => `<strong>${esc(byId.get(id).name)}</strong>`;
+
+const partnersOf = (id: string): string[] => {
+  const out = new Set<string>(byId.get(id).partners ?? []);
+  for (const p of people) if (p.partners?.includes(id)) out.add(p.id);
+  return [...out];
+};
+// Distance (in generations) from a person up to each of their ancestors, including themselves at 0.
+const ancestorsOf = (id: string) => {
+  const dist = new Map<string, number>([[id, 0]]);
+  const queue = [id];
+  while (queue.length) {
+    const x = queue.shift()!;
+    for (const parent of byId.get(x).parents ?? []) {
+      if (!dist.has(parent)) {
+        dist.set(parent, dist.get(x)! + 1);
+        queue.push(parent);
+      }
+    }
+  }
+  return dist;
+};
+const greats = (n: number) => 'great-'.repeat(Math.max(0, n));
+const ordinal = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
+const times = (n: number) => (n === 1 ? 'once' : n === 2 ? 'twice' : `${n} times`);
+
+function bloodLink(a: string, b: string) {
+  const da = ancestorsOf(a);
+  const db = ancestorsOf(b);
+  let best: { sum: number; dA: number; dB: number; via: string[] } | undefined;
+  for (const [x, i] of da) {
+    const j = db.get(x);
+    if (j === undefined) continue;
+    if (!best || i + j < best.sum) best = { sum: i + j, dA: i, dB: j, via: [x] };
+    else if (i + j === best.sum && i === best.dA) best.via.push(x);
+  }
+  return best;
+}
+// One sentence about how x and y are related by blood, or undefined if no shared ancestor is recorded.
+function bloodSentence(x: string, y: string) {
+  const link = bloodLink(x, y);
+  if (!link) return undefined;
+  const { dA, dB, via } = link;
+  const shared = via.length ? ` Their closest shared ${via.length > 1 ? 'ancestors are' : 'ancestor is'} ${via.map(nm).join(' and ')}.` : '';
+  let sentence: string;
+  if (dA === 0) {
+    sentence = `${nm(x)} is ${nm(y)}'s ${dB === 1 ? 'parent' : greats(dB - 2) + 'grandparent'}.`;
+  } else if (dB === 0) {
+    sentence = `${nm(x)} is ${nm(y)}'s ${dA === 1 ? 'child' : greats(dA - 2) + 'grandchild'}.`;
+  } else if (dA === 1 && dB === 1) {
+    const pa = byId.get(x).parents ?? [];
+    const pb = byId.get(y).parents ?? [];
+    const common = pa.filter((id: string) => pb.includes(id)).length;
+    const half = common === 1 && pa.length > 1 && pb.length > 1;
+    sentence = `${nm(x)} and ${nm(y)} are ${half ? 'half-' : ''}siblings.`;
+  } else if (dA === 1) {
+    sentence = `${nm(x)} is ${nm(y)}'s ${greats(dB - 2)}aunt or uncle.`;
+  } else if (dB === 1) {
+    sentence = `${nm(x)} is ${nm(y)}'s ${greats(dA - 2)}niece or nephew.`;
+  } else {
+    const degree = Math.min(dA, dB) - 1;
+    const removed = Math.abs(dA - dB);
+    sentence = `${nm(x)} and ${nm(y)} are ${ordinal[degree] ?? degree + 'th'} cousins${removed ? ' ' + times(removed) + ' removed' : ''}.`;
+  }
+  return sentence + (dA === 0 || dB === 0 ? '' : shared);
+}
+function relate(a: string, b: string): string {
+  if (a === b) return 'That\'s the same person.';
+  if (partnersOf(a).includes(b)) return `${nm(a)} and ${nm(b)} are partners.`;
+  const direct = bloodSentence(a, b);
+  if (direct) return direct;
+  for (const pa of partnersOf(a)) {
+    const s = pa === b ? undefined : bloodSentence(pa, b);
+    if (s) return `${nm(a)} is partnered with ${nm(pa)}, so they're related by marriage. ${s}`;
+  }
+  for (const pb of partnersOf(b)) {
+    const s = pb === a ? undefined : bloodSentence(a, pb);
+    if (s) return `${nm(b)} is partnered with ${nm(pb)}, so they're related by marriage. ${s}`;
+  }
+  return 'No connection found in the tree yet. Some branches aren\'t joined to the main tree, so they may well be related.';
+}
+function showRelation() {
+  svg.querySelectorAll('.node.related').forEach((n) => n.classList.remove('related'));
+  if (!picked.a || !picked.b) {
+    relAnswer.textContent = 'Pick two people and it will tell you how they\'re related.';
+    return;
+  }
+  relAnswer.innerHTML = relate(picked.a, picked.b);
+  nodeEl(picked.a)?.classList.add('related');
+  nodeEl(picked.b)?.classList.add('related');
+}
+for (const key of ['a', 'b'] as const) {
+  const input = relInputs[key];
+  const list = relLists[key];
+  input.addEventListener('input', () => {
+    picked[key] = undefined;
+    showRelation();
+    const q = input.value.trim().toLowerCase();
+    list.innerHTML = '';
+    if (!q) { list.hidden = true; return; }
+    const hits = people.filter((p: any) => p.name.toLowerCase().includes(q)).slice(0, 8);
+    list.hidden = false;
+    list.innerHTML = hits.length
+      ? hits.map((p: any) => `<li><button type="button" data-pick="${p.id}">${esc(p.name)}<span>${esc(dates(p))}</span></button></li>`).join('')
+      : '<li class="none">No one found</li>';
+  });
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') list.querySelector<HTMLElement>('[data-pick]')?.click();
+  });
+  list.addEventListener('click', (e) => {
+    const b = (e.target as Element).closest<HTMLElement>('[data-pick]');
+    if (!b) return;
+    picked[key] = b.dataset.pick!;
+    input.value = byId.get(picked[key]!).name;
+    list.hidden = true;
+    showRelation();
+  });
+}
+
 start();
 window.addEventListener('resize', start);
 </script>
@@ -489,6 +631,15 @@ window.addEventListener('resize', start);
 .zoom-controls button { min-width: 38px; height: 38px; font: inherit; font-weight: 600; background: var(--bg-raised); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; color: var(--ink); }
 .zoom-controls button:hover { border-color: var(--illus-a); }
 .details { margin-top: 1.25rem; padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-raised); }
+.relate { margin-top: 1.25rem; padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-raised); }
+.relate h2 { margin: 0 0 0.9rem; font-size: 1.15rem; }
+.relate-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.picker { position: relative; }
+.picker input { width: 100%; padding: 0.65rem 0.9rem; font: inherit; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); }
+.relate-answer { margin: 0.9rem 0 0; color: var(--ink-soft); }
+.relate-answer strong { color: var(--ink); }
+#tree .node.related rect { stroke: var(--accent); stroke-width: 3; }
+@media (max-width: 560px) { .relate-row { grid-template-columns: 1fr; } }
 .details .portrait { width: 96px; height: 96px; margin-bottom: 0.6rem; border-radius: 50%; object-fit: cover; }
 .details h2 { margin: 0; font-size: 1.3rem; }
 .details p { margin: 0.4rem 0 0; color: var(--ink-soft); }
