@@ -358,19 +358,21 @@
   {
    "id": "michael-wilkinson",
    "name": "Michael WILKINSON",
-   "check": true
+   "partners": [
+    "allison"
+   ]
   },
   {
    "id": "edward-81",
-   "name": "Edward",
+   "name": "Edward Wilkinson",
    "born": "1981",
    "parents": [
+    "allison",
     "michael-wilkinson"
    ],
    "partners": [
     "lottie-pilling"
    ],
-   "check": true,
    "living": true
   },
   {
@@ -385,6 +387,7 @@
    "name": "Kate",
    "born": "1984",
    "parents": [
+    "allison",
     "michael-wilkinson"
    ],
    "partners": [
@@ -405,6 +408,7 @@
    "name": "Sophie",
    "born": "1988",
    "parents": [
+    "allison",
     "michael-wilkinson"
    ],
    "partners": [
@@ -1205,6 +1209,13 @@
    ],
    "check": true,
    "living": true
+  },
+  {
+   "id": "allison",
+   "name": "Allison",
+   "partners": [
+    "michael-wilkinson"
+   ]
   }
  ]
 }
