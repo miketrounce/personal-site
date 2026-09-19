@@ -32,7 +32,7 @@
   },
   {
    "id": "alick-duncan",
-   "name": "Alexander (Alick) Duncan",
+   "name": "Alexander (Alick) DUNCAN",
    "partners": [
     "nellie"
    ]
@@ -60,7 +60,7 @@
   },
   {
    "id": "jack-hutchinson",
-   "name": "Jack Hutchinson",
+   "name": "Jack HUTCHINSON",
    "partners": [
     "prudence"
    ]
@@ -79,7 +79,7 @@
   },
   {
    "id": "christopher-brooke",
-   "name": "Christopher Brooke",
+   "name": "Christopher BROOKE",
    "partners": [
     "janet"
    ]
@@ -94,8 +94,7 @@
    ],
    "partners": [
     "mary-green"
-   ],
-   "check": true
+   ]
   },
   {
    "id": "mary-green",
@@ -135,27 +134,22 @@
     "christopher-brooke"
    ],
    "partners": [
-    "andrew-mccorm"
+    "andrew-mccorm",
+    "peter-nicholls"
    ],
-   "check": true,
    "living": true
   },
   {
    "id": "andrew-mccorm",
-   "name": "Andrew McCorm…",
+   "name": "Andrew McCORMICK",
    "partners": [
     "kate-62"
-   ],
-   "check": true
+   ]
   },
   {
    "id": "david-wynyard",
    "name": "David Wynyard",
    "born": "1962",
-   "parents": [
-    "janet",
-    "christopher-brooke"
-   ],
    "partners": [
     "bernadette-decaire"
    ],
@@ -174,17 +168,13 @@
    "id": "richard-64",
    "name": "Richard",
    "born": "1964",
-   "parents": [
-    "janet",
-    "christopher-brooke"
-   ],
    "check": true,
    "living": true
   },
   {
    "id": "carol",
    "name": "Carol",
-   "born": "1967",
+   "born": "1957",
    "parents": [
     "janet",
     "christopher-brooke"
@@ -192,12 +182,11 @@
    "partners": [
     "christopher-wilson"
    ],
-   "check": true,
    "living": true
   },
   {
    "id": "christopher-wilson",
-   "name": "Christopher Wilson",
+   "name": "Chris WILSON",
    "partners": [
     "carol"
    ]
@@ -217,7 +206,7 @@
   },
   {
    "id": "tom-yazdi",
-   "name": "Tom Yazdi",
+   "name": "Tom YAZDI",
    "partners": [
     "alexandra"
    ]
@@ -248,7 +237,7 @@
   },
   {
    "id": "benji-wills",
-   "name": "Benji Wills",
+   "name": "Benji WILLS",
    "partners": [
     "lucy-87"
    ]
@@ -295,13 +284,12 @@
   },
   {
    "id": "edward-wynyard",
-   "name": "Edward Wynyard",
+   "name": "Edward",
    "born": "1996",
    "parents": [
     "carol",
     "christopher-wilson"
    ],
-   "check": true,
    "living": true
   },
   {
@@ -312,8 +300,10 @@
     "kate-62",
     "andrew-mccorm"
    ],
-   "check": true,
-   "living": true
+   "living": true,
+   "partners": [
+    "james-goodfield"
+   ]
   },
   {
    "id": "olivia",
@@ -323,7 +313,6 @@
     "kate-62",
     "andrew-mccorm"
    ],
-   "check": true,
    "living": true
   },
   {
@@ -334,7 +323,6 @@
     "kate-62",
     "andrew-mccorm"
    ],
-   "check": true,
    "living": true
   },
   {
@@ -362,14 +350,14 @@
   },
   {
    "id": "stephen-russell",
-   "name": "Stephen Russell",
+   "name": "Stephen RUSSELL",
    "partners": [
     "gigi"
    ]
   },
   {
    "id": "michael-wilkinson",
-   "name": "Michael Wilkinson",
+   "name": "Michael WILKINSON",
    "check": true
   },
   {
@@ -407,7 +395,7 @@
   },
   {
    "id": "richard-hollis",
-   "name": "Richard Hollis",
+   "name": "Richard HOLLIS",
    "partners": [
     "kate-84"
    ]
@@ -485,7 +473,7 @@
   },
   {
    "id": "ricky-rosenberg",
-   "name": "Ricky Rosenberg",
+   "name": "Ricky ROSENBERG",
    "check": true
   },
   {
@@ -517,7 +505,7 @@
   },
   {
    "id": "mark-langdale",
-   "name": "Mark Langdale",
+   "name": "Mark LANGDALE",
    "partners": [
     "harriet"
    ]
@@ -566,7 +554,7 @@
   },
   {
    "id": "michael-trounce",
-   "name": "Michael Trounce",
+   "name": "Michael TROUNCE",
    "partners": [
     "tiggy"
    ]
@@ -626,7 +614,7 @@
   },
   {
    "id": "shun-oishi",
-   "name": "Shun Oishi",
+   "name": "Shun OISHI",
    "partners": [
     "helen-80"
    ]
@@ -697,6 +685,309 @@
    "id": "rebecca",
    "name": "Rebecca",
    "born": "1988",
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "peter-nicholls",
+   "name": "Peter NICHOLLS",
+   "partners": [
+    "kate-62"
+   ]
+  },
+  {
+   "id": "james-goodfield",
+   "name": "James Goodfield",
+   "partners": [
+    "holly"
+   ]
+  },
+  {
+   "id": "jonathan-59",
+   "name": "Jonathan",
+   "born": "1959",
+   "parents": [
+    "joff",
+    "mary-green"
+   ],
+   "partners": [
+    "kirstine"
+   ],
+   "living": true
+  },
+  {
+   "id": "kirstine",
+   "name": "Kirstine",
+   "partners": [
+    "jonathan-59"
+   ]
+  },
+  {
+   "id": "simon",
+   "name": "Simon",
+   "born": "1963",
+   "parents": [
+    "joff",
+    "mary-green"
+   ],
+   "partners": [
+    "kate-simon"
+   ],
+   "living": true
+  },
+  {
+   "id": "kate-simon",
+   "name": "Kate",
+   "partners": [
+    "simon"
+   ],
+   "check": true
+  },
+  {
+   "id": "rory",
+   "name": "Rory",
+   "born": "1996",
+   "parents": [
+    "jonathan-59",
+    "kirstine"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "lydia",
+   "name": "Lydia",
+   "born": "1997",
+   "parents": [
+    "jonathan-59",
+    "kirstine"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "hannah",
+   "name": "Hannah",
+   "born": "2006",
+   "parents": [
+    "simon",
+    "kate-simon"
+   ],
+   "living": true
+  },
+  {
+   "id": "iona",
+   "name": "Iona",
+   "born": "2006",
+   "parents": [
+    "simon",
+    "kate-simon"
+   ],
+   "living": true
+  },
+  {
+   "id": "lisa",
+   "name": "Lisa",
+   "born": "1967",
+   "partners": [
+    "miguel-llorens"
+   ],
+   "living": true
+  },
+  {
+   "id": "miguel-llorens",
+   "name": "Miguel Llorens",
+   "partners": [
+    "lisa"
+   ]
+  },
+  {
+   "id": "nicolas",
+   "name": "Nicolás",
+   "born": "2002",
+   "parents": [
+    "lisa",
+    "miguel-llorens"
+   ],
+   "living": true
+  },
+  {
+   "id": "matteo",
+   "name": "Mattéo",
+   "born": "2004",
+   "parents": [
+    "lisa",
+    "miguel-llorens"
+   ],
+   "living": true
+  },
+  {
+   "id": "clara",
+   "name": "Clara",
+   "parents": [
+    "lisa",
+    "miguel-llorens"
+   ],
+   "living": true
+  },
+  {
+   "id": "robert-69",
+   "name": "Robert",
+   "born": "1969",
+   "partners": [
+    "trina-lynch"
+   ],
+   "living": true
+  },
+  {
+   "id": "trina-lynch",
+   "name": "Trina Lynch",
+   "partners": [
+    "robert-69"
+   ]
+  },
+  {
+   "id": "lizzie",
+   "name": "Lizzie",
+   "born": "1999",
+   "parents": [
+    "robert-69",
+    "trina-lynch"
+   ],
+   "living": true
+  },
+  {
+   "id": "jack",
+   "name": "Jack",
+   "born": "2001",
+   "parents": [
+    "robert-69",
+    "trina-lynch"
+   ],
+   "living": true
+  },
+  {
+   "id": "william-70",
+   "name": "William",
+   "born": "1970",
+   "partners": [
+    "milli-du-plessis"
+   ],
+   "living": true
+  },
+  {
+   "id": "milli-du-plessis",
+   "name": "Milli Du Plessis",
+   "partners": [
+    "william-70"
+   ]
+  },
+  {
+   "id": "finlay",
+   "name": "Finlay",
+   "born": "2003",
+   "parents": [
+    "william-70",
+    "milli-du-plessis"
+   ],
+   "living": true
+  },
+  {
+   "id": "isla",
+   "name": "Isla",
+   "born": "2005",
+   "parents": [
+    "william-70",
+    "milli-du-plessis"
+   ],
+   "living": true
+  },
+  {
+   "id": "james-71",
+   "name": "James",
+   "born": "1971",
+   "partners": [
+    "emily-norton"
+   ],
+   "living": true
+  },
+  {
+   "id": "emily-norton",
+   "name": "Emily Norton",
+   "partners": [
+    "james-71"
+   ]
+  },
+  {
+   "id": "nicholas",
+   "name": "Nicholas",
+   "born": "1976",
+   "partners": [
+    "haidy-miranda-cruz"
+   ],
+   "living": true
+  },
+  {
+   "id": "haidy-miranda-cruz",
+   "name": "Haidy Miranda Cruz",
+   "partners": [
+    "nicholas"
+   ]
+  },
+  {
+   "id": "abbie",
+   "name": "Abbie",
+   "born": "1973",
+   "partners": [
+    "robert-greaves"
+   ],
+   "living": true
+  },
+  {
+   "id": "robert-greaves",
+   "name": "Robert Greaves",
+   "partners": [
+    "abbie"
+   ]
+  },
+  {
+   "id": "paul",
+   "name": "Paul",
+   "born": "1968",
+   "partners": [
+    "helen-paul"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "helen-paul",
+   "name": "Helen (surname not read)",
+   "partners": [
+    "paul"
+   ],
+   "check": true
+  },
+  {
+   "id": "ruth",
+   "name": "Ruth",
+   "born": "1970",
+   "partners": [
+    "miles-warde"
+   ],
+   "living": true
+  },
+  {
+   "id": "miles-warde",
+   "name": "Miles Warde",
+   "partners": [
+    "ruth"
+   ]
+  },
+  {
+   "id": "celia",
+   "name": "Celia",
+   "born": "1971",
    "check": true,
    "living": true
   }
