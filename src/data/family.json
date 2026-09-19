@@ -1,0 +1,704 @@
+{
+ "placeholder": false,
+ "people": [
+  {
+   "id": "john-brooke",
+   "name": "John Brooke",
+   "born": "1853",
+   "partners": [
+    "cecilia-wright"
+   ],
+   "check": true
+  },
+  {
+   "id": "cecilia-wright",
+   "name": "Cecilia Wright",
+   "partners": [
+    "john-brooke"
+   ],
+   "check": true
+  },
+  {
+   "id": "nellie",
+   "name": "Helen (Nellie)",
+   "born": "1877",
+   "parents": [
+    "john-brooke",
+    "cecilia-wright"
+   ],
+   "partners": [
+    "alick-duncan"
+   ]
+  },
+  {
+   "id": "alick-duncan",
+   "name": "Alexander (Alick) Duncan",
+   "partners": [
+    "nellie"
+   ]
+  },
+  {
+   "id": "angela",
+   "name": "Angela",
+   "born": "1903",
+   "parents": [
+    "nellie",
+    "alick-duncan"
+   ]
+  },
+  {
+   "id": "prudence",
+   "name": "Prudence",
+   "born": "1906",
+   "parents": [
+    "nellie",
+    "alick-duncan"
+   ],
+   "partners": [
+    "jack-hutchinson"
+   ]
+  },
+  {
+   "id": "jack-hutchinson",
+   "name": "Jack Hutchinson",
+   "partners": [
+    "prudence"
+   ]
+  },
+  {
+   "id": "janet",
+   "name": "Janet",
+   "born": "1932",
+   "parents": [
+    "prudence",
+    "jack-hutchinson"
+   ],
+   "partners": [
+    "christopher-brooke"
+   ]
+  },
+  {
+   "id": "christopher-brooke",
+   "name": "Christopher Brooke",
+   "partners": [
+    "janet"
+   ]
+  },
+  {
+   "id": "joff",
+   "name": "Jonathan (Joff)",
+   "born": "1934",
+   "parents": [
+    "prudence",
+    "jack-hutchinson"
+   ],
+   "partners": [
+    "mary-green"
+   ],
+   "check": true
+  },
+  {
+   "id": "mary-green",
+   "name": "Mary Green",
+   "partners": [
+    "joff"
+   ],
+   "check": true
+  },
+  {
+   "id": "michael-wynyard",
+   "name": "Michael Wynyard",
+   "born": "1955",
+   "parents": [
+    "janet",
+    "christopher-brooke"
+   ],
+   "partners": [
+    "susannah-williams-ellis"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "susannah-williams-ellis",
+   "name": "Susannah Williams-Ellis",
+   "partners": [
+    "michael-wynyard"
+   ]
+  },
+  {
+   "id": "kate-62",
+   "name": "Kate",
+   "born": "1962",
+   "parents": [
+    "janet",
+    "christopher-brooke"
+   ],
+   "partners": [
+    "andrew-mccorm"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "andrew-mccorm",
+   "name": "Andrew McCorm…",
+   "partners": [
+    "kate-62"
+   ],
+   "check": true
+  },
+  {
+   "id": "david-wynyard",
+   "name": "David Wynyard",
+   "born": "1962",
+   "parents": [
+    "janet",
+    "christopher-brooke"
+   ],
+   "partners": [
+    "bernadette-decaire"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "bernadette-decaire",
+   "name": "Bernadette Decaire",
+   "partners": [
+    "david-wynyard"
+   ],
+   "check": true
+  },
+  {
+   "id": "richard-64",
+   "name": "Richard",
+   "born": "1964",
+   "parents": [
+    "janet",
+    "christopher-brooke"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "carol",
+   "name": "Carol",
+   "born": "1967",
+   "parents": [
+    "janet",
+    "christopher-brooke"
+   ],
+   "partners": [
+    "christopher-wilson"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "christopher-wilson",
+   "name": "Christopher Wilson",
+   "partners": [
+    "carol"
+   ]
+  },
+  {
+   "id": "alexandra",
+   "name": "Alexandra",
+   "born": "1982",
+   "parents": [
+    "michael-wynyard",
+    "susannah-williams-ellis"
+   ],
+   "partners": [
+    "tom-yazdi"
+   ],
+   "living": true
+  },
+  {
+   "id": "tom-yazdi",
+   "name": "Tom Yazdi",
+   "partners": [
+    "alexandra"
+   ]
+  },
+  {
+   "id": "laura",
+   "name": "Laura",
+   "born": "1984",
+   "parents": [
+    "michael-wynyard",
+    "susannah-williams-ellis"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "lucy-87",
+   "name": "Lucy",
+   "born": "1987",
+   "parents": [
+    "michael-wynyard",
+    "susannah-williams-ellis"
+   ],
+   "partners": [
+    "benji-wills"
+   ],
+   "living": true
+  },
+  {
+   "id": "benji-wills",
+   "name": "Benji Wills",
+   "partners": [
+    "lucy-87"
+   ]
+  },
+  {
+   "id": "romilly",
+   "name": "Romilly",
+   "born": "2016",
+   "parents": [
+    "alexandra",
+    "tom-yazdi"
+   ],
+   "living": true
+  },
+  {
+   "id": "ivo",
+   "name": "Ivo",
+   "born": "2018",
+   "parents": [
+    "alexandra",
+    "tom-yazdi"
+   ],
+   "living": true
+  },
+  {
+   "id": "flora",
+   "name": "Flora",
+   "born": "2021",
+   "parents": [
+    "lucy-87",
+    "benji-wills"
+   ],
+   "living": true
+  },
+  {
+   "id": "emily-93",
+   "name": "Emily",
+   "born": "1993",
+   "parents": [
+    "carol",
+    "christopher-wilson"
+   ],
+   "living": true
+  },
+  {
+   "id": "edward-wynyard",
+   "name": "Edward Wynyard",
+   "born": "1996",
+   "parents": [
+    "carol",
+    "christopher-wilson"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "holly",
+   "name": "Holly",
+   "born": "1992",
+   "parents": [
+    "kate-62",
+    "andrew-mccorm"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "olivia",
+   "name": "Olivia",
+   "born": "1993",
+   "parents": [
+    "kate-62",
+    "andrew-mccorm"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "florence",
+   "name": "Florence",
+   "born": "1997",
+   "parents": [
+    "kate-62",
+    "andrew-mccorm"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "anton",
+   "name": "Anton",
+   "born": "1993",
+   "parents": [
+    "david-wynyard",
+    "bernadette-decaire"
+   ],
+   "living": true
+  },
+  {
+   "id": "gigi",
+   "name": "Gigi (Georgina)",
+   "born": "1988",
+   "parents": [
+    "richard-64"
+   ],
+   "partners": [
+    "stephen-russell"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "stephen-russell",
+   "name": "Stephen Russell",
+   "partners": [
+    "gigi"
+   ]
+  },
+  {
+   "id": "michael-wilkinson",
+   "name": "Michael Wilkinson",
+   "check": true
+  },
+  {
+   "id": "edward-81",
+   "name": "Edward",
+   "born": "1981",
+   "parents": [
+    "michael-wilkinson"
+   ],
+   "partners": [
+    "lottie-pilling"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "lottie-pilling",
+   "name": "Lottie Pilling",
+   "partners": [
+    "edward-81"
+   ]
+  },
+  {
+   "id": "kate-84",
+   "name": "Kate",
+   "born": "1984",
+   "parents": [
+    "michael-wilkinson"
+   ],
+   "partners": [
+    "richard-hollis"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "richard-hollis",
+   "name": "Richard Hollis",
+   "partners": [
+    "kate-84"
+   ]
+  },
+  {
+   "id": "sophie",
+   "name": "Sophie",
+   "born": "1988",
+   "parents": [
+    "michael-wilkinson"
+   ],
+   "partners": [
+    "donny-donovan"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "donny-donovan",
+   "name": "Donny (Ryan) Donovan",
+   "partners": [
+    "sophie"
+   ],
+   "check": true
+  },
+  {
+   "id": "emily-17",
+   "name": "Emily",
+   "born": "2017",
+   "parents": [
+    "edward-81",
+    "lottie-pilling"
+   ],
+   "living": true
+  },
+  {
+   "id": "isobelle",
+   "name": "Isobelle",
+   "born": "2021",
+   "parents": [
+    "edward-81",
+    "lottie-pilling"
+   ],
+   "living": true
+  },
+  {
+   "id": "peter-17",
+   "name": "Peter",
+   "born": "2017",
+   "parents": [
+    "kate-84",
+    "richard-hollis"
+   ],
+   "living": true
+  },
+  {
+   "id": "lucy-19",
+   "name": "Lucy",
+   "born": "2019",
+   "parents": [
+    "kate-84",
+    "richard-hollis"
+   ],
+   "living": true
+  },
+  {
+   "id": "ella",
+   "name": "Ella",
+   "born": "2022",
+   "parents": [
+    "sophie",
+    "donny-donovan"
+   ],
+   "living": true
+  },
+  {
+   "id": "ricky-rosenberg",
+   "name": "Ricky Rosenberg",
+   "check": true
+  },
+  {
+   "id": "faraday",
+   "name": "Faraday",
+   "born": "1982",
+   "parents": [
+    "ricky-rosenberg"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "alec",
+   "name": "Alexander (Alec)",
+   "parents": [
+    "ricky-rosenberg"
+   ],
+   "check": true
+  },
+  {
+   "id": "harriet",
+   "name": "Harriet",
+   "born": "1970",
+   "partners": [
+    "mark-langdale"
+   ],
+   "living": true
+  },
+  {
+   "id": "mark-langdale",
+   "name": "Mark Langdale",
+   "partners": [
+    "harriet"
+   ]
+  },
+  {
+   "id": "kit",
+   "name": "Kit",
+   "born": "2002",
+   "parents": [
+    "harriet",
+    "mark-langdale"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "felix",
+   "name": "Felix",
+   "born": "2004",
+   "parents": [
+    "harriet",
+    "mark-langdale"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "rafe",
+   "name": "Rafe",
+   "born": "2006",
+   "parents": [
+    "harriet",
+    "mark-langdale"
+   ],
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "tiggy",
+   "name": "Victoria (Tiggy)",
+   "born": "1975",
+   "partners": [
+    "michael-trounce"
+   ],
+   "living": true
+  },
+  {
+   "id": "michael-trounce",
+   "name": "Michael Trounce",
+   "partners": [
+    "tiggy"
+   ]
+  },
+  {
+   "id": "freddy",
+   "name": "Freddy",
+   "born": "2005",
+   "parents": [
+    "tiggy",
+    "michael-trounce"
+   ],
+   "living": true
+  },
+  {
+   "id": "conrad",
+   "name": "Conrad",
+   "born": "2008",
+   "parents": [
+    "tiggy",
+    "michael-trounce"
+   ],
+   "living": true
+  },
+  {
+   "id": "suzie",
+   "name": "Suzie",
+   "born": "2012",
+   "parents": [
+    "tiggy",
+    "michael-trounce"
+   ],
+   "living": true
+  },
+  {
+   "id": "rosie",
+   "name": "Rosie",
+   "born": "2004",
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "bella",
+   "name": "Bella",
+   "born": "2006",
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "helen-80",
+   "name": "Helen",
+   "born": "1980",
+   "partners": [
+    "shun-oishi"
+   ],
+   "living": true
+  },
+  {
+   "id": "shun-oishi",
+   "name": "Shun Oishi",
+   "partners": [
+    "helen-80"
+   ]
+  },
+  {
+   "id": "wren",
+   "name": "Wren",
+   "parents": [
+    "helen-80",
+    "shun-oishi"
+   ],
+   "living": true
+  },
+  {
+   "id": "taiga",
+   "name": "Taiga",
+   "parents": [
+    "helen-80",
+    "shun-oishi"
+   ],
+   "living": true
+  },
+  {
+   "id": "william",
+   "name": "William",
+   "born": "1982",
+   "partners": [
+    "valentina-aloisi"
+   ],
+   "living": true
+  },
+  {
+   "id": "valentina-aloisi",
+   "name": "Valentina Aloisi",
+   "partners": [
+    "william"
+   ]
+  },
+  {
+   "id": "tanja",
+   "name": "Tanja",
+   "born": "1975",
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "elaine",
+   "name": "Elaine",
+   "born": "1979",
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "clinton",
+   "name": "Clinton",
+   "born": "1981",
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "abigail",
+   "name": "Abigail",
+   "born": "1983",
+   "check": true,
+   "living": true
+  },
+  {
+   "id": "rebecca",
+   "name": "Rebecca",
+   "born": "1988",
+   "check": true,
+   "living": true
+  }
+ ]
+}

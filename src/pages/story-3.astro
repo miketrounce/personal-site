@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/page-layouts.css';
+import '../styles/story.css';
+---
+
+<Layout
+title="The family tree — a story — Mike Trounce"
+description="A family member asked for a searchable family tree before a party. The starting point was a hand-drawn chart and a pile of photos."
+>
+<div class="cs-page">
+<a href="/" class="back-link">&larr; Mike Trounce</a>
+
+<span class="cs-label">Story 3</span>
+<h1>The family tree</h1>
+<p class="cs-meta">Family project &middot; <a href="/family-tree/">Live, work in progress</a></p>
+
+<p class="cs-standfirst">
+A family member was hosting a party and asked if I could put together a little app for it beforehand: a family tree people could look at and search. The source material was a huge hand-drawn chart made for an earlier family party, some years back.
+</p>
+
+<section>
+<h2>The problem</h2>
+<p>
+The chart is drawn by hand on one very large sheet of paper, and it's complicated: lots of branches, partners and generations, with lines running a long way across the page. It's a great object to stand in front of, but it's hard to find one person on it, and it only exists in one place.
+</p>
+<p>
+The ask was simple: make it something people can look at on their phones and search by name.
+</p>
+</section>
+
+<section>
+<h2>The approach</h2>
+<p>
+Nothing on the paper exists as data, so the first job is turning it into data. I photographed the chart in sections, then read the names, birth years and relationships out of the photos into a single file: one entry per person, linked to their parents and partners. Some of the photos came out dark and blurry, so anything I could only half read is flagged on the page as possibly wrong.
+</p>
+<p>
+Handwriting and long-range lines are where mistakes creep in, so the transcription gets checked against the original one section at a time before anything is published.
+</p>
+<p>
+The site itself is a single page. You can pan and zoom around the tree, search for a name and jump straight to that person, and click anyone to see their details and who they're connected to. Since the site is public, living relatives are shown by name only, with no dates.
+</p>
+
+<details class="tech-detail" id="technical">
+<summary>Technical detail: how it's built</summary>
+<p>
+It's a page on this site, built in <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> like the rest of it. The whole tree lives in one JSON file, and a small script in the browser handles the search and navigation. There's no server or database, so it stays fast and there's nothing to maintain after the party.
+</p>
+</details>
+</section>
+
+<p class="cs-foot">
+<a href="/">&larr; Mike Trounce</a>
+</p>
+</div>
+</Layout>
