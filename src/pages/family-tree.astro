@@ -18,11 +18,14 @@ interface Person {
   guess?: boolean;
   parents?: string[];
   partners?: string[];
+  formerPartners?: string[];
+  siblings?: string[];
 }
 interface Unit {
   members: Person[];
   children: Unit[];
   primary: number;
+  former: boolean[];
 }
 interface Lay {
   u: Unit;
@@ -34,7 +37,7 @@ interface Lay {
 }
 
 const people: Person[] = (data.people as Person[]).map((p) =>
-  p.living ? { id: p.id, name: p.name, living: true, check: p.check, parents: p.parents, partners: p.partners } : p
+  p.living ? { id: p.id, name: p.name, living: true, born: p.born && Number(p.born) < 2008 ? p.born : undefined, check: p.check, parents: p.parents, partners: p.partners, formerPartners: p.formerPartners, siblings: p.siblings } : p
 );
 // Surnames. The chart writes a married-in surname in capitals (e.g. Chris WILSON), which is also
 // the name the bloodline woman goes by. Where no surname is written, an adult takes the surname
@@ -103,13 +106,18 @@ const PAD = 40;
 const rawBorn = new Map<string, number>((data.people as Person[]).filter((p) => p.born).map((p) => [p.id, Number(p.born)]));
 const unitOf = new Map<string, Unit>();
 const units: Unit[] = [];
+const formerIds = new Set(people.flatMap((p) => p.formerPartners ?? []));
 for (const p of people) {
-  if (unitOf.has(p.id)) continue;
+  if (unitOf.has(p.id) || formerIds.has(p.id)) continue;
   const partner = byId.get(p.partners?.[0] ?? '');
-  const spouse = partner && !unitOf.has(partner.id) ? partner : undefined;
-  const members = spouse && !p.parents && spouse.parents ? [spouse, p] : spouse ? [p, spouse] : [p];
-  const unit: Unit = { members, children: [], primary: members.findIndex((m) => m.parents?.length) };
-  if (unit.primary < 0) unit.primary = 0;
+  const spouse = partner && !unitOf.has(partner.id) && !formerIds.has(partner.id) ? partner : undefined;
+  const base = spouse && !p.parents && spouse.parents ? [spouse, p] : spouse ? [p, spouse] : [p];
+  // Former partners are drawn faintly to the left of the person they were partnered with.
+  const exes = (p.formerPartners ?? []).map((id) => byId.get(id)).filter(Boolean) as Person[];
+  const members = [...exes, ...base];
+  let primary = members.findIndex((m, i) => i >= exes.length && m.parents?.length);
+  if (primary < 0) primary = exes.length + base.indexOf(p);
+  const unit: Unit = { members, children: [], primary, former: members.map((_, i) => i < exes.length) };
   units.push(unit);
   members.forEach((m) => unitOf.set(m.id, unit));
 }
@@ -143,13 +151,14 @@ function lay(u: Unit, depth: number, hDepth: number): Lay {
     });
     return { u, w, h: NODE_H + V_GAP + Math.max(...kids.map((k) => k.h)), ux: (w - ow) / 2, hang: false, kids: placed };
   }
+  const off = u.primary * (NODE_W + PAIR_GAP);
   let y = NODE_H + HANG_TOP;
   const placed = kids.map((l) => {
-    const k = { l, x: INDENT, y };
+    const k = { l, x: off + INDENT, y };
     y += l.h + HANG_GAP;
     return k;
   });
-  return { u, w: Math.max(ow, INDENT + Math.max(...kids.map((k) => k.w))), h: y - HANG_GAP, ux: 0, hang: true, kids: placed };
+  return { u, w: Math.max(ow, off + INDENT + Math.max(...kids.map((k) => k.w))), h: y - HANG_GAP, ux: 0, hang: true, kids: placed };
 }
 
 // Try a few ways of arranging things and keep the one closest to a 4:3 rectangle.
@@ -183,15 +192,22 @@ for (let hDepth = 1; hDepth <= 8; hDepth++) {
 }
 const layout = best!;
 
-const nodes: { p: Person; x: number; y: number }[] = [];
+const nodes: { p: Person; x: number; y: number; former?: boolean }[] = [];
 const links: string[] = [];
+const faintLinks: string[] = [];
 function emit(l: Lay, ox: number, oy: number) {
   const ux = ox + l.ux;
-  l.u.members.forEach((m, i) => nodes.push({ p: m, x: ux + i * (NODE_W + PAIR_GAP), y: oy }));
-  if (l.u.members.length === 2) links.push(`M${ux + NODE_W} ${oy + NODE_H / 2}H${ux + NODE_W + PAIR_GAP}`);
+  const step = NODE_W + PAIR_GAP;
+  const n = l.u.members.length;
+  l.u.members.forEach((m, i) => nodes.push({ p: m, x: ux + i * step, y: oy, former: l.u.former[i] }));
+  for (let i = 0; i < n - 1; i++) {
+    const line = `M${ux + i * step + NODE_W} ${oy + NODE_H / 2}H${ux + (i + 1) * step}`;
+    (l.u.former[i] || l.u.former[i + 1] ? faintLinks : links).push(line);
+  }
   if (!l.kids.length) return;
+  const anchorX = ux + l.u.primary * step;
   if (l.hang) {
-    const spine = ux + 20;
+    const spine = anchorX + 20;
     links.push(`M${spine} ${oy + NODE_H}V${oy + l.kids[l.kids.length - 1].y + NODE_H / 2}`);
     for (const k of l.kids) {
       links.push(`M${spine} ${oy + k.y + NODE_H / 2}H${ox + k.x}`);
@@ -199,10 +215,11 @@ function emit(l: Lay, ox: number, oy: number) {
     }
     return;
   }
-  const couple = l.u.members.length === 2;
-  const joint = ux + (couple ? NODE_W + PAIR_GAP / 2 : NODE_W / 2);
+  // Children hang from the couple, or from the one person when there is no current couple.
+  const couple = n === 2 && !l.u.former.some(Boolean);
+  const joint = couple ? ux + NODE_W + PAIR_GAP / 2 : anchorX + NODE_W / 2;
   const busY = oy + NODE_H + V_GAP / 2;
-  const targets = l.kids.map((k) => ox + k.x + k.l.ux + k.l.u.primary * (NODE_W + PAIR_GAP) + NODE_W / 2);
+  const targets = l.kids.map((k) => ox + k.x + k.l.ux + k.l.u.primary * step + NODE_W / 2);
   links.push(`M${joint} ${couple ? oy + NODE_H / 2 : oy + NODE_H}V${busY}`);
   links.push(`M${Math.min(joint, ...targets)} ${busY}H${Math.max(joint, ...targets)}`);
   l.kids.forEach((k, i) => {
@@ -228,7 +245,7 @@ const nameLines = (name: string): string[] => {
   const bare = name.replace(/\(.*?\)/g, '').trim().split(/\s+/);
   return bare.length > 1 ? [parts.slice(0, -1).join(' '), parts[parts.length - 1]] : [name];
 };
-const lifespan = (p: Person) => (p.living ? '' : [p.born, p.died].filter(Boolean).join('–'));
+const lifespan = (p: Person) => (p.living ? (p.born ?? '') : [p.born, p.died].filter(Boolean).join('–'));
 ---
 
 <Layout
@@ -252,9 +269,12 @@ description="A searchable family tree."
 <g class="links">
 {links.map((d) => <path d={d} />)}
 </g>
+<g class="links faint">
+{faintLinks.map((d) => <path d={d} />)}
+</g>
 {layout.rows.length > 0 && <text class="block-label" x={PAD} y={labelY + 18}>Branches not yet connected to the main tree</text>}
-{nodes.map(({ p, x, y }) => (
-<g class="node" data-id={p.id} transform={`translate(${x} ${y})`} tabindex="0" role="button" aria-label={p.name}>
+{nodes.map(({ p, x, y, former }) => (
+<g class={former ? 'node former' : 'node'} data-id={p.id} transform={`translate(${x} ${y})`} tabindex="0" role="button" aria-label={p.name}>
 <rect width={NODE_W} height={NODE_H} rx="8" />
 {p.photo ? (
 <>
@@ -313,6 +333,21 @@ description="A searchable family tree."
 <script>
 const people = JSON.parse(document.getElementById('family-data')!.textContent!);
 const byId = new Map<string, any>(people.map((p: any) => [p.id, p]));
+const currentPartnersOf = (id: string): string[] => {
+  const out = new Set<string>(byId.get(id).partners ?? []);
+  for (const p of people) if (p.partners?.includes(id)) out.add(p.id);
+  return [...out];
+};
+const formerPartnersOf = (id: string): string[] => {
+  const out = new Set<string>(byId.get(id).formerPartners ?? []);
+  for (const p of people) if (p.formerPartners?.includes(id)) out.add(p.id);
+  return [...out];
+};
+const siblingsOf = (id: string): string[] => {
+  const out = new Set<string>(byId.get(id).siblings ?? []);
+  for (const p of people) if (p.siblings?.includes(id)) out.add(p.id);
+  return [...out];
+};
 const svg = document.getElementById('tree') as unknown as SVGSVGElement;
 const fullW = Number(svg.dataset.w);
 const fullH = Number(svg.dataset.h);
@@ -403,7 +438,7 @@ document.querySelectorAll<HTMLButtonElement>('[data-zoom]').forEach((b) =>
 
 // --- selection ---
 const nodeEl = (id: string) => svg.querySelector<SVGGElement>(`.node[data-id="${id}"]`);
-const dates = (p: any) => (p.living ? '' : [p.born, p.died].filter(Boolean).join(' – '));
+const dates = (p: any) => (p.living ? (p.born ?? '') : [p.born, p.died].filter(Boolean).join(' – '));
 function relatedButtons(label: string, ids: string[]) {
   if (!ids.length) return '';
   const items = ids.map((id) => `<button type="button" data-goto="${id}">${byId.get(id).name}</button>`).join('');
@@ -423,7 +458,9 @@ function select(id: string, recentre = true) {
     apply();
   }
   const parents = (p.parents ?? []) as string[];
-  const partners = (p.partners ?? []) as string[];
+  const partners = currentPartnersOf(id);
+  const former = formerPartnersOf(id);
+  const siblings = siblingsOf(id);
   const children = people.filter((c: any) => c.parents?.includes(id)).map((c: any) => c.id);
   details.innerHTML =
     (p.photo ? `<img class="portrait" src="/people/${p.id}.jpg" alt="${p.name}" />` : '') +
@@ -434,6 +471,8 @@ function select(id: string, recentre = true) {
     (p.check ? '<p class="check">Read from a hard-to-read photo, so this may be wrong.</p>' : '') +
     relatedButtons('Parents', parents) +
     relatedButtons('Partners', partners) +
+    relatedButtons('Former partners', former) +
+    relatedButtons('Siblings', siblings) +
     relatedButtons('Children', children);
 }
 svg.addEventListener('click', (e) => {
@@ -480,11 +519,8 @@ const picked: { a?: string; b?: string } = {};
 const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 const nm = (id: string) => `<strong>${esc(byId.get(id).name)}</strong>`;
 
-const partnersOf = (id: string): string[] => {
-  const out = new Set<string>(byId.get(id).partners ?? []);
-  for (const p of people) if (p.partners?.includes(id)) out.add(p.id);
-  return [...out];
-};
+const partnersOf = (id: string): string[] => [...new Set([...currentPartnersOf(id), ...formerPartnersOf(id)])];
+const wasPartner = (a: string, b: string) => formerPartnersOf(a).includes(b);
 // Distance (in generations) from a person up to each of their ancestors, including themselves at 0.
 const ancestorsOf = (id: string) => {
   const dist = new Map<string, number>([[id, 0]]);
@@ -546,16 +582,17 @@ function bloodSentence(x: string, y: string) {
 }
 function relate(a: string, b: string): string {
   if (a === b) return 'That\'s the same person.';
-  if (partnersOf(a).includes(b)) return `${nm(a)} and ${nm(b)} are partners.`;
+  if (siblingsOf(a).includes(b)) return `${nm(a)} and ${nm(b)} are siblings.`;
+  if (partnersOf(a).includes(b)) return `${nm(a)} and ${nm(b)} ${wasPartner(a, b) ? 'were' : 'are'} partners.`;
   const direct = bloodSentence(a, b);
   if (direct) return direct;
   for (const pa of partnersOf(a)) {
     const s = pa === b ? undefined : bloodSentence(pa, b);
-    if (s) return `${nm(a)} is partnered with ${nm(pa)}, so they're related by marriage. ${s}`;
+    if (s) return `${nm(a)} ${wasPartner(a, pa) ? 'was' : 'is'} partnered with ${nm(pa)}, so they're related by marriage. ${s}`;
   }
   for (const pb of partnersOf(b)) {
     const s = pb === a ? undefined : bloodSentence(a, pb);
-    if (s) return `${nm(b)} is partnered with ${nm(pb)}, so they're related by marriage. ${s}`;
+    if (s) return `${nm(b)} ${wasPartner(b, pb) ? 'was' : 'is'} partnered with ${nm(pb)}, so they're related by marriage. ${s}`;
   }
   return 'No connection found in the tree yet. Some branches aren\'t joined to the main tree, so they may well be related.';
 }
@@ -616,6 +653,9 @@ window.addEventListener('resize', start);
 .tree-wrap { position: relative; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-raised); overflow: hidden; }
 #tree { width: 100%; height: 72vh; min-height: 420px; touch-action: none; cursor: grab; user-select: none; }
 #tree .links path { fill: none; stroke: var(--ink-faint); stroke-width: 1.5; }
+#tree .links.faint path { stroke-dasharray: 4 4; opacity: 0.6; }
+#tree .node.former { opacity: 0.5; }
+#tree .node.former rect { stroke-dasharray: 5 4; }
 #tree .node { cursor: pointer; }
 #tree .node rect { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
 #tree .node:hover rect { stroke: var(--illus-a); }

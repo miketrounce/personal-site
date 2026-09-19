@@ -134,17 +134,16 @@
     "christopher-brooke"
    ],
    "partners": [
-    "andrew-mccorm",
     "peter-nicholls"
    ],
-   "living": true
+   "living": true,
+   "formerPartners": [
+    "andrew-mccorm"
+   ]
   },
   {
    "id": "andrew-mccorm",
-   "name": "Andrew McCORMICK",
-   "partners": [
-    "kate-62"
-   ]
+   "name": "Andrew McCORMICK"
   },
   {
    "id": "david-wynyard",
@@ -357,18 +356,15 @@
   },
   {
    "id": "michael-wilkinson",
-   "name": "Michael WILKINSON",
-   "partners": [
-    "allison"
-   ]
+   "name": "Michael WILKINSON"
   },
   {
    "id": "edward-81",
    "name": "Edward Wilkinson",
    "born": "1981",
    "parents": [
-    "allison",
-    "michael-wilkinson"
+    "michael-wilkinson",
+    "allison"
    ],
    "partners": [
     "lottie-pilling"
@@ -387,8 +383,8 @@
    "name": "Kate",
    "born": "1984",
    "parents": [
-    "allison",
-    "michael-wilkinson"
+    "michael-wilkinson",
+    "allison"
    ],
    "partners": [
     "richard-hollis"
@@ -408,8 +404,8 @@
    "name": "Sophie",
    "born": "1988",
    "parents": [
-    "allison",
-    "michael-wilkinson"
+    "michael-wilkinson",
+    "allison"
    ],
    "partners": [
     "donny-donovan"
@@ -1212,10 +1208,23 @@
   },
   {
    "id": "allison",
-   "name": "Allison",
-   "partners": [
+   "name": "Allison (Ally) Quinlan",
+   "partners": [],
+   "formerPartners": [
     "michael-wilkinson"
+   ],
+   "siblings": [
+    "francis-quinlan"
    ]
+  },
+  {
+   "id": "francis-quinlan",
+   "name": "Francis QUINLAN",
+   "siblings": [
+    "allison"
+   ],
+   "born": "1940",
+   "living": true
   }
  ]
 }
