@@ -20,6 +20,7 @@ interface Person {
   partners?: string[];
   formerPartners?: string[];
   siblings?: string[];
+  maiden?: string;
 }
 interface Unit {
   members: Person[];
@@ -37,7 +38,7 @@ interface Lay {
 }
 
 const people: Person[] = (data.people as Person[]).map((p) =>
-  p.living ? { id: p.id, name: p.name, living: true, born: p.born && Number(p.born) < 2008 ? p.born : undefined, check: p.check, parents: p.parents, partners: p.partners, formerPartners: p.formerPartners, siblings: p.siblings } : p
+  p.living ? { id: p.id, name: p.name, living: true, born: p.born && Number(p.born) < 2008 ? p.born : undefined, check: p.check, parents: p.parents, partners: p.partners, formerPartners: p.formerPartners, siblings: p.siblings, maiden: p.maiden } : p
 );
 // Surnames. The chart writes a married-in surname in capitals (e.g. Chris WILSON), which is also
 // the name the bloodline woman goes by. Where no surname is written, an adult takes the surname
@@ -59,7 +60,7 @@ const writtenSurname = (name: string) => (words(name).length > 1 ? words(name).p
     if (written) {
       result = { surname: written, guess: false };
     } else {
-      const viaPartner = [...(p.partners ?? [])].reverse().map((pid) => {
+      const viaPartner = [...(p.partners ?? []), ...(p.formerPartners ?? [])].reverse().map((pid) => {
         const w = writtenSurname(raw.get(pid)?.name ?? '');
         return w && isCaps(w) ? w : undefined;
       }).find(Boolean);
@@ -88,6 +89,7 @@ const initials = (name: string) => {
   return (words[0][0] + (words.length > 1 ? words[words.length - 1][0] : '')).toUpperCase();
 };
 const byId = new Map<string, Person>(people.map((p) => [p.id, p]));
+const families = (data as { families?: { id: string; name: string; head: string[] }[] }).families ?? [];
 
 const NODE_W = 176;
 const NODE_H = 62;
@@ -262,6 +264,13 @@ description="A searchable family tree."
 <input id="tree-search" type="search" placeholder="Search by name" autocomplete="off" />
 <ul id="tree-results" class="results" hidden></ul>
 </div>
+<div class="focus-bar">
+<label for="family-focus">Focus on a family</label>
+<select id="family-focus">
+<option value="">Whole tree</option>
+{families.map((f) => <option value={f.id}>{f.name}</option>)}
+</select>
+</div>
 
 <div class="tree-body">
 <div class="tree-wrap">
@@ -326,12 +335,12 @@ description="A searchable family tree."
 <p id="relate-answer" class="relate-answer" aria-live="polite">Pick two people and it will tell you how they're related.</p>
 </section>
 
-<script type="application/json" id="family-data" set:html={JSON.stringify(people)} />
+<script type="application/json" id="family-data" set:html={JSON.stringify({ people, families })} />
 </div>
 </Layout>
 
 <script>
-const people = JSON.parse(document.getElementById('family-data')!.textContent!);
+const { people, families } = JSON.parse(document.getElementById('family-data')!.textContent!);
 const byId = new Map<string, any>(people.map((p: any) => [p.id, p]));
 const currentPartnersOf = (id: string): string[] => {
   const out = new Set<string>(byId.get(id).partners ?? []);
@@ -348,6 +357,7 @@ const siblingsOf = (id: string): string[] => {
   for (const p of people) if (p.siblings?.includes(id)) out.add(p.id);
   return [...out];
 };
+const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 const svg = document.getElementById('tree') as unknown as SVGSVGElement;
 const fullW = Number(svg.dataset.w);
 const fullH = Number(svg.dataset.h);
@@ -431,7 +441,7 @@ svg.addEventListener('wheel', (e) => {
 document.querySelectorAll<HTMLButtonElement>('[data-zoom]').forEach((b) =>
   b.addEventListener('click', () => {
     const mode = b.dataset.zoom;
-    if (mode === 'fit') return fit();
+    if (mode === 'fit') { svg.classList.remove('focused'); svg.querySelectorAll('.node.dim').forEach((n) => n.classList.remove('dim')); focusSelect.value = ''; return fit(); }
     zoomAt(mode === 'in' ? 0.8 : 1.25, view.x + view.w / 2, view.y + view.h / 2);
   })
 );
@@ -466,6 +476,7 @@ function select(id: string, recentre = true) {
     (p.photo ? `<img class="portrait" src="/people/${p.id}.jpg" alt="${p.name}" />` : '') +
     `<h2>${p.name}</h2>` +
     (dates(p) ? `<p class="dates">${dates(p)}</p>` : '') +
+    (p.maiden ? `<p>Born ${esc(p.maiden)}</p>` : '') +
     (p.notes ? `<p>${p.notes}</p>` : '') +
     (p.guess ? '<p class="check">Surname assumed from the family line, so it may be different.</p>' : '') +
     (p.check ? '<p class="check">Read from a hard-to-read photo, so this may be wrong.</p>' : '') +
@@ -473,7 +484,8 @@ function select(id: string, recentre = true) {
     relatedButtons('Partners', partners) +
     relatedButtons('Former partners', former) +
     relatedButtons('Siblings', siblings) +
-    relatedButtons('Children', children);
+    relatedButtons('Children', children) +
+    (children.length ? `<p><button type="button" class="focus-btn" data-family-of="${id}">Show this family</button></p>` : '');
 }
 svg.addEventListener('click', (e) => {
   if (moved > 6) return;
@@ -494,7 +506,7 @@ function search() {
   const q = input.value.trim().toLowerCase();
   results.innerHTML = '';
   if (!q) { results.hidden = true; return; }
-  const hits = people.filter((p: any) => p.name.toLowerCase().includes(q)).slice(0, 8);
+  const hits = people.filter((p: any) => `${p.name} ${p.maiden ?? ''}`.toLowerCase().includes(q)).slice(0, 8);
   results.hidden = false;
   results.innerHTML = hits.length
     ? hits.map((p: any) => `<li><button type="button" data-goto="${p.id}">${p.name}<span>${dates(p)}</span></button></li>`).join('')
@@ -516,7 +528,6 @@ const relInputs = { a: document.getElementById('rel-a') as HTMLInputElement, b: 
 const relLists = { a: document.getElementById('rel-a-results')!, b: document.getElementById('rel-b-results')! };
 const relAnswer = document.getElementById('relate-answer')!;
 const picked: { a?: string; b?: string } = {};
-const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 const nm = (id: string) => `<strong>${esc(byId.get(id).name)}</strong>`;
 
 const partnersOf = (id: string): string[] => [...new Set([...currentPartnersOf(id), ...formerPartnersOf(id)])];
@@ -615,7 +626,7 @@ for (const key of ['a', 'b'] as const) {
     const q = input.value.trim().toLowerCase();
     list.innerHTML = '';
     if (!q) { list.hidden = true; return; }
-    const hits = people.filter((p: any) => p.name.toLowerCase().includes(q)).slice(0, 8);
+    const hits = people.filter((p: any) => `${p.name} ${p.maiden ?? ''}`.toLowerCase().includes(q)).slice(0, 8);
     list.hidden = false;
     list.innerHTML = hits.length
       ? hits.map((p: any) => `<li><button type="button" data-pick="${p.id}">${esc(p.name)}<span>${esc(dates(p))}</span></button></li>`).join('')
@@ -633,6 +644,55 @@ for (const key of ['a', 'b'] as const) {
     showRelation();
   });
 }
+
+// --- focus on a family ---
+const focusSelect = document.getElementById('family-focus') as HTMLSelectElement;
+function familyOf(heads: string[]): Set<string> {
+  const set = new Set<string>();
+  const add = (id: string) => {
+    if (set.has(id)) return;
+    set.add(id);
+    for (const pid of [...currentPartnersOf(id), ...formerPartnersOf(id)]) set.add(pid);
+    for (const c of people) if (c.parents?.includes(id)) add(c.id);
+  };
+  heads.forEach(add);
+  return set;
+}
+function focusFamily(heads: string[] | null) {
+  const set = heads ? familyOf(heads) : null;
+  svg.classList.toggle('focused', !!set);
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  svg.querySelectorAll<SVGGElement>('.node').forEach((n) => {
+    const inFamily = !set || set.has(n.dataset.id!);
+    n.classList.toggle('dim', !inFamily);
+    if (set && inFamily) {
+      const m = /translate\(([\d.]+) ([\d.]+)\)/.exec(n.getAttribute('transform')!)!;
+      const w = Number(n.querySelector('rect')!.getAttribute('width'));
+      const h = Number(n.querySelector('rect')!.getAttribute('height'));
+      x0 = Math.min(x0, Number(m[1])); y0 = Math.min(y0, Number(m[2]));
+      x1 = Math.max(x1, Number(m[1]) + w); y1 = Math.max(y1, Number(m[2]) + h);
+    }
+  });
+  if (!set) return start();
+  const r = svg.getBoundingClientRect();
+  const pad = 40;
+  let w = x1 - x0 + pad * 2;
+  let h = y1 - y0 + pad * 2;
+  const ratio = r.width / r.height;
+  if (w / h < ratio) w = h * ratio; else h = w / ratio;
+  view = { x: (x0 + x1) / 2 - w / 2, y: (y0 + y1) / 2 - h / 2, w, h };
+  apply();
+}
+focusSelect.addEventListener('change', () => {
+  const f = families.find((f: any) => f.id === focusSelect.value);
+  focusFamily(f ? f.head : null);
+});
+details.addEventListener('click', (e) => {
+  const b = (e.target as Element).closest<HTMLElement>('[data-family-of]');
+  if (!b) return;
+  focusSelect.value = '';
+  focusFamily([b.dataset.familyOf!]);
+});
 
 start();
 window.addEventListener('resize', start);
@@ -671,6 +731,12 @@ window.addEventListener('resize', start);
 .zoom-controls button { min-width: 38px; height: 38px; font: inherit; font-weight: 600; background: var(--bg-raised); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; color: var(--ink); }
 .zoom-controls button:hover { border-color: var(--illus-a); }
 .details { margin-top: 1.25rem; padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-raised); }
+.focus-bar { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 1rem; flex-wrap: wrap; }
+.focus-bar label { font-size: 0.9rem; color: var(--ink-soft); }
+.focus-bar select { flex: 1; min-width: 200px; max-width: 520px; padding: 0.5rem 0.7rem; font: inherit; font-size: 0.95rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-raised); color: var(--ink); }
+.details .focus-btn { padding: 0.35rem 0.85rem; font: inherit; font-size: 0.92rem; background: var(--illus-b); border: 1px solid var(--illus-a); border-radius: 999px; cursor: pointer; color: var(--ink); }
+#tree.focused .node.dim { opacity: 0.16; }
+#tree.focused .links { opacity: 0.3; }
 .relate { margin-top: 1.25rem; padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-raised); }
 .relate h2 { margin: 0 0 0.9rem; font-size: 1.15rem; }
 .relate-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }

@@ -501,7 +501,12 @@
    "partners": [
     "mark-langdale"
    ],
-   "living": true
+   "living": true,
+   "parents": [
+    "francis-quinlan",
+    "janet-quinlan"
+   ],
+   "maiden": "Quinlan"
   },
   {
    "id": "mark-langdale",
@@ -550,7 +555,12 @@
    "partners": [
     "michael-trounce"
    ],
-   "living": true
+   "living": true,
+   "parents": [
+    "francis-quinlan",
+    "janet-quinlan"
+   ],
+   "maiden": "Quinlan"
   },
   {
    "id": "michael-trounce",
@@ -995,8 +1005,11 @@
    "partners": [
     "helen-paul"
    ],
-   "check": true,
-   "living": true
+   "living": true,
+   "parents": [
+    "jeremy-quinlan",
+    "bridget-quinlan"
+   ]
   },
   {
    "id": "helen-paul",
@@ -1013,7 +1026,11 @@
    "partners": [
     "miles-warde"
    ],
-   "living": true
+   "living": true,
+   "parents": [
+    "jeremy-quinlan",
+    "bridget-quinlan"
+   ]
   },
   {
    "id": "miles-warde",
@@ -1040,7 +1057,10 @@
    "partners": [
     "lesley-jennings"
    ],
-   "check": true
+   "check": true,
+   "siblings": [
+    "john-37"
+   ]
   },
   {
    "id": "lesley-jennings",
@@ -1208,23 +1228,145 @@
   },
   {
    "id": "allison",
-   "name": "Allison (Ally) Quinlan",
+   "name": "Allison (Ally)",
    "partners": [],
    "formerPartners": [
     "michael-wilkinson"
    ],
    "siblings": [
     "francis-quinlan"
-   ]
+   ],
+   "maiden": "Quinlan"
   },
   {
    "id": "francis-quinlan",
    "name": "Francis QUINLAN",
    "siblings": [
-    "allison"
+    "allison",
+    "jeremy-quinlan"
    ],
    "born": "1940",
+   "living": true,
+   "partners": [
+    "janet-quinlan"
+   ]
+  },
+  {
+   "id": "janet-quinlan",
+   "name": "Janet",
+   "partners": [
+    "francis-quinlan"
+   ],
+   "maiden": "Tilly",
    "living": true
+  },
+  {
+   "id": "jeremy-quinlan",
+   "name": "Jeremy QUINLAN",
+   "born": "1937",
+   "partners": [
+    "bridget-quinlan"
+   ],
+   "siblings": [
+    "francis-quinlan"
+   ],
+   "living": true
+  },
+  {
+   "id": "bridget-quinlan",
+   "name": "Bridget",
+   "partners": [
+    "jeremy-quinlan"
+   ],
+   "maiden": "Tilly",
+   "living": true
+  },
+  {
+   "id": "lucy-67",
+   "name": "Lucy",
+   "born": "1967",
+   "parents": [
+    "francis-quinlan",
+    "janet-quinlan"
+   ],
+   "partners": [
+    "robert-jack"
+   ],
+   "maiden": "Quinlan",
+   "living": true
+  },
+  {
+   "id": "robert-jack",
+   "name": "Robert JACK",
+   "partners": [
+    "lucy-67"
+   ],
+   "living": true
+  },
+  {
+   "id": "john-37",
+   "name": "John",
+   "born": "1937",
+   "partners": [
+    "margit-lauder"
+   ],
+   "siblings": [
+    "richard-39"
+   ],
+   "living": true,
+   "check": true
+  },
+  {
+   "id": "margit-lauder",
+   "name": "Margit Lauder",
+   "partners": [
+    "john-37"
+   ],
+   "living": true,
+   "check": true
+  }
+ ],
+ "families": [
+  {
+   "id": "quinlan",
+   "name": "Francis and Janet QUINLAN: their daughters, husbands and children",
+   "head": [
+    "francis-quinlan",
+    "janet-quinlan"
+   ]
+  },
+  {
+   "id": "quinlan-jeremy",
+   "name": "Jeremy and Bridget QUINLAN: Paul, Ruth and their children",
+   "head": [
+    "jeremy-quinlan",
+    "bridget-quinlan"
+   ]
+  },
+  {
+   "id": "brooke",
+   "name": "Janet and Christopher BROOKE: their children and grandchildren",
+   "head": [
+    "janet",
+    "christopher-brooke"
+   ]
+  },
+  {
+   "id": "wilkinson",
+   "name": "Mike and Allison Wilkinson: Edward, Kate and Sophie",
+   "head": [
+    "michael-wilkinson",
+    "allison"
+   ]
+  },
+  {
+   "id": "wynyard-simon",
+   "name": "Simon Wynyard: his children and grandchildren",
+   "head": [
+    "simon-wynyard",
+    "vicky-monkton",
+    "marlene-wiggins"
+   ]
   }
  ]
 }
