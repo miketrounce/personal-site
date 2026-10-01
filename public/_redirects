@@ -1,3 +1,4 @@
-# Permanent short address for the family tree (used on the QR code). Keep this forever.
-/family /family-tree/ 302
-/family/ /family-tree/ 302
+# The family tree project was retired. This address is still on a printed
+# QR code out in the world, so keep it redirecting rather than let it 404.
+/family / 302
+/family/ / 302

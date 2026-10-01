@@ -4,8 +4,9 @@ import '../styles/page-layouts.css';
 
 const studies = [
   { title: 'The Greensman', desc: 'A garden business paying £125 a year for a website with the wrong address on its own flyer — plus a video that turned a £100 quote into £300, and a YouTube channel in the works.', href: '/story-1' },
-  { title: 'This website', desc: 'The general approach behind miketrounce.com itself — one clear job, built plainly.', href: '/story-2' },
-  { title: 'The family tree', desc: 'A hand-drawn family chart, turned into something people can search before a family party.', href: '/story-3' },
+  { title: 'Trounceflow', href: null },
+  { title: 'Delphos IQ', href: null },
+  { title: 'Exante Data FlowPro', href: null },
 ];
 ---
 
@@ -21,8 +22,11 @@ description="Real examples of the work — what was wrong, what changed, and why
 <ul class="cs-list">
 {studies.map((s) => (
 <li class="cs-item">
-<a href={s.href}>{s.title}</a>
-<p>{s.desc}</p>
+{s.href
+  ? <a href={s.href}>{s.title}</a>
+  : <span class="cs-title-plain">{s.title}</span>}
+{s.desc && <p>{s.desc}</p>}
+{!s.href && <p class="cs-on-request">Details on request &mdash; <a href="mailto:trounceflow@gmail.com">get in touch</a></p>}
 </li>
 ))}
 </ul>
@@ -58,5 +62,24 @@ color: var(--green);
 margin: 0.5rem 0 0;
 color: var(--ink-soft);
 font-size: 0.98rem;
+}
+
+.cs-title-plain {
+font-family: 'Fraunces', Georgia, serif;
+font-size: 1.4rem;
+color: var(--ink);
+}
+
+.cs-on-request {
+font-size: 0.85rem;
+color: var(--ink-faint);
+}
+
+.cs-on-request a {
+color: var(--ink-faint);
+}
+
+.cs-on-request a:hover {
+color: var(--accent);
 }
 </style>
