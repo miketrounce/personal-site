@@ -4,6 +4,15 @@ import '../styles/page-layouts.css';
 import '../styles/story.css';
 import { Image } from 'astro:assets';
 import freddyPhoto from '../assets/freddy-greensman.jpg';
+import reel1 from '../assets/trouncetalks-reel-1.jpg';
+import reel2 from '../assets/trouncetalks-reel-2.jpg';
+import reel3 from '../assets/trouncetalks-reel-3.jpg';
+
+const reels = [
+  { image: reel1, href: 'https://www.instagram.com/reel/DcO5xTcJfZ0/' },
+  { image: reel2, href: 'https://www.instagram.com/reel/DbWHgmeo4eL/' },
+  { image: reel3, href: 'https://www.instagram.com/reel/DavZ2WJIQX1/' },
+];
 ---
 
 <Layout
@@ -126,11 +135,14 @@ With the new setup live and verified, the Wix Light plan was cancelled — that'
   Freddy posts the day-to-day of building the business himself, as <a href="https://www.instagram.com/trouncetalks/" target="_blank" rel="noopener">@trouncetalks</a> on Instagram — unpolished, first-person, and hard for a competitor to fake.
   </p>
   <div class="social-grid">
-    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DcO5xTcJfZ0/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
-    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DbWHgmeo4eL/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
-    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DavZ2WJIQX1/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+    {reels.map((reel) => (
+      <a class="reel-card" href={reel.href} target="_blank" rel="noopener">
+        <Image src={reel.image} alt="Reel from @trouncetalks on Instagram" width={360} height={640} />
+        <span class="reel-play" aria-hidden="true">&#9654;</span>
+        <span class="reel-label">View on Instagram</span>
+      </a>
+    ))}
   </div>
-  <script is:inline async src="//www.instagram.com/embed.js"></script>
 </section>
 
 <p class="pullquote">
@@ -250,10 +262,58 @@ None of this was one big project. It's what happens when someone keeps a proper 
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   margin-top: 1.25rem;
-  justify-items: center;
 }
 @media (max-width: 640px) {
-  .social-grid { grid-template-columns: 1fr; }
+  .social-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+}
+
+.reel-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 9 / 16;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-raised);
+  box-shadow: 0 1px 2px rgba(var(--shadow) / 0.05), 0 12px 24px -16px rgba(var(--shadow) / 0.35);
+}
+.reel-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.reel-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.15rem;
+  border-radius: 999px;
+  background: rgba(46, 44, 34, 0.45);
+  color: #fff;
+  font-size: 0.9rem;
+  backdrop-filter: blur(2px);
+}
+.reel-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.6rem 0.5rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(to top, rgba(46, 44, 34, 0.75), rgba(46, 44, 34, 0));
+}
+@media (max-width: 640px) {
+  .reel-label { font-size: 0.62rem; padding: 0.5rem 0.3rem 0.4rem; }
+  .reel-play { width: 2rem; height: 2rem; font-size: 0.75rem; }
 }
 
 .pullquote {
