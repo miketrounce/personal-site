@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/page-layouts.css';
+import '../styles/story.css';
+---
+
+<Layout
+title="The upsell reel — a story — Mike Trounce"
+description="A routine quote for an overgrown garden turned into a short video for the client — and the job went from £100 to £300 before Freddy got home."
+>
+<div class="cs-page">
+<a href="/" class="back-link">&larr; Mike Trounce</a>
+
+<span class="cs-label">Story 5</span>
+<h1>The upsell reel</h1>
+<p class="cs-meta">Garden &amp; grounds maintenance &middot; One-off</p>
+
+<p class="cs-standfirst">
+Freddy went to quote an overgrown garden on a student let. I went along to take photos and some video, the way I've started doing on a few of his jobs. By the time he left, the job he'd come to quote at roughly &pound;100 had become a &pound;300 one.
+</p>
+
+<div class="stats">
+  <div class="stat">
+    <span class="stat-num">&pound;100 &rarr; &pound;300</span>
+    <span class="stat-label">the quote, before and after</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">3&times;</span>
+    <span class="stat-label">the size of the job Freddy walked in to quote</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">Same visit</span>
+    <span class="stat-label">no second call, no chasing — agreed on the spot</span>
+  </div>
+</div>
+
+<section>
+  <h2>The garden</h2>
+  <p>
+  The front hedge hadn't been touched in some time — well above head height and growing into the pavement. Round the back was worse: a garden that had gone untouched long enough that what was once a lawn was mostly bramble, with a child's paddling pool left out and slowly filling with leaves. Freddy's original quote only covered the front.
+  </p>
+</section>
+
+<section>
+  <h2>The reel</h2>
+  <p>
+  Rather than leave it as a spoken quote and a follow-up text, I cut the footage from the visit into a short vertical video the same day — built in Claude Code, the same tool behind the rest of this site. Nothing elaborate: just the garden as it actually was, sent along with the written quote.
+  </p>
+  <div class="reel-embed">
+    <video controls preload="metadata" poster="/media/kabir-poster.jpg" playsinline>
+      <source src="/media/kabir-reel.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <p class="cs-caption">The reel sent with the quote &mdash; shot and cut the same day.</p>
+</section>
+
+<section>
+  <h2>The upsell</h2>
+  <p>
+  Freddy handed me the proposal itself — pricing included. Seeing the whole garden laid out in the video, not just the hedge he'd come to quote, made the case for covering the back as well as the front. The client agreed to both before Freddy had left the drive: the &pound;100 hedge job became a &pound;300 clearance of the whole garden.
+  </p>
+  <p>
+  It's one small job, not a trend line. But it's a concrete example of the thing I keep telling founders: the extra bit of effort — a video instead of a sentence, a proposal written properly instead of dashed off — is often where the extra revenue actually sits.
+  </p>
+</section>
+
+<p class="cs-foot">
+<a href="/">&larr; Mike Trounce</a>
+</p>
+</div>
+</Layout>
+
+<style>
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+.stat {
+  background: var(--bg-raised);
+  border-radius: 16px;
+  padding: 1.1rem 1rem;
+  box-shadow: 0 1px 2px rgba(var(--shadow) / 0.05), 0 12px 24px -16px rgba(var(--shadow) / 0.35);
+}
+.stat-num {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--illus-a);
+  margin-bottom: 0.35rem;
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+@media (max-width: 640px) {
+  .stats { grid-template-columns: 1fr; }
+}
+
+.reel-embed {
+  max-width: 320px;
+  margin: 1.5rem auto 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--bg-raised);
+  box-shadow: 0 1px 2px rgba(var(--shadow) / 0.05), 0 18px 34px -18px rgba(var(--shadow) / 0.4);
+}
+.reel-embed video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  background: #000;
+}
+.reel-embed + .cs-caption {
+  text-align: center;
+  margin-top: 0.7rem;
+}
+</style>

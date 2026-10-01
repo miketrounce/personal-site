@@ -10,6 +10,10 @@
   margin: 0.75rem 0 0.25rem;
 }
 
+.cs-page > .back-link {
+  display: block;
+}
+
 .cs-hero img {
   width: 100%;
   height: auto;
