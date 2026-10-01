@@ -17,7 +17,7 @@ const reels = [
 
 <Layout
 title="The Greensman — a story — Mike Trounce"
-description="How two small fixes — cheaper hosting and a corrected flyer — became an ongoing tidy-up of everything The Greensman's customers see."
+description="How two small fixes — cheaper hosting and a corrected flyer — became an ongoing tidy-up of everything The Greensman's customers see, from a quote video that tripled a job to a YouTube channel in the works."
 >
 <div class="cs-page">
 <a href="/" class="back-link">&larr; Mike Trounce</a>
@@ -130,6 +130,39 @@ With the new setup live and verified, the Wix Light plan was cancelled — that'
 </section>
 
 <section>
+  <h2>The upsell reel</h2>
+  <p>
+  Freddy went to quote an overgrown garden on a student let. I went along to take photos and some video, the way I've started doing on a few of his jobs. The front hedge was well above head height; round the back, what had been a lawn was mostly bramble. Freddy's original quote only covered the front.
+  </p>
+  <p>
+  Rather than leave it as a spoken quote and a follow-up text, I cut the footage into a short vertical video the same day — built in Claude Code, the same tool behind this site — and sent it along with the written quote.
+  </p>
+  <div class="reel-embed">
+    <video controls preload="metadata" poster="/media/kabir-poster.jpg" playsinline>
+      <source src="/media/kabir-reel.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <p class="cs-caption">The reel sent with the quote — shot and cut the same day.</p>
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-num">&pound;100 &rarr; &pound;300</span>
+      <span class="stat-label">the quote, before and after</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">3&times;</span>
+      <span class="stat-label">the size of the job Freddy walked in to quote</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">Same visit</span>
+      <span class="stat-label">no second call, no chasing — agreed on the spot</span>
+    </div>
+  </div>
+  <p>
+  Seeing the whole garden laid out in the video, not just the hedge he'd come to quote, made the case for covering the back as well as the front. The client agreed to both before Freddy had left the drive: the &pound;100 hedge job became a &pound;300 clearance of the whole garden. One small job, not a trend line — but a concrete example of the thing I keep telling founders: the extra bit of effort, a video instead of a sentence, is often where the extra revenue actually sits.
+  </p>
+</section>
+
+<section>
   <h2>Freddy's own following</h2>
   <p>
   Freddy posts the day-to-day of building the business himself, as <a href="https://www.instagram.com/trouncetalks/" target="_blank" rel="noopener">@trouncetalks</a> on Instagram — unpolished, first-person, and hard for a competitor to fake.
@@ -143,6 +176,19 @@ With the new setup live and verified, the Wix Light plan was cancelled — that'
       </a>
     ))}
   </div>
+</section>
+
+<section>
+  <h2>Next: The Greensman on YouTube</h2>
+  <p>
+  Instagram Reels are Freddy's personal story — first-person, unpolished, about him — and they reach people roughly his own age. A good number of his actual and potential clients are older, don't use Instagram much, but do use YouTube, and some of them are exactly the people who hire a gardener.
+  </p>
+  <p>
+  Rather than split his personal account in two, the plan is a second channel on a second platform, with a different subject: not Freddy's journey, but The Greensman's work — built from the same habit of photos and video on site that already feeds his Instagram, just cut and framed around the business instead of around him.
+  </p>
+  <p>
+  The channel doesn't exist yet. It'll sit under Freddy's own Google account, so the business owns it outright, with the first few pieces of footage already gathered on site ready to go up once it's set up.
+  </p>
 </section>
 
 <p class="pullquote">
@@ -314,6 +360,26 @@ None of this was one big project. It's what happens when someone keeps a proper 
 @media (max-width: 640px) {
   .reel-label { font-size: 0.62rem; padding: 0.5rem 0.3rem 0.4rem; }
   .reel-play { width: 2rem; height: 2rem; font-size: 0.75rem; }
+}
+
+.reel-embed {
+  max-width: 320px;
+  margin: 1.5rem auto 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--bg-raised);
+  box-shadow: 0 1px 2px rgba(var(--shadow) / 0.05), 0 18px 34px -18px rgba(var(--shadow) / 0.4);
+}
+.reel-embed video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  background: #000;
+}
+.reel-embed + .cs-caption {
+  text-align: center;
+  margin-top: 0.7rem;
 }
 
 .pullquote {
