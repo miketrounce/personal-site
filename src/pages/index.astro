@@ -133,6 +133,24 @@ const employers = [
 </Layout>
 
 <style>
+  /* ---------- monochrome palette override, this page only ---------- */
+  /* Matches the near-black/off-white values pulled from javierbajer.com's own
+     CSS — no green/sage accents on this page while we're matching his look. */
+  :root {
+    --ink: #202322;
+    --ink-soft: #363938;
+    --ink-faint: #5a5c5a;
+    --line: #d8d8d6;
+    --green: #202322;
+    --illus-a: #202322;
+    --illus-b: #e8e8e6;
+    --bg-raised: #ffffff;
+    --shadow: 0 0 0;
+  }
+  :global(body) {
+    background: #f0f0f0;
+  }
+
   /* ---------- hero zone: header + intro share a subtle dot-grid backdrop ---------- */
   .hero-zone {
     background-image: radial-gradient(var(--line) 1px, transparent 1px);
@@ -209,9 +227,7 @@ const employers = [
     flex: 1 1 420px;
   }
   .lede {
-    font-family: 'Fraunces', Georgia, serif;
-    font-optical-sizing: auto;
-    font-variation-settings: 'opsz' 144;
+    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
     font-weight: 500;
     font-size: clamp(2.1rem, 3.8vw, 3.4rem);
     line-height: 1.1;
@@ -251,8 +267,9 @@ const employers = [
   .job {
     padding: 1.1rem 0;
     border-bottom: 1px solid var(--line);
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.6rem;
+    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
     line-height: 1.2;
   }
   .job a {
@@ -324,7 +341,6 @@ const employers = [
   }
   .testimonial p {
     margin: 0 0 0.4rem;
-    font-family: 'Fraunces', Georgia, serif;
     font-style: italic;
     font-size: 1.05rem;
     color: var(--ink);
@@ -347,8 +363,8 @@ const employers = [
   }
   .employers-band h2 {
     margin: 0 0 1.5rem;
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 400;
+    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
+    font-weight: 600;
     font-size: clamp(1.5rem, 3vw, 2rem);
     color: var(--ink);
   }
@@ -395,8 +411,8 @@ const employers = [
   }
   .engage-card h3 {
     margin: 0 0 0.35rem;
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 400;
+    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
+    font-weight: 600;
     font-size: 1.25rem;
     color: var(--ink);
   }
