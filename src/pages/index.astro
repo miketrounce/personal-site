@@ -41,10 +41,14 @@ const employers = [
     <section class="intro">
       <h1 class="lede">Are you an entrepreneur?</h1>
       <p class="intro-sub">Because if you're not, you've come to the wrong place.</p>
+      <div class="gate">
+        <button type="button" class="gate-btn gate-yes" id="gate-yes">Yes</button>
+        <button type="button" class="gate-btn gate-no" id="gate-no">No</button>
+      </div>
     </section>
   </div>
 
-  <main>
+  <main id="main-content">
 
     <div class="content-col">
       <ul class="jobs">
@@ -204,17 +208,17 @@ const employers = [
 
   /* ---------- intro: headline only, text-first like the reference's first screen ---------- */
   .intro {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: clamp(4rem, 14vh, 9rem) clamp(1.5rem, 5vw, 3rem) clamp(3rem, 10vh, 6rem);
   }
   .lede {
     font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
     font-weight: 500;
-    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    font-size: clamp(2rem, 3.6vw, 3.4rem);
     line-height: 1.08;
     letter-spacing: -0.02em;
-    max-width: 16ch;
+    white-space: nowrap;
     margin: 0;
   }
   .intro-sub {
@@ -222,6 +226,34 @@ const employers = [
     font-size: clamp(1.05rem, 1.6vw, 1.3rem);
     color: var(--ink-soft);
     max-width: 30ch;
+  }
+  .gate {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .gate-btn {
+    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 0.8rem 2.4rem;
+    border-radius: 999px;
+    cursor: pointer;
+    border: 2px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+  }
+  .gate-yes {
+    background: var(--ink);
+    color: var(--bg-raised);
+  }
+  .gate-yes:hover {
+    opacity: 0.8;
+  }
+  .gate-no:hover {
+    background: var(--ink);
+    color: var(--bg-raised);
   }
 
   /* ---------- content column (narrow sections between full-bleed bands) ---------- */
@@ -464,6 +496,12 @@ const employers = [
     color: var(--ink-faint);
   }
 
+  @media (max-width: 650px) {
+    .lede {
+      white-space: normal;
+    }
+  }
+
   @media (max-width: 560px) {
     .job {
       font-size: 1.35rem;
@@ -479,3 +517,21 @@ const employers = [
     }
   }
 </style>
+
+<script>
+  const exits = [
+    'https://www.google.com',
+    'https://www.amazon.com',
+    'https://www.ebay.com',
+    'https://www.instagram.com',
+    'https://www.facebook.com',
+  ];
+
+  document.getElementById('gate-yes')?.addEventListener('click', () => {
+    document.getElementById('main-content')?.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('gate-no')?.addEventListener('click', () => {
+    window.location.href = exits[Math.floor(Math.random() * exits.length)];
+  });
+</script>
