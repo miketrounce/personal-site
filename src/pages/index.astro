@@ -39,16 +39,7 @@ const employers = [
     </header>
 
     <section class="intro">
-      <div class="intro-text">
-        <h1 class="lede">Entrepreneurial help for startups and small businesses.</h1>
-      </div>
-      <div class="intro-media">
-        <div class="intro-video">
-          <video controls preload="metadata" poster="/media/mike-intro-poster.jpg" playsinline>
-            <source src="/media/mike-intro.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </div>
+      <h1 class="lede">Entrepreneurial help for entrepreneurs.</h1>
     </section>
   </div>
 
@@ -210,44 +201,20 @@ const employers = [
     border-color: var(--illus-a);
   }
 
-  /* ---------- intro: headline + video side by side, sized to fit one screen ---------- */
+  /* ---------- intro: headline only, text-first like the reference's first screen ---------- */
   .intro {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: clamp(2rem, 5vw, 3.5rem);
-    max-width: 1300px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: clamp(2.5rem, 7vh, 4.5rem) clamp(1.5rem, 5vw, 3rem) clamp(2rem, 5vh, 3.5rem);
-  }
-  .intro-text {
-    flex: 1 1 380px;
-  }
-  .intro-media {
-    flex: 1 1 420px;
+    padding: clamp(4rem, 14vh, 9rem) clamp(1.5rem, 5vw, 3rem) clamp(3rem, 10vh, 6rem);
   }
   .lede {
     font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
     font-weight: 500;
-    font-size: clamp(2.1rem, 3.8vw, 3.4rem);
-    line-height: 1.1;
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    line-height: 1.08;
     letter-spacing: -0.02em;
+    max-width: 16ch;
     margin: 0;
-  }
-  .intro-video {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 20px;
-    overflow: hidden;
-    background: var(--bg-raised);
-    box-shadow: 0 1px 2px rgba(var(--shadow) / 0.05), 0 18px 34px -18px rgba(var(--shadow) / 0.4);
-  }
-  .intro-video video {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
-    object-fit: cover;
   }
 
   /* ---------- content column (narrow sections between full-bleed bands) ---------- */
