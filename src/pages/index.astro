@@ -39,7 +39,8 @@ const employers = [
     </header>
 
     <section class="intro">
-      <h1 class="lede">Entrepreneurial help for entrepreneurs.</h1>
+      <h1 class="lede">Are you an entrepreneur?</h1>
+      <p class="intro-sub">Because if you're not, you've come to the wrong place.</p>
     </section>
   </div>
 
@@ -215,6 +216,12 @@ const employers = [
     letter-spacing: -0.02em;
     max-width: 16ch;
     margin: 0;
+  }
+  .intro-sub {
+    margin: 1rem 0 0;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    color: var(--ink-soft);
+    max-width: 30ch;
   }
 
   /* ---------- content column (narrow sections between full-bleed bands) ---------- */
