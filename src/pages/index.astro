@@ -47,7 +47,11 @@ const employers = [
     </section>
   </div>
 
-  <main id="main-content">
+  <noscript>
+    <style>.gated { display: block !important; }</style>
+  </noscript>
+
+  <main id="main-content" class="gated">
 
     <div class="content-col">
       <ul class="jobs">
@@ -122,7 +126,7 @@ const employers = [
     </div>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer gated">
     <p>Mike Trounce &middot; <a href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a></p>
   </footer>
 </Layout>
@@ -150,6 +154,12 @@ const employers = [
   .hero-zone {
     background-image: radial-gradient(var(--line) 1px, transparent 1px);
     background-size: 22px 22px;
+  }
+
+  /* ---------- gate: hidden until "Yes" is clicked; see <noscript> override and the
+     page script for the no-JS / JS-enabled fallback behavior ---------- */
+  .gated {
+    display: none;
   }
 
   /* ---------- top nav ---------- */
@@ -520,7 +530,21 @@ const employers = [
     'https://www.facebook.com',
   ];
 
+  function revealSite() {
+    document.querySelectorAll('.gated').forEach((el) => el.classList.remove('gated'));
+    try {
+      sessionStorage.setItem('entrepreneur', 'yes');
+    } catch (e) {}
+  }
+
+  let alreadyPassed = false;
+  try {
+    alreadyPassed = sessionStorage.getItem('entrepreneur') === 'yes';
+  } catch (e) {}
+  if (alreadyPassed) revealSite();
+
   document.getElementById('gate-yes')?.addEventListener('click', () => {
+    revealSite();
     document.getElementById('main-content')?.scrollIntoView({ behavior: 'smooth' });
   });
 
