@@ -21,20 +21,23 @@ const employers = [
   title="Mike Trounce — Get Things Done!"
   description="Give me an hour. If I find nothing, you don't pay."
 >
-  <header class="site-header">
-    <a class="logotype" href="/">Mike Trounce</a>
-    <nav class="top-nav">
-      <a class="quiet" href="/about">About</a>
-      <a class="quiet" href="/how-i-work">How I work</a>
-      <a class="quiet" href="/stories">Stories</a>
-      <a class="quiet" href="/hire-me">Hire me</a>
-      <a class="quiet" href="mailto:trounceflow@gmail.com">Contact</a>
-      <a class="icon-link" href="https://www.linkedin.com/in/michael-trounce/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
-      <a class="icon-link" href="https://www.youtube.com/@michaeltrounce3746" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
-    </nav>
-  </header>
+  <div class="hero-zone">
+    <header class="site-header">
+      <a class="logotype" href="/">
+        <span class="logotype-name">Mike Trounce</span>
+        <span class="logotype-tag">Get Things Done</span>
+      </a>
+      <nav class="top-nav">
+        <a class="quiet" href="/about">About</a>
+        <a class="quiet" href="/how-i-work">How I work</a>
+        <a class="quiet" href="/stories">Stories</a>
+        <a class="quiet" href="/hire-me">Hire me</a>
+        <a class="quiet" href="mailto:trounceflow@gmail.com">Contact</a>
+        <a class="icon-link" href="https://www.linkedin.com/in/michael-trounce/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+        <a class="icon-link" href="https://www.youtube.com/@michaeltrounce3746" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
+      </nav>
+    </header>
 
-  <main>
     <section class="intro">
       <div class="intro-text">
         <h1 class="lede">Professional help for startups and small businesses.</h1>
@@ -47,6 +50,9 @@ const employers = [
         </div>
       </div>
     </section>
+  </div>
+
+  <main>
 
     <div class="content-col">
       <ul class="jobs">
@@ -127,6 +133,12 @@ const employers = [
 </Layout>
 
 <style>
+  /* ---------- hero zone: header + intro share a subtle dot-grid backdrop ---------- */
+  .hero-zone {
+    background-image: radial-gradient(var(--line) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
   /* ---------- top nav ---------- */
   .site-header {
     display: flex;
@@ -135,14 +147,26 @@ const employers = [
     flex-wrap: wrap;
     gap: 1rem;
     padding: 1.4rem clamp(1.5rem, 5vw, 3rem);
-    border-bottom: 1px solid var(--line);
   }
   .logotype {
-    font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.01em;
-    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
     text-decoration: none;
+  }
+  .logotype-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .logotype-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
   }
   .top-nav {
     display: flex;
@@ -176,7 +200,7 @@ const employers = [
     gap: clamp(2rem, 5vw, 3.5rem);
     max-width: 1300px;
     margin: 0 auto;
-    padding: clamp(2rem, 5vh, 3.5rem) clamp(1.5rem, 5vw, 3rem);
+    padding: clamp(2.5rem, 7vh, 4.5rem) clamp(1.5rem, 5vw, 3rem) clamp(2rem, 5vh, 3.5rem);
   }
   .intro-text {
     flex: 1 1 380px;
@@ -186,10 +210,12 @@ const employers = [
   }
   .lede {
     font-family: 'Fraunces', Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(1.9rem, 3.4vw, 3rem);
-    line-height: 1.14;
-    letter-spacing: -0.015em;
+    font-optical-sizing: auto;
+    font-variation-settings: 'opsz' 144;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 3.8vw, 3.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     margin: 0;
   }
   .intro-video {
