@@ -35,15 +35,16 @@ const employers = [
   </header>
 
   <main>
-    <section class="hero">
-      <h1 class="lede">Talk it through, or have it built. Either way, it gets done.</h1>
-    </section>
-
-    <section class="video-band">
-      <div class="intro-video">
-        <video controls preload="metadata" poster="/media/mike-intro-poster.jpg" playsinline>
-          <source src="/media/mike-intro.mp4" type="video/mp4" />
-        </video>
+    <section class="intro">
+      <div class="intro-text">
+        <h1 class="lede">Professional help for startups and small businesses — not enterprise prices.</h1>
+      </div>
+      <div class="intro-media">
+        <div class="intro-video">
+          <video controls preload="metadata" poster="/media/mike-intro-poster.jpg" playsinline>
+            <source src="/media/mike-intro.mp4" type="video/mp4" />
+          </video>
+        </div>
       </div>
     </section>
 
@@ -167,29 +168,31 @@ const employers = [
     border-color: var(--illus-a);
   }
 
-  /* ---------- hero ---------- */
-  .hero {
-    max-width: 1100px;
+  /* ---------- intro: headline + video side by side, sized to fit one screen ---------- */
+  .intro {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    max-width: 1300px;
     margin: 0 auto;
-    padding: clamp(3.5rem, 10vh, 7rem) clamp(1.5rem, 5vw, 3rem) clamp(2.5rem, 6vh, 4rem);
+    padding: clamp(2rem, 5vh, 3.5rem) clamp(1.5rem, 5vw, 3rem);
+  }
+  .intro-text {
+    flex: 1 1 380px;
+  }
+  .intro-media {
+    flex: 1 1 420px;
   }
   .lede {
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 400;
-    font-size: clamp(2.4rem, 6vw, 4.6rem);
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    max-width: 18ch;
+    font-size: clamp(1.9rem, 3.4vw, 3rem);
+    line-height: 1.14;
+    letter-spacing: -0.015em;
     margin: 0;
   }
-
-  /* ---------- intro video ---------- */
-  .video-band {
-    padding: 0 clamp(1.5rem, 5vw, 3rem) clamp(3rem, 7vh, 4.5rem);
-  }
   .intro-video {
-    max-width: 1100px;
-    margin: 0 auto;
     width: 100%;
     aspect-ratio: 16 / 9;
     border-radius: 20px;
