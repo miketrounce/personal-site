@@ -27,7 +27,7 @@ const employers = [
         <span class="logotype-name">Mike Trounce</span>
         <span class="logotype-tag">Get Things Done</span>
       </a>
-      <nav class="top-nav">
+      <nav class="top-nav gated">
         <a class="quiet" href="/about">About</a>
         <a class="quiet" href="/how-i-work">How I work</a>
         <a class="quiet" href="/stories">Stories</a>
@@ -38,7 +38,7 @@ const employers = [
       </nav>
     </header>
 
-    <section class="intro">
+    <section class="intro" id="intro-gate">
       <h1 class="lede">Are you an entrepreneur?</h1>
       <div class="gate">
         <button type="button" class="gate-btn gate-yes" id="gate-yes">Yes</button>
@@ -48,7 +48,7 @@ const employers = [
   </div>
 
   <noscript>
-    <style>.gated { display: block !important; }</style>
+    <style>.gated { display: block !important; } nav.gated { display: flex !important; }</style>
   </noscript>
 
   <main id="main-content" class="gated">
@@ -159,7 +159,7 @@ const employers = [
   /* ---------- gate: hidden until "Yes" is clicked; see <noscript> override and the
      page script for the no-JS / JS-enabled fallback behavior ---------- */
   .gated {
-    display: none;
+    display: none !important;
   }
 
   /* ---------- top nav ---------- */
@@ -532,6 +532,8 @@ const employers = [
 
   function revealSite() {
     document.querySelectorAll('.gated').forEach((el) => el.classList.remove('gated'));
+    const introGate = document.getElementById('intro-gate');
+    if (introGate) introGate.style.display = 'none';
     try {
       sessionStorage.setItem('entrepreneur', 'yes');
     } catch (e) {}
