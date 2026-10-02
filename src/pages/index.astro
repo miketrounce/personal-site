@@ -54,6 +54,17 @@ const employers = [
   <main id="main-content" class="gated">
 
     <div class="content-col">
+      <section class="proof">
+        <Image class="proof-photo" src={freddyPhoto} alt="Freddy Trounce, The Greensman" width={72} height={72} />
+        <div>
+          <p class="proof-lede">So is Freddy. I work with him — here's what he said:</p>
+          <blockquote class="proof-quote">
+            <p>&ldquo;This is great.&rdquo;</p>
+            <cite>Freddy Trounce, The Greensman</cite>
+          </blockquote>
+        </div>
+      </section>
+
       <ul class="jobs">
         {jobs.map((j) => (
           <li class="job">
@@ -264,6 +275,46 @@ const employers = [
     max-width: 760px;
     margin: 0 auto;
     padding: clamp(1rem, 4vh, 2rem) 1.5rem;
+  }
+
+  /* ---------- proof: Freddy's answer to the gate question ---------- */
+  .proof {
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
+    padding-bottom: clamp(2.2rem, 5vh, 3rem);
+    border-bottom: 1px solid var(--line);
+  }
+  .proof-photo {
+    width: 72px;
+    height: 72px;
+    flex: none;
+    border-radius: 14px;
+    object-fit: cover;
+    object-position: 45% 20%;
+  }
+  .proof-lede {
+    margin: 0 0 0.6rem;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+  .proof-quote {
+    margin: 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--illus-a);
+  }
+  .proof-quote p {
+    margin: 0 0 0.3rem;
+    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--ink);
+  }
+  .proof-quote cite {
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
   }
 
   /* ---------- the list ---------- */
