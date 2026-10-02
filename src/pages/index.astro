@@ -10,138 +10,188 @@ const jobs = [
   { job: "Your accounts", line: "Get them set up, or get what you've set up to cost less.", href: null },
   { job: "Your adverts", line: "Get them running, or stop them costing more than they bring in.", href: "/promoting-your-business" },
 ];
+
+const employers = [
+  "Exante Data", "Trounceflow", "Standard Chartered", "JPMorgan",
+  "Nomura", "Markit", "Societe Generale", "BNP Paribas",
+];
 ---
 
 <Layout
   title="Mike Trounce — Get Things Done!"
   description="Give me an hour. If I find nothing, you don't pay."
 >
-  <main class="home">
-    <p class="eyebrow">Mike Trounce</p>
-
-    <h1 class="lede">Get Things Done!</h1>
-
-    <p class="standfirst">Work / Play</p>
-
-    <div class="intro-video">
-      <video controls preload="metadata" poster="/media/mike-intro-poster.jpg" playsinline>
-        <source src="/media/mike-intro.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <ul class="jobs">
-      {jobs.map((j) => (
-        <li class="job">
-          {j.href ? <a href={j.href}>{j.job}</a> : <span>{j.job}</span>}
-            <span class="job-line">{j.line}</span>
-        </li>
-      ))}
-    </ul>
-
-    <section class="example">
-      <Image class="example-photo" src={freddyPhoto} alt="Freddy Trounce, The Greensman, working in a client's garden" width={96} height={96} />
-      <div>
-        <h2>Stories</h2>
-        <p>Freddy's garden and grounds business in Elstead was paying £125 a year to keep a website online, and handing out a flyer with the wrong web address on it. Neither needed a big project. They needed someone to notice.</p>
-        <p class="example-link"><a href="/story-1">The Greensman, in full</a> &middot; <a href="/stories">All stories</a></p>
-      </div>
-    </section>
-
-    <!-- Placeholder testimonials — fake names, fake quotes. Swap for real ones before this is taken seriously as a commercial page. -->
-    <section class="testimonials">
-      <h2>What people say</h2>
-      <div class="testimonial-list">
-        <blockquote class="testimonial">
-          <p>&ldquo;Placeholder testimonial — swap in a real quote here.&rdquo;</p>
-          <cite>Joe Blogs, Placeholder role</cite>
-        </blockquote>
-        <blockquote class="testimonial">
-          <p>&ldquo;Placeholder testimonial — swap in a real quote here.&rdquo;</p>
-          <cite>Billy X, Placeholder role</cite>
-        </blockquote>
-        <blockquote class="testimonial">
-          <p>&ldquo;Placeholder testimonial — swap in a real quote here.&rdquo;</p>
-          <cite>Jane Doe, Placeholder role</cite>
-        </blockquote>
-      </div>
-    </section>
-
-    <section class="engage">
-      <h2>Work with me</h2>
-      <div class="engage-cards">
-        <a class="engage-card" href="/consultant">
-          <h3>Consultant</h3>
-          <p>Talk it through — your dealflow, your leads, what's working.</p>
-        </a>
-        <a class="engage-card" href="/builder">
-          <h3>Builder</h3>
-          <p>Have it done — a CRM, a website, the marketing.</p>
-        </a>
-      </div>
-      <p class="engage-more"><a href="/hire-me">More on how both work &rarr;</a></p>
-    </section>
-
-    <div class="sign-off">
-      <Image class="face" src={mikePhoto} alt="Mike Trounce" width={184} height={282} loading="eager" />
-      <p>
-        Got something worth building? <a class="contact-email" href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a>
-      </p>
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <nav>
+  <header class="site-header">
+    <a class="logotype" href="/">Mike Trounce</a>
+    <nav class="top-nav">
       <a class="quiet" href="/about">About</a>
       <a class="quiet" href="/how-i-work">How I work</a>
       <a class="quiet" href="/stories">Stories</a>
       <a class="quiet" href="/hire-me">Hire me</a>
       <a class="quiet" href="mailto:trounceflow@gmail.com">Contact</a>
+      <a class="icon-link" href="https://www.linkedin.com/in/michael-trounce/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+      <a class="icon-link" href="https://www.youtube.com/@michaeltrounce3746" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
     </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 class="lede">Talk it through, or have it built. Either way, it gets done.</h1>
+    </section>
+
+    <section class="video-band">
+      <div class="intro-video">
+        <video controls preload="metadata" poster="/media/mike-intro-poster.jpg" playsinline>
+          <source src="/media/mike-intro.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </section>
+
+    <div class="content-col">
+      <ul class="jobs">
+        {jobs.map((j) => (
+          <li class="job">
+            {j.href ? <a href={j.href}>{j.job}</a> : <span>{j.job}</span>}
+              <span class="job-line">{j.line}</span>
+          </li>
+        ))}
+      </ul>
+
+      <section class="example">
+        <Image class="example-photo" src={freddyPhoto} alt="Freddy Trounce, The Greensman, working in a client's garden" width={96} height={96} />
+        <div>
+          <h2>Stories</h2>
+          <p>Freddy's garden and grounds business in Elstead was paying £125 a year to keep a website online, and handing out a flyer with the wrong web address on it. Neither needed a big project. They needed someone to notice.</p>
+          <p class="example-link"><a href="/story-1">The Greensman, in full</a> &middot; <a href="/stories">All stories</a></p>
+        </div>
+      </section>
+
+      <!-- Placeholder testimonials — fake names, fake quotes. Swap for real ones before this is taken seriously as a commercial page. -->
+      <section class="testimonials">
+        <h2>What people say</h2>
+        <div class="testimonial-list">
+          <blockquote class="testimonial">
+            <p>&ldquo;Placeholder testimonial — swap in a real quote here.&rdquo;</p>
+            <cite>Joe Blogs, Placeholder role</cite>
+          </blockquote>
+          <blockquote class="testimonial">
+            <p>&ldquo;Placeholder testimonial — swap in a real quote here.&rdquo;</p>
+            <cite>Billy X, Placeholder role</cite>
+          </blockquote>
+          <blockquote class="testimonial">
+            <p>&ldquo;Placeholder testimonial — swap in a real quote here.&rdquo;</p>
+            <cite>Jane Doe, Placeholder role</cite>
+          </blockquote>
+        </div>
+      </section>
+    </div>
+
+    <section class="employers-band">
+      <div class="employers-inner">
+        <h2>Where I've worked</h2>
+        <ul class="employers-list">
+          {employers.map((e) => <li>{e}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <div class="content-col">
+      <section class="engage">
+        <h2>Work with me</h2>
+        <div class="engage-cards">
+          <a class="engage-card" href="/consultant">
+            <h3>Consultant</h3>
+            <p>Talk it through — your dealflow, your leads, what's working.</p>
+          </a>
+          <a class="engage-card" href="/builder">
+            <h3>Builder</h3>
+            <p>Have it done — a CRM, a website, the marketing.</p>
+          </a>
+        </div>
+        <p class="engage-more"><a href="/hire-me">More on how both work &rarr;</a></p>
+      </section>
+
+      <div class="sign-off">
+        <Image class="face" src={mikePhoto} alt="Mike Trounce" width={184} height={282} loading="eager" />
+        <p>
+          Got something worth building? <a class="contact-email" href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Mike Trounce &middot; <a href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a></p>
   </footer>
 </Layout>
 
 <style>
-  .home {
-    max-width: 660px;
-    margin: 0 auto;
-    padding: clamp(3rem, 9vh, 5.5rem) 1.5rem 5rem;
-    text-align: left;
+  /* ---------- top nav ---------- */
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.4rem clamp(1.5rem, 5vw, 3rem);
+    border-bottom: 1px solid var(--line);
   }
-
-  .eyebrow {
-    margin: 0 0 clamp(2rem, 5vh, 3rem);
-    font-size: 0.95rem;
+  .logotype {
     font-weight: 600;
+    font-size: 0.95rem;
     letter-spacing: 0.01em;
+    color: var(--ink);
+    text-decoration: none;
   }
-  .role {
-    font-weight: 400;
+  .top-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--ink-faint);
+    text-decoration: none;
+  }
+  .icon-link:hover {
     color: var(--ink-soft);
+    border-color: var(--illus-a);
   }
 
+  /* ---------- hero ---------- */
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(3.5rem, 10vh, 7rem) clamp(1.5rem, 5vw, 3rem) clamp(2.5rem, 6vh, 4rem);
+  }
   .lede {
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 400;
-    font-size: clamp(2rem, 5.2vw, 2.9rem);
-    line-height: 1.14;
-    letter-spacing: -0.015em;
-    max-width: 20ch;
-    margin: 0 0 0.9rem;
-  }
-
-  .standfirst {
-    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
-    max-width: 46ch;
-    font-size: 1.08rem;
-    color: var(--ink-soft);
+    font-size: clamp(2.4rem, 6vw, 4.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    max-width: 18ch;
+    margin: 0;
   }
 
   /* ---------- intro video ---------- */
+  .video-band {
+    padding: 0 clamp(1.5rem, 5vw, 3rem) clamp(3rem, 7vh, 4.5rem);
+  }
   .intro-video {
+    max-width: 1100px;
+    margin: 0 auto;
     width: 100%;
-    max-width: 480px;
     aspect-ratio: 16 / 9;
-    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
     border-radius: 20px;
     overflow: hidden;
     background: var(--bg-raised);
@@ -153,6 +203,13 @@ const jobs = [
     border: 0;
     display: block;
     object-fit: cover;
+  }
+
+  /* ---------- content column (narrow sections between full-bleed bands) ---------- */
+  .content-col {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(1rem, 4vh, 2rem) 1.5rem;
   }
 
   /* ---------- the list ---------- */
@@ -177,15 +234,14 @@ const jobs = [
   .job a:hover {
     color: var(--green);
   }
-.job-line { display: block; margin-top: 0.3rem; font-family: 'Figtree', system-ui, sans-serif; font-size: 1rem; line-height: 1.5; color: var(--ink-soft); }
+  .job-line { display: block; margin-top: 0.3rem; font-family: 'Figtree', system-ui, sans-serif; font-size: 1rem; line-height: 1.5; color: var(--ink-soft); }
 
-  /* ---------- worked example + background ---------- */
+  /* ---------- worked example ---------- */
   .example {
     display: flex;
     gap: 1.1rem;
     align-items: flex-start;
     margin: 0 0 clamp(2.2rem, 5vh, 3rem);
-    max-width: 58ch;
   }
   .example-photo {
     width: 72px;
@@ -221,7 +277,6 @@ const jobs = [
   /* ---------- testimonials ---------- */
   .testimonials {
     margin: 0 0 clamp(2.2rem, 5vh, 3rem);
-    max-width: 58ch;
   }
   .testimonials h2 {
     margin: 0 0 1rem;
@@ -251,10 +306,41 @@ const jobs = [
     color: var(--ink-soft);
   }
 
+  /* ---------- where I've worked ---------- */
+  .employers-band {
+    background: var(--illus-b);
+    padding: clamp(3rem, 7vh, 4.5rem) clamp(1.5rem, 5vw, 3rem);
+    margin: 0 0 clamp(1rem, 4vh, 2rem);
+  }
+  .employers-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .employers-band h2 {
+    margin: 0 0 1.5rem;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--ink);
+  }
+  .employers-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2.5rem;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+  }
+  .employers-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
   /* ---------- work with me ---------- */
   .engage {
     margin: 0 0 clamp(2.2rem, 5vh, 3rem);
-    max-width: 58ch;
   }
   .engage h2 {
     margin: 0 0 1rem;
@@ -346,14 +432,18 @@ const jobs = [
     color: var(--ink-soft);
   }
 
-.site-footer {
-margin-top: clamp(1.6rem, 4vh, 2.2rem);
-}
-.site-footer nav {
-display: flex;
-gap: 1.25rem;
-flex-wrap: wrap;
-}
+  .site-footer {
+    padding: clamp(1.6rem, 4vh, 2.2rem) 1.5rem 3rem;
+    text-align: center;
+  }
+  .site-footer p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+  .site-footer a {
+    color: var(--ink-faint);
+  }
 
   @media (max-width: 560px) {
     .job {
@@ -361,6 +451,12 @@ flex-wrap: wrap;
     }
     .engage-cards {
       grid-template-columns: 1fr;
+    }
+    .employers-list {
+      grid-template-columns: 1fr;
+    }
+    .site-header {
+      justify-content: flex-start;
     }
   }
 </style>
