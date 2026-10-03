@@ -178,6 +178,40 @@ The dead Wix address turned up in one more place: Freddy's Google Business Profi
 </section>
 
 <section>
+  <h2>The missed call, and the WhatsApp pile-up</h2>
+  <p>
+  Freddy missed a call with me. When I got him on the phone after, he said it straight: he's getting overwhelmed by WhatsApp. Every lead, every quote, every customer chasing a date — it all lands in the same stream, mixed in with everything else, and it's the one place he can't afford to just switch off. "It's where everybody does business nowadays," he said.
+  </p>
+  <p>
+  That's the same habit that caught the wrong URL on the flyer: being in regular enough contact that a founder tells you the thing that's actually wearing him down, not just the thing he thinks you want to hear. This one wasn't a website problem or a design problem — it was that there was no way to see what in a long chat list actually needed him today versus what could wait.
+  </p>
+  <p>
+  So that morning, I built a connector between Claude and WhatsApp — running locally, nothing in the cloud — and proved it end to end: reading chats, sorting what needs a reply today from what's waiting on someone else, pulling the job details out of a lead conversation so it doesn't just sit in the thread. Same tool, same habit as the quote reel — notice the real problem on the spot, then go and fix it, the same day.
+  </p>
+  <ul class="fix-list">
+    <li>Reads and triages a WhatsApp chat list on request — what needs a reply today, what's waiting on someone else, what can be ignored</li>
+    <li>Drafts replies for review — nothing sends without a confirm</li>
+    <li>Pulls a lead's job, quote status and last message out of the chat it's buried in</li>
+    <li>Can log leads straight into HubSpot, so there's one list instead of a dozen chats</li>
+  </ul>
+  <p>
+  It's proven on my own WhatsApp so far. The next step is setting up the same connector on Freddy's side, so he gets the triage directly instead of routing it through me.
+  </p>
+<details class="tech-detail" id="technical-whatsapp">
+<summary>Technical detail: how the WhatsApp connector works</summary>
+<p>
+It runs through Local MCP on a Mac that's left on and connected — WhatsApp has no official API for this, so the link uses an unofficial client (Wacli), paired the same way WhatsApp Web is: scan a QR code once from the phone, no password involved.
+</p>
+<p>
+What it can do today: read a chat's recent messages on request and summarise them, draft a reply for a human to approve before anything sends, and write structured data (like a lead's details) out to another system such as HubSpot.
+</p>
+<p>
+What it can't do yet: watch WhatsApp in the background and alert on new messages — it only looks when asked, so the Mac has to be on and someone has to prompt it. It also can't listen to voice notes or read images yet, which matters for Freddy specifically, since a lot of what he gets sent is audio. And because the client is unofficial, there's a small standing risk of WhatsApp restricting the account, which is worth knowing before leaning on it for anything business-critical.
+</p>
+</details>
+</section>
+
+<section>
   <h2>Freddy's own following</h2>
   <p>
   Freddy posts the day-to-day of building the business himself, as <a href="https://www.instagram.com/trouncetalks/" target="_blank" rel="noopener">@trouncetalks</a> on Instagram — unpolished, first-person, and hard for a competitor to fake.
