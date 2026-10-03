@@ -2,3 +2,8 @@
 # QR code out in the world, so keep it redirecting rather than let it 404.
 /family / 302
 /family/ / 302
+
+# story-1 renamed to the-greensman (the URL shouldn't say "story one" for
+# what's actually the canonical, flagship case study).
+/story-1 /the-greensman 301
+/story-1/ /the-greensman 301
