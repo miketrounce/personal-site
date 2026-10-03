@@ -27,7 +27,7 @@ description="How two small fixes — cheaper hosting and a corrected flyer — b
   <p class="cs-caption">Freddy Trounce, The Greensman — Elstead, Surrey</p>
 </header>
 
-<span class="cs-label">Story 1</span>
+<span class="cs-label">The canonical example</span>
 <h1>The Greensman</h1>
 <p class="cs-meta">Garden &amp; grounds maintenance &middot; Ongoing</p>
 
@@ -50,7 +50,21 @@ Freddy's business didn't need one big project. It needed someone to notice what 
   </div>
 </div>
 
-<section>
+<nav class="quick-nav" aria-label="Jump to a section">
+  <p class="quick-nav-label">Eight problems noticed and fixed, so far</p>
+  <ul class="quick-nav-list">
+    <li><a href="#hosting-seo">Website hosting &amp; Google</a></li>
+    <li><a href="#flyer">Flyer, fixed in minutes</a></li>
+    <li><a href="#brand">One consistent brand</a></li>
+    <li><a href="#reel">Reel that tripled a quote</a></li>
+    <li><a href="#whatsapp">WhatsApp pile-up, sorted</a></li>
+    <li><a href="#instagram">His own Instagram following</a></li>
+    <li><a href="#brokerage">Next: a contractor brokerage</a></li>
+    <li><a href="#youtube">Next: a YouTube channel</a></li>
+  </ul>
+</nav>
+
+<section id="hosting-seo">
   <h2>The website that cost &pound;125 a year to keep online</h2>
   <p>
   <a href="https://www.thegreensmanelstead.com" target="_blank" rel="noopener">thegreensmanelstead.com</a> didn't need a redesign — it needed cheaper hosting. It sat on Wix's Light plan (&pound;108 a year) plus a domain (&pound;17 a year), set up by the original developer, likely as much in exchange for gardening work as for cash. Moving it to a self-hosted setup took very little time and carries no subscription — so from next year, that's &pound;100+ back in Freddy's pocket for no loss of website.
@@ -108,7 +122,7 @@ The dead Wix address turned up in one more place: Freddy's Google Business Profi
 </details>
 </section>
 
-<section>
+<section id="flyer">
   <h2>The flyer, fixed in minutes</h2>
   <p>
   Freddy already had a nice A5 flyer, designed on Canva by someone else and handed to him as a PDF to send straight to print. It did its job well, but had two problems: the website address on it was wrong, and it made no mention of the autumn leaf-clearing offer we wanted to push.
@@ -127,7 +141,7 @@ The dead Wix address turned up in one more place: Freddy's Google Business Profi
   </p>
 </section>
 
-<section>
+<section id="brand">
   <h2>The drift underneath — ongoing</h2>
   <p>
   Fixing the flyer surfaced something bigger: the flyer and the website had been built by two different people who'd never spoken to each other. Different logo files, different type, small inconsistencies that add up to a business looking less joined-up than it actually is.
@@ -144,7 +158,7 @@ The dead Wix address turned up in one more place: Freddy's Google Business Profi
   </div>
 </section>
 
-<section>
+<section id="reel">
   <h2>The upsell reel</h2>
   <p>
   Freddy went to quote an overgrown garden on a student let. I went along to take photos and some video, the way I've started doing on a few of his jobs. The front hedge was well above head height; round the back, what had been a lawn was mostly bramble. Freddy's original quote only covered the front.
@@ -177,7 +191,7 @@ The dead Wix address turned up in one more place: Freddy's Google Business Profi
   </p>
 </section>
 
-<section>
+<section id="whatsapp">
   <h2>The missed call, and the WhatsApp pile-up</h2>
   <p>
   Freddy missed a 2pm call with a prospective client. By quarter to three I thought I'd better check in — and when I got him on the phone, he said it straight: he's getting overwhelmed by WhatsApp. Every lead, every quote, every customer chasing a date — it all lands in the same stream, mixed in with everything else, and it's the one place he can't afford to just switch off. "It's where everybody does business nowadays," he said.
@@ -211,7 +225,7 @@ What it can't do yet: watch WhatsApp in the background and alert on new messages
 </details>
 </section>
 
-<section>
+<section id="instagram">
   <h2>Freddy's own following</h2>
   <p>
   Freddy posts the day-to-day of building the business himself, as <a href="https://www.instagram.com/trouncetalks/" target="_blank" rel="noopener">@trouncetalks</a> on Instagram — unpolished, first-person, and hard for a competitor to fake.
@@ -227,7 +241,7 @@ What it can't do yet: watch WhatsApp in the background and alert on new messages
   </div>
 </section>
 
-<section>
+<section id="brokerage">
   <h2>Next: from gardener to brokerage</h2>
   <p>
   Six months into the business, Freddy's own idea of what The Greensman is has moved on. He started as the one doing the gardening. Where he wants to take it next is a virtual brokerage — matching clients to gardening contractors, coordinating the work, without needing to be on site for every job himself. He's set himself a target of having this running by the new year.
@@ -237,7 +251,7 @@ What it can't do yet: watch WhatsApp in the background and alert on new messages
   </p>
 </section>
 
-<section>
+<section id="youtube">
   <h2>Next: The Greensman on YouTube</h2>
   <p>
   Instagram Reels are Freddy's personal story — first-person, unpolished, about him — and they reach people roughly his own age. A good number of his actual and potential clients are older, don't use Instagram much, but do use YouTube, and some of them are exactly the people who hire a gardener.
@@ -261,6 +275,49 @@ None of this was one big project. It's what happens when someone keeps a proper 
 </Layout>
 
 <style>
+section {
+  scroll-margin-top: 1.5rem;
+}
+
+.quick-nav {
+  margin: 1.75rem 0 2.25rem;
+  padding: 1.1rem 1.2rem;
+  background: var(--bg-raised);
+  border-radius: 16px;
+}
+.quick-nav-label {
+  margin: 0 0 0.7rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+.quick-nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.quick-nav-list a {
+  display: inline-block;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--ink-soft) !important;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.quick-nav-list a:hover {
+  border-color: var(--illus-a);
+  color: var(--illus-a) !important;
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
