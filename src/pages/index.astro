@@ -19,20 +19,42 @@ import Layout from '../layouts/Layout.astro';
 
     <div class="content-col">
       <h2 class="greensman-title">The Greensman</h2>
-      <div class="story-grid">
-        <div class="story-video">
-          <video controls preload="metadata" poster="/media/kabir-poster.jpg" playsinline>
-            <source src="/media/kabir-reel.mp4" type="video/mp4" />
-          </video>
-          <span class="story-part">Part 1</span>
+      <div class="story-list">
+        <details class="story-row">
+          <summary class="story-summary">
+            <span class="play-circle" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+            </span>
+            <span class="story-text">
+              <span class="story-title">The Greensman — I</span>
+              <span class="story-subtitle">Breaking Ground</span>
+            </span>
+          </summary>
+          <div class="story-video">
+            <video controls preload="metadata" poster="/media/kabir-poster.jpg" playsinline>
+              <source src="/media/kabir-reel.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </details>
+
+        <div class="story-row story-row--soon">
+          <span class="play-circle play-circle--soon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+          </span>
+          <span class="story-text">
+            <span class="story-title">The Greensman — II</span>
+            <span class="story-subtitle">Coming soon</span>
+          </span>
         </div>
-        <div class="story-video story-video--soon">
-          <span class="story-soon">Coming soon</span>
-          <span class="story-part">Part 2</span>
-        </div>
-        <div class="story-video story-video--soon">
-          <span class="story-soon">Coming soon</span>
-          <span class="story-part">Part 3</span>
+
+        <div class="story-row story-row--soon">
+          <span class="play-circle play-circle--soon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+          </span>
+          <span class="story-text">
+            <span class="story-title">The Greensman — III</span>
+            <span class="story-subtitle">Coming soon</span>
+          </span>
         </div>
       </div>
       <p class="greensman-caption">Eight fixes and counting — cheaper hosting, a corrected flyer, a rebuilt brand, this reel that tripled a quote, a WhatsApp system so leads stopped slipping through, his own following built up — with a contractor brokerage and a second YouTube channel next.</p>
@@ -108,15 +130,75 @@ import Layout from '../layouts/Layout.astro';
     letter-spacing: -0.01em;
     color: var(--ink);
   }
-  .story-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .story-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 480px;
+  }
+  .story-row {
+    border: none;
+  }
+  .story-summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  .story-summary::-webkit-details-marker {
+    display: none;
+  }
+  .story-summary,
+  .story-row--soon {
+    display: flex;
+    align-items: center;
     gap: 1rem;
-    max-width: 760px;
+    padding: 0.6rem 0;
+  }
+  .play-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 3.2rem;
+    height: 3.2rem;
+    padding-left: 0.15rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg-raised);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .story-summary:hover .play-circle {
+    transform: scale(1.08);
+    background: var(--green);
+  }
+  .play-circle--soon {
+    background: var(--illus-b);
+    color: var(--ink-faint);
+    box-shadow: none;
+  }
+  .story-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .story-title {
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .story-row--soon .story-title {
+    color: var(--ink-faint);
+  }
+  .story-subtitle {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
   }
   .story-video {
-    position: relative;
-    border-radius: 20px;
+    max-width: 240px;
+    margin: 0.75rem 0 0.5rem 4.2rem;
+    border-radius: 16px;
     overflow: hidden;
     background: var(--bg-raised);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 18px 34px -18px rgba(0, 0, 0, 0.4);
@@ -127,46 +209,6 @@ import Layout from '../layouts/Layout.astro';
     aspect-ratio: 9 / 16;
     object-fit: cover;
     background: #000;
-  }
-  .story-video--soon {
-    aspect-ratio: 9 / 16;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--illus-b);
-    box-shadow: none;
-    border: 1px dashed var(--line);
-  }
-  .story-soon {
-    font-family: 'Archivo', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .story-part {
-    position: absolute;
-    top: 0.7rem;
-    left: 0.7rem;
-    padding: 0.25rem 0.6rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.92);
-    color: var(--ink);
-    font-family: 'Archivo', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-  .story-video--soon .story-part {
-    background: var(--bg-raised);
-  }
-  @media (max-width: 640px) {
-    .story-grid {
-      grid-template-columns: 1fr;
-      max-width: 240px;
-    }
   }
 
   .greensman-caption {
