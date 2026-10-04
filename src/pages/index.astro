@@ -103,21 +103,6 @@ const employers = [
     </section>
 
     <div class="content-col">
-      <section class="engage">
-        <h2>Work with me</h2>
-        <div class="engage-cards">
-          <a class="engage-card" href="/consultant">
-            <h3>Consultant</h3>
-            <p>Talk it through — your dealflow, your leads, what's working.</p>
-          </a>
-          <a class="engage-card" href="/builder">
-            <h3>Builder</h3>
-            <p>Have it done — a CRM, a website, the marketing.</p>
-          </a>
-        </div>
-        <p class="engage-more"><a href="/hire-me">More on how both work &rarr;</a></p>
-      </section>
-
       <div class="sign-off">
         <Image class="face" src={mikePhoto} alt="Mike Trounce" width={184} height={282} loading="eager" />
         <p>
@@ -443,58 +428,6 @@ const employers = [
     border-bottom: 1px solid var(--line);
   }
 
-  /* ---------- work with me ---------- */
-  .engage {
-    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
-  }
-  .engage h2 {
-    margin: 0 0 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .engage-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.9rem;
-  }
-  .engage-card {
-    display: block;
-    padding: 1.1rem 1.2rem;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    text-decoration: none;
-    color: inherit;
-  }
-  .engage-card:hover {
-    border-color: var(--illus-a);
-  }
-  .engage-card h3 {
-    margin: 0 0 0.35rem;
-    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 1.25rem;
-    color: var(--ink);
-  }
-  .engage-card:hover h3 {
-    color: var(--green);
-  }
-  .engage-card p {
-    margin: 0;
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-  }
-  .engage-more {
-    margin: 0.9rem 0 0;
-  }
-  .engage-more a {
-    color: var(--ink-soft);
-    text-decoration: none;
-    border-bottom: 1px solid var(--illus-a);
-  }
-  .engage-more a:hover {
-    color: var(--green);
-  }
 
   /* ---------- sign-off ---------- */
   .sign-off {
@@ -557,9 +490,6 @@ const employers = [
   }
 
   @media (max-width: 560px) {
-    .engage-cards {
-      grid-template-columns: 1fr;
-    }
     .employers-list {
       grid-template-columns: 1fr;
     }
