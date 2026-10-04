@@ -18,43 +18,45 @@ import Layout from '../layouts/Layout.astro';
   <main id="main-content">
 
     <div class="content-col">
-      <h2 class="greensman-title">The Greensman</h2>
-      <div class="story-list">
-        <details class="story-row">
-          <summary class="story-summary">
-            <span class="play-circle" aria-hidden="true">
+      <div class="greensman-box">
+        <h2 class="greensman-title">The Greensman</h2>
+        <div class="story-list">
+          <details class="story-row">
+            <summary class="story-summary">
+              <span class="play-circle" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+              </span>
+              <span class="story-text">
+                <span class="story-episode">Episode 1</span>
+                <span class="story-title">Breaking Ground</span>
+              </span>
+            </summary>
+            <div class="story-video">
+              <video controls preload="metadata" poster="/media/kabir-poster.jpg" playsinline>
+                <source src="/media/kabir-reel.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </details>
+
+          <div class="story-row story-row--soon">
+            <span class="play-circle play-circle--soon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
             </span>
             <span class="story-text">
-              <span class="story-episode">Episode 1</span>
-              <span class="story-title">Breaking Ground</span>
+              <span class="story-episode">Episode 2</span>
+              <span class="story-title">Overload</span>
             </span>
-          </summary>
-          <div class="story-video">
-            <video controls preload="metadata" poster="/media/kabir-poster.jpg" playsinline>
-              <source src="/media/kabir-reel.mp4" type="video/mp4" />
-            </video>
           </div>
-        </details>
 
-        <div class="story-row story-row--soon">
-          <span class="play-circle play-circle--soon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
-          </span>
-          <span class="story-text">
-            <span class="story-episode">Episode 2</span>
-            <span class="story-title">Overload</span>
-          </span>
-        </div>
-
-        <div class="story-row story-row--soon">
-          <span class="play-circle play-circle--soon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
-          </span>
-          <span class="story-text">
-            <span class="story-episode">Episode 3</span>
-            <span class="story-title">The Prize</span>
-          </span>
+          <div class="story-row story-row--soon">
+            <span class="play-circle play-circle--soon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+            </span>
+            <span class="story-text">
+              <span class="story-episode">Episode 3</span>
+              <span class="story-title">The Prize</span>
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -121,6 +123,11 @@ import Layout from '../layouts/Layout.astro';
   }
 
   /* ---------- the one story ---------- */
+  .greensman-box {
+    border: 1px solid var(--ink);
+    border-radius: 20px;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
   .greensman-title {
     margin: 0 0 1.25rem;
     font-family: 'Archivo', system-ui, sans-serif;
