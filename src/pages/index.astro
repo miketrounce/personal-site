@@ -14,10 +14,6 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
         <span class="logotype-name">Mike Trounce</span>
         <span class="logotype-tag">Growth Engineer</span>
       </a>
-      <nav class="top-nav">
-        <a class="quiet" href="/about">About</a>
-        <a class="quiet" href="/stories">Stories</a>
-      </nav>
     </header>
   </div>
 
@@ -86,42 +82,18 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
   .logotype-name {
     font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
     font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 0.02em;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     color: var(--ink);
   }
   .logotype-tag {
-    font-size: 0.85rem;
+    font-size: clamp(1.05rem, 2vw, 1.5rem);
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--ink-faint);
   }
-  .top-nav {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-  }
-  .icon-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.8rem;
-    height: 1.8rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--ink-faint);
-    text-decoration: none;
-  }
-  .icon-link:hover {
-    color: var(--ink-soft);
-    border-color: var(--illus-a);
-  }
-
   /* ---------- content column (narrow sections between full-bleed bands) ---------- */
   .content-col {
     max-width: 760px;
@@ -195,16 +167,6 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
   }
   .example-link a:hover {
     color: var(--green);
-  }
-
-  .quiet {
-    font-size: 0.9rem;
-    color: var(--ink-faint);
-    text-decoration: none;
-    border-bottom: 1px solid var(--line);
-  }
-  .quiet:hover {
-    color: var(--ink-soft);
   }
 
   @media (max-width: 560px) {
