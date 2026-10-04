@@ -3,11 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import mikePhoto from '../assets/mike.jpg';
 import freddyPhoto from '../assets/freddy-greensman.jpg';
-
-const employers = [
-  "Exante Data", "Trounceflow", "Standard Chartered", "JPMorgan",
-  "Nomura", "Markit", "Societe Generale", "BNP Paribas",
-];
 ---
 
 <Layout
@@ -73,36 +68,6 @@ const employers = [
         </div>
       </section>
 
-      <!-- Placeholder testimonials — fake names, fake quotes. Swap for real ones before this is taken seriously as a commercial page. -->
-      <section class="testimonials">
-        <h2>What people say</h2>
-        <div class="testimonial-list">
-          <blockquote class="testimonial">
-            <p>&ldquo;Placeholder testimonial — swap in a real quote here.&rdquo;</p>
-            <cite>Joe Blogs, Placeholder role</cite>
-          </blockquote>
-          <blockquote class="testimonial">
-            <p>&ldquo;Placeholder testimonial — swap in a real quote here.&rdquo;</p>
-            <cite>Billy X, Placeholder role</cite>
-          </blockquote>
-          <blockquote class="testimonial">
-            <p>&ldquo;Placeholder testimonial — swap in a real quote here.&rdquo;</p>
-            <cite>Jane Doe, Placeholder role</cite>
-          </blockquote>
-        </div>
-      </section>
-    </div>
-
-    <section class="employers-band">
-      <div class="employers-inner">
-        <h2>Where I've worked</h2>
-        <ul class="employers-list">
-          {employers.map((e) => <li>{e}</li>)}
-        </ul>
-      </div>
-    </section>
-
-    <div class="content-col">
       <div class="sign-off">
         <Image class="face" src={mikePhoto} alt="Mike Trounce" width={184} height={282} loading="eager" />
         <p>
@@ -366,68 +331,6 @@ const employers = [
     color: var(--green);
   }
 
-  /* ---------- testimonials ---------- */
-  .testimonials {
-    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
-  }
-  .testimonials h2 {
-    margin: 0 0 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .testimonial-list {
-    display: grid;
-    gap: 1rem;
-  }
-  .testimonial {
-    margin: 0;
-    padding: 1rem 1.2rem;
-    border-left: 2px solid var(--illus-a);
-  }
-  .testimonial p {
-    margin: 0 0 0.4rem;
-    font-style: italic;
-    font-size: 1.05rem;
-    color: var(--ink);
-  }
-  .testimonial cite {
-    font-style: normal;
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-  }
-
-  /* ---------- where I've worked ---------- */
-  .employers-band {
-    background: var(--illus-b);
-    padding: clamp(3rem, 7vh, 4.5rem) clamp(1.5rem, 5vw, 3rem);
-    margin: 0 0 clamp(1rem, 4vh, 2rem);
-  }
-  .employers-inner {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .employers-band h2 {
-    margin: 0 0 1.5rem;
-    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    color: var(--ink);
-  }
-  .employers-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem 2.5rem;
-    font-size: 1.05rem;
-    color: var(--ink-soft);
-  }
-  .employers-list li {
-    padding: 0.6rem 0;
-    border-bottom: 1px solid var(--line);
-  }
 
 
   /* ---------- sign-off ---------- */
@@ -491,9 +394,6 @@ const employers = [
   }
 
   @media (max-width: 560px) {
-    .employers-list {
-      grid-template-columns: 1fr;
-    }
     .site-header {
       justify-content: flex-start;
     }
