@@ -1,7 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Image } from 'astro:assets';
-import freddyPhoto from '../assets/freddy-greensman.jpg';
 ---
 
 <Layout
@@ -20,20 +18,7 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
   <main id="main-content">
 
     <div class="content-col">
-      <section class="example">
-        <a class="example-thumb" href="/the-greensman" aria-label="The Greensman, in full">
-          <Image class="example-photo" src={freddyPhoto} alt="Freddy Trounce, The Greensman, working in a client's garden" width={640} height={360} />
-          <span class="play-badge" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
-          </span>
-        </a>
-        <div>
-          <h2>Stories</h2>
-          <p>Freddy's garden and grounds business didn't need one big project. It needed someone who kept noticing what was next — cheaper hosting, a corrected flyer, a rebuilt brand, a quote video that tripled a job, a WhatsApp system so leads stopped slipping through, his own following built up. Eight fixes and counting, each one making the next one obvious — with a contractor brokerage already taking shape.</p>
-          <p class="example-link"><a href="/the-greensman">The Greensman, in full</a> &middot; <a href="/stories">All stories</a></p>
-        </div>
-      </section>
-
+      <a class="greensman-link" href="/the-greensman">The Greensman</a>
     </div>
   </main>
 </Layout>
@@ -101,71 +86,18 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
     padding: clamp(1rem, 4vh, 2rem) 1.5rem;
   }
 
-  /* ---------- worked example: styled like a video thumbnail ---------- */
-  .example {
-    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
-  }
-  .example-thumb {
-    position: relative;
-    display: block;
-    width: 100%;
-    max-width: 480px;
-    aspect-ratio: 16 / 9;
-    margin: 0 0 1.1rem;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 1px 2px rgba(var(--shadow) / 0.05), 0 18px 34px -18px rgba(var(--shadow) / 0.4);
-  }
-  .example-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 45% 25%;
-    transition: transform 0.2s ease;
-  }
-  .example-thumb:hover .example-photo {
-    transform: scale(1.03);
-  }
-  .play-badge {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 3.2rem;
-    height: 3.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: 0.15rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.92);
+  /* ---------- the one link ---------- */
+  .greensman-link {
+    display: inline-block;
+    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    letter-spacing: -0.01em;
     color: var(--ink);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-    transition: transform 0.2s ease;
-  }
-  .example-thumb:hover .play-badge {
-    transform: translate(-50%, -50%) scale(1.08);
-  }
-  .example h2 {
-    margin: 0 0 0.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .example p {
-    margin: 0;
-    color: var(--ink-soft);
-    font-size: 1rem;
-  }
-  .example-link {
-    margin-top: 0.6rem;
-  }
-  .example-link a {
-    color: var(--ink-soft);
     text-decoration: none;
-    border-bottom: 1px solid var(--illus-a);
+    border-bottom: 4px solid var(--illus-a);
   }
-  .example-link a:hover {
+  .greensman-link:hover {
     color: var(--green);
   }
 
