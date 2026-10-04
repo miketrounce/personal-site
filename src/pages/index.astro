@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import mikePhoto from '../assets/mike.jpg';
 import freddyPhoto from '../assets/freddy-greensman.jpg';
 ---
 
@@ -17,12 +16,7 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
       </a>
       <nav class="top-nav gated">
         <a class="quiet" href="/about">About</a>
-        <a class="quiet" href="/how-i-work">How I work</a>
         <a class="quiet" href="/stories">Stories</a>
-        <a class="quiet" href="/hire-me">Hire me</a>
-        <a class="quiet" href="mailto:trounceflow@gmail.com">Contact</a>
-        <a class="icon-link" href="https://www.linkedin.com/in/michael-trounce/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
-        <a class="icon-link" href="https://www.youtube.com/@michaeltrounce3746" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
       </nav>
     </header>
 
@@ -42,23 +36,6 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
   <main id="main-content" class="gated">
 
     <div class="content-col">
-      <section class="proof">
-        <Image class="proof-photo" src={freddyPhoto} alt="Freddy Trounce, The Greensman" width={72} height={72} />
-        <div>
-          <p class="proof-lede">So is Freddy. I work with him — here's what he said:</p>
-          <blockquote class="proof-quote">
-            <p>&ldquo;This is great.&rdquo;</p>
-            <cite>Freddy Trounce, The Greensman</cite>
-          </blockquote>
-        </div>
-      </section>
-
-      <section class="whatsapp-cta">
-        <p class="whatsapp-lede">Intrigued? Message me on WhatsApp — that's where I actually reply.</p>
-        <a class="whatsapp-btn" href="https://wa.me/447887546080?text=Hi%20Mike%20%E2%80%94%20I'm%20an%20entrepreneur%2C%20let's%20talk." target="_blank" rel="noopener">Message me on WhatsApp</a>
-        <p class="whatsapp-alt">Prefer email? <a href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a></p>
-      </section>
-
       <section class="example">
         <Image class="example-photo" src={freddyPhoto} alt="Freddy Trounce, The Greensman, working in a client's garden" width={96} height={96} />
         <div>
@@ -68,18 +45,8 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
         </div>
       </section>
 
-      <div class="sign-off">
-        <Image class="face" src={mikePhoto} alt="Mike Trounce" width={184} height={282} loading="eager" />
-        <p>
-          Got something worth building? <a class="contact-email" href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a>
-        </p>
-      </div>
     </div>
   </main>
-
-  <footer class="site-footer gated">
-    <p>Mike Trounce &middot; <a href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a></p>
-  </footer>
 </Layout>
 
 <style>
@@ -218,81 +185,6 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
     padding: clamp(1rem, 4vh, 2rem) 1.5rem;
   }
 
-  /* ---------- proof: Freddy's answer to the gate question ---------- */
-  .proof {
-    display: flex;
-    gap: 1.1rem;
-    align-items: flex-start;
-    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
-    padding-bottom: clamp(2.2rem, 5vh, 3rem);
-    border-bottom: 1px solid var(--line);
-  }
-  .proof-photo {
-    width: 72px;
-    height: 72px;
-    flex: none;
-    border-radius: 14px;
-    object-fit: cover;
-    object-position: 45% 20%;
-  }
-  .proof-lede {
-    margin: 0 0 0.6rem;
-    font-size: 1rem;
-    color: var(--ink-soft);
-  }
-  .proof-quote {
-    margin: 0;
-    padding-left: 1rem;
-    border-left: 2px solid var(--illus-a);
-  }
-  .proof-quote p {
-    margin: 0 0 0.3rem;
-    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 1.3rem;
-    color: var(--ink);
-  }
-  .proof-quote cite {
-    font-style: normal;
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-  }
-
-  /* ---------- WhatsApp CTA ---------- */
-  .whatsapp-cta {
-    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
-    padding-bottom: clamp(2.2rem, 5vh, 3rem);
-    border-bottom: 1px solid var(--line);
-  }
-  .whatsapp-lede {
-    margin: 0 0 1rem;
-    font-size: 1.05rem;
-    color: var(--ink);
-  }
-  .whatsapp-btn {
-    display: inline-block;
-    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 1.05rem;
-    padding: 0.8rem 2.2rem;
-    border-radius: 999px;
-    background: var(--ink);
-    color: var(--bg-raised);
-    text-decoration: none;
-  }
-  .whatsapp-btn:hover {
-    opacity: 0.85;
-  }
-  .whatsapp-alt {
-    margin: 0.8rem 0 0;
-    font-size: 0.88rem;
-    color: var(--ink-faint);
-  }
-  .whatsapp-alt a {
-    color: var(--ink-faint);
-  }
-
-
   /* ---------- worked example ---------- */
   .example {
     display: flex;
@@ -333,37 +225,6 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
 
 
 
-  /* ---------- sign-off ---------- */
-  .sign-off {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding-top: clamp(1.6rem, 4vh, 2.4rem);
-    border-top: 1px solid var(--line);
-  }
-  .face {
-    width: 56px;
-    height: 56px;
-    flex: none;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: 50% 16%;
-  }
-  .sign-off p {
-    margin: 0;
-    font-size: 1.02rem;
-    line-height: 1.55;
-    color: var(--ink-soft);
-  }
-  .contact-email {
-    font-weight: 700;
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 2px solid var(--illus-a);
-  }
-  .contact-email:hover {
-    color: var(--green);
-  }
   .quiet {
     font-size: 0.9rem;
     color: var(--ink-faint);
@@ -372,19 +233,6 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
   }
   .quiet:hover {
     color: var(--ink-soft);
-  }
-
-  .site-footer {
-    padding: clamp(1.6rem, 4vh, 2.2rem) 1.5rem 3rem;
-    text-align: center;
-  }
-  .site-footer p {
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--ink-faint);
-  }
-  .site-footer a {
-    color: var(--ink-faint);
   }
 
   @media (max-width: 650px) {
