@@ -4,13 +4,6 @@ import { Image } from 'astro:assets';
 import mikePhoto from '../assets/mike.jpg';
 import freddyPhoto from '../assets/freddy-greensman.jpg';
 
-const jobs = [
-  { job: "Your website", line: "Build one, or find out why the one you've got costs what it does.", href: "/website-options" },
-  { job: "Your clients", line: "Set up a CRM, fix the one you've got, or cut what it costs you.", href: null },
-  { job: "Your accounts", line: "Get them set up, or get what you've set up to cost less.", href: null },
-  { job: "Your adverts", line: "Get them running, or stop them costing more than they bring in.", href: "/promoting-your-business" },
-];
-
 const employers = [
   "Exante Data", "Trounceflow", "Standard Chartered", "JPMorgan",
   "Nomura", "Markit", "Societe Generale", "BNP Paribas",
@@ -70,15 +63,6 @@ const employers = [
         <a class="whatsapp-btn" href="https://wa.me/447887546080?text=Hi%20Mike%20%E2%80%94%20I'm%20an%20entrepreneur%2C%20let's%20talk." target="_blank" rel="noopener">Message me on WhatsApp</a>
         <p class="whatsapp-alt">Prefer email? <a href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a></p>
       </section>
-
-      <ul class="jobs">
-        {jobs.map((j) => (
-          <li class="job">
-            {j.href ? <a href={j.href}>{j.job}</a> : <span>{j.job}</span>}
-              <span class="job-line">{j.line}</span>
-          </li>
-        ))}
-      </ul>
 
       <section class="example">
         <Image class="example-photo" src={freddyPhoto} alt="Freddy Trounce, The Greensman, working in a client's garden" width={96} height={96} />
@@ -357,30 +341,6 @@ const employers = [
     color: var(--ink-faint);
   }
 
-  /* ---------- the list ---------- */
-  .jobs {
-    list-style: none;
-    margin: 0 0 clamp(2.8rem, 6vh, 4rem);
-    padding: 0;
-    border-top: 1px solid var(--line);
-  }
-  .job {
-    padding: 1.1rem 0;
-    border-bottom: 1px solid var(--line);
-    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 1.5rem;
-    line-height: 1.2;
-  }
-  .job a {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 1px solid var(--illus-a);
-  }
-  .job a:hover {
-    color: var(--green);
-  }
-  .job-line { display: block; margin-top: 0.3rem; font-family: 'Figtree', system-ui, sans-serif; font-size: 1rem; line-height: 1.5; color: var(--ink-soft); }
 
   /* ---------- worked example ---------- */
   .example {
@@ -597,9 +557,6 @@ const employers = [
   }
 
   @media (max-width: 560px) {
-    .job {
-      font-size: 1.35rem;
-    }
     .engage-cards {
       grid-template-columns: 1fr;
     }
