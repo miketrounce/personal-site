@@ -65,6 +65,12 @@ const employers = [
         </div>
       </section>
 
+      <section class="whatsapp-cta">
+        <p class="whatsapp-lede">Intrigued? Message me on WhatsApp — that's where I actually reply.</p>
+        <a class="whatsapp-btn" href="https://wa.me/447887546080?text=Hi%20Mike%20%E2%80%94%20I'm%20an%20entrepreneur%2C%20let's%20talk." target="_blank" rel="noopener">Message me on WhatsApp</a>
+        <p class="whatsapp-alt">Prefer email? <a href="mailto:trounceflow@gmail.com">trounceflow@gmail.com</a></p>
+      </section>
+
       <ul class="jobs">
         {jobs.map((j) => (
           <li class="job">
@@ -315,6 +321,40 @@ const employers = [
     font-style: normal;
     font-size: 0.85rem;
     color: var(--ink-soft);
+  }
+
+  /* ---------- WhatsApp CTA ---------- */
+  .whatsapp-cta {
+    margin: 0 0 clamp(2.2rem, 5vh, 3rem);
+    padding-bottom: clamp(2.2rem, 5vh, 3rem);
+    border-bottom: 1px solid var(--line);
+  }
+  .whatsapp-lede {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+  .whatsapp-btn {
+    display: inline-block;
+    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 0.8rem 2.2rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg-raised);
+    text-decoration: none;
+  }
+  .whatsapp-btn:hover {
+    opacity: 0.85;
+  }
+  .whatsapp-alt {
+    margin: 0.8rem 0 0;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+  }
+  .whatsapp-alt a {
+    color: var(--ink-faint);
   }
 
   /* ---------- the list ---------- */
