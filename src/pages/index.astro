@@ -14,26 +14,14 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
         <span class="logotype-name">Mike Trounce</span>
         <span class="logotype-tag">Growth Engineer</span>
       </a>
-      <nav class="top-nav gated">
+      <nav class="top-nav">
         <a class="quiet" href="/about">About</a>
         <a class="quiet" href="/stories">Stories</a>
       </nav>
     </header>
-
-    <section class="intro" id="intro-gate">
-      <h1 class="lede">Are you an entrepreneur?</h1>
-      <div class="gate">
-        <button type="button" class="gate-btn gate-yes" id="gate-yes">Yes</button>
-        <button type="button" class="gate-btn gate-no" id="gate-no">No</button>
-      </div>
-    </section>
   </div>
 
-  <noscript>
-    <style>.gated { display: block !important; } nav.gated { display: flex !important; }</style>
-  </noscript>
-
-  <main id="main-content" class="gated">
+  <main id="main-content">
 
     <div class="content-col">
       <section class="example">
@@ -66,18 +54,13 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
   }
   :global(body) {
     background: #f0f0f0;
+    min-height: auto;
   }
 
-  /* ---------- hero zone: header + intro share a subtle dot-grid backdrop ---------- */
+  /* ---------- hero zone: header gets a subtle dot-grid backdrop ---------- */
   .hero-zone {
     background-image: radial-gradient(var(--line) 1px, transparent 1px);
     background-size: 22px 22px;
-  }
-
-  /* ---------- gate: hidden until "Yes" is clicked; see <noscript> override and the
-     page script for the no-JS / JS-enabled fallback behavior ---------- */
-  .gated {
-    display: none !important;
   }
 
   /* ---------- top nav ---------- */
@@ -98,15 +81,15 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
   .logotype-name {
     font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
     font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.03em;
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
     color: var(--ink);
   }
   .logotype-tag {
-    font-size: 0.68rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-faint);
   }
@@ -132,50 +115,6 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
   .icon-link:hover {
     color: var(--ink-soft);
     border-color: var(--illus-a);
-  }
-
-  /* ---------- intro: headline only, text-first like the reference's first screen ---------- */
-  .intro {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: clamp(4rem, 14vh, 9rem) clamp(1.5rem, 5vw, 3rem) clamp(3rem, 10vh, 6rem);
-  }
-  .lede {
-    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
-    font-weight: 500;
-    font-size: clamp(2rem, 3.6vw, 3.4rem);
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    white-space: nowrap;
-    margin: 0;
-  }
-  .gate {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-  .gate-btn {
-    font-family: 'Outfit', 'Figtree', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 1.05rem;
-    padding: 0.8rem 2.4rem;
-    border-radius: 999px;
-    cursor: pointer;
-    border: 2px solid var(--ink);
-    background: transparent;
-    color: var(--ink);
-    transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
-  }
-  .gate-yes {
-    background: var(--ink);
-    color: var(--bg-raised);
-  }
-  .gate-yes:hover {
-    opacity: 0.8;
-  }
-  .gate-no:hover {
-    background: var(--ink);
-    color: var(--bg-raised);
   }
 
   /* ---------- content column (narrow sections between full-bleed bands) ---------- */
@@ -223,8 +162,6 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
     color: var(--green);
   }
 
-
-
   .quiet {
     font-size: 0.9rem;
     color: var(--ink-faint);
@@ -235,49 +172,9 @@ import freddyPhoto from '../assets/freddy-greensman.jpg';
     color: var(--ink-soft);
   }
 
-  @media (max-width: 650px) {
-    .lede {
-      white-space: normal;
-    }
-  }
-
   @media (max-width: 560px) {
     .site-header {
       justify-content: flex-start;
     }
   }
 </style>
-
-<script>
-  const exits = [
-    'https://www.google.com',
-    'https://www.amazon.com',
-    'https://www.ebay.com',
-    'https://www.instagram.com',
-    'https://www.facebook.com',
-  ];
-
-  function revealSite() {
-    document.querySelectorAll('.gated').forEach((el) => el.classList.remove('gated'));
-    const introGate = document.getElementById('intro-gate');
-    if (introGate) introGate.style.display = 'none';
-    try {
-      sessionStorage.setItem('entrepreneur', 'yes');
-    } catch (e) {}
-  }
-
-  let alreadyPassed = false;
-  try {
-    alreadyPassed = sessionStorage.getItem('entrepreneur') === 'yes';
-  } catch (e) {}
-  if (alreadyPassed) revealSite();
-
-  document.getElementById('gate-yes')?.addEventListener('click', () => {
-    revealSite();
-    document.getElementById('main-content')?.scrollIntoView({ behavior: 'smooth' });
-  });
-
-  document.getElementById('gate-no')?.addEventListener('click', () => {
-    window.location.href = exits[Math.floor(Math.random() * exits.length)];
-  });
-</script>
