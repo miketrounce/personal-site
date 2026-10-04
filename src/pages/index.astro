@@ -26,8 +26,8 @@ import Layout from '../layouts/Layout.astro';
               <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
             </span>
             <span class="story-text">
-              <span class="story-title">The Greensman — I</span>
-              <span class="story-subtitle">Breaking Ground</span>
+              <span class="story-episode">Episode 1</span>
+              <span class="story-title">Breaking Ground</span>
             </span>
           </summary>
           <div class="story-video">
@@ -42,8 +42,8 @@ import Layout from '../layouts/Layout.astro';
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
           </span>
           <span class="story-text">
-            <span class="story-title">The Greensman — II</span>
-            <span class="story-subtitle">Coming soon</span>
+            <span class="story-episode">Episode 2</span>
+            <span class="story-title">Coming soon</span>
           </span>
         </div>
 
@@ -52,8 +52,8 @@ import Layout from '../layouts/Layout.astro';
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
           </span>
           <span class="story-text">
-            <span class="story-title">The Greensman — III</span>
-            <span class="story-subtitle">Coming soon</span>
+            <span class="story-episode">Episode 3</span>
+            <span class="story-title">Coming soon</span>
           </span>
         </div>
       </div>
@@ -190,9 +190,13 @@ import Layout from '../layouts/Layout.astro';
   .story-row--soon .story-title {
     color: var(--ink-faint);
   }
-  .story-subtitle {
-    font-size: 0.88rem;
-    color: var(--ink-soft);
+  .story-episode {
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
   }
   .story-video {
     max-width: 240px;
