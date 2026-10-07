@@ -47,7 +47,7 @@ import Layout from '../layouts/Layout.astro';
   </script>
 
   <script is:inline>
-    (function () {
+    document.addEventListener('DOMContentLoaded', function () {
       var wrap = document.getElementById('intro-video');
       var video = document.getElementById('intro-video-el');
       if (!wrap || !video) return;
@@ -62,7 +62,7 @@ import Layout from '../layouts/Layout.astro';
       video.addEventListener('play', hideButton);
       video.addEventListener('pause', showButton);
       video.addEventListener('ended', showButton);
-    })();
+    });
   </script>
 
   <main id="main-content">
