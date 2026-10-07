@@ -203,9 +203,9 @@ import Layout from '../layouts/Layout.astro';
   @media (min-width: 900px) {
     .layout-grid {
       display: grid;
-      grid-template-columns: minmax(260px, 340px) 1fr;
-      align-items: start;
-      gap: 2.5rem;
+      grid-template-columns: 1fr 2fr;
+      align-items: stretch;
+      gap: 0;
     }
   }
 
@@ -214,10 +214,21 @@ import Layout from '../layouts/Layout.astro';
     max-width: 760px;
     width: 100%;
   }
+  @media (min-width: 900px) {
+    .content-col {
+      padding-left: 2.5rem;
+    }
+  }
 
-  /* ---------- video placeholder ---------- */
+  /* ---------- video placeholder (left bar) ---------- */
   .video-col {
     width: 100%;
+  }
+  @media (min-width: 900px) {
+    .video-col {
+      padding-right: 2.5rem;
+      border-right: 1px solid var(--ink);
+    }
   }
   .video-placeholder {
     display: flex;
