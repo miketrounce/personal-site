@@ -37,8 +37,8 @@ import Layout from '../layouts/Layout.astro';
         <a class="icon-link" href="mailto:trounceflow@gmail.com" aria-label="Email">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#202322" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="4.5" width="21" height="15" rx="2.5"/><path d="M2.5 6.5 12 13.5 21.5 6.5"/></svg>
         </a>
-        <button type="button" class="icon-link" popovertarget="post-popover" aria-label="Post">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#202322" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="4.5" width="21" height="15" rx="2.5"/><path d="M2.5 6.5 12 13.5 21.5 6.5"/><rect x="15.2" y="6.7" width="4.6" height="4.6" rx="0.6"/></svg>
+        <button type="button" class="icon-link" popovertarget="post-popover" aria-label="Postal address">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#202322" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13Z"/><circle cx="12" cy="9" r="2.3"/></svg>
         </button>
         <a class="icon-link" href="/michael-trounce-cv.pdf" target="_blank" rel="noopener" aria-label="CV">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#202322" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5h8l4 4V21a0.5 0.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5Z"/><path d="M14 2.5V6.5H18"/><path d="M8.2 12.5h7.6M8.2 15.5h7.6M8.2 9.5h3.6"/></svg>
@@ -46,7 +46,6 @@ import Layout from '../layouts/Layout.astro';
       </nav>
       </div>
     </header>
-    <button type="button" class="retain-trigger" popovertarget="retain-popover">Retain me</button>
   </div>
 
   <div id="post-popover" popover class="retain-popover">
@@ -58,28 +57,6 @@ import Layout from '../layouts/Layout.astro';
       Elstead, Surrey<br>
       GU8 6HU
     </p>
-  </div>
-
-  <div id="retain-popover" popover class="retain-popover">
-    <button type="button" class="retain-popover-close" popovertarget="retain-popover" popovertargetaction="hide" aria-label="Close">&times;</button>
-    <h2 class="retain-popover-title">Retain me</h2>
-    <ul class="retain-list">
-      <li>
-        <span class="retain-list-name">Quick Win</span>
-        <span class="retain-list-price">&pound;20</span>
-        <a href="https://wa.me/447887546080?text=Hi%20Mike%2C%20I%27d%20like%20the%20Quick%20Win%20(%C2%A320)." target="_blank" rel="noopener">Start</a>
-      </li>
-      <li>
-        <span class="retain-list-name">Pro</span>
-        <span class="retain-list-price">&pound;200</span>
-        <a href="https://wa.me/447887546080?text=Hi%20Mike%2C%20I%27d%20like%20Pro%20(%C2%A3200)." target="_blank" rel="noopener">Start</a>
-      </li>
-      <li>
-        <span class="retain-list-name">Max</span>
-        <span class="retain-list-price">Let&rsquo;s talk</span>
-        <a href="https://wa.me/447887546080?text=Hi%20Mike%2C%20I%27d%20like%20to%20talk%20about%20Max." target="_blank" rel="noopener">Start</a>
-      </li>
-    </ul>
   </div>
 
   <script is:inline>
@@ -120,26 +97,6 @@ import Layout from '../layouts/Layout.astro';
               <span class="story-title">Breaking Ground</span>
             </span>
           </a>
-
-          <div class="story-row story-row--soon">
-            <span class="play-circle" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="30" height="30" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </span>
-            <span class="story-text">
-              <span class="story-episode">Episode 2</span>
-              <span class="story-title">Overload</span>
-            </span>
-          </div>
-
-          <div class="story-row story-row--soon">
-            <span class="play-circle" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="30" height="30" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </span>
-            <span class="story-text">
-              <span class="story-episode">Episode 3</span>
-              <span class="story-title">Division</span>
-            </span>
-          </div>
         </div>
       </div>
     </div>
@@ -248,14 +205,22 @@ import Layout from '../layouts/Layout.astro';
     top: clamp(1rem, 3vw, 1.5rem);
     right: clamp(1rem, 3vw, 1.5rem);
     padding: 0.2rem 0.6rem;
-    border: 1px solid var(--line);
+    border: 1px solid #E8B923;
     border-radius: 999px;
+    background: #F5C518;
     font-family: 'Archivo', system-ui, sans-serif;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.68rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--ink-faint);
+    color: #202322;
+  }
+  @media (max-width: 560px) {
+    .greensman-label {
+      position: static;
+      display: inline-block;
+      margin: 0 0 0.75rem;
+    }
   }
   .greensman-title {
     margin: 0;
@@ -278,8 +243,7 @@ import Layout from '../layouts/Layout.astro';
     cursor: pointer;
     text-decoration: none;
   }
-  .story-summary,
-  .story-row--soon {
+  .story-summary {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -309,9 +273,6 @@ import Layout from '../layouts/Layout.astro';
     letter-spacing: -0.01em;
     color: var(--ink);
   }
-  .story-row--soon .story-title {
-    color: var(--ink-faint);
-  }
   .story-episode {
     font-family: 'Archivo', system-ui, sans-serif;
     font-weight: 600;
@@ -320,24 +281,7 @@ import Layout from '../layouts/Layout.astro';
     text-transform: uppercase;
     color: var(--ink-faint);
   }
-  /* ---------- retain me: a quiet trigger + popover ---------- */
-  .retain-trigger {
-    display: inline-block;
-    margin: 0.9rem clamp(1.5rem, 5vw, 3rem) 0;
-    padding: 0.35rem 0.85rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: none;
-    color: var(--ink-faint);
-    font-family: 'Figtree', system-ui, sans-serif;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: border-color 0.15s ease, color 0.15s ease;
-  }
-  .retain-trigger:hover {
-    border-color: var(--ink);
-    color: var(--ink);
-  }
+  /* ---------- quiet popovers (post address) ---------- */
   .retain-popover {
     border: 1px solid var(--ink);
     border-radius: 16px;
@@ -379,41 +323,6 @@ import Layout from '../layouts/Layout.astro';
     font-weight: 700;
     font-size: 1.15rem;
     letter-spacing: -0.01em;
-  }
-  .retain-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .retain-list li {
-    display: flex;
-    align-items: baseline;
-    gap: 0.6rem;
-    padding: 0.6rem 0;
-    border-top: 1px solid var(--line);
-  }
-  .retain-list li:first-child {
-    border-top: none;
-  }
-  .retain-list-name {
-    font-size: 0.88rem;
-    color: var(--ink);
-  }
-  .retain-list-price {
-    font-size: 0.88rem;
-    color: var(--ink-faint);
-  }
-  .retain-list li a {
-    margin-left: auto;
-    font-size: 0.85rem;
-    color: var(--ink) !important;
-    text-decoration: none;
-    border-bottom: 1px solid var(--ink);
-  }
-  .retain-list li a:hover {
-    color: var(--ink-soft) !important;
   }
   .post-address {
     margin: 0;
