@@ -33,6 +33,29 @@ import Layout from '../layouts/Layout.astro';
         </a>
       </nav>
     </header>
+    <button type="button" class="retain-trigger" popovertarget="retain-popover">Retain me</button>
+  </div>
+
+  <div id="retain-popover" popover class="retain-popover">
+    <button type="button" class="retain-popover-close" popovertarget="retain-popover" popovertargetaction="hide" aria-label="Close">&times;</button>
+    <h2 class="retain-popover-title">Retain me</h2>
+    <ul class="retain-list">
+      <li>
+        <span class="retain-list-name">Quick Win</span>
+        <span class="retain-list-price">&pound;20</span>
+        <a href="https://wa.me/447887546080?text=Hi%20Mike%2C%20I%27d%20like%20the%20Quick%20Win%20(%C2%A320)." target="_blank" rel="noopener">Start</a>
+      </li>
+      <li>
+        <span class="retain-list-name">Pro</span>
+        <span class="retain-list-price">&pound;200</span>
+        <a href="https://wa.me/447887546080?text=Hi%20Mike%2C%20I%27d%20like%20Pro%20(%C2%A3200)." target="_blank" rel="noopener">Start</a>
+      </li>
+      <li>
+        <span class="retain-list-name">Max</span>
+        <span class="retain-list-price">Let&rsquo;s talk</span>
+        <a href="https://wa.me/447887546080?text=Hi%20Mike%2C%20I%27d%20like%20to%20talk%20about%20Max." target="_blank" rel="noopener">Start</a>
+      </li>
+    </ul>
   </div>
 
   <main id="main-content">
@@ -71,33 +94,6 @@ import Layout from '../layouts/Layout.astro';
               <span class="story-episode">Episode 3</span>
               <span class="story-title">Division</span>
             </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="retain-box">
-        <div class="retain-heading">
-          <h2 class="retain-title">Retain me</h2>
-        </div>
-        <p class="retain-sub">Three ways in. Pick the one that fits, or just start with the smallest.</p>
-        <div class="retain-grid">
-          <div class="retain-card">
-            <span class="retain-name">Quick Win</span>
-            <span class="retain-price">&pound;20</span>
-            <p class="retain-desc">One fix, fast.</p>
-            <a class="retain-cta" href="https://wa.me/447887546080?text=Hi%20Mike%2C%20I%27d%20like%20the%20Quick%20Win%20(%C2%A320)." target="_blank" rel="noopener">Get started</a>
-          </div>
-          <div class="retain-card retain-card--highlight">
-            <span class="retain-name">Pro</span>
-            <span class="retain-price">&pound;200</span>
-            <p class="retain-desc">More scope, more time.</p>
-            <a class="retain-cta" href="https://wa.me/447887546080?text=Hi%20Mike%2C%20I%27d%20like%20Pro%20(%C2%A3200)." target="_blank" rel="noopener">Get started</a>
-          </div>
-          <div class="retain-card">
-            <span class="retain-name">Max</span>
-            <span class="retain-price">Let&rsquo;s talk</span>
-            <p class="retain-desc">Ongoing, whatever&rsquo;s next.</p>
-            <a class="retain-cta" href="https://wa.me/447887546080?text=Hi%20Mike%2C%20I%27d%20like%20to%20talk%20about%20Max." target="_blank" rel="noopener">Get started</a>
           </div>
         </div>
       </div>
@@ -259,86 +255,90 @@ import Layout from '../layouts/Layout.astro';
     text-transform: uppercase;
     color: var(--ink-faint);
   }
-  /* ---------- retain me ---------- */
-  .retain-box {
-    border: 1px solid var(--ink);
-    border-radius: 20px;
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    margin-top: 1.5rem;
+  /* ---------- retain me: a quiet trigger + popover ---------- */
+  .retain-trigger {
+    display: inline-block;
+    margin: 0.9rem clamp(1.5rem, 5vw, 3rem) 0;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: none;
+    color: var(--ink-faint);
+    font-family: 'Figtree', system-ui, sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
   }
-  .retain-heading {
-    margin: 0 0 0.5rem;
-  }
-  .retain-title {
-    margin: 0;
-    font-family: 'Archivo', system-ui, sans-serif;
-    font-weight: 700;
-    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
-    letter-spacing: -0.01em;
+  .retain-trigger:hover {
+    border-color: var(--ink);
     color: var(--ink);
   }
-  .retain-sub {
-    margin: 0 0 1.5rem;
+  .retain-popover {
+    border: 1px solid var(--ink);
+    border-radius: 16px;
+    padding: 1.5rem 1.6rem;
+    width: min(320px, 90vw);
+    background: #fff;
+    color: var(--ink);
+  }
+  .retain-popover::backdrop {
+    background: rgba(32, 35, 34, 0.25);
+  }
+  .retain-popover-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.8rem;
+    border: none;
+    background: none;
+    font-size: 1.3rem;
+    line-height: 1;
     color: var(--ink-faint);
-    font-size: 0.95rem;
+    cursor: pointer;
   }
-  .retain-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+  .retain-popover-close:hover {
+    color: var(--ink);
   }
-  .retain-card {
+  .retain-popover-title {
+    margin: 0 0 1rem;
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+  }
+  .retain-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 1.25rem 1.1rem;
   }
-  .retain-card--highlight {
-    border: 1.5px solid var(--ink);
-    background: var(--illus-b);
+  .retain-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.6rem 0;
+    border-top: 1px solid var(--line);
   }
-  .retain-name {
-    font-family: 'Archivo', system-ui, sans-serif;
-    font-weight: 700;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
+  .retain-list li:first-child {
+    border-top: none;
   }
-  .retain-price {
-    font-family: 'Archivo', system-ui, sans-serif;
-    font-weight: 700;
-    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+  .retain-list-name {
+    font-size: 0.88rem;
     color: var(--ink);
   }
-  .retain-desc {
-    margin: 0;
-    flex-grow: 1;
-    color: var(--ink-soft);
+  .retain-list-price {
     font-size: 0.88rem;
+    color: var(--ink-faint);
   }
-  .retain-cta {
-    display: inline-block;
-    margin-top: 0.5rem;
-    padding: 0.55rem 0.9rem;
-    border-radius: 999px;
-    background: var(--ink);
-    color: #fff !important;
-    text-decoration: none;
-    font-weight: 600;
+  .retain-list li a {
+    margin-left: auto;
     font-size: 0.85rem;
-    text-align: center;
-    transition: opacity 0.15s ease;
+    color: var(--ink) !important;
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
   }
-  .retain-cta:hover {
-    opacity: 0.85;
-  }
-  @media (max-width: 640px) {
-    .retain-grid {
-      grid-template-columns: 1fr;
-    }
+  .retain-list li a:hover {
+    color: var(--ink-soft) !important;
   }
 
   @media (max-width: 560px) {
