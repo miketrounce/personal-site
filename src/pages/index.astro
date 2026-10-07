@@ -82,14 +82,36 @@ import Layout from '../layouts/Layout.astro';
     }
   </script>
 
+  <script is:inline>
+    (function () {
+      var wrap = document.getElementById('intro-video');
+      var video = document.getElementById('intro-video-el');
+      if (!wrap || !video) return;
+      var btn = wrap.querySelector('.video-play-btn');
+      function play() { video.play(); }
+      function showButton() { wrap.classList.remove('is-playing'); }
+      function hideButton() { wrap.classList.add('is-playing'); }
+      btn.addEventListener('click', play);
+      video.addEventListener('click', function () {
+        if (video.paused) play(); else video.pause();
+      });
+      video.addEventListener('play', hideButton);
+      video.addEventListener('pause', showButton);
+      video.addEventListener('ended', showButton);
+    })();
+  </script>
+
   <main id="main-content">
 
     <div class="layout-grid">
       <div class="video-col">
-        <div class="intro-video">
-          <video controls preload="metadata" poster="/media/mike-hi-intro-poster.jpg" playsinline>
+        <div class="intro-video" id="intro-video">
+          <video id="intro-video-el" preload="metadata" poster="/media/mike-hi-intro-poster.jpg" playsinline>
             <source src="/media/mike-hi-intro.mp4" type="video/mp4" />
           </video>
+          <button type="button" class="video-play-btn" aria-label="Play video">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
+          </button>
         </div>
       </div>
 
@@ -231,6 +253,7 @@ import Layout from '../layouts/Layout.astro';
     }
   }
   .intro-video {
+    position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
     border: 1px solid var(--ink);
@@ -243,6 +266,32 @@ import Layout from '../layouts/Layout.astro';
     height: 100%;
     display: block;
     object-fit: cover;
+    cursor: pointer;
+  }
+  .video-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.6rem;
+    height: 3.6rem;
+    border: none;
+    border-radius: 999px;
+    background: #fff;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .video-play-btn svg {
+    margin-left: 2px;
+  }
+  .video-play-btn:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+  .intro-video.is-playing .video-play-btn {
+    display: none;
   }
 
   /* ---------- the one story ---------- */
