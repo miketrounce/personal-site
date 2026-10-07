@@ -83,7 +83,6 @@ import Layout from '../layouts/Layout.astro';
 
     <div class="content-col">
       <div class="greensman-box">
-        <span class="greensman-label">Featured</span>
         <div class="greensman-heading">
           <h2 class="greensman-title">The Greensman</h2>
         </div>
@@ -190,7 +189,6 @@ import Layout from '../layouts/Layout.astro';
 
   /* ---------- the one story ---------- */
   .greensman-box {
-    position: relative;
     border: 1px solid var(--ink);
     border-radius: 20px;
     padding: clamp(1.5rem, 4vw, 2.5rem);
@@ -199,28 +197,6 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     align-items: center;
     margin: 0 0 1.25rem;
-  }
-  .greensman-label {
-    position: absolute;
-    top: clamp(1rem, 3vw, 1.5rem);
-    right: clamp(1rem, 3vw, 1.5rem);
-    padding: 0.2rem 0.6rem;
-    border: 1px solid #E8B923;
-    border-radius: 999px;
-    background: #F5C518;
-    font-family: 'Archivo', system-ui, sans-serif;
-    font-weight: 700;
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #202322;
-  }
-  @media (max-width: 560px) {
-    .greensman-label {
-      position: static;
-      display: inline-block;
-      margin: 0 0 0.75rem;
-    }
   }
   .greensman-title {
     margin: 0;
