@@ -272,14 +272,13 @@ import Layout from '../layouts/Layout.astro';
   }
   .video-play-btn {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 0.75rem;
+    right: 0.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3.6rem;
-    height: 3.6rem;
+    width: 2.4rem;
+    height: 2.4rem;
     border: none;
     border-radius: 999px;
     background: #fff;
@@ -287,10 +286,12 @@ import Layout from '../layouts/Layout.astro';
     transition: transform 0.15s ease;
   }
   .video-play-btn svg {
+    width: 14px;
+    height: 14px;
     margin-left: 2px;
   }
   .video-play-btn:hover {
-    transform: translate(-50%, -50%) scale(1.06);
+    transform: scale(1.08);
   }
   .intro-video.is-playing .video-play-btn {
     display: none;
