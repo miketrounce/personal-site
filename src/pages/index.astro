@@ -218,31 +218,20 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="content-col">
-        <div class="col-tabs" role="tablist" aria-label="Portfolio">
-          <button type="button" class="col-tab" role="tab" id="tab-greensman" data-tab="greensman" aria-controls="panel-greensman" aria-selected="true">The Greensman</button>
-          <button type="button" class="col-tab" role="tab" id="tab-execution-intelligence" data-tab="execution-intelligence" aria-controls="panel-execution-intelligence" aria-selected="false" tabindex="-1">Execution Intelligence</button>
-        </div>
+        <h2 class="col-heading">Watch it happen</h2>
 
-        <div class="tab-panels" id="portfolio-panels">
-          <div role="tabpanel" id="panel-greensman" aria-labelledby="tab-greensman">
-            <div class="intro-video" id="greensman-video">
-              <video preload="metadata" poster="/freddy-greensman.jpg" playsinline>
-                <source src="/media/greensman.mp4" type="video/mp4" />
-              </video>
-              <button type="button" class="video-play-btn" aria-label="Play The Greensman video">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-            <a class="icon-link greensman-link" href="https://www.thegreensmanelstead.com/" target="_blank" rel="noopener" aria-label="The Greensman Elstead website">
-              <img src="/greensman-icon.png" alt="" width="18" height="18" />
-            </a>
+        <div id="portfolio-panels">
+          <div class="intro-video" id="greensman-video">
+            <video preload="metadata" poster="/freddy-greensman.jpg" playsinline>
+              <source src="/media/greensman.mp4" type="video/mp4" />
+            </video>
+            <button type="button" class="video-play-btn" aria-label="Play The Greensman video">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
+            </button>
           </div>
-
-          <div role="tabpanel" id="panel-execution-intelligence" aria-labelledby="tab-execution-intelligence" hidden>
-            <div class="intro-video video-placeholder">
-              <span>Coming soon</span>
-            </div>
-          </div>
+          <a class="icon-link greensman-link" href="https://www.thegreensmanelstead.com/" target="_blank" rel="noopener" aria-label="The Greensman Elstead website">
+            <img src="/greensman-icon.png" alt="" width="18" height="18" />
+          </a>
         </div>
       </div>
     </div>
@@ -309,6 +298,15 @@ import Layout from '../layouts/Layout.astro';
     flex-wrap: wrap;
     gap: 0.7rem 1.5rem;
     margin: 0 0 0.9rem;
+  }
+  .col-heading {
+    margin: 0 0 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
   }
   .col-tab {
     padding: 0;
