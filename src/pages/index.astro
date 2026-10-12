@@ -142,8 +142,13 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <div role="tabpanel" id="panel-quick-win" aria-labelledby="tab-quick-win" hidden>
-            <div class="intro-video video-placeholder">
-              <span>Video coming soon</span>
+            <div class="intro-video" id="quick-win-video">
+              <video preload="metadata" poster="/media/quick-win-poster.jpg" playsinline>
+                <source src="/media/quick-win.mp4" type="video/mp4" />
+              </video>
+              <button type="button" class="video-play-btn" aria-label="Play the Quick Win video">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
+              </button>
             </div>
 
             <p class="quick-win-note">
