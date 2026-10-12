@@ -87,6 +87,7 @@ import Layout from '../layouts/Layout.astro';
 
     <div class="layout-grid">
       <div class="video-col">
+        <h2 class="col-heading">Quick win</h2>
         <div class="intro-video" id="intro-video">
           <video id="intro-video-el" preload="metadata" poster="/media/mike-hi-intro-poster.jpg" playsinline>
             <source src="/media/mike-hi-intro.mp4" type="video/mp4" />
@@ -95,6 +96,11 @@ import Layout from '../layouts/Layout.astro';
             <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
           </button>
         </div>
+
+        <p class="quick-win-note">
+          The first thing I'll do for you is a quick win: a small piece of work, an hour or maybe a few,
+          that costs you little and delivers real value. Like the flyer I made for The Greensman.
+        </p>
 
         <div class="video-contacts">
           <nav class="social-nav">
@@ -234,6 +240,12 @@ import Layout from '../layouts/Layout.astro';
     text-transform: uppercase;
     color: var(--ink-faint);
   }
+  .quick-win-note {
+    margin: 1.1rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
   .video-contacts {
     display: flex;
     flex-direction: column;
@@ -267,16 +279,14 @@ import Layout from '../layouts/Layout.astro';
   }
   /* ---------- two-column layout: video left, credentials right ---------- */
   .layout-grid {
-    --col-heading-size: 0.95rem;
-    --col-heading-gap: 0.9rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     padding: clamp(1rem, 4vh, 2rem) clamp(1.5rem, 5vw, 3rem);
   }
   .col-heading {
-    margin: 0 0 var(--col-heading-gap);
-    font-size: var(--col-heading-size);
+    margin: 0 0 0.9rem;
+    font-size: 0.95rem;
     font-weight: 600;
     line-height: 1;
     letter-spacing: 0.08em;
@@ -309,8 +319,6 @@ import Layout from '../layouts/Layout.astro';
   }
   @media (min-width: 900px) {
     .video-col {
-      /* keeps the video level with the Greensman card under its heading */
-      padding-top: calc(var(--col-heading-size) + var(--col-heading-gap));
       padding-right: 2.5rem;
       border-right: 1px solid var(--ink);
     }
