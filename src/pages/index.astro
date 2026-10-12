@@ -48,26 +48,57 @@ import Layout from '../layouts/Layout.astro';
 
   <script is:inline>
     document.addEventListener('DOMContentLoaded', function () {
-      var wrap = document.getElementById('intro-video');
-      var video = document.getElementById('intro-video-el');
-      if (!wrap || !video) return;
-      var btn = wrap.querySelector('.video-play-btn');
-      function play() { video.play(); }
-      function showButton() { wrap.classList.remove('is-playing'); }
-      function hideButton() { wrap.classList.add('is-playing'); }
-      btn.addEventListener('click', play);
-      video.addEventListener('click', function () {
-        if (video.paused) play(); else video.pause();
+      document.querySelectorAll('.intro-video').forEach(function (wrap) {
+        var video = wrap.querySelector('video');
+        var btn = wrap.querySelector('.video-play-btn');
+        if (!video || !btn) return;
+        function play() { video.play(); }
+        function showButton() { wrap.classList.remove('is-playing'); }
+        function hideButton() { wrap.classList.add('is-playing'); }
+        btn.addEventListener('click', play);
+        video.addEventListener('click', function () {
+          if (video.paused) play(); else video.pause();
+        });
+        video.addEventListener('play', hideButton);
+        video.addEventListener('pause', showButton);
+        video.addEventListener('ended', showButton);
       });
-      video.addEventListener('play', hideButton);
-      video.addEventListener('pause', showButton);
-      video.addEventListener('ended', showButton);
     });
   </script>
 
   <script is:inline>
     document.addEventListener('DOMContentLoaded', function () {
-      var videoBox = document.getElementById('intro-video');
+      document.querySelectorAll('.col-tabs').forEach(function (list) {
+        var tabs = Array.prototype.slice.call(list.querySelectorAll('.col-tab'));
+        function select(tab, focus) {
+          tabs.forEach(function (t) {
+            var on = t === tab;
+            var panel = document.getElementById(t.getAttribute('aria-controls'));
+            t.setAttribute('aria-selected', on ? 'true' : 'false');
+            t.tabIndex = on ? 0 : -1;
+            if (!panel) return;
+            panel.hidden = !on;
+            if (!on) panel.querySelectorAll('video').forEach(function (v) { v.pause(); });
+          });
+          if (focus) tab.focus();
+        }
+        tabs.forEach(function (tab, i) {
+          tab.addEventListener('click', function () { select(tab); });
+          tab.addEventListener('keydown', function (e) {
+            if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+            var step = e.key === 'ArrowRight' ? 1 : -1;
+            select(tabs[(i + step + tabs.length) % tabs.length], true);
+          });
+        });
+        var fromHash = tabs.filter(function (t) { return '#' + t.dataset.tab === location.hash; })[0];
+        if (fromHash) select(fromHash);
+      });
+    });
+  </script>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var videoBox = document.getElementById('video-panels');
       var greensmanBox = document.getElementById('greensman-box');
       if (!videoBox || !greensmanBox) return;
       var mq = window.matchMedia('(min-width: 900px)');
@@ -87,20 +118,34 @@ import Layout from '../layouts/Layout.astro';
 
     <div class="layout-grid">
       <div class="video-col">
-        <h2 class="col-heading">Quick win</h2>
-        <div class="intro-video" id="intro-video">
-          <video id="intro-video-el" preload="metadata" poster="/media/mike-hi-intro-poster.jpg" playsinline>
-            <source src="/media/mike-hi-intro.mp4" type="video/mp4" />
-          </video>
-          <button type="button" class="video-play-btn" aria-label="Play video">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
-          </button>
+        <div class="col-tabs" role="tablist" aria-label="Videos">
+          <button type="button" class="col-tab" role="tab" id="tab-intro" data-tab="intro" aria-controls="panel-intro" aria-selected="true">Intro</button>
+          <button type="button" class="col-tab" role="tab" id="tab-quick-win" data-tab="quick-win" aria-controls="panel-quick-win" aria-selected="false" tabindex="-1">Quick win</button>
         </div>
 
-        <p class="quick-win-note">
-          The first thing I'll do for you is a quick win: a small piece of work, an hour or maybe a few,
-          that costs you little and delivers real value. Like the flyer I made for The Greensman.
-        </p>
+        <div class="tab-panels" id="video-panels">
+          <div role="tabpanel" id="panel-intro" aria-labelledby="tab-intro">
+            <div class="intro-video" id="intro-video">
+              <video id="intro-video-el" preload="metadata" poster="/media/mike-hi-intro-poster.jpg" playsinline>
+                <source src="/media/mike-hi-intro.mp4" type="video/mp4" />
+              </video>
+              <button type="button" class="video-play-btn" aria-label="Play video">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div role="tabpanel" id="panel-quick-win" aria-labelledby="tab-quick-win" hidden>
+            <div class="intro-video video-placeholder">
+              <span>Video coming soon</span>
+            </div>
+
+            <p class="quick-win-note">
+              The first thing I'll do for you is a quick win: a small piece of work, an hour or maybe a few,
+              that costs you little and delivers real value. Like the flyer I made for The Greensman.
+            </p>
+          </div>
+        </div>
 
         <div class="video-contacts">
           <nav class="social-nav">
@@ -161,24 +206,29 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="content-col">
-        <h2 class="col-heading">Portfolio</h2>
-        <a class="greensman-box" id="greensman-box" href="https://www.youtube.com/watch?v=K4Wd0Rziw80" target="_blank" rel="noopener" aria-label="The Greensman — Breaking Ground">
-          <img class="greensman-photo" src="/freddy-greensman.jpg" alt="Freddy Trounce, The Greensman — Elstead, Surrey" />
-          <div class="greensman-overlay">
-            <h3 class="greensman-title">The Greensman</h3>
-            <span class="greensman-meta">
-              <span class="play-circle" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="26" height="26" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        <div class="col-tabs" role="tablist" aria-label="Portfolio">
+          <button type="button" class="col-tab" role="tab" id="tab-greensman" data-tab="greensman" aria-controls="panel-greensman" aria-selected="true">The Greensman</button>
+        </div>
+
+        <div role="tabpanel" id="panel-greensman" aria-labelledby="tab-greensman">
+          <a class="greensman-box" id="greensman-box" href="https://www.youtube.com/watch?v=K4Wd0Rziw80" target="_blank" rel="noopener" aria-label="The Greensman — Breaking Ground">
+            <img class="greensman-photo" src="/freddy-greensman.jpg" alt="Freddy Trounce, The Greensman — Elstead, Surrey" />
+            <div class="greensman-overlay">
+              <h3 class="greensman-title">The Greensman</h3>
+              <span class="greensman-meta">
+                <span class="play-circle" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </span>
+                <span class="story-text">
+                  <span class="story-title">Breaking Ground</span>
+                </span>
               </span>
-              <span class="story-text">
-                <span class="story-title">Breaking Ground</span>
-              </span>
-            </span>
-          </div>
-        </a>
-        <a class="icon-link greensman-link" href="https://www.thegreensmanelstead.com/" target="_blank" rel="noopener" aria-label="The Greensman Elstead website">
-          <img src="/greensman-icon.png" alt="" width="18" height="18" />
-        </a>
+            </div>
+          </a>
+          <a class="icon-link greensman-link" href="https://www.thegreensmanelstead.com/" target="_blank" rel="noopener" aria-label="The Greensman Elstead website">
+            <img src="/greensman-icon.png" alt="" width="18" height="18" />
+          </a>
+        </div>
       </div>
     </div>
   </main>
@@ -239,6 +289,33 @@ import Layout from '../layouts/Layout.astro';
     text-transform: uppercase;
     color: var(--ink-faint);
   }
+  .col-tabs {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0 0 0.9rem;
+  }
+  .col-tab {
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    cursor: pointer;
+  }
+  .col-tab:hover,
+  .col-tab[aria-selected="true"] {
+    color: var(--ink);
+  }
+  .col-tab[aria-selected="true"] {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.4em;
+  }
   .quick-win-note {
     margin: 1.1rem 0 0;
     font-size: 0.95rem;
@@ -282,15 +359,6 @@ import Layout from '../layouts/Layout.astro';
     flex-direction: column;
     gap: 1.5rem;
     padding: clamp(1rem, 4vh, 2rem) clamp(1.5rem, 5vw, 3rem);
-  }
-  .col-heading {
-    margin: 0 0 0.9rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
   }
   @media (min-width: 900px) {
     .layout-grid {
@@ -363,6 +431,16 @@ import Layout from '../layouts/Layout.astro';
   }
   .intro-video.is-playing .video-play-btn {
     display: none;
+  }
+  .video-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
   }
 
   /* ---------- the one story ---------- */
