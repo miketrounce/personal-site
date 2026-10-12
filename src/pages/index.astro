@@ -51,22 +51,34 @@ import Layout from '../layouts/Layout.astro';
       document.querySelectorAll('.intro-video').forEach(function (wrap) {
         var video = wrap.querySelector('video');
         var btn = wrap.querySelector('.video-play-btn');
+        var runtime = wrap.querySelector('.video-duration');
         if (!video || !btn) return;
-        function play() { video.play(); }
-        function showButton() { wrap.classList.remove('is-playing'); }
-        function hideButton() {
+        function showRuntime() {
+          if (!runtime || !isFinite(video.duration)) return;
+          var secs = Math.round(video.duration);
+          runtime.textContent = Math.floor(secs / 60) + ':' + ('0' + (secs % 60)).slice(-2);
+        }
+        if (video.readyState >= 1) showRuntime();
+        video.addEventListener('loadedmetadata', showRuntime);
+        btn.addEventListener('click', function () { video.play(); });
+        // before the first play the whole picture is the play button; after that
+        // the browser's own controls (scrubber, time, volume, fullscreen) take over
+        video.addEventListener('click', function () {
+          if (!video.controls) video.play();
+        });
+        video.addEventListener('play', function () {
           wrap.classList.add('is-playing');
+          video.controls = true;
           document.querySelectorAll('.intro-video video').forEach(function (v) {
             if (v !== video) v.pause();
           });
-        }
-        btn.addEventListener('click', play);
-        video.addEventListener('click', function () {
-          if (video.paused) play(); else video.pause();
         });
-        video.addEventListener('play', hideButton);
-        video.addEventListener('pause', showButton);
-        video.addEventListener('ended', showButton);
+        // back to the clean still once it finishes
+        video.addEventListener('ended', function () {
+          video.controls = false;
+          wrap.classList.remove('is-playing');
+          video.load();
+        });
       });
     });
   </script>
@@ -135,6 +147,7 @@ import Layout from '../layouts/Layout.astro';
               <video id="intro-video-el" preload="metadata" poster="/media/mike-hi-intro-poster-tight.jpg" playsinline>
                 <source src="/media/mike-hi-intro.mp4" type="video/mp4" />
               </video>
+              <span class="video-duration" aria-hidden="true"></span>
               <button type="button" class="video-play-btn" aria-label="Play video">
                 <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
               </button>
@@ -146,6 +159,7 @@ import Layout from '../layouts/Layout.astro';
               <video preload="metadata" poster="/media/quick-win-poster.jpg" playsinline>
                 <source src="/media/quick-win.mp4" type="video/mp4" />
               </video>
+              <span class="video-duration" aria-hidden="true"></span>
               <button type="button" class="video-play-btn" aria-label="Play the Quick Win video">
                 <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
               </button>
@@ -230,6 +244,7 @@ import Layout from '../layouts/Layout.astro';
             <video preload="metadata" poster="/freddy-greensman.jpg" playsinline>
               <source src="/media/greensman.mp4" type="video/mp4" />
             </video>
+            <span class="video-duration" aria-hidden="true"></span>
             <button type="button" class="video-play-btn" aria-label="Play The Greensman video">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
             </button>
@@ -448,6 +463,22 @@ import Layout from '../layouts/Layout.astro';
   .video-play-btn:hover {
     transform: scale(1.08);
   }
+  .video-duration {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    padding: 0.3rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(32, 35, 34, 0.7);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: #fff;
+    pointer-events: none;
+  }
+  .video-duration:empty,
+  .intro-video.is-playing .video-duration,
   .intro-video.is-playing .video-play-btn {
     display: none;
   }
