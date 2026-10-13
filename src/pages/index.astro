@@ -103,36 +103,6 @@ import Layout from '../layouts/Layout.astro';
 
   <script is:inline>
     document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('.col-tabs').forEach(function (list) {
-        var tabs = Array.prototype.slice.call(list.querySelectorAll('.col-tab'));
-        function select(tab, focus) {
-          tabs.forEach(function (t) {
-            var on = t === tab;
-            var panel = document.getElementById(t.getAttribute('aria-controls'));
-            t.setAttribute('aria-selected', on ? 'true' : 'false');
-            t.tabIndex = on ? 0 : -1;
-            if (!panel) return;
-            panel.hidden = !on;
-            if (!on) panel.querySelectorAll('video').forEach(function (v) { v.pause(); });
-          });
-          if (focus) tab.focus();
-        }
-        tabs.forEach(function (tab, i) {
-          tab.addEventListener('click', function () { select(tab); });
-          tab.addEventListener('keydown', function (e) {
-            if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-            var step = e.key === 'ArrowRight' ? 1 : -1;
-            select(tabs[(i + step + tabs.length) % tabs.length], true);
-          });
-        });
-        var fromHash = tabs.filter(function (t) { return '#' + t.dataset.tab === location.hash; })[0];
-        if (fromHash) select(fromHash);
-      });
-    });
-  </script>
-
-  <script is:inline>
-    document.addEventListener('DOMContentLoaded', function () {
       var videoBox = document.getElementById('video-panels');
       var greensmanBox = document.getElementById('portfolio-panels');
       if (!videoBox || !greensmanBox) return;
@@ -153,48 +123,18 @@ import Layout from '../layouts/Layout.astro';
 
     <div class="layout-grid">
       <div class="video-col">
-        <div class="col-tabs" role="tablist" aria-label="Videos">
-          <button type="button" class="col-tab" role="tab" id="tab-intro" data-tab="intro" aria-controls="panel-intro" aria-selected="true">Intro</button>
-          <button type="button" class="col-tab" role="tab" id="tab-quick-win" data-tab="quick-win" aria-controls="panel-quick-win" aria-selected="false" tabindex="-1">Quick win</button>
-          <button type="button" class="col-tab" role="tab" id="tab-evolve" data-tab="evolve" aria-controls="panel-evolve" aria-selected="false" tabindex="-1">Evolve</button>
-        </div>
+        <h2 class="col-heading">Why</h2>
 
-        <div class="tab-panels" id="video-panels">
-          <div role="tabpanel" id="panel-intro" aria-labelledby="tab-intro">
-            <div class="intro-video" id="intro-video">
-              <video id="intro-video-el" preload="metadata" poster="/media/mike-hi-intro-poster-tight.jpg" playsinline>
-                <source src="/media/mike-hi-intro.mp4" type="video/mp4" />
-              </video>
-              <span class="video-duration" aria-hidden="true"></span>
-              <span class="video-progress" aria-hidden="true"><span></span></span>
-              <button type="button" class="video-play-btn" aria-label="Play video">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <div role="tabpanel" id="panel-quick-win" aria-labelledby="tab-quick-win" hidden>
-            <div class="intro-video" id="quick-win-video">
-              <video preload="metadata" poster="/media/quick-win-poster.jpg" playsinline>
-                <source src="/media/quick-win.mp4" type="video/mp4" />
-              </video>
-              <span class="video-duration" aria-hidden="true"></span>
-              <span class="video-progress" aria-hidden="true"><span></span></span>
-              <button type="button" class="video-play-btn" aria-label="Play the Quick Win video">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-
-            <p class="quick-win-note">
-              The first thing I'll do for you is a quick win: a small piece of work, an hour or maybe a few,
-              that costs you little and delivers real value. Like the flyer I made for The Greensman.
-            </p>
-          </div>
-
-          <div role="tabpanel" id="panel-evolve" aria-labelledby="tab-evolve" hidden>
-            <div class="intro-video video-placeholder">
-              <span>Coming soon</span>
-            </div>
+        <div id="video-panels">
+          <div class="intro-video" id="intro-video">
+            <video id="intro-video-el" preload="metadata" poster="/media/mike-hi-intro-poster-tight.jpg" playsinline>
+              <source src="/media/mike-hi-intro.mp4" type="video/mp4" />
+            </video>
+            <span class="video-duration" aria-hidden="true"></span>
+            <span class="video-progress" aria-hidden="true"><span></span></span>
+            <button type="button" class="video-play-btn" aria-label="Play video">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
+            </button>
           </div>
         </div>
 
@@ -339,12 +279,6 @@ import Layout from '../layouts/Layout.astro';
     text-transform: uppercase;
     color: var(--ink-faint);
   }
-  .col-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem 1.5rem;
-    margin: 0 0 0.9rem;
-  }
   .col-heading {
     margin: 0 0 0.9rem;
     font-size: 0.95rem;
@@ -353,34 +287,6 @@ import Layout from '../layouts/Layout.astro';
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--ink-faint);
-  }
-  .col-tab {
-    padding: 0;
-    border: none;
-    background: none;
-    font: inherit;
-    font-size: 0.95rem;
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    cursor: pointer;
-  }
-  .col-tab:hover,
-  .col-tab[aria-selected="true"] {
-    color: var(--ink);
-  }
-  .col-tab[aria-selected="true"] {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.4em;
-  }
-  .quick-win-note {
-    margin: 1.1rem 0 0;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: var(--ink-soft);
   }
   .video-contacts {
     display: flex;
@@ -555,16 +461,6 @@ import Layout from '../layouts/Layout.astro';
   .intro-video.is-playing .video-duration,
   .intro-video.is-playing .video-play-btn {
     display: none;
-  }
-  .video-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
   }
 
   /* ---------- quiet popovers (post address) ---------- */
