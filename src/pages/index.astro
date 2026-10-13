@@ -244,14 +244,16 @@ import Layout from '../layouts/Layout.astro';
             <video preload="metadata" poster="/freddy-greensman.jpg" playsinline>
               <source src="/media/greensman.mp4" type="video/mp4" />
             </video>
-            <span class="video-duration" aria-hidden="true"></span>
+            <div class="video-corner">
+              <span class="video-duration" aria-hidden="true"></span>
+              <a class="video-site-link" href="https://www.thegreensmanelstead.com/" target="_blank" rel="noopener" aria-label="The Greensman Elstead website">
+                <img src="/greensman-icon.png" alt="" width="16" height="16" />
+              </a>
+            </div>
             <button type="button" class="video-play-btn" aria-label="Play The Greensman video">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
             </button>
           </div>
-          <a class="icon-link greensman-link" href="https://www.thegreensmanelstead.com/" target="_blank" rel="noopener" aria-label="The Greensman Elstead website">
-            <img src="/greensman-icon.png" alt="" width="18" height="18" />
-          </a>
         </div>
       </div>
     </div>
@@ -384,9 +386,6 @@ import Layout from '../layouts/Layout.astro';
     border-color: var(--ink);
     transform: scale(1.06);
   }
-  .greensman-link {
-    margin-top: 1.25rem;
-  }
   /* ---------- two-column layout: video left, credentials right ---------- */
   .layout-grid {
     display: flex;
@@ -477,7 +476,39 @@ import Layout from '../layouts/Layout.astro';
     color: #fff;
     pointer-events: none;
   }
+  .video-corner {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .video-corner .video-duration {
+    position: static;
+  }
+  .video-site-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 999px;
+    background: #fff;
+    transition: transform 0.15s ease;
+  }
+  /* invisible padding so the tap target is ~44px on touch screens */
+  .video-site-link::after {
+    content: '';
+    position: absolute;
+    inset: -0.55rem;
+  }
+  .video-site-link:hover {
+    transform: scale(1.08);
+  }
   .video-duration:empty,
+  .intro-video.is-playing .video-corner,
   .intro-video.is-playing .video-duration,
   .intro-video.is-playing .video-play-btn {
     display: none;
